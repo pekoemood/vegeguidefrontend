@@ -5,7 +5,7 @@ const App = () => {
 
 	useEffect(() => {
 		const getTodos = async () => {
-			const response = await fetch("http://localhost:3000");
+			const response = await fetch(`${import.meta.env.VITE_RAILS_API}`);
 			const data = await response.json();
 			setTodos(data);
 		};
