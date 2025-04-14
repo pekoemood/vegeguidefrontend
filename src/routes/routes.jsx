@@ -1,0 +1,28 @@
+import { createBrowserRouter } from "react-router";
+import Layout from "../Layout";
+import Login from "../pages/Login/Login";
+import Top from "../pages/Top/Top";
+import VegeList from "../pages/VegeList/VegeList";
+import { vegeListLoader } from "../pages/VegeList/vegeListLoader";
+
+export const routes = createBrowserRouter([
+	{
+		Component: Layout,
+
+		children: [
+			{
+				index: true,
+				Component: Top,
+			},
+			{
+				path: "/login",
+				Component: Login,
+			},
+			{
+				path: "/vegelist",
+				Component: VegeList,
+				loader: vegeListLoader,
+			},
+		],
+	},
+]);
