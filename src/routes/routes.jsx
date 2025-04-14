@@ -8,6 +8,7 @@ import { vegeListLoader } from "../pages/VegeList/vegeListLoader";
 export const routes = createBrowserRouter([
 	{
 		Component: Layout,
+		hydrateFallbackElement: <p>Loading...</p>,
 
 		children: [
 			{
@@ -25,4 +26,4 @@ export const routes = createBrowserRouter([
 			},
 		],
 	},
-]);
+])
