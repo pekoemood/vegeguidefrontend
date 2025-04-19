@@ -1,4 +1,4 @@
-const Card = ({ name, prices, image }) => {
+const Card = ({ name, prices, image, description }) => {
 	return (
 <div className="card bg-base-100 w-96 shadow-sm">
   <figure className="px-10 pt-10">
@@ -9,9 +9,9 @@ const Card = ({ name, prices, image }) => {
   </figure>
   <div className="card-body items-center text-center">
     <h2 className="card-title">{name}</h2>
-    <p>{prices[0].attributes.price}A card component has a figure, a body part, and inside body there are title and actions parts</p>
+    <p className="text-left">{description}</p>
     <div className="card-actions">
-      <button className="btn btn-primary">Buy Now</button>
+      <button className="btn btn-primary">詳細</button>
     </div>
   </div>
 </div>
