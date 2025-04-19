@@ -25,6 +25,7 @@ const VegeList = () => {
 						<Card
 							key={vegetable.id}
 							name={vegetable.attributes.name}
+							description={vegetable.attributes.description}
 							prices={relatedPrices}
 							image={vegetable.attributes.image_url}
 						/>
