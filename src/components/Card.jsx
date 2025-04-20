@@ -1,4 +1,12 @@
-const Card = ({ name, prices, image, description }) => {
+import { useNavigate } from "react-router";
+
+const Card = ({ id, name, prices, image, description }) => {
+
+  const navigation = useNavigate();
+
+  const handleClick = () => {
+    navigation(`/vegelist/${id}`)
+  }
 	return (
 <div className="card bg-base-100 w-96 shadow-sm">
   <figure className="px-10 pt-10">
@@ -11,7 +19,7 @@ const Card = ({ name, prices, image, description }) => {
     <h2 className="card-title">{name}</h2>
     <p className="text-left">{description}</p>
     <div className="card-actions">
-      <button className="btn btn-primary">詳細</button>
+      <button onClick={handleClick} className="btn btn-primary">詳細</button>
     </div>
   </div>
 </div>
