@@ -10,7 +10,7 @@ const VegeList = () => {
 		<>
 			<div className="mt-4 grid grid-cols-4 gap-4">
 				{data.map((vegetable) => (
-						<Card
+					<Card
 						key={vegetable.id}
 						id={vegetable.id}
 						name={vegetable.attributes.name}
