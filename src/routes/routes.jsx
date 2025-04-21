@@ -2,10 +2,10 @@ import { createBrowserRouter } from "react-router";
 import Layout from "../Layout";
 import Login from "../pages/Login/Login";
 import Top from "../pages/Top/Top";
-import VegeList from "../pages/VegeList/VegeList";
-import { vegeListLoader } from "../pages/VegeList/vegeListLoader";
 import VegeDetail from "../pages/VegeDetail/VegeDetail";
 import { vegeDetailLoader } from "../pages/VegeDetail/vegeDetailLoader";
+import VegeList from "../pages/VegeList/VegeList";
+import { vegeListLoader } from "../pages/VegeList/vegeListLoader";
 
 export const routes = createBrowserRouter([
 	{
