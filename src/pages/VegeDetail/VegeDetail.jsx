@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router";
+import NutritionInfo from "../../components/NutritionInfo";
 import StorageMethod from "../../components/StorageMethod";
+import PriceChart from "../../components/PriceChart";
 
 const VegeDetail = () => {
 	const { vegetable } = useLoaderData();
@@ -68,9 +70,13 @@ const VegeDetail = () => {
 					</div>
 
 					<div>
-						{activeTab === "tab1" && <p>表示１</p>}
-						{activeTab === "tab2" && <p>表示2</p>}
-						{activeTab === "tab3" && <StorageMethod storage={data.attributes.storage} />}
+						{activeTab === "tab1" && <PriceChart prices={data.attributes.prices} />}
+						{activeTab === "tab2" && (
+							<NutritionInfo nutritions={data.attributes.nutritions} />
+						)}
+						{activeTab === "tab3" && (
+							<StorageMethod storage={data.attributes.storage} />
+						)}
 					</div>
 				</div>
 			</div>
