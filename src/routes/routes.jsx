@@ -6,6 +6,7 @@ import VegeDetail from "../pages/VegeDetail/VegeDetail";
 import { vegeDetailLoader } from "../pages/VegeDetail/vegeDetailLoader";
 import VegeList from "../pages/VegeList/VegeList";
 import { vegeListLoader } from "../pages/VegeList/vegeListLoader";
+import { TopLoader } from "../pages/Top/TopLoader";
 
 export const routes = createBrowserRouter([
 	{
@@ -15,6 +16,7 @@ export const routes = createBrowserRouter([
 			{
 				index: true,
 				Component: Top,
+				loader: TopLoader,
 			},
 			{
 				path: "/login",
