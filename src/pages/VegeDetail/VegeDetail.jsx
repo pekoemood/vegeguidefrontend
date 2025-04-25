@@ -3,6 +3,7 @@ import { useLoaderData } from "react-router";
 import NutritionInfo from "../../components/NutritionInfo";
 import StorageMethod from "../../components/StorageMethod";
 import PriceChart from "../../components/PriceChart";
+import RecipeGenerator from "../../components/RecipeGenerator";
 
 const VegeDetail = () => {
 	const { vegetable } = useLoaderData();
@@ -67,6 +68,13 @@ const VegeDetail = () => {
 						>
 							保存方法
 						</a>
+						<a
+							role="tab"
+							className={`tab flex-1 ${activeTab === "tab4" ? "tab-active" : ""}`}
+							onClick={() => setActiveTab("tab4")}
+						>
+							レシピ
+						</a>
 					</div>
 
 					<div>
@@ -76,6 +84,9 @@ const VegeDetail = () => {
 						)}
 						{activeTab === "tab3" && (
 							<StorageMethod storage={data.attributes.storage} />
+						)}
+						{activeTab === "tab4" && (
+							<RecipeGenerator />
 						)}
 					</div>
 				</div>
