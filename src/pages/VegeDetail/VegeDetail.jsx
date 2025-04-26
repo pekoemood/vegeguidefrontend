@@ -86,7 +86,7 @@ const VegeDetail = () => {
 							<StorageMethod storage={data.attributes.storage} />
 						)}
 						{activeTab === "tab4" && (
-							<RecipeGenerator />
+							<RecipeGenerator vegetableName={data.attributes.name} />
 						)}
 					</div>
 				</div>
