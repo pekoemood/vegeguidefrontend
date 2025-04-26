@@ -19,7 +19,7 @@ const VegeList = () => {
 						id={vegetable.id}
 						name={vegetable.attributes.name}
 						description={vegetable.attributes.description}
-						prices={vegetable.attributes.prices}
+						prices={vegetable.attributes.prices || []}
 						image={vegetable.attributes.image_url}
 					/>
 				))}
