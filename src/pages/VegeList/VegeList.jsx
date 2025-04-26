@@ -6,6 +6,10 @@ const VegeList = () => {
 	const { data } = vegetables;
 	console.log(data);
 
+	if (!data || data.length === 0) {
+		return <div>Loading...</div>
+	}
+
 	return (
 		<>
 			<div className="mt-4 grid grid-cols-4 gap-4">
@@ -15,7 +19,7 @@ const VegeList = () => {
 						id={vegetable.id}
 						name={vegetable.attributes.name}
 						description={vegetable.attributes.description}
-						// prices={vegetable.attributes.prices}
+						prices={vegetable.attributes.prices}
 						image={vegetable.attributes.image_url}
 					/>
 				))}
