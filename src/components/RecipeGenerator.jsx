@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useTransition } from "react";
 import Spinner from "./Spinner";
 
-const RecipeGenerator = () => {
+const RecipeGenerator = ({ vegetableName }) => {
   const [recipe, setRecipe] = useState(null);
   const [error, setError] = useState(null);
   const [isPending, startTransition] = useTransition();
@@ -11,7 +11,7 @@ const RecipeGenerator = () => {
     startTransition(async () => {
       setError(null);
       try {
-        const response = await axios.post(`${import.meta.env.VITE_RAILS_API}/recipe_generations`);
+        const response = await axios.post(`${import.meta.env.VITE_RAILS_API}/recipe_generations`, { vegetable: vegetableName});
         setRecipe(response.data);
       } catch (error) {
         console.log(error);
@@ -68,7 +68,7 @@ const RecipeGenerator = () => {
               {recipe.step.map((st, index) => (
                 <li key={index} className="flex items-start">
                   <span className="w-6 h-6 rounded-full bg-green-100 text-sm flex items-center justify-center mr-3">{st.step_number}</span>
-                  <p>{st.description}</p>
+                  <p className="text-balance">{st.description}</p>
                 </li>
               ))}
             </ol>
