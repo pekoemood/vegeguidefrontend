@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router";
 import NutritionInfo from "../../components/NutritionInfo";
-import StorageMethod from "../../components/StorageMethod";
 import PriceChart from "../../components/PriceChart";
 import RecipeGenerator from "../../components/RecipeGenerator";
+import StorageMethod from "../../components/StorageMethod";
 
 const VegeDetail = () => {
 	const { vegetable } = useLoaderData();
@@ -78,7 +78,9 @@ const VegeDetail = () => {
 					</div>
 
 					<div>
-						{activeTab === "tab1" && <PriceChart prices={data.attributes.prices} />}
+						{activeTab === "tab1" && (
+							<PriceChart prices={data.attributes.prices} />
+						)}
 						{activeTab === "tab2" && (
 							<NutritionInfo nutritions={data.attributes.nutritions} />
 						)}
