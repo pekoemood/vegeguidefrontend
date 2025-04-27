@@ -3,7 +3,7 @@ import Card from "../../components/Card";
 
 const VegeList = () => {
 	const { vegetables } = useLoaderData();
-	const data  = vegetables?.data;
+	const data = vegetables?.data;
 	console.log(data);
 
 	if (!data || data.length === 0) {

@@ -54,6 +54,11 @@ const RecipeGenerator = ({ vegetableName }) => {
 					<div>
 						<h3 className="font-semibold text-lg flex items-center mb-2">
 							材料
+							{
+								<span className="text-sm font-normal ml-2">
+									({recipe.servings}人分)
+								</span>
+							}
 						</h3>
 						<div className="rounded-md border p-4">
 							<ul className="grid grid-cols-3 gap-2">
