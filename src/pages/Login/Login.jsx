@@ -28,6 +28,8 @@ const Login = () => {
 				const response = await axios.post(`${import.meta.env.VITE_RAILS_API}/login`, {
 					email,
 					password
+				}, {
+					withCredentials: true
 				});
 				navigate('/');
 			} catch (error) {
@@ -64,7 +66,7 @@ const Login = () => {
 						<div className="relative h-64 w-full overflow-hidden rounded-xl">
 							<img
 								className="object-cover"
-								src="https://images.unsplash.com/photo-1542838132-92c53300491e"
+								src="https://images.unsplash.com/photo-1610348725531-843dff563e2c"
 								alt="野菜の写真"
 							/>
 						</div>

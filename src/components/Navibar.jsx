@@ -1,6 +1,19 @@
-import { Link } from "react-router";
+import axios from "axios";
+import { Link, useNavigate } from "react-router";
 
 const Navibar = () => {
+	const navigate = useNavigate();
+	const handleLogout = async () => {
+		try {
+			await axios.post(`${import.meta.env.VITE_RAILS_API}/logout`, {}, {
+				withCredentials: true,
+			});
+			navigate('/');
+		} catch(error) {
+			console.log('ログアウトに失敗しました', error);
+		}
+	};
+	
 	return (
 		<div className="navbar bg-primary text-primary-content">
 			<div className="flex-1">
@@ -18,6 +31,9 @@ const Navibar = () => {
 					</li>
 					<li>
 						<Link to='/login'>ログイン</Link>
+					</li>
+					<li>
+						<button onClick={handleLogout}>ログアウト</button>
 					</li>
 				</ul>
 			</div>
