@@ -11,13 +11,13 @@ const Navibar = () => {
 			<div className="flex-none">
 				<ul className="menu menu-horizontal px-1">
 					<li>
-						<a>Link</a>
-					</li>
-					<li>
 						<Link to="/vegelist">野菜一覧</Link>
 					</li>
 					<li>
-						<Link to="/login">login</Link>
+						<Link to="/signup">新規登録</Link>
+					</li>
+					<li>
+						<Link to='/login'>ログイン</Link>
 					</li>
 				</ul>
 			</div>

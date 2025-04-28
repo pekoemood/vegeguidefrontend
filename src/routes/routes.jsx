@@ -1,11 +1,12 @@
 import { createBrowserRouter } from "react-router";
 import Layout from "../Layout";
-import Login from "../pages/Login/Login";
 import Top from "../pages/Top/Top";
 import VegeDetail from "../pages/VegeDetail/VegeDetail";
 import { vegeDetailLoader } from "../pages/VegeDetail/vegeDetailLoader";
 import VegeList from "../pages/VegeList/VegeList";
 import { vegeListLoader } from "../pages/VegeList/vegeListLoader";
+import Login from "../pages/Login/Login";
+import SignUp from "../pages/SignUp/SignUp";
 
 export const routes = createBrowserRouter([
 	{
@@ -17,7 +18,11 @@ export const routes = createBrowserRouter([
 				Component: Top,
 			},
 			{
-				path: "/login",
+				path: "/signup",
+				Component: SignUp,
+			},
+			{
+				path: '/login',
 				Component: Login,
 			},
 			{

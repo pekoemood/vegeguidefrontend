@@ -5,19 +5,19 @@ import axios from "axios";
 import { useNavigate } from 'react-router';
 import Spinner from "../../components/Spinner";
 
-const Login = () => {
+const SignUp = () => {
 	const navigate = useNavigate();
 	const [state, submitAction, isPending] = useActionState(
 		async (prevState, formData) => {
-			const response = await axios.post(`${import.meta.env.VITE_RAILS_API}/login`,{
+			const response = await axios.post(`${import.meta.env.VITE_RAILS_API}/users`,{
+				name: formData.get('name'),
 				email: formData.get('email'),
 				password: formData.get('password')
-			}, {
-        withCredentials: true,
-      });
+			});
 			navigate('/');
 		},
 		{
+			name: '',
 			email: '',
 			password: ''
 		}
@@ -42,7 +42,7 @@ const Login = () => {
 						<div className="relative h-64 w-full overflow-hidden rounded-xl">
 							<img
 								className="object-cover"
-								src="https://images.unsplash.com/photo-1610348725531-843dff563e2c"
+								src="https://images.unsplash.com/photo-1542838132-92c53300491e"
 								alt="野菜の写真"
 							/>
 						</div>
@@ -87,14 +87,21 @@ const Login = () => {
 					<div className="space-y-6">
 						<div className="space-y-2 text-center">
 							<h2 className="text-2xl font-semibold tracking-tight">
-								アカウントにログイン
+								新規アカウント登録
 							</h2>
 							<p className="text-sm text-gray-500">
-								健康的な食生活への第一歩を踏み出しましょう
+								健康的な食生活を始めるための第一歩
 							</p>
 						</div>
 
 						<form className="space-y-6" action={submitAction}>
+							<FormField
+								id="name"
+								label="名前"
+								type="text"
+								name='name'
+								placeholder="vegeguide"
+							/>
 							<FormField
 								id="email"
 								label="メールアドレス"
@@ -109,7 +116,7 @@ const Login = () => {
 								name='password'
 								placeholder="8文字以上の英数字"
 							/>
-							<Button type="submit" disabled={isPending}>{isPending ? <Spinner/> : 'ログイン'}</Button>
+							<Button type="submit" disabled={isPending}>{isPending ? <Spinner/> : '登録する'}</Button>
 						</form>
 						
 					</div>
@@ -119,4 +126,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default SignUp;
