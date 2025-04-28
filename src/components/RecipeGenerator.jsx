@@ -14,6 +14,7 @@ const RecipeGenerator = ({ vegetableName }) => {
 				const response = await axios.post(
 					`${import.meta.env.VITE_RAILS_API}/recipe_generations`,
 					{ vegetable: vegetableName },
+					{ withCredentials: true },
 				);
 				setRecipe(response.data);
 			} catch (error) {

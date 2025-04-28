@@ -29,6 +29,8 @@ const SignUp = () => {
 					name,
 					email,
 					password
+				}, {
+					withCredentials: true,
 				});
 				navigate('/');
 			} catch (error) {
