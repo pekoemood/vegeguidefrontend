@@ -1,28 +1,52 @@
-import { useActionState } from "react";
 import Button from "../../components/Button";
 import FormField from "../../components/FormField";
 import axios from "axios";
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import Spinner from "../../components/Spinner";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from  "@hookform/resolvers/zod"
+import { loginSchema } from "../../utils/validation";
+import { useTransition } from "react";
 
 const Login = () => {
+	const [isPending, startTransition] = useTransition();
 	const navigate = useNavigate();
-	const [state, submitAction, isPending] = useActionState(
-		async (prevState, formData) => {
-			const response = await axios.post(`${import.meta.env.VITE_RAILS_API}/login`,{
-				email: formData.get('email'),
-				password: formData.get('password')
-			}, {
-        withCredentials: true,
-      });
-			navigate('/');
-		},
-		{
-			email: '',
-			password: ''
-		}
-	);
+	const defaultValues = {
+		name: '',
+		email: '',
+		password: ''
+	}
 
+	const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+		defaultValues,
+		resolver: zodResolver(loginSchema),
+	});
+
+	const onSubmit = ({email, password}) => {
+		startTransition( async () => {
+			try{
+				const response = await axios.post(`${import.meta.env.VITE_RAILS_API}/login`, {
+					email,
+					password
+				}, {
+					withCredentials: true
+				});
+				navigate('/');
+			} catch (error) {
+				if (error.response) {
+					console.log('エラーメッセージ', error.response.data.status);
+				} else if (error.request) {
+					console.log('サーバーからの応答なし');
+				} else {
+					console.log('エラー:', error.message);
+				}
+				console.error('登録に失敗しました:', error);
+			}
+		})
+	}
+
+
+	const onError = (error, e) => console.log(error, e);
 
 	return (
 		
@@ -94,24 +118,30 @@ const Login = () => {
 							</p>
 						</div>
 
-						<form className="space-y-6" action={submitAction}>
+						<form className="space-y-6" onSubmit={handleSubmit(onSubmit, onError)} noValidate>
 							<FormField
 								id="email"
 								label="メールアドレス"
 								type="email"
-								name='email'
 								placeholder="vege@gmail.com"
+								error={errors.email}
+								{...register('email')}
 							/>
 							<FormField
 								id="password"
 								label="パスワード"
 								type="password"
-								name='password'
 								placeholder="8文字以上の英数字"
+								error={errors.password}
+								{...register('password')}
 							/>
 							<Button type="submit" disabled={isPending}>{isPending ? <Spinner/> : 'ログイン'}</Button>
 						</form>
 						
+						<div className="text-center text-sm">
+              アカウントをお持ちでないですか？{" "}
+              <Link to="/signup" className="font-medium text-green-600 hover:text-green-700">新規登録</Link>
+            </div>
 					</div>
 				</div>
 			</div>

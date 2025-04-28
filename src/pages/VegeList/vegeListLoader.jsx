@@ -4,6 +4,7 @@ export const vegeListLoader = async () => {
 	try {
 		const response = await axios.get(
 			`${import.meta.env.VITE_RAILS_API}/vegetables`,
+			{ withCredentials: true }
 		);
 		return { vegetables: response.data };
 	} catch (error) {
