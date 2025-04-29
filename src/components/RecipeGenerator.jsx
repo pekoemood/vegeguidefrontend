@@ -19,9 +19,7 @@ const RecipeGenerator = ({ vegetableName }) => {
 				setRecipe(response.data);
 			} catch (error) {
 				console.log(error);
-				setError(
-					"レシピの生成に失敗しました。しばらく経ってから再度お試しください",
-				);
+				setError("レシピの生成にはログインが必要です。");
 			}
 		});
 	};
