@@ -1,55 +1,64 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { use, useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router";
 import Button from "../../components/Button";
 import FormField from "../../components/FormField";
-import axios from "axios";
-import { Link, useNavigate } from 'react-router';
 import Spinner from "../../components/Spinner";
-import { useForm } from 'react-hook-form';
-import { zodResolver } from  "@hookform/resolvers/zod"
+import { UserContext } from "../../context/UserContext";
 import { loginSchema } from "../../utils/validation";
-import { useTransition } from "react";
 
 const Login = () => {
 	const [isPending, startTransition] = useTransition();
 	const navigate = useNavigate();
+	const { user, setUser, loading } = use(UserContext);
 	const defaultValues = {
-		name: '',
-		email: '',
-		password: ''
-	}
+		name: "",
+		email: "",
+		password: "",
+	};
 
-	const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+	const {
+		register,
+		handleSubmit,
+		formState: { errors, isSubmitting },
+	} = useForm({
 		defaultValues,
 		resolver: zodResolver(loginSchema),
 	});
 
-	const onSubmit = ({email, password}) => {
-		startTransition( async () => {
-			try{
-				const response = await axios.post(`${import.meta.env.VITE_RAILS_API}/login`, {
-					email,
-					password
-				}, {
-					withCredentials: true
-				});
-				navigate('/');
+	const onSubmit = ({ email, password }) => {
+		startTransition(async () => {
+			try {
+				const response = await axios.post(
+					`${import.meta.env.VITE_RAILS_API}/login`,
+					{
+						email,
+						password,
+					},
+					{
+						withCredentials: true,
+					},
+				);
+				setUser(response.data);
+				navigate("/");
 			} catch (error) {
 				if (error.response) {
-					console.log('エラーメッセージ', error.response.data.status);
+					console.log("エラーメッセージ", error.response.data.status);
 				} else if (error.request) {
-					console.log('サーバーからの応答なし');
+					console.log("サーバーからの応答なし");
 				} else {
-					console.log('エラー:', error.message);
+					console.log("エラー:", error.message);
 				}
-				console.error('登録に失敗しました:', error);
+				console.error("登録に失敗しました:", error);
 			}
-		})
-	}
-
+		});
+	};
 
 	const onError = (error, e) => console.log(error, e);
 
 	return (
-		
 		<div className="flex min-h-screen flex-col md:flex-row">
 			<div className="relative hidden md:block md:w-1/2 bg-gradient-to-br from-green-50 to-green-100">
 				<div className="absolute inset-0 flex flex-col items-center justify-center p-12">
@@ -118,14 +127,18 @@ const Login = () => {
 							</p>
 						</div>
 
-						<form className="space-y-6" onSubmit={handleSubmit(onSubmit, onError)} noValidate>
+						<form
+							className="space-y-6"
+							onSubmit={handleSubmit(onSubmit, onError)}
+							noValidate
+						>
 							<FormField
 								id="email"
 								label="メールアドレス"
 								type="email"
 								placeholder="vege@gmail.com"
 								error={errors.email}
-								{...register('email')}
+								{...register("email")}
 							/>
 							<FormField
 								id="password"
@@ -133,15 +146,22 @@ const Login = () => {
 								type="password"
 								placeholder="8文字以上の英数字"
 								error={errors.password}
-								{...register('password')}
+								{...register("password")}
 							/>
-							<Button type="submit" disabled={isPending}>{isPending ? <Spinner/> : 'ログイン'}</Button>
+							<Button type="submit" disabled={isPending}>
+								{isPending ? <Spinner /> : "ログイン"}
+							</Button>
 						</form>
-						
+
 						<div className="text-center text-sm">
-              アカウントをお持ちでないですか？{" "}
-              <Link to="/signup" className="font-medium text-green-600 hover:text-green-700">新規登録</Link>
-            </div>
+							アカウントをお持ちでないですか？{" "}
+							<Link
+								to="/signup"
+								className="font-medium text-green-600 hover:text-green-700"
+							>
+								新規登録
+							</Link>
+						</div>
 					</div>
 				</div>
 			</div>
