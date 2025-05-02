@@ -1,6 +1,6 @@
 const ShoppingListDetail = () => {
   return (
-    <h1>shoppinglistdetailページです</h1>
+    <h1>shoppinglistdetailページですa</h1>
   )
 }
 
