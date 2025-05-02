@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useState, useTransition } from "react";
+import { useNavigate } from "react-router";
 import Spinner from "./Spinner";
 
 const RecipeGenerator = ({ vegetableName }) => {
 	const [recipe, setRecipe] = useState(null);
 	const [error, setError] = useState(null);
 	const [isPending, startTransition] = useTransition();
+	const navigate = useNavigate();
 
 	const handleClick = () => {
 		startTransition(async () => {
@@ -24,7 +26,21 @@ const RecipeGenerator = ({ vegetableName }) => {
 		});
 	};
 
-	console.log(recipe);
+	const handleClickShoppingList = async () => {
+		try {
+			await axios.post(
+				`${import.meta.env.VITE_RAILS_API}/shopping_lists`,
+				{
+					...recipe,
+				},
+				{ withCredentials: true },
+			);
+		} catch (error) {
+			console.log(error);
+		}
+		navigate("/shoppinglist");
+	};
+
 	return (
 		<div className="text-center mt-8 ">
 			<button className="btn" onClick={handleClick} disabled={isPending}>
@@ -95,7 +111,10 @@ const RecipeGenerator = ({ vegetableName }) => {
 						<button className="border rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">
 							レシピを保存
 						</button>
-						<button className="bg-green-600 text-white rounded-md px-4 py-2 flex items-center hover:bg-green-700">
+						<button
+							onClick={handleClickShoppingList}
+							className="bg-green-600 text-white rounded-md px-4 py-2 flex items-center hover:bg-green-700"
+						>
 							買い物リストに追加
 						</button>
 					</div>

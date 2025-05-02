@@ -6,11 +6,18 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
 	plugins: [react(), tailwindcss()],
-	server: process.env.NODE_ENV === 'production' ? {} : {
-		https: {
-			key: fs.readFileSync(path.resolve(__dirname, "certs/localhost-key.pem")),
-			cert: fs.readFileSync(path.resolve(__dirname, "certs/localhost.pem")),
-		},
-		port: 5173,
-	},
+	server:
+		process.env.NODE_ENV === "production"
+			? {}
+			: {
+					https: {
+						key: fs.readFileSync(
+							path.resolve(__dirname, "certs/localhost-key.pem"),
+						),
+						cert: fs.readFileSync(
+							path.resolve(__dirname, "certs/localhost.pem"),
+						),
+					},
+					port: 5173,
+				},
 });
