@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const shoppingListLoader = async () => {
+const shoppingListLoader = async () => {
 	try {
 		const response = await axios.get(
 			`${import.meta.env.VITE_RAILS_API}/shopping_lists`,
@@ -15,3 +15,5 @@ export const shoppingListLoader = async () => {
 		});
 	}
 };
+
+export default shoppingListLoader;
