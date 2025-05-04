@@ -11,14 +11,14 @@ const ShoppingList = () => {
 		<>
 			<main className="container mx-auto px-4 py-8">
 				<div className="flex items-center mb-6">
-					<h1 className="text-2xl font-bold text-green-700">買い物リスト</h1>
+					<h1 className="text-2xl font-bold">買い物リスト</h1>
 				</div>
 
 				<div className="flex justify-between items-center mb-6">
-					<p className="text-gray-600">
+					<p className="text-neutral-500">
 						複数の買い物リストを作成・管理できます
 					</p>
-					<button className="btn text-white bg-green-600 hover:bg-green-700">
+					<button className="btn btn-outline">
 						新しいリスト
 					</button>
 				</div>
