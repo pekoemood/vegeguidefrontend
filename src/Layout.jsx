@@ -6,16 +6,15 @@ import { UserProvider } from "./context/UserContext";
 const Layout = () => {
 	return (
 		<>
-		<div className="flex flex-col min-h-screen">
-			<UserProvider>
+			<div className="flex flex-col min-h-screen">
+				<UserProvider>
 					<Navibar />
 					<div className="flex-grow">
 						<Outlet />
 					</div>
 					<Footer />
-			</UserProvider>
-		</div>
-
+				</UserProvider>
+			</div>
 		</>
 	);
 	l;
