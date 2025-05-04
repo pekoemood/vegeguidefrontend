@@ -18,40 +18,9 @@ const ShoppingCard = ({ id, title, time, items, setLists }) => {
 	}
 
 	return (
-			// <div className="bg-white shadow-lg rounded-2xl">
-			// 	<Link to={`/shoppinglist/${id}`}>
-			// 		<div className="px-4 py-6 flex flex-col space-y-3">
-			// 			<div>
-			// 				<div className="text-xl text-green-700">{title}</div>
-			// 			</div>
-			// 			<p className="text-sm">{time}</p>
-			// 			<div className="flex justify-between text-sm text-gray-600">
-			// 				<p>進捗状況</p>
-			// 				<p>{check.length}/{items.length} アイテム</p>
-			// 			</div>
-			// 			<progress
-			// 				className="progress progress-primary "
-			// 				value={check.length}
-			// 				max={items.length}
-			// 			></progress>
-			// 			<p className="text-sm text-gray-600 truncate overflow-hidden w-full whitespace-nowrap space-x-4">
-			// 				{items.length}アイテム：
-			// 				{items.map((item, index) => (
-			// 					<span key={index}>
-			// 						{item.name}
-			// 					</span>
-			// 				))}
-			// 			</p>
-			// 		</div>
-			// 	</Link>
-
-			// 	<div className="flex justify-end px-4 py-4 bg-green-100">
-			// 		<button onClick={() => handleDestroy(id)} className="btn btn-error">削除</button>
-			// 	</div>
-			// </div>
-		<div className="card bg-base-100 w-90 shadow-lg">
+		<div className="card w-90 shadow-lg">
 			<div className="card-body">
-				<h2 className="card-title text-primary truncate">{title}</h2>
+				<h2 className="card-title truncate">{title}</h2>
 				<p className="text-sm text-neutral-500">作成日: {time}</p>
 				<div className="flex justify-between items-center  text-sm">
 					<span>合計アイテム: {items.length}</span>

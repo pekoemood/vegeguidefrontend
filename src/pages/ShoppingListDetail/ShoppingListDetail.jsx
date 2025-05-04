@@ -10,7 +10,7 @@ const ShoppingListDetail = () => {
   const [items, setItems] = useState(shopping_items);
   const check = items.filter((item) => item.checked === true)
   const navigate = useNavigate();
-
+  
 
   const handleClick = (name) => {
     setItems((prev) => prev.map((item) => {
@@ -41,8 +41,8 @@ const ShoppingListDetail = () => {
         <div className="shadow-md rounded-xl p-4">
           <div className="flex justify-between items-center mb-2">
             <h2 className="flex items-center text-2xl ">
-            <ShoppingCart className="mr-2 h-5 w-5 text-primary"/>
-            <span className="text-primary">{ attributes.name }</span>
+            <ShoppingCart className="mr-2 h-5 w-5"/>
+            <span>{ attributes.name }</span>
             </h2>
             <p className={`transition-opacity duration-500 ease-in ${items.length === check.length ? 'opacity-100' : 'opacity-0'}`}>すべての買い物が完了しました！</p>
             <span className={`badge ${check.length === items.length ? 'badge-success' : 'badge-outline badge-primary'}`}>
