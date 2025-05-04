@@ -10,6 +10,7 @@ import VegeList from "../pages/VegeList/VegeList";
 import { vegeListLoader } from "../pages/VegeList/vegeListLoader";
 import ShoppingListDetail from "../pages/ShoppingListDetail/ShoppingListDetail";
 import shoppingListLoader from "../pages/ShoppingList/shoppingListLoader";
+import { shoppingListDetailLoader } from "../pages/ShoppingListDetail/shoppingListDetailLoader";
 
 
 export const routes = createBrowserRouter([
@@ -47,6 +48,7 @@ export const routes = createBrowserRouter([
 			{
 				path: "/shoppinglist/:id",
 				Component: ShoppingListDetail,
+				loader: shoppingListDetailLoader,
 			},
 		],
 	},

@@ -7,27 +7,6 @@ const ShoppingList = () => {
 	const [lists, setLists] = useState(shoppingLists);
 	console.log(lists);
 
-	const toggleItemChecked = (listId, itemName) => {
-		const updatedLists = lists.map((list) => {
-			if (list.id !== listId) return list;
-
-			const updatedItems = list.attributes.shopping_items.map((item) => {
-				if (item.name !== itemName) return item;
-				return { ...item, checked: !item.checked };
-			});
-
-			return {
-				...list,
-				attributes: {
-					...list.attributes,
-					shopping_items: updatedItems,
-				},
-			};
-		});
-
-		setLists(updatedLists);
-	};
-
 	return (
 		<>
 			<main className="container mx-auto px-4 py-8">
@@ -44,7 +23,7 @@ const ShoppingList = () => {
 					</button>
 				</div>
 
-				<div className="grid grid-cols-3 gap-3">
+				<div className="grid grid-cols-4 gap-4">
 					{lists.map((list) => (
 						<ShoppingCard
 							key={list.id}
@@ -52,6 +31,7 @@ const ShoppingList = () => {
 							title={list.attributes.name}
 							time={list.attributes.created_at_jst}
 							items={list.attributes.shopping_items}
+							setLists={setLists}
 						/>
 					))}
 				</div>
