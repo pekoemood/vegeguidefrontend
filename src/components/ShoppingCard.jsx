@@ -49,13 +49,13 @@ const ShoppingCard = ({ id, title, time, items, setLists }) => {
 			// 		<button onClick={() => handleDestroy(id)} className="btn btn-error">削除</button>
 			// 	</div>
 			// </div>
-		<div className="card bg-base-100 w-90 shadow-sm">
+		<div className="card bg-base-100 w-90 shadow-lg">
 			<div className="card-body">
-				<h2 className="card-title text-primary h-10">{title}</h2>
-				<p className="text-sm text-gray-400">作成日: {time}</p>
+				<h2 className="card-title text-primary truncate">{title}</h2>
+				<p className="text-sm text-neutral-500">作成日: {time}</p>
 				<div className="flex justify-between items-center  text-sm">
 					<span>合計アイテム: {items.length}</span>
-					<span className="text-left badge badge-outline badge-primary">{check.length}/{items.length} 完了</span>
+					<span className={`badge ${check.length === items.length ? 'badge-success' : 'badge-primary badge-outline'}`}>{check.length}/{items.length} 完了</span>
 				</div>
 
 				<progress
@@ -65,8 +65,8 @@ const ShoppingCard = ({ id, title, time, items, setLists }) => {
 				></progress>
 
 				<div className="card-actions justify-end mt-2">
-					<Link to={`/shoppinglist/${id}`} className="btn btn-square"><SquarePen size={20} /></Link>
-					<button onClick={() => handleDestroy(id)} className="btn btn-square"><Trash2 size={20} /></button>
+					<Link to={`/shoppinglist/${id}`} className="btn btn-square btn-outline"><SquarePen size={20} /></Link>
+					<button onClick={() => handleDestroy(id)} className="btn btn-square btn-outline"><Trash2 size={20} /></button>
 				</div>
 			</div>
 		</div>
