@@ -28,14 +28,14 @@ const VegeDetail = () => {
 					</div>
 
 					<div>
-						<h1 className="text-3xl md:text-4xl md:text-4xl font-bold text-emerald-800 mb-4">
+						<h1 className="text-3xl md:text-4xl md:text-4xl font-bold mb-4">
 							{data.attributes.name}
 						</h1>
-						<p className="text-gray-700 mb-4">{data.attributes.description}</p>
-						<div className="bg-emerald-50 p-4 rounded-lg border border-emerald-100">
-							<h2 className="text-lg font-semibold text-emerald-700 mb-2">
-								旬の時期
-							</h2>
+						<p className="text-neutral-500 mb-4">
+							{data.attributes.description}
+						</p>
+						<div className=" p-4 rounded-lg border border-neutral-300">
+							<h2 className="text-lg font-semibold mb-2">旬の時期</h2>
 							<p className="text-gray-700">
 								{data.attributes.seasons[0].start_month}月~
 								{data.attributes.seasons[0].end_month}月（
@@ -45,7 +45,7 @@ const VegeDetail = () => {
 					</div>
 				</div>
 
-				<div className="mx-auto max-w-2/3 mb-8">
+				<div className="mx-auto max-w-screen-lg mb-8">
 					<div role="tablist" className="tabs tabs-box flex justify-between">
 						<a
 							role="tab"
