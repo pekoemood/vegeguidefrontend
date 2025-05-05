@@ -3,6 +3,8 @@ import Layout from "../Layout";
 import Login from "../pages/Login/Login";
 import RecipeLists from "../pages/RecipeLists/RecipeLists";
 import { recipeListsLoader } from "../pages/RecipeLists/recipeListsLoader";
+import RecipeListDetail from "../pages/RecipesListDetail/RecipeListDetail";
+import { recipeListDetailLoader } from "../pages/RecipesListDetail/recipeListDetailLoader";
 import ShoppingList from "../pages/ShoppingList/ShoppingList";
 import shoppingListLoader from "../pages/ShoppingList/shoppingListLoader";
 import ShoppingListDetail from "../pages/ShoppingListDetail/ShoppingListDetail";
@@ -55,6 +57,11 @@ export const routes = createBrowserRouter([
 				path: "/recipe-lists",
 				Component: RecipeLists,
 				loader: recipeListsLoader,
+			},
+			{
+				path: "/recipe-lists/:id",
+				Component: RecipeListDetail,
+				loader: recipeListDetailLoader,
 			},
 		],
 	},

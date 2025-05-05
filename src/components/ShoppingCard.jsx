@@ -22,7 +22,7 @@ const ShoppingCard = ({ id, title, time, items, setLists }) => {
 	return (
 		<div className="card w-90 shadow-lg">
 			<div className="card-body">
-				<h2 className="card-title truncate">{title}</h2>
+				<h2 className="card-title line-clamp-1">{title}</h2>
 				<p className="text-sm text-neutral-500">作成日: {time}</p>
 				<div className="flex justify-between items-center  text-sm">
 					<span>合計アイテム: {items.length}</span>

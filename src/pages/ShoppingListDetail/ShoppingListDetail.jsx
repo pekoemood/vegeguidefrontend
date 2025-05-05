@@ -35,7 +35,7 @@ const ShoppingListDetail = () => {
 	};
 
 	return (
-		<div className="container mx-auto px-4 py-8">
+		<div className="container max-w-screen-md mx-auto px-4 py-8">
 			<div className="mb-6">
 				<button
 					onClick={() => navigate("/shoppinglist")}
