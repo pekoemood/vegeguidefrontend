@@ -12,7 +12,7 @@ import { loginSchema } from "../../utils/validation";
 const Login = () => {
 	const [isPending, startTransition] = useTransition();
 	const navigate = useNavigate();
-	const { user, setUser, loading } = use(UserContext);
+	const { user, setUser, loading, fetchUser } = use(UserContext);
 	const defaultValues = {
 		name: "",
 		email: "",

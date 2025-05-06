@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router";
 import { UserContext } from "../context/UserContext";
 import Spinner from "./Spinner";
@@ -8,8 +8,6 @@ const Navibar = () => {
 	const navigate = useNavigate();
 
 	const { user, setUser, loading } = useContext(UserContext);
-
-	console.log(user);
 
 	const handleLogout = async () => {
 		try {
@@ -26,6 +24,7 @@ const Navibar = () => {
 			console.log("ログアウトに失敗しました", error);
 		}
 	};
+	console.log(user);
 
 	if (loading) return <Spinner />;
 
@@ -41,7 +40,7 @@ const Navibar = () => {
 					<li>
 						<Link to="/vegelist">野菜一覧</Link>
 					</li>
-					{user ? (
+					{user && user.name ? (
 						<>
 							<li>
 								<span>{user.name}さん</span>
