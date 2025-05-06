@@ -37,7 +37,7 @@ const RecipeCard = ({
 					</div>
 
 					<div className="mt-2 flex justify-end space-x-2">
-					<button className="btn btn-primary">
+						<button className="btn btn-primary">
 							<ShoppingCart />
 							買い物リストに追加する
 						</button>
