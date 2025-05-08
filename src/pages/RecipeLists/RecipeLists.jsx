@@ -29,6 +29,7 @@ const RecipeLists = () => {
 							difficulty={recipe.attributes.difficulty}
 							ingredients={recipe.attributes.ingredients}
 							steps={recipe.attributes.recipe_steps}
+							setRecipes={setRecipes}
 						/>
 					))}
 				</div>
