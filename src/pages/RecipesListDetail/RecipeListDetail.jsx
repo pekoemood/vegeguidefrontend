@@ -10,12 +10,24 @@ import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router";
 import Ingredients from "../../components/Ingredients";
 import RecipeSteps from "../../components/RecipeSteps";
+import { api } from "../../utils/axios"
 
 const RecipeListDetail = () => {
 	const { data } = useLoaderData();
 	const navigate = useNavigate();
 	const [activeTab, setActiveTab] = useState("tab1");
 	console.log(data);
+
+	const handleAddShoppingList = async () => {
+		try {
+			await api.post(`/shopping_lists/from_recipe`, {
+				recipe_id: data.id
+			});
+			alert('買い物リストを作成しました');
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
 	return (
 		<main className="container max-w-screen-lg mx-auto px-8 py-6">
@@ -46,7 +58,7 @@ const RecipeListDetail = () => {
 			</div>
 
 			<div className="mt-10">
-				<button className="btn btn-primary">
+				<button onClick={handleAddShoppingList} className="btn btn-primary">
 					<ShoppingCart />
 					買い物リストに追加
 				</button>
