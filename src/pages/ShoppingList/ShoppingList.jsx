@@ -18,7 +18,7 @@ const ShoppingList = () => {
 					<p className="text-neutral-500">
 						複数の買い物リストを作成・管理できます
 					</p>
-					<button className="btn btn-outline">新しいリスト</button>
+					{/* <button className="btn btn-outline">新しいリスト</button> */}
 				</div>
 
 				<div className="grid grid-cols-4 gap-4">
