@@ -9,7 +9,7 @@ const Card = ({ id, name, prices, image, description, season }) => {
 
 	return (
 		<Link to={`/vegelist/${id}`}>
-			<div className="indicator shadow-sm transition duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
+			<div className="indicator card shadow-sm transition duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
 				{season && (
 					<span className="indicator-item badge badge-accent transition animate-bounce">
 						旬SEASONAL
