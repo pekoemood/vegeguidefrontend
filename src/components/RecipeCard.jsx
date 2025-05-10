@@ -17,8 +17,10 @@ const RecipeCard = ({
 		e.stopPropagation();
 		e.preventDefault();
 		try {
-			await api.delete(`/recipes/${id}`)
-			setRecipes((prevRecipes) => prevRecipes.filter((recipe) => recipe.id !== id));
+			await api.delete(`/recipes/${id}`);
+			setRecipes((prevRecipes) =>
+				prevRecipes.filter((recipe) => recipe.id !== id),
+			);
 		} catch (error) {
 			console.error(error);
 		}
@@ -50,9 +52,11 @@ const RecipeCard = ({
 								{ingredients.length >= 2 ? (
 									<>
 										{ingredients[0].name}, {ingredients[1].name}
-										{ingredients.length > 2 && <> その他: {ingredients.length - 2}個</>}
+										{ingredients.length > 2 && (
+											<> その他: {ingredients.length - 2}個</>
+										)}
 									</>
-								): (
+								) : (
 									ingredients.map((ingredient) => ingredient.name).json(", ")
 								)}
 							</span>
@@ -60,7 +64,10 @@ const RecipeCard = ({
 					</div>
 
 					<div className="mt-2 flex justify-end gap-2">
-						<button onClick={(e) => handleClickDelete(e)} className="btn btn-outline btn-error flex items-center">
+						<button
+							onClick={(e) => handleClickDelete(e)}
+							className="btn btn-outline btn-error flex items-center"
+						>
 							<Trash2 />
 							<span>削除する</span>
 						</button>

@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router";
 import Ingredients from "../../components/Ingredients";
 import RecipeSteps from "../../components/RecipeSteps";
-import { api } from "../../utils/axios"
+import { api } from "../../utils/axios";
 
 const RecipeListDetail = () => {
 	const { data } = useLoaderData();
@@ -21,13 +21,13 @@ const RecipeListDetail = () => {
 	const handleAddShoppingList = async () => {
 		try {
 			await api.post(`/shopping_lists/from_recipe`, {
-				recipe_id: data.id
+				recipe_id: data.id,
 			});
-			alert('買い物リストを作成しました');
+			alert("買い物リストを作成しました");
 		} catch (error) {
 			console.log(error);
 		}
-	}
+	};
 
 	return (
 		<main className="container max-w-screen-lg mx-auto px-8 py-6">
