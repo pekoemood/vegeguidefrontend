@@ -45,7 +45,7 @@ const ShoppingCard = ({ id, title, time, items, setLists }) => {
 					<div className="flex justify-end">
 						<button
 							onClick={(e) => handleDestroy(e, id)}
-							className="mt-2 btn btn-outline flex items-center gap-2"
+							className="mt-2 btn btn-outline btn-error flex items-center gap-2"
 						>
 							<Trash2 />
 							<span>削除する</span>
