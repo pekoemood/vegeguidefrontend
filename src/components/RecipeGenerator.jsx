@@ -43,7 +43,9 @@ const RecipeGenerator = ({ vegetableName }) => {
 
 	return (
 		<div className="p-6 mt-4 rounded-2xl shadow-lg space-y-6">
-			<h2 className="text-xl font-semibold text-primary ">{vegetableName}を使ったレシピ</h2>
+			<h2 className="text-xl font-semibold text-primary ">
+				{vegetableName}を使ったレシピ
+			</h2>
 			<div className="text-center">
 				<button
 					className="btn btn-neutral"

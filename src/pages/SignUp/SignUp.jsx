@@ -43,7 +43,7 @@ const SignUp = () => {
 					},
 				);
 				setUser(response.data);
-				navigate("/");
+				navigate("/vegelist");
 			} catch (error) {
 				if (error.response) {
 					console.log("エラーメッセージ", error.response.data.status);

@@ -1,6 +1,7 @@
+import { TrendingDown, TrendingUp } from "lucide-react";
 import { Link, useNavigate } from "react-router";
 
-const Card = ({ id, name, prices, image, description, season }) => {
+const Card = ({ id, name, image, description, season, price, rate }) => {
 	const navigation = useNavigate();
 
 	const handleClick = () => {
@@ -21,6 +22,23 @@ const Card = ({ id, name, prices, image, description, season }) => {
 					</figure>
 					<div className="card-body">
 						<h2 className="card-title">{name}</h2>
+						<div className="flex justify-between items-center gap-2">
+							<span className="text-xl">{price}円/kg</span>
+							<div className="flex items-center gap-1">
+								{rate > 0 ? (
+									<div className="flex items-center">
+										<TrendingUp className="text-red-500" />
+										<span className="text-red-500">{rate}%(先週比)</span>
+									</div>
+								) : (
+									<div className="flex items-center">
+										<TrendingDown className="text-green-500" />
+										<span className="text-green-500">{rate}%(先週比)</span>
+									</div>
+								)}
+							</div>
+						</div>
+
 						<p>{description}</p>
 						<div className="card-actions justify-end">
 							<button onClick={handleClick} className="btn btn-primary w-full">
