@@ -77,7 +77,7 @@ const VegeDetail = () => {
 
 					<div>
 						{activeTab === "tab1" && (
-							<PriceChart prices={data.attributes.prices} />
+							<PriceChart prices={data.attributes.monthly_prices} />
 						)}
 						{activeTab === "tab2" && (
 							<NutritionInfo nutritions={data.attributes.nutritions} />
