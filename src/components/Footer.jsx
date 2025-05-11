@@ -1,16 +1,13 @@
-import vegetableImg from '../assets/logo.png'
-import { Salad } from 'lucide-react';
-
+import { Salad } from "lucide-react";
+import vegetableImg from "../assets/logo.png";
 
 const Footer = () => {
 	return (
 		<footer className="footer footer-horizontal footer-center bg-primary text-primary-content p-10">
 			<aside>
-				<div className='flex gap-2 items-center'>
-				<Salad />
-				<p className="font-bold text-lg">
-					VegeGuide
-				</p>
+				<div className="flex gap-2 items-center">
+					<Salad />
+					<p className="font-bold text-lg">VegeGuide</p>
 				</div>
 				<p className="text-sm">
 					忙しいあたなの、毎日の”ちょうどいい健康習慣”をサポートするサービスです.

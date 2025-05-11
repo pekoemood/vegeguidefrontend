@@ -13,20 +13,33 @@ import {
 
 const PriceChart = ({ prices }) => {
 	console.log(prices);
+
+	const groupedData = {};
+
+	prices.forEach(({ month, average_price }) => {
+		const [year, mon] = month.split("-");
+		if (!groupedData[mon]) groupedData[mon] = { month: mon };
+		groupedData[mon][year] = average_price;
+	});
+	console.log(groupedData);
+
+	const chartData = Object.values(groupedData).sort(
+		(a, b) => a.month - b.month,
+	);
+	console.log(chartData);
+
 	return (
 		<main className="p-6 mt-4 rounded-2xl shadow-md">
 			<h1 className="text-xl mb-4 text-primary font-semibold flex gap-2 items-center">
 				<Activity className="w-5 h-5 text-primary" />
-				1週間の価格推移
+				年度別価格推移
 			</h1>
 			<ResponsiveContainer width="100%" height={300}>
-				<LineChart data={prices}>
+				<LineChart data={chartData}>
 					<CartesianGrid strokeDasharray="3 3" />
 					<XAxis
-						dataKey="date"
-						tickFormatter={(dateStr) =>
-							format(parseISO(dateStr), "M月d日", { locale: ja })
-						}
+						dataKey="month"
+						tickFormatter={(monthStr) => `${Number.parseInt(monthStr)}月`}
 						tick={{ fontSize: 12 }}
 					/>
 					<YAxis
@@ -35,16 +48,22 @@ const PriceChart = ({ prices }) => {
 						tickLine={false}
 					/>
 					<Tooltip
-						formatter={(value) => [`${value}円`, "価格"]}
-						labelFormatter={(label) =>
-							format(parseISO(label), "M月d日", { local: ja })
-						}
+						formatter={(value, name) => [`${value}円`, `${name}年`]}
+						labelFormatter={(label) => `${Number.parseInt(label)}月`}
 					/>
 					<Line
 						type="monotone"
-						dataKey="price"
+						dataKey="2024"
+						stroke="oklch(55.6% 0 0)"
+						strokeWidth={2}
+						name="2024"
+					/>
+					<Line
+						type="monotone"
+						dataKey="2025"
 						stroke="oklch(0.5892 0.199 134.6)"
 						strokeWidth={2}
+						name="2025"
 					/>
 				</LineChart>
 			</ResponsiveContainer>
