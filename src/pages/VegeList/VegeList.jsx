@@ -1,5 +1,5 @@
 import { Search } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLoaderData, useSearchParams } from "react-router";
 import Card from "../../components/Card";
 import PaginationButtons from "../../components/PageinationButtons";
@@ -12,13 +12,18 @@ const VegeList = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [searchText, setSearchText] = useState("");
 
-	const handleSearch = () => {
-		setSearchParams({ keyword: searchText });
-	};
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setSearchParams({ keyword: searchText});
+		}, 500);
+
+		return () => clearTimeout(timer);
+	}, [searchText]);
+
 
 	return (
 		<>
-			<div className="mt-8 ml-8 flex space-x-4">
+			<div className="mt-8 ml-8 flex space-x-4 items-center">
 				<label className="input input-primary " htmlFor="">
 					<Search className="text-neutral-500" size={15} />
 					<input
@@ -27,9 +32,10 @@ const VegeList = () => {
 						placeholder="野菜名を検索"
 						value={searchText}
 						onChange={(e) => setSearchText(e.target.value)}
-						onKeyDown={(e) => e.key === "Enter" && handleSearch()}
 					/>
 				</label>
+				<input type="checkbox" className="toggle" />
+				<label>旬の野菜のみ表示</label>
 			</div>
 			<div className="m-8 grid grid-cols-4 gap-8">
 				{vegetables.length > 0 ? (
