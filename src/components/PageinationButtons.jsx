@@ -4,7 +4,11 @@ const PaginationButtons = ({ totalPages, currentPage }) => {
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	const handleMove = (newPage) => {
-		setSearchParams({ page: newPage });
+		setSearchParams((prev) => {
+			const newParams = new URLSearchParams(prev);
+			newParams.set("page", newPage);
+			return newParams;
+		});
 	};
 
 	return (
