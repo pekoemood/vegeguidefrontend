@@ -12,14 +12,15 @@ const VegeList = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [searchText, setSearchText] = useState("");
 	const [isInSeason, setIsInSeason] = useState(false);
+	const [isDiscounted, setIsDiscounted] = useState(false);
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
-			setSearchParams({ keyword: searchText, season: isInSeason });
+			setSearchParams({ keyword: searchText, season: isInSeason, discounted: isDiscounted });
 		}, 500);
 
 		return () => clearTimeout(timer);
-	}, [searchText, isInSeason]);
+	}, [searchText, isInSeason, isDiscounted]);
 
 
 	return (
@@ -37,6 +38,8 @@ const VegeList = () => {
 				</label>
 				<input id="season" type="checkbox" className="toggle" checked={isInSeason} onChange={(e) => setIsInSeason(e.target.checked)} />
 				<label htmlFor="season" className="label text-sm">旬の野菜のみ表示</label>
+				<input id="discounted" type="checkbox" className="toggle" checked={isDiscounted} onChange={(e) => setIsDiscounted(e.target.checked)} />
+				<label htmlFor="discounted" className="label text-sm">値下がり中の野菜のみ表示</label>
 			</div>
 			<div className="m-8 grid grid-cols-4 gap-8">
 				{vegetables.length > 0 ? (
