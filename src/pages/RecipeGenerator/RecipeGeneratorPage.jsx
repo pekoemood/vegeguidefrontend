@@ -1,6 +1,6 @@
 import { Search, ShoppingBag, X } from "lucide-react";
 import { useState, useTransition } from "react";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import { api } from "../../utils/axios";
 import VegetableCard from "./VegetableCard";
 
@@ -16,6 +16,7 @@ const RecipeGeneratorPage = () => {
 	const [cookingMethod, setCookingMethod] = useState("指定なし");
 	const [recipe, setRecipe] = useState(null);
 	const [isPending, startTransition] = useTransition();
+	const navigation = useNavigate();
 
 	const filterVegetables = data.filter((vegetable) =>
 		vegetable.name.toLowerCase().includes(vegeName.toLowerCase()),
@@ -54,6 +55,17 @@ const RecipeGeneratorPage = () => {
 			}
 		});
 	};
+	
+	const handleClickSave = async () => {
+		try {
+					const response = await api.post(`/shopping_lists`, {
+			...recipe
+		})
+		navigation('/shoppinglist')
+		} catch (error) {
+			console.error(error);
+		}
+	}
 
 	return (
 		<main className="container mx-auto px-4 py-8">
@@ -290,7 +302,7 @@ const RecipeGeneratorPage = () => {
 							</div>
 
 							<div className="flex justify-end gap-3 mt-6">
-								<button className="btn">レシピを保存</button>
+								<button onClick={handleClickSave} className="btn">レシピを保存</button>
 							</div>
 						</div>
 					)
