@@ -54,13 +54,13 @@ const VegeList = () => {
 
 	return (
 		<>
-			<div className="mt-8 ml-8 flex space-x-4 items-center">
+			<div className="mt-8 mx-8 flex space-x-4 items-center">
 				<div className="relative w-72">
 					<label className="input input-primary flex items-center w-full">
 						<Search className="text-neutral-500" size={15} />
 						<input
 							className="grow"
-							name='vege-search'
+							name="vege-search"
 							type="search"
 							placeholder="野菜名を検索"
 							value={searchText}
