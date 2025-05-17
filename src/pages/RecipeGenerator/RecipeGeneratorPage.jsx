@@ -55,8 +55,6 @@ const RecipeGeneratorPage = () => {
 		});
 	};
 
-	console.log(recipe);
-
 	return (
 		<main className="container mx-auto px-4 py-8">
 			<h1 className="text-2xl font-bold">レシピ提案</h1>
@@ -210,7 +208,7 @@ const RecipeGeneratorPage = () => {
 						type="button"
 						onClick={RecipeGenerator}
 						className="mt-4 btn btn-neutral col-span-2"
-						disabled={isPending}
+						disabled={isPending || selectedVegetables.length === 0}
 					>
 						レシピを提案する
 					</button>
@@ -269,7 +267,7 @@ const RecipeGeneratorPage = () => {
 										{recipe.ingredients?.map((ingredient, index) => (
 											<li key={index} className="flex items-center gap-2">
 												<span className="badge badge-neutral badge-xs"></span>
-												{ingredient.name} {ingredient?.amount} {ingredient.unit}
+												{ingredient.name} {ingredient?.display_amount}
 											</li>
 										))}
 									</ul>
