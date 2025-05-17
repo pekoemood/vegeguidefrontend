@@ -46,6 +46,9 @@ const Navibar = () => {
 								<span>{user.name}さん</span>
 							</li>
 							<li>
+								<Link to="/recipe-generator">レシピ生成</Link>
+							</li>
+							<li>
 								<Link to="/shoppinglist">買い物リスト</Link>
 							</li>
 							<li>

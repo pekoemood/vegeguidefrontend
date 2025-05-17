@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router";
 import Layout from "../Layout";
 import Login from "../pages/Login/Login";
+import { recipeGeneratorLoader } from "../pages/RecipeGenerator/RecipeGeneratorLoader";
+import RecipeGeneratorPage from "../pages/RecipeGenerator/RecipeGeneratorPage";
 import RecipeLists from "../pages/RecipeLists/RecipeLists";
 import { recipeListsLoader } from "../pages/RecipeLists/recipeListsLoader";
 import RecipeListDetail from "../pages/RecipesListDetail/RecipeListDetail";
@@ -62,6 +64,11 @@ export const routes = createBrowserRouter([
 				path: "/recipe-lists/:id",
 				Component: RecipeListDetail,
 				loader: recipeListDetailLoader,
+			},
+			{
+				path: "/recipe-generator",
+				Component: RecipeGeneratorPage,
+				loader: recipeGeneratorLoader,
 			},
 		],
 	},

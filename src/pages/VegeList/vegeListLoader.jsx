@@ -4,13 +4,15 @@ export const vegeListLoader = async ({ request }) => {
 	const url = new URL(request.url);
 	const page = url.searchParams.get("page") || "1";
 	const keyword = url.searchParams.get("keyword") || "";
-	const season = url.searchParams.get("season" || "")
+	const season = url.searchParams.get("season" || "");
+	const discounted = url.searchParams.get("discounted" || "");
 	try {
 		const response = await api.get(`/vegetables`, {
 			params: {
 				page: page,
 				keyword: keyword,
-				season: season
+				season: season,
+				discounted: discounted,
 			},
 		});
 		return { data: response.data };
