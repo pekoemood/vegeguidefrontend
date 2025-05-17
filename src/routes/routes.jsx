@@ -16,7 +16,7 @@ import VegeDetail from "../pages/VegeDetail/VegeDetail";
 import { vegeDetailLoader } from "../pages/VegeDetail/vegeDetailLoader";
 import VegeList from "../pages/VegeList/VegeList";
 import { vegeListLoader } from "../pages/VegeList/vegeListLoader";
-import { recipeGeneratorLoader } from "../pages/RecipeGenerator/recipeGeneratorLoader"
+import recipeGeneratorLoader from "../pages/RecipeGenerator/recipeGeneratorLoader";
 
 export const routes = createBrowserRouter([
 	{
