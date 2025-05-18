@@ -49,7 +49,9 @@ const RecipeGeneratorPage = () => {
 					cookingMethod,
 					selectedVegetables: selectedVegetableNames,
 				});
-				setRecipe(response.data);
+				console.log("レシピのレスポンス:", response.data)
+				setRecipe(response.data[0]);
+
 			} catch (error) {
 				console.error(error);
 			}
