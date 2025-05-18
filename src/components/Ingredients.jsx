@@ -10,7 +10,7 @@ const Ingredients = ({ servings, ingredients }) => {
 					>
 						<span className="text-xl">{ingredient.name} </span>
 						<span className="text-neutral-500 text-lg">
-							{ingredient.amount} {ingredient.unit}
+							{ingredient.display_amount}
 						</span>
 					</li>
 				))}
