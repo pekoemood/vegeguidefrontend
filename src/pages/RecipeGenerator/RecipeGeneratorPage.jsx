@@ -1,13 +1,14 @@
 import { Search, ShoppingBag, X } from "lucide-react";
-import { useState, useTransition } from "react";
-import { useLoaderData, useNavigate } from "react-router";
+import { useEffect, useState, useTransition } from "react";
+import { useLoaderData, useLocation, useNavigate } from "react-router";
 import { api } from "../../utils/axios";
 import VegetableCard from "./VegetableCard";
 
 const RecipeGeneratorPage = () => {
+	const location = useLocation();
 	const { data } = useLoaderData();
 	const [vegeName, setVegeName] = useState("");
-	const [selectedVegetables, setSelectedVegetables] = useState([]);
+	const [selectedVegetables, setSelectedVegetables] = useState(() => (location.state?.selectedVegetableId ? [location.state.selectedVegetableId] : []));
 	const [cookingTime, setCookingTime] = useState(30);
 	const [calorie, setCalorie] = useState(300);
 	const [category, setCategory] = useState("主菜");
@@ -60,7 +61,7 @@ const RecipeGeneratorPage = () => {
 	
 	const handleClickSave = async () => {
 		try {
-					const response = await api.post(`/shopping_lists`, {
+					await api.post(`/shopping_lists`, {
 			...recipe
 		})
 		navigation('/shoppinglist')
