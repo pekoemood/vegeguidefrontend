@@ -8,7 +8,11 @@ const RecipeGeneratorPage = () => {
 	const location = useLocation();
 	const { data } = useLoaderData();
 	const [vegeName, setVegeName] = useState("");
-	const [selectedVegetables, setSelectedVegetables] = useState(() => (location.state?.selectedVegetableId ? [location.state.selectedVegetableId] : []));
+	const [selectedVegetables, setSelectedVegetables] = useState(() =>
+		location.state?.selectedVegetableId
+			? [location.state.selectedVegetableId]
+			: [],
+	);
 	const [cookingTime, setCookingTime] = useState(30);
 	const [calorie, setCalorie] = useState(300);
 	const [category, setCategory] = useState("主菜");
@@ -50,25 +54,24 @@ const RecipeGeneratorPage = () => {
 					cookingMethod,
 					selectedVegetables: selectedVegetableNames,
 				});
-				console.log("レシピのレスポンス:", response.data)
+				console.log("レシピのレスポンス:", response.data);
 				setRecipe(response.data[0]);
-
 			} catch (error) {
 				console.error(error);
 			}
 		});
 	};
-	
+
 	const handleClickSave = async () => {
 		try {
-					await api.post(`/recipes`, {
-			...recipe
-		})
-		navigation('/recipe-lists')
+			await api.post(`/recipes`, {
+				...recipe,
+			});
+			navigation("/recipe-lists");
 		} catch (error) {
 			console.error(error);
 		}
-	}
+	};
 
 	return (
 		<main className="container mx-auto px-4 py-8">
@@ -305,7 +308,9 @@ const RecipeGeneratorPage = () => {
 							</div>
 
 							<div className="flex justify-end gap-3 mt-6">
-								<button onClick={handleClickSave} className="btn">レシピを保存</button>
+								<button onClick={handleClickSave} className="btn">
+									レシピを保存
+								</button>
 							</div>
 						</div>
 					)
