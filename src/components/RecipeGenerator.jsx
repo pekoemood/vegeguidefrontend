@@ -1,4 +1,3 @@
-import { useState, useTransition } from "react";
 import { useNavigate } from "react-router";
 
 const RecipeGenerator = ({ vegetableName, id }) => {
