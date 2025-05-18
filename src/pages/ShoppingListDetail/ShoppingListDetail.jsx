@@ -34,7 +34,6 @@ const ShoppingListDetail = () => {
 		}
 	};
 
-	console.log(shoppingList);
 	return (
 		<div className="container max-w-screen-md mx-auto px-4 py-8">
 			<div className="mb-6">
