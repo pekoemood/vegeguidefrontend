@@ -61,10 +61,10 @@ const RecipeGeneratorPage = () => {
 	
 	const handleClickSave = async () => {
 		try {
-					await api.post(`/shopping_lists`, {
+					await api.post(`/recipes`, {
 			...recipe
 		})
-		navigation('/shoppinglist')
+		navigation('/recipe-lists')
 		} catch (error) {
 			console.error(error);
 		}
