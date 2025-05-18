@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router";
 import Layout from "../Layout";
 import Login from "../pages/Login/Login";
 import RecipeGeneratorPage from "../pages/RecipeGenerator/RecipeGeneratorPage";
+import recipeGeneratorLoader from "../pages/RecipeGenerator/recipeGeneratorLoader";
 import RecipeLists from "../pages/RecipeLists/RecipeLists";
 import { recipeListsLoader } from "../pages/RecipeLists/recipeListsLoader";
 import RecipeListDetail from "../pages/RecipesListDetail/RecipeListDetail";
@@ -16,7 +17,6 @@ import VegeDetail from "../pages/VegeDetail/VegeDetail";
 import { vegeDetailLoader } from "../pages/VegeDetail/vegeDetailLoader";
 import VegeList from "../pages/VegeList/VegeList";
 import { vegeListLoader } from "../pages/VegeList/vegeListLoader";
-import recipeGeneratorLoader from "../pages/RecipeGenerator/recipeGeneratorLoader";
 
 export const routes = createBrowserRouter([
 	{

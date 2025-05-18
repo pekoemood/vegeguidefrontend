@@ -4,10 +4,8 @@ const RecipeGenerator = ({ vegetableName, id }) => {
 	const navigate = useNavigate();
 
 	const handleClick = () => {
-		navigate("/recipe-generator", { state: { selectedVegetableId: id} })
-	}
-
-
+		navigate("/recipe-generator", { state: { selectedVegetableId: id } });
+	};
 
 	return (
 		<div className="p-6 mt-4 rounded-2xl shadow-lg space-y-4">
@@ -16,7 +14,9 @@ const RecipeGenerator = ({ vegetableName, id }) => {
 			</h2>
 			<p>AIが{vegetableName}を使ったおすすめレシピを提案します。</p>
 			<div className="text-center mt-10">
-				<button onClick={handleClick} className="btn btn-neutral">{vegetableName}のレシピ提案を見る</button>
+				<button onClick={handleClick} className="btn btn-neutral">
+					{vegetableName}のレシピ提案を見る
+				</button>
 			</div>
 		</div>
 	);
