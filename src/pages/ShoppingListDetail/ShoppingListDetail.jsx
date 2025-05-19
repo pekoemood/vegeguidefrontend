@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ShoppingCart, Trash2 } from "lucide-react";
+import { ShoppingCart, Trash2, Plus } from "lucide-react";
 import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router";
 
@@ -12,6 +12,7 @@ const ShoppingListDetail = () => {
 	const navigate = useNavigate();
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	let filteredItems = items;
+	console.log(items);
 
 
 
@@ -171,12 +172,19 @@ const ShoppingListDetail = () => {
 							</div>
 						))}
 					</div>
-					<div className="mt-6 flex justify-center">
+					<div className="mt-6 flex justify-end">
 						<button
 							onClick={() => handleSave(shoppingList, items)}
 							className="btn"
 						>
 							リストの内容を保存する
+						</button>
+					</div>
+
+					<div className="sticky bottom-4 flex justify-center">
+						<button className="btn btn-primary">
+							<Plus size={15} />
+							アイテムを追加
 						</button>
 					</div>
 				</div>
