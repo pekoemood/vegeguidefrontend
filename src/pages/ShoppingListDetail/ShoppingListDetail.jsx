@@ -2,6 +2,7 @@ import axios from "axios";
 import { ShoppingCart, Trash2, Plus } from "lucide-react";
 import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router";
+import useModal from "../../hooks/useModal";
 
 const ShoppingListDetail = () => {
 	const { shoppingList } = useLoaderData();
@@ -11,8 +12,9 @@ const ShoppingListDetail = () => {
 	const check = items.filter((item) => item.checked === true);
 	const navigate = useNavigate();
 	const [selectedCategory, setSelectedCategory] = useState(null);
+	const { Modal, openModal, closeModal } = useModal();
 	let filteredItems = items;
-	console.log(items);
+	
 
 
 
@@ -82,12 +84,15 @@ const ShoppingListDetail = () => {
 
 	return (
 		<div className="container max-w-screen-md mx-auto px-4 py-8">
-			<div className="mb-6">
+			<div className="mb-6 flex justify-between">
 				<button
 					onClick={() => navigate("/shoppinglist")}
 					className="btn btn-outline btn-sm"
 				>
 					戻る
+				</button>
+				<button className="btn btn-outline" onClick={openModal}>
+					アイテムを追加する
 				</button>
 			</div>
 
@@ -172,7 +177,7 @@ const ShoppingListDetail = () => {
 							</div>
 						))}
 					</div>
-					<div className="mt-6 flex justify-end">
+					<div className="mt-6 flex justify-center">
 						<button
 							onClick={() => handleSave(shoppingList, items)}
 							className="btn"
@@ -180,15 +185,40 @@ const ShoppingListDetail = () => {
 							リストの内容を保存する
 						</button>
 					</div>
-
-					<div className="sticky bottom-4 flex justify-center">
-						<button className="btn btn-primary">
-							<Plus size={15} />
-							アイテムを追加
-						</button>
-					</div>
 				</div>
 			</div>
+
+			<Modal>
+				<div className="bg-base-100 p-6 rounded-lg w-full max-w-lg shadow-lg">
+					<h2 className="text-lg font-bold mb-1">新しいアイテムを追加</h2>
+					<p className="text-sm text-neutral-500 mb-4">
+						買い物リストに追加するアイテムの情報を入力してください
+					</p>
+
+					<div className="grid grid-cols-3 gap-4 mb-4">
+						<div className="col-span-2">
+							<input type="text" className="input w-full" placeholder="アイテム名" />
+						</div>
+						<div className="col-span-1">
+							<input type="text" className="input" placeholder="数量" />
+						</div>
+					</div>
+
+					<div className="mb-4">
+						<select name="" id="" className="select">
+							<option value="" className="text-neutral-500">カテゴリーを選択</option>
+							{preferredOrder.map((cate) => (
+								<option key={cate} value={cate}>{cate}</option>
+							))}
+						</select>
+					</div>
+
+					<div className="flex justify-center gap-2 mt-4">
+						<button className="btn" onClick={closeModal}>キャンセル</button>
+						<button className="btn" onClick={closeModal}>追加</button>
+					</div>
+				</div>
+			</Modal>
 		</div>
 	);
 };
