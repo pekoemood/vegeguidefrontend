@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router";
 import AddItemForm from "../../components/AddItemForm";
 import useModal from "../../hooks/useModal";
+import { api } from '../../utils/axios';
 
 const ShoppingListDetail = () => {
 	const { shoppingList } = useLoaderData();
@@ -13,10 +14,9 @@ const ShoppingListDetail = () => {
 	const check = items.filter((item) => item.checked === true);
 	const navigate = useNavigate();
 	const [selectedCategory, setSelectedCategory] = useState(null);
-	const [newName, setNewName] = useState("");
 	const { Modal, openModal, closeModal } = useModal();
 	let filteredItems = items;
-	console.log(items);
+	console.log(shoppingList);
 
 	if (selectedCategory) {
 		filteredItems = filteredItems.filter(
@@ -67,6 +67,27 @@ const ShoppingListDetail = () => {
 			}),
 		);
 	};
+
+	const handleAddItem = async (name, display_amount, category ) => {
+		try {
+			const response = await api.post(`/shopping_lists/${shoppingList.id}/shopping_list_items`, {
+				name, display_amount, category
+			});
+			console.log(response);
+			setItems((prev) => [...prev, {...response.data.item}])
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	const handleDeleteItem = async (id) => {
+		try {
+			await api.delete(`/shopping_list_items/${id}`)
+			setItems((prev) => prev.filter((item) => item.item_id !== id))
+		} catch (error) {
+			console.error(error);
+		}
+	}
 
 	const handleSave = async (shoppingList, items) => {
 		try {
@@ -126,15 +147,10 @@ const ShoppingListDetail = () => {
 							<ShoppingCart className="mr-2 h-5 w-5" />
 							<span>{attributes.name}</span>
 						</h2>
-						<p
-							className={`transition-opacity duration-500 ease-in ${items.length === check.length ? "opacity-100" : "opacity-0"}`}
-						>
-							すべての買い物が完了しました！
-						</p>
 						<span
 							className={`badge ${check.length === items.length ? "badge-success" : "badge-outline badge-primary"}`}
 						>
-							{check.length}/{shoppingList.attributes.shopping_items.length}{" "}
+							{check.length}/{items.length}{" "}
 							完了
 						</span>
 					</div>
@@ -143,7 +159,12 @@ const ShoppingListDetail = () => {
 						作成日： {shoppingList.attributes.created_at_jst}
 					</p>
 
-					<div className="mt-6">
+					<div className="mt-4">
+												<p
+							className={`text-secondary transition-opacity duration-500 ease-in ${items.length === check.length ? "opacity-100" : "opacity-0"}`}
+						>
+							すべての買い物が完了しました！
+						</p>
 						<div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
 							<div
 								className="bg-primary h-full transition-all duration-500 ease-in-out"
@@ -168,19 +189,22 @@ const ShoppingListDetail = () => {
 														<input
 															type="checkbox"
 															className="checkbox"
-															checked={item.checked}
+															checked={!!item.checked}
 															onChange={() => handleClick(item.id)}
 														/>
 														<div className="flex flex-col">
 															<label htmlFor="">{item.name}</label>
-															<span className="text-neutral-500 text-sm">
-																レシピ: {item.fromRecipe}
+															{ item.fromRecipe && (
+																	<span className="text-neutral-500 text-sm">
+																レシピ: {item.fromRecipe} 
 															</span>
+															)}
+														
 														</div>
 													</div>
 													<div className="flex items-center space-x-4">
 														<span>{item.display_amount}</span>
-														<Trash2 className="hover:text-error" size={15} />
+														<Trash2 className="hover:text-error" size={15} onClick={() => handleDeleteItem(item.item_id)} />
 													</div>
 												</div>
 											</li>
@@ -202,7 +226,7 @@ const ShoppingListDetail = () => {
 			</div>
 
 			<Modal>
-				<AddItemForm categories={preferredOrder} closeModal={closeModal} />
+				<AddItemForm categories={preferredOrder} closeModal={closeModal} handleAddItem={handleAddItem} />
 			</Modal>
 		</div>
 	);

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const AddItemForm = ({ categories, closeModal }) => {
+const AddItemForm = ({ categories, closeModal, handleAddItem }) => {
 	const [name, setName] = useState("");
 	const [amount, setAmount] = useState("");
 	const [category, setCategory] = useState("");
@@ -25,12 +25,12 @@ const AddItemForm = ({ categories, closeModal }) => {
 						/>
 					</div>
 					<div className="col-span-1">
-						<input type="text" className="input" placeholder="数量" />
+						<input type="text" className="input" placeholder="数量" value={amount} onChange={(e) => setAmount(e.target.value)} />
 					</div>
 				</div>
 
 				<div className="mb-4">
-					<select name="" id="" className="select">
+					<select name="" id="" className="select" value={category} onChange={(e) => setCategory(e.target.value)}>
 						<option value="" className="text-neutral-500">
 							カテゴリーを選択
 						</option>
@@ -46,7 +46,7 @@ const AddItemForm = ({ categories, closeModal }) => {
 					<button className="btn" onClick={closeModal}>
 						キャンセル
 					</button>
-					<button className="btn" onClick={closeModal}>
+					<button className="btn" onClick={() => handleAddItem(name, amount, category)}>
 						追加
 					</button>
 				</div>
