@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Plus, ShoppingCart, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router";
 import AddItemForm from "../../components/AddItemForm";
 import useModal from "../../hooks/useModal";
@@ -15,6 +15,7 @@ const ShoppingListDetail = () => {
 	const navigate = useNavigate();
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	const { Modal, openModal, closeModal } = useModal();
+	const [changedItems, setChangedItems] = useState(new Set());
 	let filteredItems = items;
 	console.log(shoppingList);
 
@@ -60,13 +61,32 @@ const ShoppingListDetail = () => {
 		return preferredOrder.indexOf(a) - preferredOrder.indexOf(b);
 	});
 
-	const handleClick = (id) => {
-		setItems((prev) =>
-			prev.map((item) => {
-				return item.id === id ? { ...item, checked: !item.checked } : item;
-			}),
-		);
-	};
+	const handleClick = (item) => {
+		setItems((prev) => prev.map((preItem) => {
+			return preItem.id === item.id ? {...preItem, checked: !item.checked} : preItem
+		}));
+		setChangedItems((prev) => new Set(prev).add(item.item_id));
+	}
+
+	useEffect(() => {
+		const timer = setInterval(async () => {
+			if (changedItems.size === 0) return;
+
+			try {
+				const updates = [...changedItems].map((id) => {
+					const item = items.find((i) => i.item_id === id);
+					return { id: item.item_id, checked: item.checked };
+				});
+				await api.patch(`/shopping_lists/${shoppingList.id}/shopping_list_items/batch_update`, { updates });
+				
+				setChangedItems(new Set());
+			} catch (error) {
+				console.error(error);
+			}
+		}, 5000);
+
+		return () => clearInterval(timer);
+	}, [changedItems])
 
 	const handleAddItem = async (name, display_amount, category ) => {
 		try {
@@ -190,7 +210,7 @@ const ShoppingListDetail = () => {
 															type="checkbox"
 															className="checkbox"
 															checked={!!item.checked}
-															onChange={() => handleClick(item.id)}
+															onChange={() => handleClick(item)}
 														/>
 														<div className="flex flex-col">
 															<label htmlFor="">{item.name}</label>
@@ -213,14 +233,6 @@ const ShoppingListDetail = () => {
 								</div>
 							),
 						)}
-					</div>
-					<div className="mt-6 flex justify-center">
-						<button
-							onClick={() => handleSave(shoppingList, items)}
-							className="btn"
-						>
-							リストの内容を保存する
-						</button>
 					</div>
 				</div>
 			</div>
