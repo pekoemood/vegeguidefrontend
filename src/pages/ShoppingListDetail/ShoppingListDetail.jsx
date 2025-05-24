@@ -16,7 +16,9 @@ const ShoppingListDetail = () => {
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	const { Modal, openModal, closeModal } = useModal();
 	const [changedItems, setChangedItems] = useState(new Set());
+	const [loadingItems, setLoadingItems] = useState([]);
 	let filteredItems = items;
+	
 	console.log(shoppingList);
 
 	if (selectedCategory) {
@@ -66,6 +68,7 @@ const ShoppingListDetail = () => {
 			return preItem.id === item.id ? {...preItem, checked: !item.checked} : preItem
 		}));
 		setChangedItems((prev) => new Set(prev).add(item.item_id));
+		setLoadingItems((prev) => [...prev, item.id])
 	}
 
 	useEffect(() => {
@@ -80,10 +83,13 @@ const ShoppingListDetail = () => {
 				await api.patch(`/shopping_lists/${shoppingList.id}/shopping_list_items/batch_update`, { updates });
 				
 				setChangedItems(new Set());
+				setLoadingItems([]);
 			} catch (error) {
 				console.error(error);
+				setLoadingItems([]);
 			}
 		}, 5000);
+
 
 		return () => clearInterval(timer);
 	}, [changedItems])
@@ -109,20 +115,7 @@ const ShoppingListDetail = () => {
 		}
 	}
 
-	const handleSave = async (shoppingList, items) => {
-		try {
-			await axios.patch(
-				`${import.meta.env.VITE_RAILS_API}/shopping_lists/${shoppingList.id}`,
-				{
-					items,
-				},
-				{ withCredentials: true },
-			);
-			navigate("/shoppinglist");
-		} catch (error) {
-			console.log(error);
-		}
-	};
+
 
 	return (
 		<div className="container max-w-screen-md mx-auto px-4 py-8">
@@ -211,6 +204,7 @@ const ShoppingListDetail = () => {
 															className="checkbox"
 															checked={!!item.checked}
 															onChange={() => handleClick(item)}
+															disabled={loadingItems.includes(item.id)}
 														/>
 														<div className="flex flex-col">
 															<label htmlFor="">{item.name}</label>
@@ -219,8 +213,11 @@ const ShoppingListDetail = () => {
 																レシピ: {item.fromRecipe} 
 															</span>
 															)}
-														
 														</div>
+														{loadingItems.includes(item.id) && (
+															<span className="loading loading-spinner loading-xs ml-2"></span>
+														)}
+
 													</div>
 													<div className="flex items-center space-x-4">
 														<span>{item.display_amount}</span>
