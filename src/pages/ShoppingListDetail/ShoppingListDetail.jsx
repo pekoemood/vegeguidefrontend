@@ -72,7 +72,7 @@ const ShoppingListDetail = () => {
 	}
 
 	useEffect(() => {
-		const timer = setInterval(async () => {
+		const timer = setTimeout(async () => {
 			if (changedItems.size === 0) return;
 
 			try {
@@ -88,10 +88,10 @@ const ShoppingListDetail = () => {
 				console.error(error);
 				setLoadingItems([]);
 			}
-		}, 5000);
+		}, 3000);
 
 
-		return () => clearInterval(timer);
+		return () => clearTimeout(timer);
 	}, [changedItems])
 
 	const handleAddItem = async (name, display_amount, category ) => {
@@ -126,7 +126,7 @@ const ShoppingListDetail = () => {
 				>
 					戻る
 				</button>
-				<button className="btn btn-outline" onClick={openModal}>
+				<button className="btn btn-outline btn-sm" onClick={openModal}>
 					アイテムを追加する
 				</button>
 			</div>
