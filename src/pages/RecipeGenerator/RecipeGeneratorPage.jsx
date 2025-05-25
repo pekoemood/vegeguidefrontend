@@ -1,13 +1,18 @@
 import { Search, ShoppingBag, X } from "lucide-react";
-import { useState, useTransition } from "react";
-import { useLoaderData } from "react-router";
+import { useEffect, useState, useTransition } from "react";
+import { useLoaderData, useLocation, useNavigate } from "react-router";
 import { api } from "../../utils/axios";
 import VegetableCard from "./VegetableCard";
 
 const RecipeGeneratorPage = () => {
+	const location = useLocation();
 	const { data } = useLoaderData();
 	const [vegeName, setVegeName] = useState("");
-	const [selectedVegetables, setSelectedVegetables] = useState([]);
+	const [selectedVegetables, setSelectedVegetables] = useState(() =>
+		location.state?.selectedVegetableId
+			? [location.state.selectedVegetableId]
+			: [],
+	);
 	const [cookingTime, setCookingTime] = useState(30);
 	const [calorie, setCalorie] = useState(300);
 	const [category, setCategory] = useState("主菜");
@@ -16,6 +21,7 @@ const RecipeGeneratorPage = () => {
 	const [cookingMethod, setCookingMethod] = useState("指定なし");
 	const [recipe, setRecipe] = useState(null);
 	const [isPending, startTransition] = useTransition();
+	const navigation = useNavigate();
 
 	const filterVegetables = data.filter((vegetable) =>
 		vegetable.name.toLowerCase().includes(vegeName.toLowerCase()),
@@ -48,14 +54,24 @@ const RecipeGeneratorPage = () => {
 					cookingMethod,
 					selectedVegetables: selectedVegetableNames,
 				});
-				setRecipe(response.data);
+				console.log("レシピのレスポンス:", response.data);
+				setRecipe(response.data[0]);
 			} catch (error) {
 				console.error(error);
 			}
 		});
 	};
 
-	console.log(recipe);
+	const handleClickSave = async () => {
+		try {
+			await api.post(`/recipes`, {
+				...recipe,
+			});
+			navigation("/recipe-lists");
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
 	return (
 		<main className="container mx-auto px-4 py-8">
@@ -210,7 +226,7 @@ const RecipeGeneratorPage = () => {
 						type="button"
 						onClick={RecipeGenerator}
 						className="mt-4 btn btn-neutral col-span-2"
-						disabled={isPending}
+						disabled={isPending || selectedVegetables.length === 0}
 					>
 						レシピを提案する
 					</button>
@@ -269,7 +285,7 @@ const RecipeGeneratorPage = () => {
 										{recipe.ingredients?.map((ingredient, index) => (
 											<li key={index} className="flex items-center gap-2">
 												<span className="badge badge-neutral badge-xs"></span>
-												{ingredient.name} {ingredient?.amount} {ingredient.unit}
+												{ingredient.name} {ingredient?.display_amount}
 											</li>
 										))}
 									</ul>
@@ -292,7 +308,9 @@ const RecipeGeneratorPage = () => {
 							</div>
 
 							<div className="flex justify-end gap-3 mt-6">
-								<button className="btn">レシピを保存</button>
+								<button onClick={handleClickSave} className="btn">
+									レシピを保存
+								</button>
 							</div>
 						</div>
 					)
