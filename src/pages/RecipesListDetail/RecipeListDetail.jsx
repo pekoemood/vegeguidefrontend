@@ -8,24 +8,30 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router";
+import AddLItemFromRecipe from "../../components/AddItemFromRecipe";
 import Ingredients from "../../components/Ingredients";
 import RecipeSteps from "../../components/RecipeSteps";
+import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
 
 const RecipeListDetail = () => {
 	const { data } = useLoaderData();
+	const [shoppingList, setShoppingLists] = useState(data.attributes);
 	const navigate = useNavigate();
 	const [activeTab, setActiveTab] = useState("tab1");
+	const { Modal, openModal, closeModal } = useModal();
 	console.log(data);
 
-	const handleAddShoppingList = async () => {
+	const handleAddShoppingList = async ({ shoppingListId, name }) => {
 		try {
-			await api.post(`/shopping_lists/from_recipe`, {
+			const response = await api.post(`/shopping_lists/from_recipe`, {
 				recipe_id: data.id,
+				shopping_list_id: shoppingListId,
+				name: name,
 			});
-			alert("買い物リストを作成しました");
+			setShoppingLists(response.data.data.attributes);
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	};
 
@@ -45,20 +51,20 @@ const RecipeListDetail = () => {
 			<div className="mt-4 flex space-x-2 items-center">
 				<div className="flex items-center badge badge-secondary">
 					<Clock size={20} />
-					<span>調理時間 : {data.attributes.cooking_time}分</span>
+					<span>調理時間 : {shoppingList.cooking_time}分</span>
 				</div>
 				<div className="flex items-center badge badge-secondary">
 					<ChefHat size={20} />
-					<span>難易度 : {data.attributes.difficulty}</span>
+					<span>難易度 : {shoppingList.difficulty}</span>
 				</div>
 				<div className="flex items-center badge badge-secondary">
 					<User size={20} />
-					<span className="">材料 : {data.attributes.servings}人分</span>
+					<span className="">材料 : {shoppingList.servings}人分</span>
 				</div>
 			</div>
 
 			<div className="mt-10">
-				<button onClick={handleAddShoppingList} className="btn btn-primary">
+				<button onClick={openModal} className="btn btn-primary">
 					<ShoppingCart />
 					買い物リストに追加
 				</button>
@@ -85,15 +91,23 @@ const RecipeListDetail = () => {
 				<div>
 					{activeTab === "tab1" && (
 						<Ingredients
-							servings={data.attributes.servings}
-							ingredients={data.attributes.ingredients}
+							servings={shoppingList.servings}
+							ingredients={shoppingList.ingredients}
 						/>
 					)}
 					{activeTab === "tab2" && (
-						<RecipeSteps steps={data.attributes.recipe_steps} />
+						<RecipeSteps steps={shoppingList.recipe_steps} />
 					)}
 				</div>
 			</div>
+			<Modal>
+				<AddLItemFromRecipe
+					closeModal={closeModal}
+					shoppingLists={shoppingList.shopping_lists}
+					recipeName={data.attributes.name}
+					handleAddShoppingList={handleAddShoppingList}
+				/>
+			</Modal>
 		</main>
 	);
 };

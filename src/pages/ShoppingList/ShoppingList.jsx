@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, useLoaderData } from "react-router";
+import AddListForm from "../../components/AddListForm";
 import ShoppingCard from "../../components/ShoppingCard";
 import useModal from "../../hooks/useModal";
-import AddListForm from "../../components/AddListForm";
 import { api } from "../../utils/axios";
 
 const ShoppingList = () => {
@@ -13,13 +13,13 @@ const ShoppingList = () => {
 
 	const handleAddList = async (name) => {
 		try {
-			const response = await api.post(`/shopping_lists`,{ name });
+			const response = await api.post(`/shopping_lists`, { name });
 			console.log(response);
 			setLists((prev) => [...prev, response.data.data]);
 		} catch (err) {
 			console.error(err);
 		}
-	}
+	};
 
 	return (
 		<>
@@ -32,7 +32,9 @@ const ShoppingList = () => {
 					<p className="text-neutral-500">
 						複数の買い物リストを作成・管理できます
 					</p>
-					<button className="btn btn-outline" onClick={openModal}>新しいリストの作成</button>
+					<button className="btn btn-outline" onClick={openModal}>
+						新しいリストの作成
+					</button>
 				</div>
 
 				<div className="grid grid-cols-4 gap-4">
