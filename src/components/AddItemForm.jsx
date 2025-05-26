@@ -25,12 +25,24 @@ const AddItemForm = ({ categories, closeModal, handleAddItem }) => {
 						/>
 					</div>
 					<div className="col-span-1">
-						<input type="text" className="input" placeholder="数量" value={amount} onChange={(e) => setAmount(e.target.value)} />
+						<input
+							type="text"
+							className="input"
+							placeholder="数量"
+							value={amount}
+							onChange={(e) => setAmount(e.target.value)}
+						/>
 					</div>
 				</div>
 
 				<div className="mb-4">
-					<select name="" id="" className="select" value={category} onChange={(e) => setCategory(e.target.value)}>
+					<select
+						name=""
+						id=""
+						className="select"
+						value={category}
+						onChange={(e) => setCategory(e.target.value)}
+					>
 						<option value="" className="text-neutral-500">
 							カテゴリーを選択
 						</option>
@@ -46,7 +58,10 @@ const AddItemForm = ({ categories, closeModal, handleAddItem }) => {
 					<button className="btn" onClick={closeModal}>
 						キャンセル
 					</button>
-					<button className="btn" onClick={() => handleAddItem(name, amount, category)}>
+					<button
+						className="btn"
+						onClick={() => handleAddItem(name, amount, category)}
+					>
 						追加
 					</button>
 				</div>

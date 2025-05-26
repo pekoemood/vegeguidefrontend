@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router";
 import AddItemForm from "../../components/AddItemForm";
 import useModal from "../../hooks/useModal";
-import { api } from '../../utils/axios';
+import { api } from "../../utils/axios";
 
 const ShoppingListDetail = () => {
 	const { shoppingList } = useLoaderData();
@@ -18,7 +18,7 @@ const ShoppingListDetail = () => {
 	const [changedItems, setChangedItems] = useState(new Set());
 	const [loadingItems, setLoadingItems] = useState([]);
 	let filteredItems = items;
-	
+
 	console.log(shoppingList);
 
 	if (selectedCategory) {
@@ -64,12 +64,16 @@ const ShoppingListDetail = () => {
 	});
 
 	const handleClick = (item) => {
-		setItems((prev) => prev.map((preItem) => {
-			return preItem.id === item.id ? {...preItem, checked: !item.checked} : preItem
-		}));
+		setItems((prev) =>
+			prev.map((preItem) => {
+				return preItem.id === item.id
+					? { ...preItem, checked: !item.checked }
+					: preItem;
+			}),
+		);
 		setChangedItems((prev) => new Set(prev).add(item.item_id));
-		setLoadingItems((prev) => [...prev, item.id])
-	}
+		setLoadingItems((prev) => [...prev, item.id]);
+	};
 
 	useEffect(() => {
 		const timer = setTimeout(async () => {
@@ -80,8 +84,11 @@ const ShoppingListDetail = () => {
 					const item = items.find((i) => i.item_id === id);
 					return { id: item.item_id, checked: item.checked };
 				});
-				await api.patch(`/shopping_lists/${shoppingList.id}/shopping_list_items/batch_update`, { updates });
-				
+				await api.patch(
+					`/shopping_lists/${shoppingList.id}/shopping_list_items/batch_update`,
+					{ updates },
+				);
+
 				setChangedItems(new Set());
 				setLoadingItems([]);
 			} catch (error) {
@@ -90,32 +97,34 @@ const ShoppingListDetail = () => {
 			}
 		}, 3000);
 
-
 		return () => clearTimeout(timer);
-	}, [changedItems])
+	}, [changedItems]);
 
-	const handleAddItem = async (name, display_amount, category ) => {
+	const handleAddItem = async (name, display_amount, category) => {
 		try {
-			const response = await api.post(`/shopping_lists/${shoppingList.id}/shopping_list_items`, {
-				name, display_amount, category
-			});
+			const response = await api.post(
+				`/shopping_lists/${shoppingList.id}/shopping_list_items`,
+				{
+					name,
+					display_amount,
+					category,
+				},
+			);
 			console.log(response);
-			setItems((prev) => [...prev, {...response.data.item}])
+			setItems((prev) => [...prev, { ...response.data.item }]);
 		} catch (error) {
 			console.error(error);
 		}
-	}
+	};
 
 	const handleDeleteItem = async (id) => {
 		try {
-			await api.delete(`/shopping_list_items/${id}`)
-			setItems((prev) => prev.filter((item) => item.item_id !== id))
+			await api.delete(`/shopping_list_items/${id}`);
+			setItems((prev) => prev.filter((item) => item.item_id !== id));
 		} catch (error) {
 			console.error(error);
 		}
-	}
-
-
+	};
 
 	return (
 		<div className="container max-w-screen-md mx-auto px-4 py-8">
@@ -163,8 +172,7 @@ const ShoppingListDetail = () => {
 						<span
 							className={`badge ${check.length === items.length ? "badge-success" : "badge-outline badge-primary"}`}
 						>
-							{check.length}/{items.length}{" "}
-							完了
+							{check.length}/{items.length} 完了
 						</span>
 					</div>
 
@@ -173,7 +181,7 @@ const ShoppingListDetail = () => {
 					</p>
 
 					<div className="mt-4">
-												<p
+						<p
 							className={`text-secondary transition-opacity duration-500 ease-in ${items.length === check.length ? "opacity-100" : "opacity-0"}`}
 						>
 							すべての買い物が完了しました！
@@ -208,20 +216,23 @@ const ShoppingListDetail = () => {
 														/>
 														<div className="flex flex-col">
 															<label htmlFor="">{item.name}</label>
-															{ item.fromRecipe && (
-																	<span className="text-neutral-500 text-sm">
-																レシピ: {item.fromRecipe} 
-															</span>
+															{item.fromRecipe && (
+																<span className="text-neutral-500 text-sm">
+																	レシピ: {item.fromRecipe}
+																</span>
 															)}
 														</div>
 														{loadingItems.includes(item.id) && (
 															<span className="loading loading-spinner loading-xs ml-2"></span>
 														)}
-
 													</div>
 													<div className="flex items-center space-x-4">
 														<span>{item.display_amount}</span>
-														<Trash2 className="hover:text-error" size={15} onClick={() => handleDeleteItem(item.item_id)} />
+														<Trash2
+															className="hover:text-error"
+															size={15}
+															onClick={() => handleDeleteItem(item.item_id)}
+														/>
 													</div>
 												</div>
 											</li>
@@ -235,7 +246,11 @@ const ShoppingListDetail = () => {
 			</div>
 
 			<Modal>
-				<AddItemForm categories={preferredOrder} closeModal={closeModal} handleAddItem={handleAddItem} />
+				<AddItemForm
+					categories={preferredOrder}
+					closeModal={closeModal}
+					handleAddItem={handleAddItem}
+				/>
 			</Modal>
 		</div>
 	);
