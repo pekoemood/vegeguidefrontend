@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Plus, ShoppingCart, Trash2 } from "lucide-react";
+import { Plus, Refrigerator, ShoppingCart, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router";
 import AddItemForm from "../../components/AddItemForm";
@@ -126,6 +126,19 @@ const ShoppingListDetail = () => {
 		}
 	};
 
+	const handleAddFridge = async (item) => {
+		try {
+			await api.post(`/fridge_items`, {
+				fridge: {
+					name: item.name,
+					category: item.category,
+				},
+			});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	return (
 		<div className="container max-w-screen-md mx-auto px-4 py-8">
 			<div className="mb-6 flex justify-between">
@@ -228,6 +241,11 @@ const ShoppingListDetail = () => {
 													</div>
 													<div className="flex items-center space-x-4">
 														<span>{item.display_amount}</span>
+														<Refrigerator
+															className="hover:text-info"
+															size={15}
+															onClick={() => handleAddFridge(item)}
+														/>
 														<Trash2
 															className="hover:text-error"
 															size={15}

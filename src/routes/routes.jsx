@@ -1,5 +1,7 @@
 import { createBrowserRouter } from "react-router";
 import Layout from "../Layout";
+import FridgeItems from "../pages/FridgeItems/FridgeItems";
+import { fridgeItemsLoader } from "../pages/FridgeItems/fridgeItemsLoader";
 import Login from "../pages/Login/Login";
 import RecipeGeneratorPage from "../pages/RecipeGenerator/RecipeGeneratorPage";
 import recipeGeneratorLoader from "../pages/RecipeGenerator/recipeGeneratorLoader";
@@ -69,6 +71,11 @@ export const routes = createBrowserRouter([
 				path: "/recipe-generator",
 				Component: RecipeGeneratorPage,
 				loader: recipeGeneratorLoader,
+			},
+			{
+				path: "/fridge-items",
+				Component: FridgeItems,
+				loader: fridgeItemsLoader,
 			},
 		],
 	},

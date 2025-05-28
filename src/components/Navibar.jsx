@@ -55,6 +55,9 @@ const Navibar = () => {
 								<Link to="/recipe-lists">レシピリスト</Link>
 							</li>
 							<li>
+								<Link to="/fridge-items">冷蔵庫</Link>
+							</li>
+							<li>
 								<button onClick={handleLogout}>ログアウト</button>
 							</li>
 						</>
