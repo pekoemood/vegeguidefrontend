@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Plus, Refrigerator, ShoppingCart, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router";
@@ -129,10 +128,13 @@ const ShoppingListDetail = () => {
 	const handleAddFridge = async (item) => {
 		try {
 			await api.post(`/fridge_items`, {
-				fridge: {
-					name: item.name,
-					category: item.category,
-				},
+				fridge: [
+					{
+						name: item.name,
+						category: item.category,
+						display_amount: item.display_amount,
+					},
+				],
 			});
 		} catch (err) {
 			console.error(err);

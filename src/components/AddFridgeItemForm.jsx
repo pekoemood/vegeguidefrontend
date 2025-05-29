@@ -2,30 +2,21 @@ import { ja } from "date-fns/locale";
 import { useState } from "react";
 import { DayPicker } from "react-day-picker";
 
-const EditFridgeItemForm = ({
-	closeModal,
-	categories,
-	id,
-	item,
-	handleEdit,
-}) => {
-	const [name, setName] = useState(item.name);
-	const [amount, setAmount] = useState(item.display_amount);
-	const [category, setCategory] = useState(item.category);
-	const [date, setDate] = useState(
-		item.expire_date ? new Date(item.expire_date) : null,
-	);
+const AddFridgeItemForm = ({ closeModal, categories, handleAdd }) => {
+	const [name, setName] = useState("");
+	const [amount, setAmount] = useState("");
+	const [category, setCategory] = useState("");
+	const [date, setDate] = useState("");
 	const itemCategories = categories.filter((ct) => ct.name !== "全て");
 
 	const handleDateChange = (selectedDate) => {
 		setDate(selectedDate);
 	};
-	console.log(item);
 
 	return (
 		<>
 			<div className="bg-base-100 p-6 rounded-lg min-w-lg shadow-lg">
-				<h2 className="text-lg font-bold mb-1">材料を編集</h2>
+				<h2 className="text-lg font-bold mb-1">材料を追加</h2>
 				<p className="text-sm text-neutral-500 mb-4">
 					材料の情報を入力してください
 				</p>
@@ -49,6 +40,9 @@ const EditFridgeItemForm = ({
 							value={category}
 							onChange={(e) => setCategory(e.target.value)}
 						>
+							<option value="" disabled>
+								カテゴリを選択してください
+							</option>
 							{itemCategories.map(({ name }) => (
 								<option key={name} value={name}>
 									{name}
@@ -97,9 +91,9 @@ const EditFridgeItemForm = ({
 						</button>
 						<button
 							className="btn"
-							onClick={() => handleEdit(id, name, category, amount, date)}
+							onClick={() => handleAdd(name, category, amount, date)}
 						>
-							編集
+							追加
 						</button>
 					</div>
 				</div>
@@ -108,4 +102,4 @@ const EditFridgeItemForm = ({
 	);
 };
 
-export default EditFridgeItemForm;
+export default AddFridgeItemForm;
