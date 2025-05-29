@@ -3,8 +3,6 @@ import {
 	Beef,
 	Box,
 	Carrot,
-	CircleAlert,
-	Drumstick,
 	Egg,
 	Fish,
 	Layers,
@@ -16,12 +14,12 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useLoaderData } from "react-router";
-import EditFridgeItemForm from "../../components/EditFridgeItemForm";
+import FridgeItemForm from "../../components/FridgeItemForm";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
 
+
 const categories = [
-	{ name: "全て", icon: Layers },
 	{ name: "野菜", icon: Carrot },
 	{ name: "肉類", icon: Beef },
 	{ name: "魚介類", icon: Fish },
@@ -36,9 +34,21 @@ const categories = [
 const FridgeItems = () => {
 	const { data } = useLoaderData();
 	const [items, setItems] = useState(data.data);
+	const [name, setName] = useState("");
 	const { Modal, openModal, closeModal } = useModal();
-  const [editingItemId, setEditingItemId] = useState(null);
-  const editItem = items.filter((item) => item.id === editingItemId)
+	const [editingItemId, setEditingItemId] = useState(null);
+	const editItem = items.filter((item) => item.id === editingItemId);
+	const [selectedCategory, setSelectedCategory] = useState(null);
+	let filterItems = items;
+	filterItems = filterItems.filter((item) =>
+		item.attributes.name.includes(name),
+	);
+	if (selectedCategory) {
+		filterItems = filterItems.filter(
+			(item) => item.attributes.category === selectedCategory,
+		);
+	}
+
 	console.log(items);
 
 	const categoryIconMap = Object.fromEntries(
@@ -50,22 +60,41 @@ const FridgeItems = () => {
 		return <Icon />;
 	};
 
-  const handleEdit = async (id, name, category, amount, date) => {
-    try {
-      const response = await api.patch(`/fridge_items/${id}`, {
-      fridge: {
-        name: name,
-        category: category,
-        display_amount: amount,
-        expire_date: date
-      }
-    });
-    setItems(response.data.data);
-    closeModal();
-    } catch (err) {
-      console.error(err);
-    }
-  }
+	const handleAdd = async (name, category, amount, date) => {
+		try {
+			const response = await api.post(`/fridge_items`, {
+				fridge: [
+					{
+						name: name,
+						category: category,
+						display_amount: amount,
+						expire_date: date,
+					},
+				],
+			});
+			setItems(response.data.data);
+			closeModal();
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const handleEdit = async (id, name, category, amount, date) => {
+		try {
+			const response = await api.patch(`/fridge_items/${id}`, {
+				fridge: {
+					name: name,
+					category: category,
+					display_amount: amount,
+					expire_date: date,
+				},
+			});
+			setItems(response.data.data);
+			closeModal();
+		} catch (err) {
+			console.error(err);
+		}
+	};
 
 	const handleDelete = async (id) => {
 		try {
@@ -91,14 +120,37 @@ const FridgeItems = () => {
 						type="text"
 						className="input w-full"
 						placeholder="材料を検索..."
+						value={name}
+						onChange={(e) => setName(e.target.value)}
 					/>
-					<button className="btn">食材を追加</button>
+					<button
+						className="btn"
+						onClick={() => {
+							setEditingItemId(null);
+							openModal();
+						}}
+					>
+						食材を追加
+					</button>
 				</div>
 
 				<div role="tablist" className="tabs tabs-box mt-4">
+					<a
+						role="tab"
+						className={`tab flex-1 space-x-1 ${selectedCategory === null && "tab-active"}`}
+						onClick={() => setSelectedCategory(null)}
+					>
+						<Layers className="h-5" />
+						<span>すべて</span>
+					</a>
 					{categories.map(({ name, icon: Icon }) => (
-						<a key={name} role="tab" className="tab flex-1 space-x-1">
-							<Icon className="w- h-5" /> <span>{name}</span>
+						<a
+							key={name}
+							role="tab"
+							className={`tab flex-1 space-x-1 ${selectedCategory === name && "tab-active"}`}
+							onClick={() => setSelectedCategory(name)}
+						>
+							<Icon className="h-5" /> <span>{name}</span>
 						</a>
 					))}
 				</div>
@@ -137,7 +189,7 @@ const FridgeItems = () => {
 							</tr>
 						</thead>
 						<tbody>
-							{items.map((item) => (
+							{filterItems.map((item) => (
 								<tr key={item.id}>
 									<th>{changeIcon(item.attributes.category)}</th>
 									<td>{item.attributes.name}</td>
@@ -153,9 +205,9 @@ const FridgeItems = () => {
 											size={20}
 											className="hover:text-info"
 											onClick={() => {
-                        setEditingItemId(item.id);
-                        openModal();
-                      }}
+												setEditingItemId(item.id);
+												openModal();
+											}}
 										/>
 										<Trash2
 											size={20}
@@ -169,7 +221,14 @@ const FridgeItems = () => {
 					</table>
 				</div>
 				<Modal>
-					<EditFridgeItemForm closeModal={closeModal} categories={categories} id={editingItemId} item={editItem[0]?.attributes} handleEdit={handleEdit}/>
+					<FridgeItemForm
+						closeModal={closeModal}
+						categories={categories}
+						id={editingItemId}
+						item={editItem[0]?.attributes || null}
+						handleEdit={handleEdit}
+						handleAdd={handleAdd}
+					/>
 				</Modal>
 			</main>
 		</>
