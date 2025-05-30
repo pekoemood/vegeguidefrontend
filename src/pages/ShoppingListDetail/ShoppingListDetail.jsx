@@ -33,6 +33,7 @@ const ShoppingListDetail = () => {
 		acc[item.category].push(item);
 		return acc;
 	}, {});
+	console.log(filteredGroupedItems);
 
 	Object.keys(filteredGroupedItems).forEach((category) => {
 		filteredGroupedItems[category].sort((a, b) => a.checked - b.checked);
