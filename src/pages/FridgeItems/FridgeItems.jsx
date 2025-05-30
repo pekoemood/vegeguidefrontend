@@ -31,6 +31,13 @@ const categories = [
 	{ name: "その他", icon: Box },
 ];
 
+const initialStatus = {
+	expired: 0,
+	urgent: 0,
+	warning: 0,
+	safe: 0
+}
+
 const FridgeItems = () => {
 	const { data } = useLoaderData();
 	const [items, setItems] = useState(data.data);
@@ -39,13 +46,44 @@ const FridgeItems = () => {
 	const [editingItemId, setEditingItemId] = useState(null);
 	const editItem = items.filter((item) => item.id === editingItemId);
 	const [selectedCategory, setSelectedCategory] = useState(null);
+	const [foodSelectedStatus, setFoodSelectedStatus] = useState(null);
+
+	const foodStatusCount = items.reduce((acc, item) => {
+		const status = item.attributes.expire_status;
+			acc[status] += 1;
+			return acc
+	}, {...initialStatus})
+
+	const foodStatus = (status) => {
+		switch (status) {
+			case 'expired':
+				return <span className="text-red-500">期限切れ</span>
+				
+			case 'urgent':
+				return <span className="text-error">期限間近</span>
+			
+			case 'warning':
+				return <span className="text-warning">注意</span>
+			
+			case 'safe':
+				return <span className="text-info">安全</span>
+		}
+	}
+
 	let filterItems = items;
 	filterItems = filterItems.filter((item) =>
 		item.attributes.name.includes(name),
 	);
+
 	if (selectedCategory) {
 		filterItems = filterItems.filter(
-			(item) => item.attributes.category === selectedCategory,
+			(item) => item.attributes.category === selectedCategory
+		);
+	}
+
+	if (foodSelectedStatus) {
+		filterItems = filterItems.filter(
+			(item) => item.attributes.expire_status === foodSelectedStatus
 		);
 	}
 
@@ -105,6 +143,8 @@ const FridgeItems = () => {
 		}
 	};
 
+
+
 	return (
 		<>
 			<main className="container mx-auto py-6">
@@ -155,21 +195,25 @@ const FridgeItems = () => {
 					))}
 				</div>
 
-				<div className="grid grid-cols-4 gap-4 mt-6">
-					<div className="border border-base-300 p-4 rounded-lg">
-						<p className="text-2xl">6</p>
+				<div className="grid grid-cols-5 gap-4 mt-6">
+					<div className="border border-base-300 p-4 rounded-lg" onClick={() => setFoodSelectedStatus(null)}>
+						<p className="text-2xl">{items.length}</p>
 						<span className="text-neutral-500">総材料数</span>
 					</div>
-					<div className="border border-base-300 p-4 rounded-lg">
-						<p className="text-2xl text-accent">6</p>
+					<div className="border border-base-300 p-4 rounded-lg" onClick={() => setFoodSelectedStatus('expired')}>
+						<p className="text-2xl text-red-500">{foodStatusCount.expired}</p>
+						<span className="text-neutral-500">期限切れ</span>
+					</div>
+					<div className="border border-base-300 p-4 rounded-lg" onClick={() => setFoodSelectedStatus('urgent')}>
+						<p className="text-2xl text-error">{foodStatusCount.urgent}</p>
 						<span className="text-neutral-500">期限間近</span>
 					</div>
-					<div className="border border-base-300 p-4 rounded-lg">
-						<p className="text-2xl text-error">6</p>
-						<span className="text-neutral-500">要注意</span>
+					<div className="border border-base-300 p-4 rounded-lg" onClick={() => setFoodSelectedStatus('warning')}>
+						<p className="text-2xl text-warning">{foodStatusCount.warning}</p>
+						<span className="text-neutral-500">注意</span>
 					</div>
-					<div className="border border-base-300 p-4 rounded-lg">
-						<p className="text-2xl text-info">6</p>
+					<div className="border border-base-300 p-4 rounded-lg" onClick={() => setFoodSelectedStatus('safe')}>
+						<p className="text-2xl text-info">{foodStatusCount.safe}</p>
 						<span className="text-neutral-500">安全</span>
 					</div>
 				</div>
@@ -198,7 +242,7 @@ const FridgeItems = () => {
 									</td>
 									<td>{item.attributes?.display_amount}</td>
 									<td>{item.attributes.expire_date}</td>
-									<td>危険</td>
+									<td>{foodStatus(item.attributes.expire_status)}</td>
 									<td>{item.attributes.created_day}</td>
 									<td className="flex items-center space-x-4">
 										<SquarePen
