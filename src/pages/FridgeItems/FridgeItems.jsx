@@ -11,6 +11,7 @@ import {
 	SquarePen,
 	Trash2,
 	Wheat,
+	ArrowDownUp
 } from "lucide-react";
 import { useState } from "react";
 import { useLoaderData } from "react-router";
@@ -45,6 +46,8 @@ const FridgeItems = () => {
 	const { Modal, openModal, closeModal } = useModal();
 	const [editingItemId, setEditingItemId] = useState(null);
 	const editItem = items.filter((item) => item.id === editingItemId);
+	const [sortKey, setSortKey] = useState(null);
+	const [sortOrder, setSortOrder] = useState(null);
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	const [foodSelectedStatus, setFoodSelectedStatus] = useState(null);
 
@@ -86,6 +89,22 @@ const FridgeItems = () => {
 			(item) => item.attributes.expire_status === foodSelectedStatus
 		);
 	}
+
+	const sortedItems = [...filterItems].sort((a, b) => {
+		if (!sortKey) return 0;
+
+		let aValue = a.attributes[sortKey]
+		let bValue = b.attributes[sortKey]
+
+		if (sortKey === 'expire_date' || sortKey === 'created_at') {
+			aValue = new Date(aValue);
+			bValue = new Date(bValue);
+		}
+
+		if (aValue < bValue) return sortOrder === "asc" ? -1 : 1;
+		if (aValue > bValue) return sortOrder === "asc" ? 1 : -1;
+		return 0;
+	})
 
 	console.log(items);
 
@@ -142,6 +161,8 @@ const FridgeItems = () => {
 			console.error(err);
 		}
 	};
+
+	
 
 
 
@@ -224,16 +245,32 @@ const FridgeItems = () => {
 							<tr>
 								<th></th>
 								<th>材料名</th>
-								<th>カテゴリー</th>
+								<th onClick={() => { 
+									if (sortKey === 'category') {
+										setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+									} else {
+										setSortKey('category');
+										setSortOrder('asc');
+									}
+								}}>
+									<div className="flex items-center space-x-2"><span>カテゴリー</span><ArrowDownUp size={15}/></div></th>
 								<th>数量</th>
-								<th>賞味期限</th>
-								<th>状態</th>
-								<th>追加日</th>
+								<th onClick={() => {
+									if (sortKey === 'expire_date') {
+										setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+									} else {
+										setSortKey('expire_date');
+										setSortOrder('asc');
+									}
+								}}>
+									<div className="flex items-center space-x-2"><span>賞味期限</span><ArrowDownUp size={15}/></div></th>
+								<th><div className="flex items-center space-x-2"><span>状態</span><ArrowDownUp size={15}/></div></th>
+								<th><div className="flex items-center space-x-2"><span>追加日</span><ArrowDownUp size={15}/></div></th>
 								<th>操作</th>
 							</tr>
 						</thead>
 						<tbody>
-							{filterItems.map((item) => (
+							{sortedItems.map((item) => (
 								<tr key={item.id}>
 									<th>{changeIcon(item.attributes.category)}</th>
 									<td>{item.attributes.name}</td>
