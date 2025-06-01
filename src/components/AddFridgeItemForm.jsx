@@ -6,7 +6,7 @@ const AddFridgeItemForm = ({ closeModal, categories, handleAdd }) => {
 	const [name, setName] = useState("");
 	const [amount, setAmount] = useState("");
 	const [category, setCategory] = useState("");
-	const [date, setDate] = useState("");
+	const [date, setDate] = useState(null);
 	const itemCategories = categories.filter((ct) => ct.name !== "全て");
 
 	const handleDateChange = (selectedDate) => {

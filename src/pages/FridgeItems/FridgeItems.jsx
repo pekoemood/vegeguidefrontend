@@ -18,6 +18,7 @@ import { useLoaderData } from "react-router";
 import FridgeItemForm from "../../components/FridgeItemForm";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
+import { format } from "date-fns";
 
 
 const categories = [
@@ -70,6 +71,9 @@ const FridgeItems = () => {
 			
 			case 'safe':
 				return <span className="text-info">安全</span>
+				
+			case 'unset':
+				return <span>不明</span>
 		}
 	}
 
@@ -134,7 +138,7 @@ const FridgeItems = () => {
 						name: name,
 						category: category,
 						display_amount: amount,
-						expire_date: date,
+						expire_date: date ? date.toLocaleDateString() : null,
 					},
 				],
 			});
