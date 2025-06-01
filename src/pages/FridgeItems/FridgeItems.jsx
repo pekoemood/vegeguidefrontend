@@ -106,6 +106,15 @@ const FridgeItems = () => {
 		return 0;
 	})
 
+	const handleSort = (key) => {
+		if (sortKey === key) {
+			setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
+		} else {
+			setSortKey(key);
+			setSortOrder('asc');
+		}
+	}
+
 	console.log(items);
 
 	const categoryIconMap = Object.fromEntries(
@@ -245,27 +254,13 @@ const FridgeItems = () => {
 							<tr>
 								<th></th>
 								<th>材料名</th>
-								<th onClick={() => { 
-									if (sortKey === 'category') {
-										setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-									} else {
-										setSortKey('category');
-										setSortOrder('asc');
-									}
-								}}>
+								<th onClick={() => handleSort('category')} className="cursor-pointer">
 									<div className="flex items-center space-x-2"><span>カテゴリー</span><ArrowDownUp size={15}/></div></th>
 								<th>数量</th>
-								<th onClick={() => {
-									if (sortKey === 'expire_date') {
-										setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-									} else {
-										setSortKey('expire_date');
-										setSortOrder('asc');
-									}
-								}}>
+								<th onClick={() => handleSort('expire_date')} className="cursor-pointer">
 									<div className="flex items-center space-x-2"><span>賞味期限</span><ArrowDownUp size={15}/></div></th>
-								<th><div className="flex items-center space-x-2"><span>状態</span><ArrowDownUp size={15}/></div></th>
-								<th><div className="flex items-center space-x-2"><span>追加日</span><ArrowDownUp size={15}/></div></th>
+								<th onClick={() => handleSort('expire_status')} className="cursor-pointer"><div className="flex items-center space-x-2"><span>状態</span><ArrowDownUp size={15}/></div></th>
+								<th onClick={() => handleSort('created_day')} className="cursor-pointer"><div className="flex items-center space-x-2"><span>追加日</span><ArrowDownUp size={15}/></div></th>
 								<th>操作</th>
 							</tr>
 						</thead>
