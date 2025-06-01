@@ -127,7 +127,7 @@ const ShoppingListDetail = () => {
 	};
 
 	const handleAddFridge = async (item) => {
-		const items = Array.isArray(item) ? item : [item] 
+		const items = Array.isArray(item) ? item : [item];
 		try {
 			await api.post(`/fridge_items`, {
 				fridge: items.map((item) => ({
@@ -136,7 +136,7 @@ const ShoppingListDetail = () => {
 					display_amount: item.display_amount,
 					amount: item.amount,
 					unit: item.unit,
-				}))
+				})),
 			});
 		} catch (err) {
 			console.error(err);
@@ -156,10 +156,13 @@ const ShoppingListDetail = () => {
 					<button className="btn btn-outline" onClick={openModal}>
 						アイテムを追加する
 					</button>
-					<button className="btn btn-outline" onClick={() => handleAddFridge(items)}>全ての材料を冷蔵庫に追加する</button>
-
+					<button
+						className="btn btn-outline"
+						onClick={() => handleAddFridge(items)}
+					>
+						全ての材料を冷蔵庫に追加する
+					</button>
 				</div>
-
 			</div>
 
 			<div className="px-4 pb-2">
