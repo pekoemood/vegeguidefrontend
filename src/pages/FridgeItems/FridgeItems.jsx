@@ -1,4 +1,6 @@
+import { format } from "date-fns";
 import {
+	ArrowDownUp,
 	Bean,
 	Beef,
 	Box,
@@ -11,15 +13,12 @@ import {
 	SquarePen,
 	Trash2,
 	Wheat,
-	ArrowDownUp
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useLoaderData } from "react-router";
 import FridgeItemForm from "../../components/FridgeItemForm";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
-import { format } from "date-fns";
-
 
 const categories = [
 	{ name: "野菜", icon: Carrot },
@@ -37,13 +36,16 @@ const initialStatus = {
 	expired: 0,
 	urgent: 0,
 	warning: 0,
-	safe: 0
-}
+	safe: 0,
+};
 
 const FridgeItems = () => {
 	const { data } = useLoaderData();
 	const [items, setItems] = useState(data.data);
 	const [name, setName] = useState("");
+	const [selectedItem, setSelectedItem] = useState([]);
+	const [recipe, setRecipe] = useState(null);
+	const [isPending, startTransition] = useTransition();
 	const { Modal, openModal, closeModal } = useModal();
 	const [editingItemId, setEditingItemId] = useState(null);
 	const editItem = items.filter((item) => item.id === editingItemId);
@@ -52,30 +54,33 @@ const FridgeItems = () => {
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	const [foodSelectedStatus, setFoodSelectedStatus] = useState(null);
 
-	const foodStatusCount = items.reduce((acc, item) => {
-		const status = item.attributes.expire_status;
+	const foodStatusCount = items.reduce(
+		(acc, item) => {
+			const status = item.attributes.expire_status;
 			acc[status] += 1;
-			return acc
-	}, {...initialStatus})
+			return acc;
+		},
+		{ ...initialStatus },
+	);
 
 	const foodStatus = (status) => {
 		switch (status) {
-			case 'expired':
-				return <span className="text-red-500">期限切れ</span>
-				
-			case 'urgent':
-				return <span className="text-error">期限間近</span>
-			
-			case 'warning':
-				return <span className="text-warning">注意</span>
-			
-			case 'safe':
-				return <span className="text-info">安全</span>
-				
-			case 'unset':
-				return <span>不明</span>
+			case "expired":
+				return <span className="text-red-500">期限切れ</span>;
+
+			case "urgent":
+				return <span className="text-error">期限間近</span>;
+
+			case "warning":
+				return <span className="text-warning">注意</span>;
+
+			case "safe":
+				return <span className="text-info">安全</span>;
+
+			case "unset":
+				return <span>不明</span>;
 		}
-	}
+	};
 
 	let filterItems = items;
 	filterItems = filterItems.filter((item) =>
@@ -84,23 +89,23 @@ const FridgeItems = () => {
 
 	if (selectedCategory) {
 		filterItems = filterItems.filter(
-			(item) => item.attributes.category === selectedCategory
+			(item) => item.attributes.category === selectedCategory,
 		);
 	}
 
 	if (foodSelectedStatus) {
 		filterItems = filterItems.filter(
-			(item) => item.attributes.expire_status === foodSelectedStatus
+			(item) => item.attributes.expire_status === foodSelectedStatus,
 		);
 	}
 
 	const sortedItems = [...filterItems].sort((a, b) => {
 		if (!sortKey) return 0;
 
-		let aValue = a.attributes[sortKey]
-		let bValue = b.attributes[sortKey]
+		let aValue = a.attributes[sortKey];
+		let bValue = b.attributes[sortKey];
 
-		if (sortKey === 'expire_date' || sortKey === 'created_at') {
+		if (sortKey === "expire_date" || sortKey === "created_at") {
 			aValue = new Date(aValue);
 			bValue = new Date(bValue);
 		}
@@ -108,16 +113,16 @@ const FridgeItems = () => {
 		if (aValue < bValue) return sortOrder === "asc" ? -1 : 1;
 		if (aValue > bValue) return sortOrder === "asc" ? 1 : -1;
 		return 0;
-	})
+	});
 
 	const handleSort = (key) => {
 		if (sortKey === key) {
-			setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
+			setSortOrder(sortOrder === "asc" ? "desc" : "asc");
 		} else {
 			setSortKey(key);
-			setSortOrder('asc');
+			setSortOrder("asc");
 		}
-	}
+	};
 
 	console.log(items);
 
@@ -175,9 +180,30 @@ const FridgeItems = () => {
 		}
 	};
 
-	
+	const handleChecked = (item) => {
+		setSelectedItem((prev) => {
+			if (prev.includes(item.attributes.name)) {
+				return prev.filter((_item) => _item !== item.attributes.name);
+			} else {
+				return [...prev, item.attributes.name];
+			}
+		});
+	};
 
+	const handleSuggestRecipe = () => {
+		startTransition(async () => {
+			try {
+				const response = await api.post(`/recipe_generations`, {
+					selectedVegetables: selectedItem,
+				});
+				setRecipe(response.data[0]);
+			} catch (err) {
+				console.error(err);
+			}
+		});
+	};
 
+	console.log("レシピ", recipe);
 
 	return (
 		<>
@@ -230,48 +256,210 @@ const FridgeItems = () => {
 				</div>
 
 				<div className="grid grid-cols-5 gap-4 mt-6">
-					<div className="border border-base-300 p-4 rounded-lg" onClick={() => setFoodSelectedStatus(null)}>
+					<div
+						className="border border-base-300 p-4 rounded-lg"
+						onClick={() => setFoodSelectedStatus(null)}
+					>
 						<p className="text-2xl">{items.length}</p>
 						<span className="text-neutral-500">総材料数</span>
 					</div>
-					<div className="border border-base-300 p-4 rounded-lg" onClick={() => setFoodSelectedStatus('expired')}>
+					<div
+						className="border border-base-300 p-4 rounded-lg"
+						onClick={() => setFoodSelectedStatus("expired")}
+					>
 						<p className="text-2xl text-red-500">{foodStatusCount.expired}</p>
 						<span className="text-neutral-500">期限切れ</span>
 					</div>
-					<div className="border border-base-300 p-4 rounded-lg" onClick={() => setFoodSelectedStatus('urgent')}>
+					<div
+						className="border border-base-300 p-4 rounded-lg"
+						onClick={() => setFoodSelectedStatus("urgent")}
+					>
 						<p className="text-2xl text-error">{foodStatusCount.urgent}</p>
 						<span className="text-neutral-500">期限間近</span>
 					</div>
-					<div className="border border-base-300 p-4 rounded-lg" onClick={() => setFoodSelectedStatus('warning')}>
+					<div
+						className="border border-base-300 p-4 rounded-lg"
+						onClick={() => setFoodSelectedStatus("warning")}
+					>
 						<p className="text-2xl text-warning">{foodStatusCount.warning}</p>
 						<span className="text-neutral-500">注意</span>
 					</div>
-					<div className="border border-base-300 p-4 rounded-lg" onClick={() => setFoodSelectedStatus('safe')}>
+					<div
+						className="border border-base-300 p-4 rounded-lg"
+						onClick={() => setFoodSelectedStatus("safe")}
+					>
 						<p className="text-2xl text-info">{foodStatusCount.safe}</p>
 						<span className="text-neutral-500">安全</span>
 					</div>
+				</div>
+
+				<div>
+					<div className="flex justify-between mt-6 border border-base-300 p-4 rounded-lg items-center">
+						<div className="flex space-x-2">
+							<p className="font-bold">AIレシピ提案</p>
+							<div className="flex items-center space-x-2">
+								{selectedItem.length > 0 && (
+									<span className="text-sm text-neutral-500">
+										選択中のアイテム
+									</span>
+								)}
+								{selectedItem.map((item) => (
+									<span key={item} className="badge">
+										{item}
+									</span>
+								))}
+							</div>
+						</div>
+
+						<button
+							className="btn"
+							onClick={handleSuggestRecipe}
+							disabled={isPending || selectedItem.length === 0}
+						>
+							{isPending ? (
+								<span className="loading loading-spinner"></span>
+							) : (
+								"レシピを提案"
+							)}
+						</button>
+					</div>
+
+					{recipe && (
+						<div className="p-6 my-8 border border-base-300 rounded-lg">
+							<div className="flex flex-col justify-between items-start space-y-2 mb-4">
+								<div>
+									<h2 className="text-start text-xl font-semibold">
+										{recipe.name}
+									</h2>
+									<p className="text-neutral-500 mt-1">{recipe.instructions}</p>
+								</div>
+								<div className="flex gap-2">
+									<div className="flex items-center badge badge-secondary">
+										料理カテゴリ: {recipe.recipe_category}
+									</div>
+									<div className="flex items-center badge badge-secondary">
+										カロリー: {recipe.calorie}kcal
+									</div>
+									<div className="flex items-center badge badge-secondary">
+										調理時間: {recipe.cooking_time}分
+									</div>
+									<div className="flex items-center badge badge-secondary">
+										難易度: {recipe.difficulty}
+									</div>
+								</div>
+							</div>
+
+							<div>
+								<h3 className="font-semibold text-lg flex items-center mb-2">
+									材料
+									{
+										<span className="text-sm font-normal ml-2">
+											({recipe.servings}人分)
+										</span>
+									}
+								</h3>
+								<div className="rounded-md p-4">
+									<ul className="grid grid-cols-3 gap-2">
+										{recipe.ingredients?.map((ingredient, index) => (
+											<li key={index} className="flex items-center gap-2">
+												<span className="badge badge-neutral badge-xs"></span>
+												{ingredient.name} {ingredient?.display_amount}
+											</li>
+										))}
+									</ul>
+								</div>
+							</div>
+
+							<hr className="border-t border-base-300 my-6" />
+
+							<div className="flex flex-col">
+								<h3 className="font-semibold text-lg flex items-center mb-4">
+									調理手順
+								</h3>
+								<ul className="steps steps-vertical">
+									{(recipe?.step ?? []).map((st, index) => (
+										<li key={index} className="step flex">
+											<p className="text-balance">{st?.description}</p>
+										</li>
+									))}
+								</ul>
+							</div>
+
+							<div className="flex justify-end gap-3 mt-6">
+								<button className="btn">レシピを保存</button>
+								<button
+									className="btn"
+									onClick={() => {
+										setRecipe(null);
+										setSelectedItem([]);
+									}}
+								>
+									閉じる
+								</button>
+							</div>
+						</div>
+					)}
 				</div>
 
 				<div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 mt-6">
 					<table className="table">
 						<thead>
 							<tr>
-								<th></th>
+								<th>選択</th>
+								<th>アイコン</th>
 								<th>材料名</th>
-								<th onClick={() => handleSort('category')} className="cursor-pointer">
-									<div className="flex items-center space-x-2"><span>カテゴリー</span><ArrowDownUp size={15}/></div></th>
+								<th
+									onClick={() => handleSort("category")}
+									className="cursor-pointer"
+								>
+									<div className="flex items-center space-x-2">
+										<span>カテゴリー</span>
+										<ArrowDownUp size={15} />
+									</div>
+								</th>
 								<th>数量</th>
-								<th onClick={() => handleSort('expire_date')} className="cursor-pointer">
-									<div className="flex items-center space-x-2"><span>賞味期限</span><ArrowDownUp size={15}/></div></th>
-								<th onClick={() => handleSort('expire_status')} className="cursor-pointer"><div className="flex items-center space-x-2"><span>状態</span><ArrowDownUp size={15}/></div></th>
-								<th onClick={() => handleSort('created_day')} className="cursor-pointer"><div className="flex items-center space-x-2"><span>追加日</span><ArrowDownUp size={15}/></div></th>
+								<th
+									onClick={() => handleSort("expire_date")}
+									className="cursor-pointer"
+								>
+									<div className="flex items-center space-x-2">
+										<span>賞味期限</span>
+										<ArrowDownUp size={15} />
+									</div>
+								</th>
+								<th
+									onClick={() => handleSort("expire_status")}
+									className="cursor-pointer"
+								>
+									<div className="flex items-center space-x-2">
+										<span>状態</span>
+										<ArrowDownUp size={15} />
+									</div>
+								</th>
+								<th
+									onClick={() => handleSort("created_day")}
+									className="cursor-pointer"
+								>
+									<div className="flex items-center space-x-2">
+										<span>追加日</span>
+										<ArrowDownUp size={15} />
+									</div>
+								</th>
 								<th>操作</th>
 							</tr>
 						</thead>
 						<tbody>
 							{sortedItems.map((item) => (
 								<tr key={item.id}>
-									<th>{changeIcon(item.attributes.category)}</th>
+									<td>
+										<input
+											type="checkbox"
+											className="checkbox"
+											checked={selectedItem.includes(item.attributes.name)}
+											onChange={() => handleChecked(item)}
+										/>
+									</td>
+									<td>{changeIcon(item.attributes.category)}</td>
 									<td>{item.attributes.name}</td>
 									<td>
 										<span className="badge">{item.attributes.category}</span>
