@@ -12,7 +12,7 @@ import {
 } from "recharts";
 
 const PriceChart = ({ prices }) => {
-	console.log(prices);
+	console.log("price",prices);
 
 	const groupedData = {};
 
@@ -21,12 +21,12 @@ const PriceChart = ({ prices }) => {
 		if (!groupedData[mon]) groupedData[mon] = { month: mon };
 		groupedData[mon][year] = average_price;
 	});
-	console.log(groupedData);
+	console.log("group:",groupedData);
 
 	const chartData = Object.values(groupedData).sort(
 		(a, b) => a.month - b.month,
 	);
-	console.log(chartData);
+	console.log("chart:",chartData);
 
 	return (
 		<main className="p-6 mt-4 rounded-2xl shadow-md">
