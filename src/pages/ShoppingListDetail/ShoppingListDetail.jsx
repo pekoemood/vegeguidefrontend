@@ -1,5 +1,4 @@
-import axios from "axios";
-import { Plus, ShoppingCart, Trash2 } from "lucide-react";
+import { Plus, Refrigerator, ShoppingCart, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router";
 import AddItemForm from "../../components/AddItemForm";
@@ -19,7 +18,7 @@ const ShoppingListDetail = () => {
 	const [loadingItems, setLoadingItems] = useState([]);
 	let filteredItems = items;
 
-	console.log(shoppingList);
+	console.log(items);
 
 	if (selectedCategory) {
 		filteredItems = filteredItems.filter(
@@ -34,6 +33,7 @@ const ShoppingListDetail = () => {
 		acc[item.category].push(item);
 		return acc;
 	}, {});
+	console.log(filteredGroupedItems);
 
 	Object.keys(filteredGroupedItems).forEach((category) => {
 		filteredGroupedItems[category].sort((a, b) => a.checked - b.checked);
@@ -126,18 +126,40 @@ const ShoppingListDetail = () => {
 		}
 	};
 
+	const handleAddFridge = async (item) => {
+		const items = Array.isArray(item) ? item : [item] 
+		try {
+			await api.post(`/fridge_items`, {
+				fridge: items.map((item) => ({
+					name: item.name,
+					category: item.category,
+					display_amount: item.display_amount,
+					amount: item.amount,
+					unit: item.unit,
+				}))
+			});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	return (
 		<div className="container max-w-screen-md mx-auto px-4 py-8">
 			<div className="mb-6 flex justify-between">
 				<button
 					onClick={() => navigate("/shoppinglist")}
-					className="btn btn-outline btn-sm"
+					className="btn btn-outline"
 				>
 					戻る
 				</button>
-				<button className="btn btn-outline btn-sm" onClick={openModal}>
-					アイテムを追加する
-				</button>
+				<div className="space-x-2">
+					<button className="btn btn-outline" onClick={openModal}>
+						アイテムを追加する
+					</button>
+					<button className="btn btn-outline" onClick={() => handleAddFridge(items)}>全ての材料を冷蔵庫に追加する</button>
+
+				</div>
+
 			</div>
 
 			<div className="px-4 pb-2">
@@ -228,6 +250,11 @@ const ShoppingListDetail = () => {
 													</div>
 													<div className="flex items-center space-x-4">
 														<span>{item.display_amount}</span>
+														<Refrigerator
+															className="hover:text-info"
+															size={15}
+															onClick={() => handleAddFridge(item)}
+														/>
 														<Trash2
 															className="hover:text-error"
 															size={15}
