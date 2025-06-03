@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import Button from "../../components/Button";
 import FormField from "../../components/FormField";
+import GoogleLoginButton from "../../components/GoogleLoginButton";
 import Spinner from "../../components/Spinner";
 import { UserContext } from "../../context/UserContext";
 import { loginSchema } from "../../utils/validation";
@@ -125,6 +126,17 @@ const Login = () => {
 							<p className="text-sm text-gray-500">
 								健康的な食生活への第一歩を踏み出しましょう
 							</p>
+						</div>
+
+						<GoogleLoginButton text="Googleでログイン"/>
+
+						<div className="relative">
+							<div className="absolute inset-0 flex items-center">
+								<span className="w-full border-t border-base-300"></span>
+							</div>
+							<div className="relative flex justify-center text-xs">
+								<span className="bg-base-100 text-neutral-500 px-2">または</span>
+							</div>
 						</div>
 
 						<form
