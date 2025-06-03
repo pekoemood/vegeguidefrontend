@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import {
 	ArrowDownUp,
 	Bean,
@@ -15,7 +14,7 @@ import {
 	Wheat,
 } from "lucide-react";
 import { useState, useTransition } from "react";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import FridgeItemForm from "../../components/FridgeItemForm";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
@@ -40,6 +39,7 @@ const initialStatus = {
 };
 
 const FridgeItems = () => {
+	const navigation = useNavigate();
 	const { data } = useLoaderData();
 	const [items, setItems] = useState(data.data);
 	const [name, setName] = useState("");
@@ -201,6 +201,17 @@ const FridgeItems = () => {
 				console.error(err);
 			}
 		});
+	};
+
+	const handleSaveRecipe = async () => {
+		try {
+			const response = await api.post(`/recipes`, {
+				...recipe
+			});
+			navigation('/recipe-lists');
+		} catch (err) {
+			console.error(err);
+		}
 	};
 
 	console.log("レシピ", recipe);
@@ -386,7 +397,7 @@ const FridgeItems = () => {
 							</div>
 
 							<div className="flex justify-end gap-3 mt-6">
-								<button className="btn">レシピを保存</button>
+								<button className="btn" onClick={handleSaveRecipe}>レシピを保存</button>
 								<button
 									className="btn"
 									onClick={() => {
