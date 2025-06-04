@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { UserContext } from "../context/UserContext";
 import { api } from "../utils/axios";
 
-const GoogleLoginButton = ({text}) => {
+const GoogleLoginButton = ({ text }) => {
 	const navigate = useNavigate();
 	const { setUser } = use(UserContext);
 	const login = useGoogleLogin({
