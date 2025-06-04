@@ -1,11 +1,15 @@
 import axios from "axios";
+import { BookOpen, ShoppingCart, Refrigerator, ChefHat, Leaf, User, LogOut, LogIn, UserPlus} from "lucide-react";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { UserContext } from "../context/UserContext";
 import Spinner from "./Spinner";
+import useModal from "../hooks/useModal";
+import AccountSetting from "./AccountSetting";
 
 const Navibar = () => {
 	const navigate = useNavigate();
+	const { Modal, openModal, closeModal } = useModal();
 
 	const { user, setUser, loading } = useContext(UserContext);
 
@@ -30,49 +34,70 @@ const Navibar = () => {
 
 	return (
 		<div className="navbar bg-primary text-primary-content">
-			<div className="flex-1">
+			<div className="navbar-start">
 				<button className="btn btn-ghost text-xl">
 					<Link to="/">VegeGuide</Link>
 				</button>
 			</div>
-			<div className="flex-none">
-				<ul className="menu menu-horizontal px-1">
+
+			<div className="navbar-center">
+				<ul className="menu menu-horizontal">
 					<li>
-						<Link to="/vegelist">野菜一覧</Link>
+						<Link to="/vegelist" className="flex items-center gap-x-1"><Leaf size={15}/>野菜一覧</Link>
 					</li>
-					{user && user.name ? (
+					{user && user.name && (
 						<>
 							<li>
-								<span>{user.name}さん</span>
+								<Link to="/recipe-generator" className="flex items-center gap-x-1"><ChefHat size={15}/>レシピ提案</Link>
 							</li>
 							<li>
-								<Link to="/recipe-generator">レシピ生成</Link>
+								<Link to="/recipe-lists" className="flex items-center gap-x-1">
+									<BookOpen size={15} />
+									レシピ一覧
+								</Link>
 							</li>
 							<li>
-								<Link to="/shoppinglist">買い物リスト</Link>
+								<Link to="/shoppinglist" className="flex items-center gap-x-1"><ShoppingCart size={15}/>買い物リスト</Link>
 							</li>
+
 							<li>
-								<Link to="/recipe-lists">レシピリスト</Link>
-							</li>
-							<li>
-								<Link to="/fridge-items">冷蔵庫</Link>
-							</li>
-							<li>
-								<button onClick={handleLogout}>ログアウト</button>
-							</li>
-						</>
-					) : (
-						<>
-							<li>
-								<Link to="/signup">新規登録</Link>
-							</li>
-							<li>
-								<Link to="/login">ログイン</Link>
+								<Link to="/fridge-items" className="flex items-center gap-x-1"><Refrigerator size={15}/>冷蔵庫管理</Link>
 							</li>
 						</>
 					)}
 				</ul>
 			</div>
+
+			<div className="navbar-end">
+				<ul className="menu menu-horizontal">
+					{user && user.name ? (
+						<>
+							<li>
+								<span className="flex items-center gap-x-1" onClick={openModal}>
+								<User size={15}/>
+								マイページ
+								</span>
+
+							</li>
+							<li>
+								<button onClick={handleLogout} className="flex items-center gap-x-1"><LogOut size={15}/>ログアウト</button>
+							</li>
+						</>
+					) : (
+						<>
+							<li>
+								<Link to="/signup" className="flex items-center gap-x-1"><UserPlus size={15}/>新規登録</Link>
+							</li>
+							<li>
+								<Link to="/login" className="flex items-center gap-x-1"><LogIn size={15}/>ログイン</Link>
+							</li>
+						</>
+					)}
+				</ul>
+			</div>
+			<Modal>
+				<AccountSetting />
+			</Modal>
 		</div>
 	);
 };

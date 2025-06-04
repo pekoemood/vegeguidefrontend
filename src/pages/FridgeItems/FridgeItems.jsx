@@ -206,9 +206,9 @@ const FridgeItems = () => {
 	const handleSaveRecipe = async () => {
 		try {
 			const response = await api.post(`/recipes`, {
-				...recipe
+				...recipe,
 			});
-			navigation('/recipe-lists');
+			navigation("/recipe-lists");
 		} catch (err) {
 			console.error(err);
 		}
@@ -397,7 +397,9 @@ const FridgeItems = () => {
 							</div>
 
 							<div className="flex justify-end gap-3 mt-6">
-								<button className="btn" onClick={handleSaveRecipe}>レシピを保存</button>
+								<button className="btn" onClick={handleSaveRecipe}>
+									レシピを保存
+								</button>
 								<button
 									className="btn"
 									onClick={() => {
