@@ -96,7 +96,7 @@ const Navibar = () => {
 				</ul>
 			</div>
 			<Modal>
-				<AccountSetting />
+				<AccountSetting name={user?.name} email={user?.email} />
 			</Modal>
 		</div>
 	);
