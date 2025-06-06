@@ -6,12 +6,17 @@ const ProfileTab = ({name, email}) => {
         <p className="text-neutral-500 text-sm">現在登録されている情報を確認できます</p>
       </div>
 
-      <fieldset className="fieldset">
-        <label htmlFor="" className="label text-sm">お名前</label>
-        <input type="text"  className="input w-full" value={name} disabled={true}/>
+      <fieldset className="fieldset space-y-4">
+        <div>
+          <label htmlFor="" className="label text-sm">お名前</label>
+          <input type="text"  className="input w-full" value={name} disabled={true}/>
+        </div>
 
-        <label htmlFor="" className="label text-sm">メールアドレス</label>
-        <input type="email"  className="input w-full" value={email} disabled={true}/>
+        <div>
+          <label htmlFor="" className="label text-sm">メールアドレス</label>
+          <input type="email"  className="input w-full" value={email} disabled={true}/>
+        </div>
+
       </fieldset>
 
       <p className="text-sm text-neutral-500">メールアドレスやパスワードを変更する場合は、それぞれのタブから行ってください。</p>
