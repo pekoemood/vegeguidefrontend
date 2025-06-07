@@ -1,38 +1,83 @@
-import { Eye, EyeOff } from 'lucide-react';
-import { useState } from 'react';
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
+import { api } from '../utils/axios';
 
 const PasswordTab = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
+	const [showPassword, setShowPassword] = useState(false);
+	const [showConfirm, setShowConfirm] = useState(false);
+	const [password, setPassword] = useState({
+		oldPassword: "",
+		newPassword: "",
+	});
 
-  return (
-    <section className="flex flex-col space-y-6">
-      <div>
-        <h2 className="text-lg font-bold">パスワード変更</h2>
-        <p className="text-neutral-500 text-sm">セキュリティのため、定期的にパスワードを変更することをおすすめします。</p>
-      </div>
 
-      <fieldset className="fieldset space-y-4">
-        <div>
-          <label htmlFor="" className="label text-sm">現在のパスワード</label>
-          <div className='relative'>
-            <input type={`${showPassword ? 'text' : 'password'}`} placeholder="現在のパスワードを入力"  className="input w-full"/>
-            <button className='absolute right-3 top-1/2 -translate-y-1/2' onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff size={15}/> : <Eye size={15}/>}</button>
-          </div>
-        </div>
+  const handleClick = async () => {
+    try {
+      await api.patch(`/password`, {
+      old_password: password.oldPassword,
+      new_password: password.newPassword
+    })
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
-        <div>
-          <label htmlFor="" className="label text-sm">現在のパスワード</label>
-          <div className='relative'>
-            <input type={`${showConfirm ? 'text' : 'password'}`} placeholder="現在のパスワードを入力"  className="input w-full"/>
-            <button className='absolute right-3 top-1/2 -translate-y-1/2' onClick={() => setShowConfirm(!showConfirm)}>{showConfirm ? <EyeOff size={15}/> : <Eye size={15}/>}</button>
-          </div>
-        </div>
-      </fieldset>
+	return (
+		<section className="flex flex-col space-y-6">
+			<div>
+				<h2 className="text-lg font-bold">パスワード変更</h2>
+				<p className="text-neutral-500 text-sm">
+					セキュリティのため、定期的にパスワードを変更することをおすすめします。
+				</p>
+			</div>
 
-      <button className="btn btn-primary">パスワードを変更</button>
-    </section>
-  )
-}
+			<fieldset className="fieldset space-y-4">
+				<div>
+					<label htmlFor="" className="label text-sm">
+						現在のパスワード
+					</label>
+					<div className="relative">
+						<input
+							type={`${showPassword ? "text" : "password"}`}
+							placeholder="現在のパスワードを入力"
+							className="input w-full"
+							value={password.oldPassword}
+              onChange={(e) => setPassword((prev) => ({...prev, oldPassword: e.target.value}))}
+						/>
+						<button
+							className="absolute right-3 top-1/2 -translate-y-1/2"
+							onClick={() => setShowPassword(!showPassword)}
+						>
+							{showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
+						</button>
+					</div>
+				</div>
+
+				<div>
+					<label htmlFor="" className="label text-sm">
+						新しいパスワード
+					</label>
+					<div className="relative">
+						<input
+							type={`${showConfirm ? "text" : "password"}`}
+							placeholder="新しいパスワードを入力"
+							className="input w-full"
+							value={password.newPassword}
+              onChange={(e) => setPassword((prev) => ({...prev, newPassword: e.target.value}))}
+						/>
+						<button
+							className="absolute right-3 top-1/2 -translate-y-1/2"
+							onClick={() => setShowConfirm(!showConfirm)}
+						>
+							{showConfirm ? <EyeOff size={15} /> : <Eye size={15} />}
+						</button>
+					</div>
+				</div>
+			</fieldset>
+
+			<button className="btn btn-primary" onClick={handleClick}>パスワードを変更</button>
+		</section>
+	);
+};
 
 export default PasswordTab;

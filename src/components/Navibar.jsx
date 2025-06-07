@@ -1,11 +1,21 @@
 import axios from "axios";
-import { BookOpen, ShoppingCart, Refrigerator, ChefHat, Leaf, User, LogOut, LogIn, UserPlus} from "lucide-react";
+import {
+	BookOpen,
+	ChefHat,
+	Leaf,
+	LogIn,
+	LogOut,
+	Refrigerator,
+	ShoppingCart,
+	User,
+	UserPlus,
+} from "lucide-react";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { UserContext } from "../context/UserContext";
-import Spinner from "./Spinner";
 import useModal from "../hooks/useModal";
 import AccountSetting from "./AccountSetting";
+import Spinner from "./Spinner";
 
 const Navibar = () => {
 	const navigate = useNavigate();
@@ -43,12 +53,21 @@ const Navibar = () => {
 			<div className="navbar-center">
 				<ul className="menu menu-horizontal">
 					<li>
-						<Link to="/vegelist" className="flex items-center gap-x-1"><Leaf size={15}/>野菜一覧</Link>
+						<Link to="/vegelist" className="flex items-center gap-x-1">
+							<Leaf size={15} />
+							野菜一覧
+						</Link>
 					</li>
 					{user && user.name && (
 						<>
 							<li>
-								<Link to="/recipe-generator" className="flex items-center gap-x-1"><ChefHat size={15}/>レシピ提案</Link>
+								<Link
+									to="/recipe-generator"
+									className="flex items-center gap-x-1"
+								>
+									<ChefHat size={15} />
+									レシピ提案
+								</Link>
 							</li>
 							<li>
 								<Link to="/recipe-lists" className="flex items-center gap-x-1">
@@ -57,11 +76,17 @@ const Navibar = () => {
 								</Link>
 							</li>
 							<li>
-								<Link to="/shoppinglist" className="flex items-center gap-x-1"><ShoppingCart size={15}/>買い物リスト</Link>
+								<Link to="/shoppinglist" className="flex items-center gap-x-1">
+									<ShoppingCart size={15} />
+									買い物リスト
+								</Link>
 							</li>
 
 							<li>
-								<Link to="/fridge-items" className="flex items-center gap-x-1"><Refrigerator size={15}/>冷蔵庫管理</Link>
+								<Link to="/fridge-items" className="flex items-center gap-x-1">
+									<Refrigerator size={15} />
+									冷蔵庫管理
+								</Link>
 							</li>
 						</>
 					)}
@@ -74,22 +99,33 @@ const Navibar = () => {
 						<>
 							<li>
 								<span className="flex items-center gap-x-1" onClick={openModal}>
-								<User size={15}/>
-								マイページ
+									<User size={15} />
+									マイページ
 								</span>
-
 							</li>
 							<li>
-								<button onClick={handleLogout} className="flex items-center gap-x-1"><LogOut size={15}/>ログアウト</button>
+								<button
+									onClick={handleLogout}
+									className="flex items-center gap-x-1"
+								>
+									<LogOut size={15} />
+									ログアウト
+								</button>
 							</li>
 						</>
 					) : (
 						<>
 							<li>
-								<Link to="/signup" className="flex items-center gap-x-1"><UserPlus size={15}/>新規登録</Link>
+								<Link to="/signup" className="flex items-center gap-x-1">
+									<UserPlus size={15} />
+									新規登録
+								</Link>
 							</li>
 							<li>
-								<Link to="/login" className="flex items-center gap-x-1"><LogIn size={15}/>ログイン</Link>
+								<Link to="/login" className="flex items-center gap-x-1">
+									<LogIn size={15} />
+									ログイン
+								</Link>
 							</li>
 						</>
 					)}
