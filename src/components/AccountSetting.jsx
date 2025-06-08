@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MailTab from "./MailTab";
 import PasswordTab from "./PasswordTab";
 import ProfileTab from "./ProfileTab";
 
@@ -39,7 +40,7 @@ const AccountSetting = ({ name, email }) => {
 			<div className="mt-6 p-6 border border-base-300 rounded-lg">
 				{activeTab === "profile" && <ProfileTab name={name} email={email} />}
 				{activeTab === "password" && <PasswordTab />}
-				{activeTab === "mail" && <div>tab3</div>}
+				{activeTab === "mail" && <MailTab email={email} />}
 			</div>
 		</main>
 	);
