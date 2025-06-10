@@ -1,17 +1,30 @@
 import { Mail } from "lucide-react";
-import { useState } from "react";
+import { useActionState, useState } from "react";
+import { api } from '../utils/axios';
+import toast, { Toaster } from 'react-hot-toast';
 
 const MailTab = ({ email }) => {
-  const [formData, setFormData] = useState({
-    newEmail: "",
-    password: "",
-  })
 
-  const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev, [e.target.name]: e.target.value
-    }))
-  }
+	const initialState = {
+		new_email: "",
+		password: ""
+	}
+
+
+	const [state, formAction, isPending] = useActionState(async (currentState, formData) => {
+		const data = Object.fromEntries(formData.entries());
+
+		try {
+					await api.post(`/email_change_requests`, {
+						new_email: data.newEmail,
+						password: data.password
+		})
+		toast.success('新しいメールアドレスに確認メールを送信しました')
+		} catch (err) {
+			console.log(err);
+			toast.error(err.response?.data?.message)
+		}
+	}, initialState)
 
 
 	return (
@@ -27,7 +40,7 @@ const MailTab = ({ email }) => {
 				</p>
 			</div>
 
-			<form>
+			<form action={formAction}>
 				<fieldset className="fieldset space-y-4">
 					<div>
 						<label htmlFor="" className="label text-sm">
@@ -37,9 +50,9 @@ const MailTab = ({ email }) => {
 							type="email"
 							placeholder="現在のパスワードを入力"
 							className="input w-full"
-							name="oldMail"
 							value={email}
 							disabled={true}
+
 						/>
 					</div>
 
@@ -52,8 +65,6 @@ const MailTab = ({ email }) => {
 							placeholder="new-email@example.com"
 							className="input w-full"
 							name="newEmail"
-              value={formData.newEmail}
-              onChange={handleChange}
 						/>
 					</div>
 
@@ -66,16 +77,15 @@ const MailTab = ({ email }) => {
 							placeholder="現在のパスワードを入力"
 							className="input w-full"
 							name="password"
-              value={formData.password}
-              onChange={handleChange}
 						/>
 					</div>
 
-					<button className="btn btn-primary" type="submit">
-						メールアドレスを変更
+					<button className="btn btn-primary" type="submit" disabled={isPending} >
+						{isPending ? <span className="loading loading-spinner loading-xs"></span> : "メールアドレスを変更"}
 					</button>
 				</fieldset>
 			</form>
+			<Toaster />
 		</section>
 	);
 };
