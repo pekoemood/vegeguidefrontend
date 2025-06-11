@@ -19,11 +19,13 @@ import VegeDetail from "../pages/VegeDetail/VegeDetail";
 import { vegeDetailLoader } from "../pages/VegeDetail/vegeDetailLoader";
 import VegeList from "../pages/VegeList/VegeList";
 import { vegeListLoader } from "../pages/VegeList/vegeListLoader";
+import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 
 export const routes = createBrowserRouter([
 	{
 		Component: Layout,
 		hydrateFallbackElement: <p>Loading...</p>,
+		errorElement: <NotFoundPage />,
 		children: [
 			{
 				index: true,
