@@ -1,7 +1,35 @@
-import { useNavigate } from "react-router";
+import { useLoaderData, useLocation, useNavigate } from "react-router";
+import useModal from "../../hooks/useModal";
+import { useEffect, useState } from "react";
+import { api } from "../../utils/axios";
+import EmailChangeSuccess from "../../components/EmailChangeSuccess";
 
 const Top = () => {
 	const navigation = useNavigate();
+	const { Modal, openModal, closeModal } = useModal();
+	const location = useLocation();
+	const [email, setEmail] = useState("");
+
+	useEffect(() => {
+		const changeMail = async () => {
+			try {
+				const params = new URLSearchParams(location.search);
+			const token = params.get("token");
+
+			if (token) {
+				const response = await api.get(`/email_change_requests/confirm`, {
+				params: { token },
+			})
+			setEmail(response.data?.email);
+			openModal();
+			navigation(location.pathname, { replace: true })
+		}} catch (err) {
+			console.error(err);
+		}
+	}
+	changeMail();
+	}, [location.search]);
+
 	return (
 		<>
 			<main className="max-w-screen mx-auto flex flex-col items-center py-32 space-y-12">
@@ -23,6 +51,9 @@ const Top = () => {
 						今すぐ使ってみる
 					</button>
 				</div>
+				<Modal>
+					<EmailChangeSuccess email={email} closeModal={closeModal} />
+				</Modal>
 			</main>
 		</>
 	);

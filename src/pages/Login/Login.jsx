@@ -128,14 +128,16 @@ const Login = () => {
 							</p>
 						</div>
 
-						<GoogleLoginButton text="Googleでログイン"/>
+						<GoogleLoginButton text="Googleでログイン" />
 
 						<div className="relative">
 							<div className="absolute inset-0 flex items-center">
 								<span className="w-full border-t border-base-300"></span>
 							</div>
 							<div className="relative flex justify-center text-xs">
-								<span className="bg-base-100 text-neutral-500 px-2">または</span>
+								<span className="bg-base-100 text-neutral-500 px-2">
+									または
+								</span>
 							</div>
 						</div>
 
