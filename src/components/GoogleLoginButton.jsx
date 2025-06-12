@@ -9,7 +9,7 @@ const GoogleLoginButton = ({ text }) => {
 	const { setUser } = use(UserContext);
 	const login = useGoogleLogin({
 		flow: "auth-code",
-		redirect_uri: "https://localhost:5173",
+		redirect_uri: import.meta.env.VITE_GOOGLE_REDIRECT_URL,
 		onSuccess: async (codeResponse) => {
 			const authCode = codeResponse.code;
 
