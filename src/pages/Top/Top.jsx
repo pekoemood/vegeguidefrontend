@@ -1,4 +1,4 @@
-import { useLoaderData, useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import useModal from "../../hooks/useModal";
 import { useEffect, useState } from "react";
 import { api } from "../../utils/axios";
