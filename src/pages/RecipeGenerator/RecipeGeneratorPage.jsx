@@ -1,5 +1,5 @@
 import { Search, ShoppingBag, X } from "lucide-react";
-import { useEffect, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useLoaderData, useLocation, useNavigate } from "react-router";
 import { api } from "../../utils/axios";
 import VegetableCard from "./VegetableCard";
@@ -13,8 +13,8 @@ const RecipeGeneratorPage = () => {
 			? [location.state.selectedVegetableId]
 			: [],
 	);
-	const [cookingTime, setCookingTime] = useState(30);
-	const [calorie, setCalorie] = useState(300);
+	const [cookingTime, setCookingTime] = useState("");
+	const [calorie, setCalorie] = useState("");
 	const [category, setCategory] = useState("主菜");
 	const [difficulty, setDifficulty] = useState("初級");
 	const [servings, setServings] = useState(1);
@@ -130,32 +130,36 @@ const RecipeGeneratorPage = () => {
 				<h2 className="text-xl font-semibold mt-8">レシピ条件設定</h2>
 				<div className="grid grid-cols-2 gap-6 mt-4">
 					<div className="space-y-2 flex flex-col">
-						<label className="label" htmlFor="">
-							調理時間 ({cookingTime}分以内)
+						<label className="label" htmlFor="cookingTime">
+							調理時間
 						</label>
-						<input
-							className="range w-full"
-							type="range"
-							min={10}
-							max={120}
-							step={5}
+						<select
+							className="select w-full"
+							id="cookingTime"
 							value={cookingTime}
-							onChange={(e) => setCookingTime(Number(e.target.value))}
-						/>
+							onChange={(e) => setCookingTime(e.target.value)}
+						>
+							<option value="" disabled>選択してください</option>
+							<option value="30分以内">時短（30分以内）</option>
+							<option value="30分〜1時間">普通（30分〜1時間）</option>
+							<option value="１時間以上">じっくり（１時間以上）</option>
+						</select>
 					</div>
 					<div className="space-y-2 flex flex-col">
-						<label className="label" htmlFor="">
-							カロリー範囲 ({calorie}kcal以内)
+						<label className="label" htmlFor="calorie">
+							カロリー範囲
 						</label>
-						<input
-							className="range w-full"
-							type="range"
-							min={100}
-							max={1000}
-							step={50}
+						<select
+							className="select w-full"
+							id="calorie"
 							value={calorie}
-							onChange={(e) => setCalorie(Number(e.target.value))}
-						/>
+							onChange={(e) => setCalorie(e.target.value)}
+						>
+							<option value="" disabled>選択してください</option>
+							<option value="400">低カロリー（〜400kcal）</option>
+							<option value="700">標準カロリー（400〜700kcal）</option>
+							<option value="9999">高カロリー（700kcal〜）</option>
+						</select>
 					</div>
 					<div className="space-y-2 flex flex-col mt-4">
 						<label className="label" htmlFor="category">
