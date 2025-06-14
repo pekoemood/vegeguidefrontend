@@ -1,31 +1,31 @@
 import { Mail } from "lucide-react";
 import { useActionState, useState } from "react";
-import { api } from '../utils/axios';
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
+import { api } from "../utils/axios";
 
 const MailTab = ({ email }) => {
-
 	const initialState = {
 		new_email: "",
-		password: ""
-	}
+		password: "",
+	};
 
+	const [state, formAction, isPending] = useActionState(
+		async (currentState, formData) => {
+			const data = Object.fromEntries(formData.entries());
 
-	const [state, formAction, isPending] = useActionState(async (currentState, formData) => {
-		const data = Object.fromEntries(formData.entries());
-
-		try {
-					await api.post(`/email_change_requests`, {
-						new_email: data.newEmail,
-						password: data.password
-		})
-		toast.success('新しいメールアドレスに確認メールを送信しました')
-		} catch (err) {
-			console.log(err);
-			toast.error(err.response?.data?.message)
-		}
-	}, initialState)
-
+			try {
+				await api.post(`/email_change_requests`, {
+					new_email: data.newEmail,
+					password: data.password,
+				});
+				toast.success("新しいメールアドレスに確認メールを送信しました");
+			} catch (err) {
+				console.log(err);
+				toast.error(err.response?.data?.message);
+			}
+		},
+		initialState,
+	);
 
 	return (
 		<section className="flex flex-col space-y-6">
@@ -52,7 +52,6 @@ const MailTab = ({ email }) => {
 							className="input w-full"
 							value={email}
 							disabled={true}
-
 						/>
 					</div>
 
@@ -80,8 +79,16 @@ const MailTab = ({ email }) => {
 						/>
 					</div>
 
-					<button className="btn btn-primary" type="submit" disabled={isPending} >
-						{isPending ? <span className="loading loading-spinner loading-xs"></span> : "メールアドレスを変更"}
+					<button
+						className="btn btn-primary"
+						type="submit"
+						disabled={isPending}
+					>
+						{isPending ? (
+							<span className="loading loading-spinner loading-xs"></span>
+						) : (
+							"メールアドレスを変更"
+						)}
 					</button>
 				</fieldset>
 			</form>

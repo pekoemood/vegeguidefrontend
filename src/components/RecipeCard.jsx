@@ -8,7 +8,7 @@ const RecipeCard = ({
 	instructions,
 	cookingTime,
 	servings,
-	difficulty,
+	purpose,
 	steps,
 	ingredients,
 	setRecipes,
@@ -35,7 +35,7 @@ const RecipeCard = ({
 					<div className="flex justify-between items-center gap-2">
 						<h2 className="flex-auto card-title line-clamp-1">{title}</h2>
 						<span className="flex-none badge badge-secondary">
-							{difficulty}
+							{purpose}
 						</span>
 					</div>
 

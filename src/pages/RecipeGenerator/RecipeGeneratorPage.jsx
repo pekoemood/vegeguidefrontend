@@ -1,4 +1,4 @@
-import { Search, ShoppingBag, X } from "lucide-react";
+import { ChefHat, Search,  X } from "lucide-react";
 import { useState, useTransition } from "react";
 import { useLoaderData, useLocation, useNavigate } from "react-router";
 import { api } from "../../utils/axios";
@@ -13,10 +13,10 @@ const RecipeGeneratorPage = () => {
 			? [location.state.selectedVegetableId]
 			: [],
 	);
-	const [cookingTime, setCookingTime] = useState("");
-	const [calorie, setCalorie] = useState("");
+	const [cookingTime, setCookingTime] = useState("30分〜1時間");
+	const [calorie, setCalorie] = useState("700");
 	const [category, setCategory] = useState("主菜");
-	const [difficulty, setDifficulty] = useState("初級");
+	const [purpose, setPurpose] = useState("普段使い");
 	const [servings, setServings] = useState(1);
 	const [cookingMethod, setCookingMethod] = useState("指定なし");
 	const [recipe, setRecipe] = useState(null);
@@ -49,7 +49,7 @@ const RecipeGeneratorPage = () => {
 					cookingTime,
 					calorie,
 					category,
-					difficulty,
+					purpose,
 					servings,
 					cookingMethod,
 					selectedVegetables: selectedVegetableNames,
@@ -62,8 +62,9 @@ const RecipeGeneratorPage = () => {
 		});
 	};
 
-	const handleClickSave = async () => {
-		try {
+	const handleClickSave = () => {
+		startTransition(async () => {
+			try {
 			await api.post(`/recipes`, {
 				...recipe,
 			});
@@ -71,6 +72,7 @@ const RecipeGeneratorPage = () => {
 		} catch (error) {
 			console.error(error);
 		}
+		})
 	};
 
 	return (
@@ -139,7 +141,6 @@ const RecipeGeneratorPage = () => {
 							value={cookingTime}
 							onChange={(e) => setCookingTime(e.target.value)}
 						>
-							<option value="" disabled>選択してください</option>
 							<option value="30分以内">時短（30分以内）</option>
 							<option value="30分〜1時間">普通（30分〜1時間）</option>
 							<option value="１時間以上">じっくり（１時間以上）</option>
@@ -155,7 +156,6 @@ const RecipeGeneratorPage = () => {
 							value={calorie}
 							onChange={(e) => setCalorie(e.target.value)}
 						>
-							<option value="" disabled>選択してください</option>
 							<option value="400">低カロリー（〜400kcal）</option>
 							<option value="700">標準カロリー（400〜700kcal）</option>
 							<option value="9999">高カロリー（700kcal〜）</option>
@@ -175,21 +175,30 @@ const RecipeGeneratorPage = () => {
 							<option value="副菜">副菜</option>
 							<option value="スープ">スープ</option>
 							<option value="サラダ">サラダ</option>
+							<option value="ご飯もの">ご飯もの</option>
+							<option value="麺類">麺類</option>
+							<option value="和食">和食</option>
+							<option value="洋食">洋食</option>
+							<option value="中華">中華</option>
+							<option value="エスニック">エスニック</option>
+							<option value="デザート">デザート</option>
 						</select>
 					</div>
 					<div className="space-y-2 flex flex-col mt-4">
-						<label className="label" htmlFor="difficulty">
-							難易度
+						<label className="label" htmlFor="purpose">
+							目的・シーン
 						</label>
 						<select
 							className="select w-full"
-							id="difficulty"
-							value={difficulty}
-							onChange={(e) => setDifficulty(e.target.value)}
+							id="purpose"
+							value={purpose}
+							onChange={(e) => setPurpose(e.target.value)}
 						>
-							<option value="初級">初級</option>
-							<option value="中級">中級</option>
-							<option value="上級">上級</option>
+							<option value="普段使い">普段使い</option>
+							<option value="時短・スピード">時短・スピード</option>
+							<option value="作り置き">作り置き</option>
+							<option value="ダイエット・ヘルシー">ダイエット・ヘルシー</option>
+							<option value="おもてなし">おもてなし</option>
 						</select>
 					</div>
 					<div className="space-y-2 flex flex-col mt-4">
@@ -238,86 +247,93 @@ const RecipeGeneratorPage = () => {
 			</section>
 
 			<section className="mt-8 flex flex-col items-center space-y-4">
-				<ShoppingBag className="text-primary" size={40} />
-				<h2 className="text-xl font-semibold">レシピを提案します</h2>
-				<div className="text-center text-neutral-500">
-					<p>
-						上の画面から野菜とレシピ条件設定を選んで、「レシピを提案する」をクリックしてください
-					</p>
-					<p>AIがあなたの選んだ条件に合わせたレシピを提案します。</p>
-				</div>
-
 				{isPending ? (
 					<span className="loading loading-spinner loading-xl"></span>
 				) : (
-					recipe && (
-						<div className="p-6 my-8">
-							<div className="flex flex-col justify-between items-start space-y-2 mb-4">
-								<div>
-									<h2 className="text-start text-xl font-semibold">
-										{recipe.name}
-									</h2>
-									<p className="text-neutral-500 mt-1">{recipe.instructions}</p>
-								</div>
-								<div className="flex gap-2">
-									<div className="flex items-center badge badge-secondary">
-										料理カテゴリ: {recipe.recipe_category}
-									</div>
-									<div className="flex items-center badge badge-secondary">
-										カロリー: {recipe.calorie}kcal
-									</div>
-									<div className="flex items-center badge badge-secondary">
-										調理時間: {recipe.cooking_time}分
-									</div>
-									<div className="flex items-center badge badge-secondary">
-										難易度: {recipe.difficulty}
-									</div>
-								</div>
+					!recipe && (
+						<>
+							<ChefHat className="text-primary" size={40} />
+							<h2 className="text-xl font-semibold">レシピを提案します</h2>
+							<div className="text-center text-neutral-500">
+								<p>
+									上の画面から野菜とレシピ条件設定を選んで、「レシピを提案する」をクリックしてください
+								</p>
+								<p>AIがあなたの選んだ条件に合わせたレシピを提案します。</p>
 							</div>
+						</>
+					)
+				)}
 
+				{recipe && (
+					<div className="p-6">
+						<div className="flex flex-col justify-between items-start space-y-2 mb-4">
 							<div>
-								<h3 className="font-semibold text-lg flex items-center mb-2">
-									材料
-									{
-										<span className="text-sm font-normal ml-2">
-											({recipe.servings}人分)
-										</span>
-									}
-								</h3>
-								<div className="rounded-md p-4">
-									<ul className="grid grid-cols-3 gap-2">
-										{recipe.ingredients?.map((ingredient, index) => (
-											<li key={index} className="flex items-center gap-2">
-												<span className="badge badge-neutral badge-xs"></span>
-												{ingredient.name} {ingredient?.display_amount}
-											</li>
-										))}
-									</ul>
+								<h2 className="text-start text-xl font-semibold">
+									{recipe.name}
+								</h2>
+								<p className="text-neutral-500 mt-1">{recipe.instructions}</p>
+							</div>
+							<div className="flex gap-2">
+								<div className="flex items-center badge badge-secondary">
+									料理カテゴリ: {recipe.recipe_category}
+								</div>
+								<div className="flex items-center badge badge-secondary">
+									カロリー: {recipe.calorie}kcal
+								</div>
+								<div className="flex items-center badge badge-secondary">
+									調理時間: {recipe.cooking_time}分
+								</div>
+								<div className="flex items-center badge badge-secondary">
+									目的・シーン: {recipe.purpose}
 								</div>
 							</div>
+						</div>
 
-							<hr className="border-t border-base-300 my-6" />
-
-							<div className="flex flex-col">
-								<h3 className="font-semibold text-lg flex items-center mb-4">
-									調理手順
-								</h3>
-								<ul className="steps steps-vertical">
-									{(recipe?.step ?? []).map((st, index) => (
-										<li key={index} className="step flex">
-											<p className="text-balance">{st?.description}</p>
+						<div>
+							<h3 className="font-semibold text-lg flex items-center mb-2">
+								材料
+								{
+									<span className="text-sm font-normal ml-2">
+										({recipe.servings}人分)
+									</span>
+								}
+							</h3>
+							<div className="rounded-md p-4">
+								<ul className="grid grid-cols-3 gap-2">
+									{recipe.ingredients?.map((ingredient, index) => (
+										<li key={index} className="flex items-center gap-2">
+											<span className="badge badge-neutral badge-xs"></span>
+											{ingredient.name} {ingredient?.display_amount}
 										</li>
 									))}
 								</ul>
 							</div>
-
-							<div className="flex justify-end gap-3 mt-6">
-								<button onClick={handleClickSave} className="btn">
-									レシピを保存
-								</button>
-							</div>
 						</div>
-					)
+
+						<hr className="border-t border-base-300 my-6" />
+
+						<div className="flex flex-col">
+							<h3 className="font-semibold text-lg flex items-center mb-4">
+								調理手順
+							</h3>
+							<ul className="steps steps-vertical">
+								{(recipe?.step ?? []).map((st, index) => (
+									<li key={index} className="step flex">
+										<p className="text-balance">{st?.description}</p>
+									</li>
+								))}
+							</ul>
+						</div>
+
+						<div className="flex justify-end gap-3 mt-6">
+							<button onClick={handleClickSave} className="btn relative" disabled={isPending}>
+								<span className={isPending ? 'invisible' : ""}>レシピを保存</span>
+								{isPending && (
+									<span className="absolute left-1/2 -translate-x-1/2 loading loading-spinner loading-md"></span>
+								)}
+							</button>
+						</div>
+					</div>
 				)}
 			</section>
 		</main>

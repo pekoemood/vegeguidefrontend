@@ -3,7 +3,6 @@ import Footer from "./components/Footer";
 import Navibar from "./components/Navibar";
 import { UserProvider } from "./context/UserContext";
 
-
 const Layout = () => {
 	const navigation = useNavigation();
 	const isNavigating = Boolean(navigation.location);
@@ -15,7 +14,7 @@ const Layout = () => {
 					<Navibar />
 					{isNavigating && (
 						<div className="fixed inset-0 flex items-center justify-center bg-base-300/50 z-50">
-  						<span className="loading loading-dots loading-xl"></span>
+							<span className="loading loading-dots loading-xl"></span>
 						</div>
 					)}
 					<div className="flex-grow">
