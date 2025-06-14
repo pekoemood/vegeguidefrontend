@@ -3,6 +3,7 @@ import Layout from "../Layout";
 import FridgeItems from "../pages/FridgeItems/FridgeItems";
 import { fridgeItemsLoader } from "../pages/FridgeItems/fridgeItemsLoader";
 import Login from "../pages/Login/Login";
+import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import RecipeGeneratorPage from "../pages/RecipeGenerator/RecipeGeneratorPage";
 import recipeGeneratorLoader from "../pages/RecipeGenerator/recipeGeneratorLoader";
 import RecipeLists from "../pages/RecipeLists/RecipeLists";
@@ -19,7 +20,6 @@ import VegeDetail from "../pages/VegeDetail/VegeDetail";
 import { vegeDetailLoader } from "../pages/VegeDetail/vegeDetailLoader";
 import VegeList from "../pages/VegeList/VegeList";
 import { vegeListLoader } from "../pages/VegeList/vegeListLoader";
-import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 
 export const routes = createBrowserRouter([
 	{

@@ -355,7 +355,7 @@ const FridgeItems = () => {
 										調理時間: {recipe.cooking_time}分
 									</div>
 									<div className="flex items-center badge badge-secondary">
-										難易度: {recipe.difficulty}
+										目的: {recipe.purpose}
 									</div>
 								</div>
 							</div>

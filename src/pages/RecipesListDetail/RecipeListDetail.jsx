@@ -5,6 +5,8 @@ import {
 	Leaf,
 	ShoppingCart,
 	User,
+	Target,
+	Grid3x3,
 } from "lucide-react";
 import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router";
@@ -54,8 +56,12 @@ const RecipeListDetail = () => {
 					<span>調理時間 : {shoppingList.cooking_time}分</span>
 				</div>
 				<div className="flex items-center badge badge-secondary">
-					<ChefHat size={20} />
-					<span>難易度 : {shoppingList.difficulty}</span>
+					<Grid3x3 size={20} />
+					<span>カテゴリ : {shoppingList.recipe_category}</span>
+				</div>
+				<div className="flex items-center badge badge-secondary">
+					<Target size={20} />
+					<span>目的 : {shoppingList.purpose}</span>
 				</div>
 				<div className="flex items-center badge badge-secondary">
 					<User size={20} />

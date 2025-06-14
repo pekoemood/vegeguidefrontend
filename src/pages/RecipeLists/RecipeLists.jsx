@@ -26,7 +26,7 @@ const RecipeLists = () => {
 							instructions={recipe.attributes.instructions}
 							cookingTime={recipe.attributes.cooking_time}
 							servings={recipe.attributes.servings}
-							difficulty={recipe.attributes.difficulty}
+							purpose={recipe.attributes.purpose}
 							ingredients={recipe.attributes.ingredients}
 							steps={recipe.attributes.recipe_steps}
 							setRecipes={setRecipes}
