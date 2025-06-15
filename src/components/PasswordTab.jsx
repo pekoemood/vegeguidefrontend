@@ -120,8 +120,6 @@ const PasswordTab = () => {
 					</button>
 				</fieldset>
 			</form>
-
-			<Toaster />
 		</section>
 	);
 };

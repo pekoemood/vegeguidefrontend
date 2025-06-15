@@ -15,6 +15,7 @@ import Ingredients from "../../components/Ingredients";
 import RecipeSteps from "../../components/RecipeSteps";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
+import toast, { Toaster } from 'react-hot-toast';
 
 const RecipeListDetail = () => {
 	const { data } = useLoaderData();
@@ -32,8 +33,10 @@ const RecipeListDetail = () => {
 				name: name,
 			});
 			setShoppingLists(response.data.data.attributes);
+			toast.success('買い物リストに追加しました')
 		} catch (error) {
 			console.error(error);
+			toast.error('買い物リストの追加に失敗しました')
 		}
 	};
 
@@ -42,7 +45,7 @@ const RecipeListDetail = () => {
 			<div className="mb-6">
 				<button
 					onClick={() => navigate("/recipe-lists")}
-					className="btn btn-outline btn-sm"
+					className="btn btn-outline"
 				>
 					戻る
 				</button>

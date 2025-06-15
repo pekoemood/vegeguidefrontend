@@ -18,6 +18,7 @@ import { useLoaderData, useNavigate } from "react-router";
 import FridgeItemForm from "../../components/FridgeItemForm";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
+import toast from 'react-hot-toast';
 
 const categories = [
 	{ name: "野菜", icon: Carrot },
@@ -149,8 +150,11 @@ const FridgeItems = () => {
 			});
 			setItems(response.data.data);
 			closeModal();
+			toast.success('材料を追加しました');
+			
 		} catch (err) {
 			console.error(err);
+			toast.error('材料の追加に失敗しました');
 		}
 	};
 
@@ -166,8 +170,10 @@ const FridgeItems = () => {
 			});
 			setItems(response.data.data);
 			closeModal();
+			toast.success('材料情報を編集しました');
 		} catch (err) {
 			console.error(err);
+			toast.error('材料情報の編集に失敗しました');
 		}
 	};
 
@@ -175,8 +181,10 @@ const FridgeItems = () => {
 		try {
 			const response = await api.delete(`/fridge_items/${id}`);
 			setItems(response.data.data);
+			toast.success('材料を削除しました');
 		} catch (err) {
 			console.error(err);
+			toast.error('材料の削除に失敗しました');
 		}
 	};
 
@@ -209,8 +217,10 @@ const FridgeItems = () => {
 				...recipe,
 			});
 			navigation("/recipe-lists");
+			toast.success('レシピを保存しました');
 		} catch (err) {
 			console.error(err);
+			toast.error('レシピの保存に失敗しました');
 		}
 	};
 

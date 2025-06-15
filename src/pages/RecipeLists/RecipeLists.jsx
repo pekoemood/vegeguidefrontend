@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router";
 import RecipeCard from "../../components/RecipeCard";
+import toast, { Toaster } from 'react-hot-toast';
 
 const RecipeLists = () => {
 	const { data } = useLoaderData();
@@ -30,6 +31,7 @@ const RecipeLists = () => {
 							ingredients={recipe.attributes.ingredients}
 							steps={recipe.attributes.recipe_steps}
 							setRecipes={setRecipes}
+							toast={toast}
 						/>
 					))}
 				</div>

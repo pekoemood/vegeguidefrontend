@@ -92,7 +92,6 @@ const MailTab = ({ email }) => {
 					</button>
 				</fieldset>
 			</form>
-			<Toaster />
 		</section>
 	);
 };
