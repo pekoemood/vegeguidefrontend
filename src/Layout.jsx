@@ -2,6 +2,7 @@ import { Outlet, useNavigation } from "react-router";
 import Footer from "./components/Footer";
 import Navibar from "./components/Navibar";
 import { UserProvider } from "./context/UserContext";
+import { Toaster } from 'react-hot-toast';
 
 const Layout = () => {
 	const navigation = useNavigation();
@@ -21,7 +22,9 @@ const Layout = () => {
 						<Outlet />
 					</div>
 					<Footer />
+					<Toaster />
 				</UserProvider>
+
 			</div>
 		</>
 	);

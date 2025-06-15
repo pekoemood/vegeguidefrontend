@@ -3,6 +3,7 @@ import { useState, useTransition } from "react";
 import { useLoaderData, useLocation, useNavigate } from "react-router";
 import { api } from "../../utils/axios";
 import VegetableCard from "./VegetableCard";
+import toast from 'react-hot-toast';
 
 const RecipeGeneratorPage = () => {
 	const location = useLocation();
@@ -69,6 +70,7 @@ const RecipeGeneratorPage = () => {
 				...recipe,
 			});
 			navigation("/recipe-lists");
+			toast.success('レシピを保存しました');
 		} catch (error) {
 			console.error(error);
 		}

@@ -12,6 +12,7 @@ const RecipeCard = ({
 	steps,
 	ingredients,
 	setRecipes,
+	toast,
 }) => {
 	const handleClickDelete = async (e) => {
 		e.stopPropagation();
@@ -21,8 +22,10 @@ const RecipeCard = ({
 			setRecipes((prevRecipes) =>
 				prevRecipes.filter((recipe) => recipe.id !== id),
 			);
+			toast.success("レシピを削除しました");
 		} catch (error) {
 			console.error(error);
+			toast.error('レシピの削除に失敗しました');
 		}
 	};
 
