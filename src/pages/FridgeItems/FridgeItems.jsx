@@ -277,38 +277,38 @@ const FridgeItems = () => {
 
 				<div className="grid grid-cols-5 gap-4 mt-6">
 					<div
-						className="border border-base-300 p-4 rounded-lg"
+						className={`border border-base-300 p-4 rounded-lg cursor-pointer transition transform hover:scale-105  hover:bg-base-200 hover:shadow-lg ${foodSelectedStatus === null && 'bg-base-200'}`}
 						onClick={() => setFoodSelectedStatus(null)}
 					>
 						<p className="text-2xl">{items.length}</p>
 						<span className="text-neutral-500">総材料数</span>
 					</div>
 					<div
-						className="border border-base-300 p-4 rounded-lg"
+						className={`border border-base-300 p-4 rounded-lg cursor-pointer transition transform hover:scale-105  hover:bg-error hover:shadow-lg ${foodSelectedStatus === 'expired' && 'bg-error'}`}
 						onClick={() => setFoodSelectedStatus("expired")}
 					>
-						<p className="text-2xl text-red-500">{foodStatusCount.expired}</p>
+						<p className="text-2xl text-error-content">{foodStatusCount.expired}</p>
 						<span className="text-neutral-500">期限切れ</span>
 					</div>
 					<div
-						className="border border-base-300 p-4 rounded-lg"
+						className={`border border-base-300 p-4 rounded-lg cursor-pointer transition transform hover:scale-105  hover:bg-accent hover:shadow-lg ${foodSelectedStatus === 'urgent' && 'bg-accent'}`}
 						onClick={() => setFoodSelectedStatus("urgent")}
 					>
-						<p className="text-2xl text-error">{foodStatusCount.urgent}</p>
+						<p className="text-2xl text-accent-content">{foodStatusCount.urgent}</p>
 						<span className="text-neutral-500">期限間近</span>
 					</div>
 					<div
-						className="border border-base-300 p-4 rounded-lg"
+						className={`border border-base-300 p-4 rounded-lg cursor-pointer transition transform hover:scale-105  hover:bg-warning hover:shadow-lg ${foodSelectedStatus === 'warning' && 'bg-warning'}`}
 						onClick={() => setFoodSelectedStatus("warning")}
 					>
-						<p className="text-2xl text-warning">{foodStatusCount.warning}</p>
+						<p className="text-2xl text-warning-content">{foodStatusCount.warning}</p>
 						<span className="text-neutral-500">注意</span>
 					</div>
 					<div
-						className="border border-base-300 p-4 rounded-lg"
+						className={`border border-base-300 p-4 rounded-lg cursor-pointer transition transform hover:scale-105  hover:bg-info hover:shadow-lg ${foodSelectedStatus === 'safe' && 'bg-info'}`}
 						onClick={() => setFoodSelectedStatus("safe")}
 					>
-						<p className="text-2xl text-info">{foodStatusCount.safe}</p>
+						<p className="text-2xl text-info-content">{foodStatusCount.safe}</p>
 						<span className="text-neutral-500">安全</span>
 					</div>
 				</div>
@@ -493,7 +493,7 @@ const FridgeItems = () => {
 									<td className="flex items-center space-x-4">
 										<SquarePen
 											size={20}
-											className="hover:text-info"
+											className="hover:text-info cursor-pointer"
 											onClick={() => {
 												setEditingItemId(item.id);
 												openModal();
@@ -501,7 +501,7 @@ const FridgeItems = () => {
 										/>
 										<Trash2
 											size={20}
-											className="hover:text-error"
+											className="hover:text-error cursor-pointer"
 											onClick={() => handleDelete(item.id)}
 										/>
 									</td>
