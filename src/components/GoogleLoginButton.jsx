@@ -19,7 +19,7 @@ const GoogleLoginButton = ({ text }) => {
 				});
 				console.log("ログイン成功", response.data);
 				setUser(response.data);
-				navigate("/");
+				navigate("/vegelist");
 			} catch (err) {
 				console.error("ログイン失敗", err);
 			}

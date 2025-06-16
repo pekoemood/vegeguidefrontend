@@ -250,7 +250,7 @@ const FridgeItems = () => {
 							openModal();
 						}}
 					>
-						食材を追加
+						材料を追加
 					</button>
 				</div>
 
