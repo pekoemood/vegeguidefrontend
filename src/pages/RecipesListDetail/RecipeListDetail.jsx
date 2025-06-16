@@ -2,20 +2,20 @@ import {
 	ChefHat,
 	Clock,
 	CookingPot,
+	Grid3x3,
 	Leaf,
 	ShoppingCart,
-	User,
 	Target,
-	Grid3x3,
+	User,
 } from "lucide-react";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { useLoaderData, useNavigate } from "react-router";
 import AddLItemFromRecipe from "../../components/AddItemFromRecipe";
 import Ingredients from "../../components/Ingredients";
 import RecipeSteps from "../../components/RecipeSteps";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
-import toast, { Toaster } from 'react-hot-toast';
 
 const RecipeListDetail = () => {
 	const { data } = useLoaderData();
@@ -33,10 +33,10 @@ const RecipeListDetail = () => {
 				name: name,
 			});
 			setShoppingLists(response.data.data.attributes);
-			toast.success('買い物リストに追加しました')
+			toast.success("買い物リストに追加しました");
 		} catch (error) {
 			console.error(error);
-			toast.error('買い物リストの追加に失敗しました')
+			toast.error("買い物リストの追加に失敗しました");
 		}
 	};
 

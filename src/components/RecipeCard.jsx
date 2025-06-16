@@ -25,7 +25,7 @@ const RecipeCard = ({
 			toast.success("レシピを削除しました");
 		} catch (error) {
 			console.error(error);
-			toast.error('レシピの削除に失敗しました');
+			toast.error("レシピの削除に失敗しました");
 		}
 	};
 
@@ -37,9 +37,7 @@ const RecipeCard = ({
 				<div className="card-body">
 					<div className="flex justify-between items-center gap-2">
 						<h2 className="flex-auto card-title line-clamp-1">{title}</h2>
-						<span className="flex-none badge badge-secondary">
-							{purpose}
-						</span>
+						<span className="flex-none badge badge-secondary">{purpose}</span>
 					</div>
 
 					<p className="text-neutral-500 line-clamp-2">{instructions}</p>

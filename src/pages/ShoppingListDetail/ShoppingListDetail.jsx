@@ -1,10 +1,10 @@
 import { Plus, Refrigerator, ShoppingCart, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useLoaderData, useNavigate } from "react-router";
 import AddItemForm from "../../components/AddItemForm";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
-import toast from 'react-hot-toast';
 
 const ShoppingListDetail = () => {
 	const { shoppingList } = useLoaderData();
@@ -91,11 +91,11 @@ const ShoppingListDetail = () => {
 
 				setChangedItems(new Set());
 				setLoadingItems([]);
-				toast.success('保存が完了しました');
+				toast.success("保存が完了しました");
 			} catch (error) {
 				console.error(error);
 				setLoadingItems([]);
-				toast.error('保存に失敗しました');
+				toast.error("保存に失敗しました");
 			}
 		}, 3000);
 
@@ -114,10 +114,10 @@ const ShoppingListDetail = () => {
 			);
 			console.log(response);
 			setItems((prev) => [...prev, { ...response.data.item }]);
-			toast.success("材料を追加しました")
+			toast.success("材料を追加しました");
 		} catch (error) {
 			console.error(error);
-			toast.error('材料の追加に失敗しました');
+			toast.error("材料の追加に失敗しました");
 		}
 	};
 
@@ -125,10 +125,10 @@ const ShoppingListDetail = () => {
 		try {
 			await api.delete(`/shopping_list_items/${id}`);
 			setItems((prev) => prev.filter((item) => item.item_id !== id));
-			toast.success('材料を削除しました');
+			toast.success("材料を削除しました");
 		} catch (error) {
 			console.error(error);
-			toast.error('材料の削除に失敗しました');
+			toast.error("材料の削除に失敗しました");
 		}
 	};
 
@@ -144,10 +144,10 @@ const ShoppingListDetail = () => {
 					unit: item.unit,
 				})),
 			});
-			toast.success('冷蔵庫に追加しました');
+			toast.success("冷蔵庫に追加しました");
 		} catch (err) {
 			console.error(err);
-			toast.error('冷蔵庫の追加に失敗しました');
+			toast.error("冷蔵庫の追加に失敗しました");
 		}
 	};
 

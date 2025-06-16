@@ -1,7 +1,7 @@
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { useLoaderData } from "react-router";
 import RecipeCard from "../../components/RecipeCard";
-import toast, { Toaster } from 'react-hot-toast';
 
 const RecipeLists = () => {
 	const { data } = useLoaderData();

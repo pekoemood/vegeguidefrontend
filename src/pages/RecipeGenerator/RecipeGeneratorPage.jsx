@@ -1,9 +1,9 @@
-import { ChefHat, Search,  X } from "lucide-react";
+import { ChefHat, Search, X } from "lucide-react";
 import { useState, useTransition } from "react";
+import toast from "react-hot-toast";
 import { useLoaderData, useLocation, useNavigate } from "react-router";
 import { api } from "../../utils/axios";
 import VegetableCard from "./VegetableCard";
-import toast from 'react-hot-toast';
 
 const RecipeGeneratorPage = () => {
 	const location = useLocation();
@@ -66,15 +66,15 @@ const RecipeGeneratorPage = () => {
 	const handleClickSave = () => {
 		startTransition(async () => {
 			try {
-			await api.post(`/recipes`, {
-				...recipe,
-			});
-			navigation("/recipe-lists");
-			toast.success('レシピを保存しました');
-		} catch (error) {
-			console.error(error);
-		}
-		})
+				await api.post(`/recipes`, {
+					...recipe,
+				});
+				navigation("/recipe-lists");
+				toast.success("レシピを保存しました");
+			} catch (error) {
+				console.error(error);
+			}
+		});
 	};
 
 	return (
@@ -328,8 +328,14 @@ const RecipeGeneratorPage = () => {
 						</div>
 
 						<div className="flex justify-end gap-3 mt-6">
-							<button onClick={handleClickSave} className="btn relative" disabled={isPending}>
-								<span className={isPending ? 'invisible' : ""}>レシピを保存</span>
+							<button
+								onClick={handleClickSave}
+								className="btn relative"
+								disabled={isPending}
+							>
+								<span className={isPending ? "invisible" : ""}>
+									レシピを保存
+								</span>
 								{isPending && (
 									<span className="absolute left-1/2 -translate-x-1/2 loading loading-spinner loading-md"></span>
 								)}
