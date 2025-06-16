@@ -1,4 +1,4 @@
-const ProfileTab = ({ name, email }) => {
+const ProfileTab = ({ name, email, googleUser }) => {
 	return (
 		<section className="flex flex-col space-y-6">
 			<div>
@@ -34,9 +34,15 @@ const ProfileTab = ({ name, email }) => {
 				</div>
 			</fieldset>
 
-			<p className="text-sm text-neutral-500">
-				メールアドレスやパスワードを変更する場合は、それぞれのタブから行ってください。
-			</p>
+			{googleUser ? (
+				<p className="text-sm text-neutral-500">
+					このアカウントはGoogleログインで管理されています。メールアドレスやパスワードの変更は不要です。
+				</p>
+			) : (
+				<p className="text-sm text-neutral-500">
+					メールアドレスやパスワードを変更する場合は、それぞれのタブから行ってください。
+				</p>
+			)}
 		</section>
 	);
 };
