@@ -23,7 +23,7 @@ const AccountSetting = ({ name, email }) => {
 				>
 					プロフィール
 				</a>
-				{user.google_account ?? (
+				{!user.google_account && (
 					<>
 						<a
 							role="tab"
@@ -48,7 +48,7 @@ const AccountSetting = ({ name, email }) => {
 					<ProfileTab
 						name={name}
 						email={email}
-						googleUser={user.google_account}
+						googleUser={user?.google_account}
 					/>
 				)}
 				{activeTab === "password" && <PasswordTab />}
