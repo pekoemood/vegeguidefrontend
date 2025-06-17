@@ -2,11 +2,14 @@ import {
 	ChefHat,
 	Clock,
 	CookingPot,
+	Grid3x3,
 	Leaf,
 	ShoppingCart,
+	Target,
 	User,
 } from "lucide-react";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { useLoaderData, useNavigate } from "react-router";
 import AddLItemFromRecipe from "../../components/AddItemFromRecipe";
 import Ingredients from "../../components/Ingredients";
@@ -30,8 +33,10 @@ const RecipeListDetail = () => {
 				name: name,
 			});
 			setShoppingLists(response.data.data.attributes);
+			toast.success("買い物リストに追加しました");
 		} catch (error) {
 			console.error(error);
+			toast.error("買い物リストの追加に失敗しました");
 		}
 	};
 
@@ -40,7 +45,7 @@ const RecipeListDetail = () => {
 			<div className="mb-6">
 				<button
 					onClick={() => navigate("/recipe-lists")}
-					className="btn btn-outline btn-sm"
+					className="btn btn-outline"
 				>
 					戻る
 				</button>
@@ -54,8 +59,12 @@ const RecipeListDetail = () => {
 					<span>調理時間 : {shoppingList.cooking_time}分</span>
 				</div>
 				<div className="flex items-center badge badge-secondary">
-					<ChefHat size={20} />
-					<span>難易度 : {shoppingList.difficulty}</span>
+					<Grid3x3 size={20} />
+					<span>カテゴリ : {shoppingList.recipe_category}</span>
+				</div>
+				<div className="flex items-center badge badge-secondary">
+					<Target size={20} />
+					<span>目的 : {shoppingList.purpose}</span>
 				</div>
 				<div className="flex items-center badge badge-secondary">
 					<User size={20} />

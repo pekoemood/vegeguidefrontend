@@ -2,7 +2,9 @@ import { createBrowserRouter } from "react-router";
 import Layout from "../Layout";
 import FridgeItems from "../pages/FridgeItems/FridgeItems";
 import { fridgeItemsLoader } from "../pages/FridgeItems/fridgeItemsLoader";
+import TermsOfService from "../pages/Legal/TermsOfService";
 import Login from "../pages/Login/Login";
+import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import RecipeGeneratorPage from "../pages/RecipeGenerator/RecipeGeneratorPage";
 import recipeGeneratorLoader from "../pages/RecipeGenerator/recipeGeneratorLoader";
 import RecipeLists from "../pages/RecipeLists/RecipeLists";
@@ -19,7 +21,7 @@ import VegeDetail from "../pages/VegeDetail/VegeDetail";
 import { vegeDetailLoader } from "../pages/VegeDetail/vegeDetailLoader";
 import VegeList from "../pages/VegeList/VegeList";
 import { vegeListLoader } from "../pages/VegeList/vegeListLoader";
-import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
+import PrivacyPolicy from "../pages/Legal/PrivacyPolicy";
 
 export const routes = createBrowserRouter([
 	{
@@ -78,6 +80,14 @@ export const routes = createBrowserRouter([
 				path: "/fridge-items",
 				Component: FridgeItems,
 				loader: fridgeItemsLoader,
+			},
+			{
+				path: "/terms-service",
+				Component: TermsOfService,
+			},
+			{
+				path: '/privacy-policy',
+				Component: PrivacyPolicy,
 			},
 		],
 	},

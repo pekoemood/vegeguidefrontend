@@ -8,10 +8,11 @@ const RecipeCard = ({
 	instructions,
 	cookingTime,
 	servings,
-	difficulty,
+	purpose,
 	steps,
 	ingredients,
 	setRecipes,
+	toast,
 }) => {
 	const handleClickDelete = async (e) => {
 		e.stopPropagation();
@@ -21,8 +22,10 @@ const RecipeCard = ({
 			setRecipes((prevRecipes) =>
 				prevRecipes.filter((recipe) => recipe.id !== id),
 			);
+			toast.success("レシピを削除しました");
 		} catch (error) {
 			console.error(error);
+			toast.error("レシピの削除に失敗しました");
 		}
 	};
 
@@ -34,9 +37,7 @@ const RecipeCard = ({
 				<div className="card-body">
 					<div className="flex justify-between items-center gap-2">
 						<h2 className="flex-auto card-title line-clamp-1">{title}</h2>
-						<span className="flex-none badge badge-secondary">
-							{difficulty}
-						</span>
+						<span className="flex-none badge badge-secondary">{purpose}</span>
 					</div>
 
 					<p className="text-neutral-500 line-clamp-2">{instructions}</p>

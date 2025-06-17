@@ -1,5 +1,6 @@
 import axios from "axios";
 import { SquarePen, Trash2 } from "lucide-react";
+import toast from "react-hot-toast";
 import { Link } from "react-router";
 
 const ShoppingCard = ({ id, title, time, items, setLists }) => {
@@ -16,8 +17,10 @@ const ShoppingCard = ({ id, title, time, items, setLists }) => {
 				},
 			);
 			setLists((prevList) => prevList.filter((list) => list.id !== id));
+			toast.success("買い物リストを削除しました");
 		} catch (error) {
 			console.log(error);
+			toast.error("買い物リストの削除に失敗しました");
 		}
 	};
 

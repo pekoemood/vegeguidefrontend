@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../context/UserContext";
 import MailTab from "./MailTab";
 import PasswordTab from "./PasswordTab";
 import ProfileTab from "./ProfileTab";
 
 const AccountSetting = ({ name, email }) => {
 	const [activeTab, setActiveTab] = useState("profile");
+	const { user } = useContext(UserContext);
 
 	return (
 		<main className="bg-base-100 p-6 rounded-lg min-w-lg max-w-lg shadow-lg">
@@ -21,24 +23,34 @@ const AccountSetting = ({ name, email }) => {
 				>
 					プロフィール
 				</a>
-				<a
-					role="tab"
-					className={`tab flex-1 ${activeTab === "password" && "tab-active"}`}
-					onClick={() => setActiveTab("password")}
-				>
-					パスワード変更
-				</a>
-				<a
-					role="tab"
-					className={`tab flex-1 ${activeTab === "mail" && "tab-active"}`}
-					onClick={() => setActiveTab("mail")}
-				>
-					メール変更
-				</a>
+				{!user.google_account && (
+					<>
+						<a
+							role="tab"
+							className={`tab flex-1 ${activeTab === "password" && "tab-active"}`}
+							onClick={() => setActiveTab("password")}
+						>
+							パスワード変更
+						</a>
+						<a
+							role="tab"
+							className={`tab flex-1 ${activeTab === "mail" && "tab-active"}`}
+							onClick={() => setActiveTab("mail")}
+						>
+							メール変更
+						</a>
+					</>
+				)}
 			</div>
 
 			<div className="mt-6 p-6 border border-base-300 rounded-lg">
-				{activeTab === "profile" && <ProfileTab name={name} email={email} />}
+				{activeTab === "profile" && (
+					<ProfileTab
+						name={name}
+						email={email}
+						googleUser={user?.google_account}
+					/>
+				)}
 				{activeTab === "password" && <PasswordTab />}
 				{activeTab === "mail" && <MailTab email={email} />}
 			</div>

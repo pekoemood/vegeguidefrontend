@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { Link, useLoaderData } from "react-router";
 import AddListForm from "../../components/AddListForm";
 import ShoppingCard from "../../components/ShoppingCard";
@@ -16,8 +17,10 @@ const ShoppingList = () => {
 			const response = await api.post(`/shopping_lists`, { name });
 			console.log(response);
 			setLists((prev) => [...prev, response.data.data]);
+			toast.success("買い物リストを作成しました");
 		} catch (err) {
 			console.error(err);
+			toast.error("買い物リストの作成に失敗しました");
 		}
 	};
 
