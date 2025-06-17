@@ -1,17 +1,28 @@
 import { Toaster } from "react-hot-toast";
-import { Outlet, useNavigation } from "react-router";
+import { Outlet, useLocation, useNavigation } from "react-router";
 import Footer from "./components/Footer";
 import Navibar from "./components/Navibar";
 import { UserProvider } from "./context/UserContext";
+import ReactGA from 'react-ga4';
+import { useEffect } from "react";
+
+const GAListener = () => {
+	const location = useLocation();
+	useEffect(() => {
+		ReactGA.send({hitType: 'pageview', page: location.pathname + location.search});
+	}, [location]);
+	return null;
+}
 
 const Layout = () => {
 	const navigation = useNavigation();
 	const isNavigating = Boolean(navigation.location);
-
+	
 	return (
 		<>
 			<div className="flex flex-col min-h-screen">
 				<UserProvider>
+					<GAListener />
 					<Navibar />
 					{isNavigating && (
 						<div className="fixed inset-0 flex items-center justify-center bg-base-300/50 z-50">
