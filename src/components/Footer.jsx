@@ -6,8 +6,8 @@ const Footer = () => {
 			<nav className="grid grid-flow-col gap-4">
 				<Link to={"/"}>サービス概要</Link>
 				<a href="https://forms.gle/L2DVF2BSiEsppb2J6">お問合せ</a>
-				<Link to={'/terms-service'}>利用規則</Link>
-				<Link to={'/privacy-policy'}>プライバシーポリシー</Link>
+				<Link to={"/terms-service"}>利用規則</Link>
+				<Link to={"/privacy-policy"}>プライバシーポリシー</Link>
 			</nav>
 			<nav>
 				<div className="grid grid-flow-col gap-4">
