@@ -5,6 +5,7 @@ import { useLoaderData, useNavigate } from "react-router";
 import AddItemForm from "../../components/AddItemForm";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
+import Meta from "../../components/Meta";
 
 const ShoppingListDetail = () => {
 	const { shoppingList } = useLoaderData();
@@ -152,6 +153,8 @@ const ShoppingListDetail = () => {
 	};
 
 	return (
+		<>
+		<Meta title="買い物リスト詳細" description="必要な食材をまとめて管理。買い忘れを防げて、効率的な買い物ができます！" />
 		<div className="container max-w-screen-md mx-auto px-4 py-8">
 			<div className="mb-6 flex justify-between">
 				<button
@@ -291,6 +294,7 @@ const ShoppingListDetail = () => {
 				/>
 			</Modal>
 		</div>
+		</>
 	);
 };
 
