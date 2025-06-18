@@ -16,6 +16,7 @@ import Ingredients from "../../components/Ingredients";
 import RecipeSteps from "../../components/RecipeSteps";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
+import Meta from "../../components/Meta";
 
 const RecipeListDetail = () => {
 	const { data } = useLoaderData();
@@ -41,6 +42,8 @@ const RecipeListDetail = () => {
 	};
 
 	return (
+		<>
+		<Meta title="レシピ詳細" description="簡単＆おいしい野菜レシピを食事別に一覧表示。手順や所要時間も明確にご紹介。"/>
 		<main className="container max-w-screen-lg mx-auto px-8 py-6">
 			<div className="mb-6">
 				<button
@@ -118,6 +121,7 @@ const RecipeListDetail = () => {
 				/>
 			</Modal>
 		</main>
+		</>
 	);
 };
 

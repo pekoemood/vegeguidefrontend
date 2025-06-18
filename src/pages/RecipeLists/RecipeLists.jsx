@@ -2,6 +2,7 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useLoaderData } from "react-router";
 import RecipeCard from "../../components/RecipeCard";
+import Meta from "../../components/Meta";
 
 const RecipeLists = () => {
 	const { data } = useLoaderData();
@@ -10,6 +11,7 @@ const RecipeLists = () => {
 
 	return (
 		<>
+			<Meta title="レシピ一覧" description="簡単＆おいしい野菜レシピを食事別に一覧表示。手順や所要時間も明確にご紹介。"/>
 			<main className="container mx-auto py-6">
 				<div>
 					<h1 className="text-2xl font-bold">登録レシピ一覧</h1>

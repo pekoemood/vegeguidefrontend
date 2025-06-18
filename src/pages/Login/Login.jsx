@@ -9,6 +9,7 @@ import GoogleLoginButton from "../../components/GoogleLoginButton";
 import Spinner from "../../components/Spinner";
 import { UserContext } from "../../context/UserContext";
 import { loginSchema } from "../../utils/validation";
+import Meta from "../../components/Meta";
 
 const Login = () => {
 	const [isPending, startTransition] = useTransition();
@@ -60,6 +61,8 @@ const Login = () => {
 	const onError = (error, e) => console.log(error, e);
 
 	return (
+		<>
+		<Meta title="ログイン" description="冷蔵庫の食材をスマートに管理。不足・賞味期限も通知で安心。食材をムダなく使えます。" />
 		<div className="flex min-h-screen flex-col md:flex-row">
 			<div className="relative hidden md:block md:w-1/2 bg-gradient-to-br from-green-50 to-green-100">
 				<div className="absolute inset-0 flex flex-col items-center justify-center p-12">
@@ -180,6 +183,7 @@ const Login = () => {
 				</div>
 			</div>
 		</div>
+		</>
 	);
 };
 
