@@ -5,6 +5,7 @@ import Card from "../../components/Card";
 import PaginationButtons from "../../components/PageinationButtons";
 import useVegeNames from "../../hooks/useVegeNames";
 import { api } from "../../utils/axios";
+import Meta from "../../components/Meta";
 
 const VegeList = () => {
 	const { data } = useLoaderData();
@@ -54,6 +55,7 @@ const VegeList = () => {
 
 	return (
 		<>
+			<Meta title="野菜一覧" description="旬の野菜を一覧でチェック。栄養や調理のヒントも満載！次のメニューの参考にどうぞ。"/>
 			<div className="mt-8 mx-8 flex space-x-4 items-center">
 				<div className="relative w-72">
 					<label className="input input-primary flex items-center w-full">

@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useLoaderData, useLocation, useNavigate } from "react-router";
 import { api } from "../../utils/axios";
 import VegetableCard from "./VegetableCard";
+import Meta from "../../components/Meta";
 
 const RecipeGeneratorPage = () => {
 	const location = useLocation();
@@ -78,6 +79,8 @@ const RecipeGeneratorPage = () => {
 	};
 
 	return (
+		<>
+		<Meta title="レシピ提案" description="あなたの冷蔵庫にある食材からぴったりのレシピを提案します。今日の献立に迷ったらこちら！" />
 		<main className="container mx-auto px-4 py-8">
 			<h1 className="text-2xl font-bold">レシピ提案</h1>
 
@@ -345,6 +348,7 @@ const RecipeGeneratorPage = () => {
 				)}
 			</section>
 		</main>
+		</>
 	);
 };
 

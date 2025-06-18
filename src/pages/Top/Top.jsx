@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router";
 import EmailChangeSuccess from "../../components/EmailChangeSuccess";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
+import Meta from "../../components/Meta";
 
 const Top = () => {
 	const navigation = useNavigate();
@@ -33,6 +34,7 @@ const Top = () => {
 
 	return (
 		<>
+			<Meta title="トップ" description="旬の野菜を一覧でチェック。栄養や調理のヒントも満載！次のメニューの参考にどうぞ。"/>
 			<main className="max-w-screen mx-auto flex flex-col items-center py-32 space-y-12">
 				<h1 className="text-5xl font-bold tracking-tight">忙しいあなたの</h1>
 				<h1 className="text-6xl font-bold text-primary">

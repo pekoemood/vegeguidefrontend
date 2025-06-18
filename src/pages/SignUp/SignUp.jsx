@@ -9,6 +9,7 @@ import GoogleLoginButton from "../../components/GoogleLoginButton";
 import Spinner from "../../components/Spinner";
 import { UserContext } from "../../context/UserContext";
 import { signUpSchema } from "../../utils/validation";
+import Meta from "../../components/Meta";
 
 const SignUp = () => {
 	const [isPending, startTransition] = useTransition();
@@ -61,6 +62,8 @@ const SignUp = () => {
 	const onError = (error, e) => console.log(error, e);
 
 	return (
+		<>
+		<Meta title='新規登録' description="無料で VegeGuide に登録して、野菜の指南・レシピ提案・買い物リストなど全機能を使い始めましょう。" />
 		<div className="flex min-h-screen flex-col md:flex-row">
 			<div className="relative hidden md:block md:w-1/2 bg-gradient-to-br from-green-50 to-green-100">
 				<div className="absolute inset-0 flex flex-col items-center justify-center p-12">
@@ -189,6 +192,7 @@ const SignUp = () => {
 				</div>
 			</div>
 		</div>
+		</>
 	);
 };
 

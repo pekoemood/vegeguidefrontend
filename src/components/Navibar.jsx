@@ -45,7 +45,8 @@ const Navibar = () => {
 	return (
 		<div className="navbar bg-primary text-primary-content">
 			<div className="navbar-start">
-				<button className="btn btn-ghost text-xl">
+				<button className="btn btn-ghost text-xl flex items-center">
+					<img className="block w-8 h-8 " src="/vegege.png" alt="" />
 					<Link to="/">VegeGuide</Link>
 				</button>
 			</div>
@@ -85,7 +86,7 @@ const Navibar = () => {
 							<li>
 								<Link to="/fridge-items" className="flex items-center gap-x-1">
 									<Refrigerator size={15} />
-									冷蔵庫管理
+									冷蔵庫
 								</Link>
 							</li>
 						</>

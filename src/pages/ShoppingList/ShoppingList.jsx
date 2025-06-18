@@ -5,6 +5,7 @@ import AddListForm from "../../components/AddListForm";
 import ShoppingCard from "../../components/ShoppingCard";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
+import Meta from "../../components/Meta";
 
 const ShoppingList = () => {
 	const { shoppingLists } = useLoaderData();
@@ -26,6 +27,7 @@ const ShoppingList = () => {
 
 	return (
 		<>
+		<Meta title="買い物リスト" description="必要な食材をまとめて管理。買い忘れを防げて、効率的な買い物ができます！" />
 			<main className="container mx-auto px-4 py-8">
 				<div className="flex items-center mb-6">
 					<h1 className="text-2xl font-bold">買い物リスト</h1>
