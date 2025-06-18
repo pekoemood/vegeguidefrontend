@@ -17,9 +17,9 @@ import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import { useLoaderData, useNavigate } from "react-router";
 import FridgeItemForm from "../../components/FridgeItemForm";
+import Meta from "../../components/Meta";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
-import Meta from "../../components/Meta";
 
 const categories = [
 	{ name: "野菜", icon: Carrot },
@@ -228,7 +228,10 @@ const FridgeItems = () => {
 
 	return (
 		<>
-		<Meta title="冷蔵庫" description="冷蔵庫の食材をスマートに管理。不足・賞味期限も通知で安心。食材をムダなく使えます。" />
+			<Meta
+				title="冷蔵庫"
+				description="冷蔵庫の食材をスマートに管理。不足・賞味期限も通知で安心。食材をムダなく使えます。"
+			/>
 			<main className="container mx-auto py-6">
 				<div>
 					<h1 className="text-2xl font-bold">冷蔵庫</h1>

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router";
+import Meta from "../../components/Meta";
 import NutritionInfo from "../../components/NutritionInfo";
 import PriceChart from "../../components/PriceChart";
 import RecipeGenerator from "../../components/RecipeGenerator";
 import StorageMethod from "../../components/StorageMethod";
-import Meta from "../../components/Meta";
 
 const VegeDetail = () => {
 	const { vegetable } = useLoaderData();
@@ -14,7 +14,10 @@ const VegeDetail = () => {
 
 	return (
 		<>
-			<Meta title="野菜詳細" description="旬の野菜を一覧でチェック。栄養や調理のヒントも満載！次のメニューの参考にどうぞ。"/>
+			<Meta
+				title="野菜詳細"
+				description="旬の野菜を一覧でチェック。栄養や調理のヒントも満載！次のメニューの参考にどうぞ。"
+			/>
 			<div className="container mx-auto px-4">
 				<div className="flex justify-center gap-8 my-8 mx-auto">
 					<div className="max-w-md">
