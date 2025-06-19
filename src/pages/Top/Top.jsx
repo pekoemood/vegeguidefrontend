@@ -6,7 +6,7 @@ import {
 	ShoppingCart,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import EmailChangeSuccess from "../../components/EmailChangeSuccess";
 import Meta from "../../components/Meta";
 import useModal from "../../hooks/useModal";
@@ -16,7 +16,8 @@ import MeritHighLight from "./MeritHighLight";
 import UsageCard from "./UsageCard";
 
 const Top = () => {
-	const navigation = useNavigate();
+	const navigate = useNavigate();
+
 	const { Modal, openModal, closeModal } = useModal();
 	const location = useLocation();
 	const [email, setEmail] = useState("");
@@ -33,7 +34,7 @@ const Top = () => {
 					});
 					setEmail(response.data?.email);
 					openModal();
-					navigation(location.pathname, { replace: true });
+					navigate(location.pathname, { replace: true });
 				}
 			} catch (err) {
 				console.error(err);
@@ -45,13 +46,23 @@ const Top = () => {
 	return (
 		<>
 			<Meta title="トップ" description="VegeGuideのアプリ概要です。" />
-			<main className="container mx-auto max-w-screen flex flex-col py-32 px-8 space-y-32">
-				<section className="flex">
+			<main className="max-w-screen flex flex-col  mx-auto space-y-32 min-h-screen">
+				<header className="w-full sticky top-0 z-40 backdrop-blur bg-white">
+					<div className="container mx-auto flex h-16 items-center justify-center">
+						<nav className="flex justify-center gap-8">
+							<a href="#feature" className="transition hover:text-primary">特徴</a>
+							<a href="#usage" className="transition hover:text-primary">使い方</a>
+							<a href="#merit" className="transition hover:text-primary">メリット</a>
+						</nav>
+					</div>
+
+				</header>
+				<section className="flex mx-auto">
 					<div className="flex-1 flex flex-col justify-center space-y-8">
 						<h1 className="text-6xl font-bold tracking-tight">
 							忙しいあなたの
 							<br />
-							<span className="text-primary">毎日の”ちょうどいい健康習慣”</span>
+							<span className="text-primary">毎日のちょうどいい健康習慣</span>
 						</h1>
 						<p className="text-lg md:text-2xl text-neutral-500">
 							旬の野菜情報・価格比較・レシピ提案・買い物リスト・食材管理を一元化。
@@ -59,8 +70,8 @@ const Top = () => {
 							料理のハードルを下げ、食材のムダを防ぎながら、栄養価が高くコスパの良い食生活をサポートします。
 						</p>
 						<div className="flex space-x-4">
-							<button className="btn">今すぐ使ってみる</button>
-							<button className="btn">詳しく見る</button>
+							<button className="btn btn-primary" onClick={() => navigate('/signup')}>今すぐ使ってみる</button>
+							<button className="btn"><a href="#feature">詳しく見る</a></button>
 						</div>
 					</div>
 					<div className="flex-1 flex justify-center">
@@ -73,7 +84,7 @@ const Top = () => {
 					</div>
 				</section>
 
-				<section>
+				<section id="feature" className="scroll-mt-20">
 					<div className="container mx-auto">
 						<div className="text-center">
 							<h2 className="text-4xl font-bold">
@@ -110,7 +121,7 @@ const Top = () => {
 					</div>
 				</section>
 
-				<section>
+				<section id="usage" className="scroll-mt-20">
 					<div className="container mx-auto">
 						<div className="text-center">
 							<h2 className="text-4xl font-bold">使い方はとてもシンプル</h2>
@@ -149,7 +160,7 @@ const Top = () => {
 					</div>
 				</section>
 
-				<section>
+				<section id="merit" className="scroll-mt-20">
 					<div className="container mx-auto">
 						<div className="text-center">
 							<h2 className="text-4xl font-bold">VegeGuideを使うメリット</h2>
@@ -289,7 +300,7 @@ const Top = () => {
 						</p>
 
 					<div className="flex justify-center pt-4">
-						<button className="btn btn-primary transform transition hover:scale-105">今すぐ始める</button>
+						<button className="btn btn-primary transform transition hover:scale-105" onClick={() => navigate('/signup')}>今すぐ始める</button>
 					</div>
 					</div>
 
