@@ -1,7 +1,12 @@
 import { useEffect } from "react";
 import ReactGA from "react-ga4";
 import { Toaster } from "react-hot-toast";
-import { Outlet, ScrollRestoration, useLocation, useNavigation } from "react-router";
+import {
+	Outlet,
+	ScrollRestoration,
+	useLocation,
+	useNavigation,
+} from "react-router";
 import Footer from "./components/Footer";
 import Navibar from "./components/Navibar";
 import { UserProvider } from "./context/UserContext";
