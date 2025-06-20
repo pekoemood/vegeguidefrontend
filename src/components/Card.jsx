@@ -9,11 +9,11 @@ const Card = ({ id, name, image, description, season, price, rate }) => {
 	};
 
 	return (
-		<Link to={`/vegelist/${id}`}>
+		<Link to={`/vegelist/${id}`} className="container mx-auto px-2 block w-fit">
 			<div className="indicator card shadow-sm transition duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
 				{season && (
-					<span className="indicator-item badge badge-accent transition animate-bounce">
-						旬SEASONAL
+					<span className="indicator-item indicator-center sm:indicator-end  badge badge-accent transition animate-bounce">
+						旬の野菜
 					</span>
 				)}
 				<div className="card bg-base-100 w-90 ">

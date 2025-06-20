@@ -59,7 +59,7 @@ const VegeList = () => {
 				title="野菜一覧"
 				description="旬の野菜を一覧でチェック。栄養や調理のヒントも満載！次のメニューの参考にどうぞ。"
 			/>
-			<div className="mt-8 mx-8 flex space-x-4 items-center">
+			<div className="container mx-auto px-2 mt-8 flex flex-col  md:flex-row space-x-4 space-y-2 md:space-y-0 md:items-center">
 				<div className="relative w-72">
 					<label className="input input-primary flex items-center w-full">
 						<Search className="text-neutral-500" size={15} />
@@ -89,28 +89,34 @@ const VegeList = () => {
 					)}
 				</div>
 
-				<input
-					id="season"
-					type="checkbox"
-					className="toggle"
-					checked={isInSeason}
-					onChange={(e) => setIsInSeason(e.target.checked)}
-				/>
-				<label htmlFor="season" className="label text-sm">
-					旬の野菜のみ表示
-				</label>
-				<input
-					id="discounted"
-					type="checkbox"
-					className="toggle"
-					checked={isDiscounted}
-					onChange={(e) => setIsDiscounted(e.target.checked)}
-				/>
-				<label htmlFor="discounted" className="label text-sm">
-					値下がり中の野菜のみ表示
-				</label>
+				<div className="flex gap-2">
+					<input
+						id="season"
+						type="checkbox"
+						className="toggle"
+						checked={isInSeason}
+						onChange={(e) => setIsInSeason(e.target.checked)}
+					/>
+					<label htmlFor="season" className="label text-sm">
+						旬の野菜のみ表示
+					</label>
+				</div>
+
+				<div className="flex gap-2">
+					<input
+						id="discounted"
+						type="checkbox"
+						className="toggle"
+						checked={isDiscounted}
+						onChange={(e) => setIsDiscounted(e.target.checked)}
+					/>
+					<label htmlFor="discounted" className="label text-sm">
+						値下がり中の野菜のみ表示
+					</label>
+				</div>
 			</div>
-			<div className="m-8 grid grid-cols-4 gap-8">
+			
+			<div className="mt-4 md:m-8 grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
 				{vegetables.length > 0 ? (
 					vegetables.map((vegetable) => (
 						<Card

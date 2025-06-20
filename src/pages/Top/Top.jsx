@@ -50,12 +50,17 @@ const Top = () => {
 				<header className="w-full sticky top-0 z-40 backdrop-blur bg-white">
 					<div className="container mx-auto flex h-16 items-center justify-center">
 						<nav className="flex justify-center gap-8">
-							<a href="#feature" className="transition hover:text-primary">特徴</a>
-							<a href="#usage" className="transition hover:text-primary">使い方</a>
-							<a href="#merit" className="transition hover:text-primary">メリット</a>
+							<a href="#feature" className="transition hover:text-primary">
+								特徴
+							</a>
+							<a href="#usage" className="transition hover:text-primary">
+								使い方
+							</a>
+							<a href="#merit" className="transition hover:text-primary">
+								メリット
+							</a>
 						</nav>
 					</div>
-
 				</header>
 				<section className="flex mx-auto">
 					<div className="flex-1 flex flex-col justify-center space-y-8">
@@ -70,8 +75,15 @@ const Top = () => {
 							料理のハードルを下げ、食材のムダを防ぎながら、栄養価が高くコスパの良い食生活をサポートします。
 						</p>
 						<div className="flex space-x-4">
-							<button className="btn btn-primary" onClick={() => navigate('/signup')}>今すぐ使ってみる</button>
-							<button className="btn"><a href="#feature">詳しく見る</a></button>
+							<button
+								className="btn btn-primary"
+								onClick={() => navigate("/signup")}
+							>
+								今すぐ使ってみる
+							</button>
+							<button className="btn">
+								<a href="#feature">詳しく見る</a>
+							</button>
 						</div>
 					</div>
 					<div className="flex-1 flex justify-center">
@@ -293,20 +305,24 @@ const Top = () => {
 				<section className="pb-20">
 					<div className="container text-center space-y-4 mx-auto">
 						<h2 className="text-4xl font-bold">
-							今すぐ初めて、<span className="text-primary">健康的な食生活</span>を手に入れよう
+							今すぐ初めて、<span className="text-primary">健康的な食生活</span>
+							を手に入れよう
 						</h2>
 						<p className="text-lg text-neutral-500 mx-auto">
-							VegeGuideなら、忙しい毎日でも無理なく続けられる "ちょうどいい健康習慣"をサポートします。
+							VegeGuideなら、忙しい毎日でも無理なく続けられる
+							"ちょうどいい健康習慣"をサポートします。
 						</p>
 
-					<div className="flex justify-center pt-4">
-						<button className="btn btn-primary transform transition hover:scale-105" onClick={() => navigate('/signup')}>今すぐ始める</button>
+						<div className="flex justify-center pt-4">
+							<button
+								className="btn btn-primary transform transition hover:scale-105"
+								onClick={() => navigate("/signup")}
+							>
+								今すぐ始める
+							</button>
+						</div>
 					</div>
-					</div>
-
-
 				</section>
-
 			</main>
 
 			<Modal>
