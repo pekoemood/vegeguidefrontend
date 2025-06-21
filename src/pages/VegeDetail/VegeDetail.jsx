@@ -25,7 +25,7 @@ const VegeDetail = () => {
 							<img
 								src={data.attributes.image_url}
 								alt={data.attributes.name}
-								className="w-full h-70 object-contain"
+								className="w-full object-contain"
 							/>
 						</div>
 					</div>
@@ -52,28 +52,28 @@ const VegeDetail = () => {
 					<div role="tablist" className="tabs tabs-box flex justify-between">
 						<a
 							role="tab"
-							className={`tab flex-1 ${activeTab === "tab1" ? "tab-active" : ""}`}
+							className={`text-xs mg:text-base tab flex-1 ${activeTab === "tab1" ? "tab-active" : ""}`}
 							onClick={() => setActiveTab("tab1")}
 						>
 							価格推移
 						</a>
 						<a
 							role="tab"
-							className={`tab flex-1 ${activeTab === "tab2" ? "tab-active" : ""}`}
+							className={`text-xs mg:text-base tab flex-1 ${activeTab === "tab2" ? "tab-active" : ""}`}
 							onClick={() => setActiveTab("tab2")}
 						>
 							栄養成分
 						</a>
 						<a
 							role="tab"
-							className={`tab flex-1 ${activeTab === "tab3" ? "tab-active" : ""}`}
+							className={`text-xs mg:text-base tab flex-1 ${activeTab === "tab3" ? "tab-active" : ""}`}
 							onClick={() => setActiveTab("tab3")}
 						>
 							保存方法
 						</a>
 						<a
 							role="tab"
-							className={`tab flex-1 ${activeTab === "tab4" ? "tab-active" : ""}`}
+							className={`text-xs mg:text-base tab flex-1 ${activeTab === "tab4" ? "tab-active" : ""}`}
 							onClick={() => setActiveTab("tab4")}
 						>
 							レシピ
