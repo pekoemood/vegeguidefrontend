@@ -2,10 +2,10 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useLoaderData } from "react-router";
 import AddListForm from "../../components/AddListForm";
+import Meta from "../../components/Meta";
 import ShoppingCard from "../../components/ShoppingCard";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
-import Meta from "../../components/Meta";
 
 const ShoppingList = () => {
 	const { shoppingLists } = useLoaderData();
@@ -27,22 +27,28 @@ const ShoppingList = () => {
 
 	return (
 		<>
-		<Meta title="買い物リスト" description="必要な食材をまとめて管理。買い忘れを防げて、効率的な買い物ができます！" />
+			<Meta
+				title="買い物リスト"
+				description="必要な食材をまとめて管理。買い忘れを防げて、効率的な買い物ができます！"
+			/>
 			<main className="container mx-auto px-4 py-8">
-				<div className="flex items-center mb-6">
+				<div>
 					<h1 className="text-2xl font-bold">買い物リスト</h1>
-				</div>
-
-				<div className="flex justify-between items-center mb-6">
-					<p className="text-neutral-500">
+					<p className="text-neutral-500 my-4">
 						複数の買い物リストを作成・管理できます
 					</p>
-					<button className="btn btn-outline" onClick={openModal}>
+				</div>
+
+				<div className="mt-4 flex">
+					<button
+						className="btn btn-outline w-full sm:w-fit"
+						onClick={openModal}
+					>
 						新しいリストの作成
 					</button>
 				</div>
 
-				<div className="grid grid-cols-4 gap-4">
+				<div className="flex flex-col items-center  md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  gap-4 mt-4">
 					{lists.map((list) => (
 						<ShoppingCard
 							key={list.id}

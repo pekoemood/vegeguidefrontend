@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router";
+import Meta from "../../components/Meta";
 import NutritionInfo from "../../components/NutritionInfo";
 import PriceChart from "../../components/PriceChart";
 import RecipeGenerator from "../../components/RecipeGenerator";
 import StorageMethod from "../../components/StorageMethod";
-import Meta from "../../components/Meta";
 
 const VegeDetail = () => {
 	const { vegetable } = useLoaderData();
@@ -14,21 +14,24 @@ const VegeDetail = () => {
 
 	return (
 		<>
-			<Meta title="野菜詳細" description="旬の野菜を一覧でチェック。栄養や調理のヒントも満載！次のメニューの参考にどうぞ。"/>
+			<Meta
+				title="野菜詳細"
+				description="旬の野菜を一覧でチェック。栄養や調理のヒントも満載！次のメニューの参考にどうぞ。"
+			/>
 			<div className="container mx-auto px-4">
-				<div className="flex justify-center gap-8 my-8 mx-auto">
-					<div className="max-w-md">
+				<div className="flex flex-col md:flex-row justify-center gap-8 my-8 mx-auto">
+					<div className="max-w-md order-2 md:order-1 mx-auto md:mx-0">
 						<div className="rounded-lg overflow-hidden shadow-md">
 							<img
 								src={data.attributes.image_url}
 								alt={data.attributes.name}
-								className="w-full h-70 object-contain"
+								className="w-full object-contain"
 							/>
 						</div>
 					</div>
 
-					<div>
-						<h1 className="text-3xl md:text-4xl md:text-4xl font-bold mb-4">
+					<div className="order-1 md:order-2">
+						<h1 className="text-3xl md:text-4xl font-bold mb-4">
 							{data.attributes.name}
 						</h1>
 						<p className="text-neutral-500 mb-4">
@@ -49,28 +52,28 @@ const VegeDetail = () => {
 					<div role="tablist" className="tabs tabs-box flex justify-between">
 						<a
 							role="tab"
-							className={`tab flex-1 ${activeTab === "tab1" ? "tab-active" : ""}`}
+							className={`text-xs mg:text-base tab flex-1 ${activeTab === "tab1" ? "tab-active" : ""}`}
 							onClick={() => setActiveTab("tab1")}
 						>
 							価格推移
 						</a>
 						<a
 							role="tab"
-							className={`tab flex-1 ${activeTab === "tab2" ? "tab-active" : ""}`}
+							className={`text-xs mg:text-base tab flex-1 ${activeTab === "tab2" ? "tab-active" : ""}`}
 							onClick={() => setActiveTab("tab2")}
 						>
 							栄養成分
 						</a>
 						<a
 							role="tab"
-							className={`tab flex-1 ${activeTab === "tab3" ? "tab-active" : ""}`}
+							className={`text-xs mg:text-base tab flex-1 ${activeTab === "tab3" ? "tab-active" : ""}`}
 							onClick={() => setActiveTab("tab3")}
 						>
 							保存方法
 						</a>
 						<a
 							role="tab"
-							className={`tab flex-1 ${activeTab === "tab4" ? "tab-active" : ""}`}
+							className={`text-xs mg:text-base tab flex-1 ${activeTab === "tab4" ? "tab-active" : ""}`}
 							onClick={() => setActiveTab("tab4")}
 						>
 							レシピ

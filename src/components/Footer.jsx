@@ -3,11 +3,11 @@ import { Link } from "react-router";
 const Footer = () => {
 	return (
 		<footer className="footer footer-horizontal footer-center bg-primary text-primary-content rounded p-10">
-			<nav className="grid grid-flow-col gap-4">
+			<nav className="grid md:grid-flow-col gap-4">
 				<Link to={"/"}>サービス概要</Link>
 				<a href="https://forms.gle/L2DVF2BSiEsppb2J6">お問合せ</a>
-				<Link to={'/terms-service'}>利用規則</Link>
-				<Link to={'/privacy-policy'}>プライバシーポリシー</Link>
+				<Link to={"/terms-service"}>利用規則</Link>
+				<Link to={"/privacy-policy"}>プライバシーポリシー</Link>
 			</nav>
 			<nav>
 				<div className="grid grid-flow-col gap-4">
@@ -39,8 +39,7 @@ const Footer = () => {
 			</nav>
 			<aside>
 				<p>
-					Copyright © {new Date().getFullYear()} - All right reserved by ACME
-					Industries Ltd
+					Copyright © {new Date().getFullYear()} VegeGuide. All rights reserved.
 				</p>
 			</aside>
 		</footer>

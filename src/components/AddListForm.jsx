@@ -5,7 +5,7 @@ const AddListForm = ({ closeModal, handleAddList }) => {
 
 	return (
 		<>
-			<div className="bg-base-100 p-6 rounded-lg w-xl max-w-xl shadow-lg">
+			<div className="bg-base-100 p-6 rounded-lg shadow-lg min-w-sm md:min-w-md lg:min-w-lg">
 				<h2 className="text-lg font-bold mb-1">新しい買い物リスト</h2>
 				<p className="text-sm text-neutral-500 mb-4">
 					買い物リストの名前を入力してください

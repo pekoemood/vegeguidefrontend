@@ -9,7 +9,7 @@ const AccountSetting = ({ name, email }) => {
 	const { user } = useContext(UserContext);
 
 	return (
-		<main className="bg-base-100 p-6 rounded-lg min-w-lg max-w-lg shadow-lg">
+		<main className="bg-base-100 p-6 rounded-lg min-w-sm md:min-w-md lg:min-w-lg shadow-lg">
 			<h2 className="text-xl font-bold">アカウント設定</h2>
 			<p className="text-neutral-500 text-sm">
 				アカウント情報の確認と変更ができます。
@@ -18,7 +18,7 @@ const AccountSetting = ({ name, email }) => {
 			<div role="tablist" className="tabs tabs-box mt-6">
 				<a
 					role="tab"
-					className={`tab flex-1 ${activeTab === "profile" && "tab-active"}`}
+					className={`text-xs md:text-base tab flex-1 ${activeTab === "profile" && "tab-active"}`}
 					onClick={() => setActiveTab("profile")}
 				>
 					プロフィール
@@ -27,17 +27,17 @@ const AccountSetting = ({ name, email }) => {
 					<>
 						<a
 							role="tab"
-							className={`tab flex-1 ${activeTab === "password" && "tab-active"}`}
+							className={`text-xs md:text-base tab flex-1 ${activeTab === "password" && "tab-active"}`}
 							onClick={() => setActiveTab("password")}
 						>
-							パスワード変更
+							パスワード
 						</a>
 						<a
 							role="tab"
-							className={`tab flex-1 ${activeTab === "mail" && "tab-active"}`}
+							className={`text-xs md:text-base tab flex-1 ${activeTab === "mail" && "tab-active"}`}
 							onClick={() => setActiveTab("mail")}
 						>
-							メール変更
+							メール
 						</a>
 					</>
 				)}

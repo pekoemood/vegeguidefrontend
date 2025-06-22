@@ -6,10 +6,10 @@ import { Link, useNavigate } from "react-router";
 import Button from "../../components/Button";
 import FormField from "../../components/FormField";
 import GoogleLoginButton from "../../components/GoogleLoginButton";
+import Meta from "../../components/Meta";
 import Spinner from "../../components/Spinner";
 import { UserContext } from "../../context/UserContext";
 import { loginSchema } from "../../utils/validation";
-import Meta from "../../components/Meta";
 
 const Login = () => {
 	const [isPending, startTransition] = useTransition();
@@ -62,127 +62,130 @@ const Login = () => {
 
 	return (
 		<>
-		<Meta title="ログイン" description="冷蔵庫の食材をスマートに管理。不足・賞味期限も通知で安心。食材をムダなく使えます。" />
-		<div className="flex min-h-screen flex-col md:flex-row">
-			<div className="relative hidden md:block md:w-1/2 bg-gradient-to-br from-green-50 to-green-100">
-				<div className="absolute inset-0 flex flex-col items-center justify-center p-12">
-					<div className="max-w-md space-y-6">
-						<div className="space-y-2 text-center">
-							<h1 className="text-3xl font-bold tracking-tighter text-green-800 sm:text-4xl mad:text-5xl">
+			<Meta
+				title="ログイン"
+				description="冷蔵庫の食材をスマートに管理。不足・賞味期限も通知で安心。食材をムダなく使えます。"
+			/>
+			<div className="flex min-h-screen flex-col md:flex-row">
+				<div className="relative hidden md:block md:w-1/2 bg-gradient-to-br from-green-50 to-green-100">
+					<div className="absolute inset-0 flex flex-col items-center justify-center p-12">
+						<div className="max-w-md space-y-6">
+							<div className="space-y-2 text-center">
+								<h1 className="text-3xl font-bold tracking-tighter text-green-800 sm:text-4xl mad:text-5xl">
+									VegeGuide
+								</h1>
+								<p className="text-gray-600 md:text-xl">
+									忙しいあなたの、毎日の"ちょうどいい健康習慣"
+								</p>
+							</div>
+
+							<div className="relative h-64 w-full overflow-hidden rounded-xl">
+								<img
+									className="object-cover"
+									src="https://images.unsplash.com/photo-1610348725531-843dff563e2c"
+									alt="野菜の写真"
+								/>
+							</div>
+
+							<div className="space-y-4">
+								<div>
+									<h3 className="font-medium">栄養価の高い旬の野菜</h3>
+									<p className="text-sm text-gray-500">
+										コスパ良く健康的な食生活を実現
+									</p>
+								</div>
+
+								<div>
+									<h3 className="font-medium">時短レシピ提案</h3>
+									<p className="text-sm text-gray-500">
+										忙しい毎日でも簡単に調理可能
+									</p>
+								</div>
+
+								<div>
+									<h3 className="font-medium">買い物リスト自動生成</h3>
+									<p className="text-sm text-gray-500">
+										効率的な買い物をサポート
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div className="flex flex-1 items-center justify-center p-6 md:p-12">
+					<div className="w-full max-w-md space-y-8">
+						<div className="space-y-2 text-center md:hidden">
+							<h1 className="text-3xl font-bold tracking-tighter text-green-800">
 								VegeGuide
 							</h1>
-							<p className="text-gray-600 md:text-xl">
+							<p className="text-gray-600">
 								忙しいあなたの、毎日の"ちょうどいい健康習慣"
 							</p>
 						</div>
 
-						<div className="relative h-64 w-full overflow-hidden rounded-xl">
-							<img
-								className="object-cover"
-								src="https://images.unsplash.com/photo-1610348725531-843dff563e2c"
-								alt="野菜の写真"
-							/>
-						</div>
-
-						<div className="space-y-4">
-							<div>
-								<h3 className="font-medium">栄養価の高い旬の野菜</h3>
+						<div className="space-y-6">
+							<div className="space-y-2 text-center">
+								<h2 className="text-2xl font-semibold tracking-tight">
+									アカウントにログイン
+								</h2>
 								<p className="text-sm text-gray-500">
-									コスパ良く健康的な食生活を実現
+									健康的な食生活への第一歩を踏み出しましょう
 								</p>
 							</div>
 
-							<div>
-								<h3 className="font-medium">時短レシピ提案</h3>
-								<p className="text-sm text-gray-500">
-									忙しい毎日でも簡単に調理可能
-								</p>
+							<GoogleLoginButton text="Googleでログイン" />
+
+							<div className="relative">
+								<div className="absolute inset-0 flex items-center">
+									<span className="w-full border-t border-base-300"></span>
+								</div>
+								<div className="relative flex justify-center text-xs">
+									<span className="bg-base-100 text-neutral-500 px-2">
+										または
+									</span>
+								</div>
 							</div>
 
-							<div>
-								<h3 className="font-medium">買い物リスト自動生成</h3>
-								<p className="text-sm text-gray-500">
-									効率的な買い物をサポート
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div className="flex flex-1 items-center justify-center p-6 md:p-12">
-				<div className="w-full max-w-md space-y-8">
-					<div className="space-y-2 text-center md:hidden">
-						<h1 className="text-3xl font-bold tracking-tighter text-green-800">
-							VegeGuide
-						</h1>
-						<p className="text-gray-600">
-							忙しいあなたの、毎日の"ちょうどいい健康習慣"
-						</p>
-					</div>
-
-					<div className="space-y-6">
-						<div className="space-y-2 text-center">
-							<h2 className="text-2xl font-semibold tracking-tight">
-								アカウントにログイン
-							</h2>
-							<p className="text-sm text-gray-500">
-								健康的な食生活への第一歩を踏み出しましょう
-							</p>
-						</div>
-
-						<GoogleLoginButton text="Googleでログイン" />
-
-						<div className="relative">
-							<div className="absolute inset-0 flex items-center">
-								<span className="w-full border-t border-base-300"></span>
-							</div>
-							<div className="relative flex justify-center text-xs">
-								<span className="bg-base-100 text-neutral-500 px-2">
-									または
-								</span>
-							</div>
-						</div>
-
-						<form
-							className="space-y-6"
-							onSubmit={handleSubmit(onSubmit, onError)}
-							noValidate
-						>
-							<FormField
-								id="email"
-								label="メールアドレス"
-								type="email"
-								placeholder="vege@gmail.com"
-								error={errors.email}
-								{...register("email")}
-							/>
-							<FormField
-								id="password"
-								label="パスワード"
-								type="password"
-								placeholder="8文字以上の英数字"
-								error={errors.password}
-								{...register("password")}
-							/>
-							<Button type="submit" disabled={isPending}>
-								{isPending ? <Spinner /> : "ログイン"}
-							</Button>
-						</form>
-
-						<div className="text-center text-sm">
-							アカウントをお持ちでないですか？{" "}
-							<Link
-								to="/signup"
-								className="font-medium text-green-600 hover:text-green-700"
+							<form
+								className="space-y-6"
+								onSubmit={handleSubmit(onSubmit, onError)}
+								noValidate
 							>
-								新規登録
-							</Link>
+								<FormField
+									id="email"
+									label="メールアドレス"
+									type="email"
+									placeholder="vege@gmail.com"
+									error={errors.email}
+									{...register("email")}
+								/>
+								<FormField
+									id="password"
+									label="パスワード"
+									type="password"
+									placeholder="8文字以上の英数字"
+									error={errors.password}
+									{...register("password")}
+								/>
+								<Button type="submit" disabled={isPending}>
+									{isPending ? <Spinner /> : "ログイン"}
+								</Button>
+							</form>
+
+							<div className="text-center text-sm">
+								アカウントをお持ちでないですか？{" "}
+								<Link
+									to="/signup"
+									className="font-medium text-green-600 hover:text-green-700"
+								>
+									新規登録
+								</Link>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 		</>
 	);
 };

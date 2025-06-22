@@ -8,7 +8,7 @@ const AddItemForm = ({ categories, closeModal, handleAddItem }) => {
 
 	return (
 		<>
-			<div className="bg-base-100 p-6 rounded-lg w-full max-w-lg shadow-lg">
+			<div className="bg-base-100 p-6 rounded-lg min-w-sm md:min-w-md lg:min-w-lg shadow-lg">
 				<h2 className="text-lg font-bold mb-1">新しいアイテムを追加</h2>
 				<p className="text-sm text-neutral-500 mb-4">
 					買い物リストに追加するアイテムの情報を入力してください
