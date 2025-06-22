@@ -2,9 +2,11 @@ import { CircleCheckBigIcon } from "lucide-react";
 
 const MeritHighLight = ({ title, merits, image, order }) => {
 	return (
-		<div className="flex items-center gap-8">
+		<div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
 			<div className={`flex-1 ${order[0]}`}>
-				<h3 className="text-2xl font-bold mb-4">{title}</h3>
+				<h3 className="text-md md:text-lg lg:text-2xl text-center md:text-left font-bold mb-4">
+					{title}
+				</h3>
 				<ul className="space-y-3">
 					{merits.map((merit, index) => (
 						<li key={index} className="flex items-start gap-2">

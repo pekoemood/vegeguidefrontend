@@ -341,13 +341,12 @@ const FridgeItems = () => {
 									</span>
 								)}
 								<div className="flex gap-2 flex-wrap">
-																{selectedItem.map((item) => (
-									<span key={item} className="badge">
-										{item}
-									</span>
-								))}
+									{selectedItem.map((item) => (
+										<span key={item} className="badge">
+											{item}
+										</span>
+									))}
 								</div>
-
 							</div>
 						</div>
 

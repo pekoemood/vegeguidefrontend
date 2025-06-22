@@ -9,7 +9,7 @@ const AccountSetting = ({ name, email }) => {
 	const { user } = useContext(UserContext);
 
 	return (
-		<main className="bg-base-100 p-6 rounded-lg min-w-sm md:min-w-md lg:min-w-lg shadow-lg">
+		<main className="bg-base-100 p-6 rounded-lg min-w-sm shadow-lg">
 			<h2 className="text-xl font-bold">アカウント設定</h2>
 			<p className="text-neutral-500 text-sm">
 				アカウント情報の確認と変更ができます。
