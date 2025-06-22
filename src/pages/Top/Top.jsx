@@ -14,6 +14,15 @@ import { api } from "../../utils/axios";
 import FeatureCard from "./FeatureCard";
 import MeritHighLight from "./MeritHighLight";
 import UsageCard from "./UsageCard";
+import Recommend from "./Recommend";
+
+const recommendList = [
+  "忙しい仕事の合間に健康的な食事を摂りたい方",
+  "料理は苦手だけど、外食やコンビニ食を減らしたい方",
+  "健康を意識し始めた社会人の方",
+  "食費を抑えつつ、栄養バランスの良い食事をしたい方",
+  "食材を無駄にせず、効率的に使い切りたい方"
+];
 
 const Top = () => {
 	const navigate = useNavigate();
@@ -46,8 +55,8 @@ const Top = () => {
 	return (
 		<>
 			<Meta title="トップ" description="VegeGuideのアプリ概要です。" />
-			<main className="max-w-screen flex flex-col  mx-auto space-y-32 min-h-screen">
-				<header className="w-full sticky top-0 z-40 backdrop-blur bg-white">
+			<main className="container flex flex-col px-4 lg:px-0  mx-auto space-y-16 lg:space-y-32 min-h-screen">
+				<header className="w-full mx-auto sticky top-0 z-40 backdrop-blur bg-white">
 					<div className="container mx-auto flex h-16 items-center justify-center">
 						<nav className="flex justify-center gap-8">
 							<a href="#feature" className="transition hover:text-primary">
@@ -63,13 +72,13 @@ const Top = () => {
 					</div>
 				</header>
 				<section className="flex mx-auto">
-					<div className="flex-1 flex flex-col justify-center space-y-8">
-						<h1 className="text-6xl font-bold tracking-tight">
+					<div className="flex-1 flex flex-col items-center justify-center space-y-8">
+						<h1 className="text-center lg:text-left text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
 							忙しいあなたの
 							<br />
 							<span className="text-primary">毎日のちょうどいい健康習慣</span>
 						</h1>
-						<p className="text-lg md:text-2xl text-neutral-500">
+						<p className=" text-lg md:text-xl lg:text-2xl text-neutral-500">
 							旬の野菜情報・価格比較・レシピ提案・買い物リスト・食材管理を一元化。
 							<br />
 							料理のハードルを下げ、食材のムダを防ぎながら、栄養価が高くコスパの良い食生活をサポートします。
@@ -86,10 +95,10 @@ const Top = () => {
 							</button>
 						</div>
 					</div>
-					<div className="flex-1 flex justify-center">
+					<div className="hidden lg:flex flex-1 justify-center">
 						<div className="mockup-phone ">
 							<div className="mockup-phone-camera"></div>
-							<div className="bg-base-100 mockup-phone-display text-white grid place-content-center">
+							<div className="bg-base-100 mockup-phone-display text-white grid place-content-center p-2">
 								<img src="/top.png" alt="" />
 							</div>
 						</div>
@@ -99,16 +108,16 @@ const Top = () => {
 				<section id="feature" className="scroll-mt-20">
 					<div className="container mx-auto">
 						<div className="text-center">
-							<h2 className="text-4xl font-bold">
+							<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
 								<span className="text-primary">VegeGuide</span>の特徴
 							</h2>
-							<p className="text-xl text-neutral-500 mt-4">
+							<p className="text-md md:text-lg lg:text-xl text-neutral-500 mt-4">
 								健康的な食生活を送りたいけれど、忙しくて時間がない。
 								そんなあなたの毎日をサポートする機能が揃っています。
 							</p>
 						</div>
 
-						<div className="grid grid-cols-4 gap-8 mt-16">
+						<div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mt-16">
 							<FeatureCard
 								title="旬の野菜情報"
 								description="「旬・安い・栄養価が高い」野菜を一覧で表示。 季節に合わせた最適な食材選びをサポートします。"
@@ -136,14 +145,16 @@ const Top = () => {
 				<section id="usage" className="scroll-mt-20">
 					<div className="container mx-auto">
 						<div className="text-center">
-							<h2 className="text-4xl font-bold">使い方はとてもシンプル</h2>
-							<p className="text-xl text-neutral-500 mt-4">
+							<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
+								使い方はとてもシンプル
+							</h2>
+							<p className="text-md md:text-lg lg:text-xl text-neutral-500 mt-4">
 								複数のアプリを行き来する必要はありません。
 								VegeGuideひとつで、食材選びから調理まで一気通貫でサポートします。
 							</p>
 						</div>
 
-						<div className="grid grid-cols-4 gap-8 mt-16">
+						<div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mt-16 place-items-center">
 							<UsageCard
 								image="https://i.gyazo.com/ce62a126366946d7196e7c61a7118a26.jpg"
 								title="旬の野菜を選ぶ"
@@ -158,7 +169,7 @@ const Top = () => {
 							/>
 							<UsageCard
 								image="https://i.gyazo.com/8684ee9291f2a6850f9011ffcd941483.png"
-								title="レシピから買い物リストを作成"
+								title="買い物リストを作成"
 								description="生成したレシピから買い物リストを作成します"
 								number="3"
 							/>
@@ -175,8 +186,10 @@ const Top = () => {
 				<section id="merit" className="scroll-mt-20">
 					<div className="container mx-auto">
 						<div className="text-center">
-							<h2 className="text-4xl font-bold">VegeGuideを使うメリット</h2>
-							<p className="text-xl text-neutral-500 mx-auto mt-4">
+							<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
+								VegeGuideを使うメリット
+							</h2>
+							<p className="text-md md:text-lg lg:text-xl text-neutral-500 mx-auto mt-4">
 								健康的な食生活を無理なく続けるための、4つの推しポイント
 							</p>
 						</div>
@@ -214,7 +227,7 @@ const Top = () => {
 										/>
 									</a>
 								}
-								order={["order-2", "order-1"]}
+								order={["order-1 md:order-2", "order-1 md:order-1"]}
 							/>
 							<MeritHighLight
 								title="複数アプリを行き来する必要がなく、毎日の食生活がシンプルに"
@@ -249,7 +262,7 @@ const Top = () => {
 										/>
 									</a>
 								}
-								order={["order-2", "order-1"]}
+								order={["order-1 md:order-2", "order-2 md:order-1"]}
 							/>
 						</div>
 					</div>
@@ -258,44 +271,15 @@ const Top = () => {
 				<section>
 					<div className="container mx-auto">
 						<div className="text-center">
-							<div className="mx-auto max-w-2xl rounded-xl shadow-lg p-10">
-								<h2 className="text-4xl font-bold">こんな方におすすめです</h2>
+							<div className="mx-auto max-w-2xl rounded-xl shadow-lg p-1 md:p-5 lg:p-10">
+								<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
+									こんな方におすすめです
+								</h2>
 
 								<div className="space-y-4 mt-8">
-									<div className="flex items-center gap-3 pl-6">
-										<div className="bg-primary/10 p-2 rounded-full">
-											<CircleCheckBigIcon className="h-5 w-5 text-primary" />
-										</div>
-										<p>忙しい仕事の合間に健康的な食事を摂りたい方</p>
-									</div>
-
-									<div className="flex items-center gap-3 pl-6">
-										<div className="bg-primary/10 p-2 rounded-full">
-											<CircleCheckBigIcon className="h-5 w-5 text-primary" />
-										</div>
-										<p>料理は苦手だけど、外食やコンビニ食を減らしたい方</p>
-									</div>
-
-									<div className="flex items-center gap-3 pl-6">
-										<div className="bg-primary/10 p-2 rounded-full">
-											<CircleCheckBigIcon className="h-5 w-5 text-primary" />
-										</div>
-										<p>健康を意識し始めた社会人の方</p>
-									</div>
-
-									<div className="flex items-center gap-3 pl-6">
-										<div className="bg-primary/10 p-2 rounded-full">
-											<CircleCheckBigIcon className="h-5 w-5 text-primary" />
-										</div>
-										<p>食費を抑えつつ、栄養バランスの良い食事をしたい方</p>
-									</div>
-
-									<div className="flex items-center gap-3 pl-6">
-										<div className="bg-primary/10 p-2 rounded-full">
-											<CircleCheckBigIcon className="h-5 w-5 text-primary" />
-										</div>
-										<p>食材を無駄にせず、効率的に使い切りたい方</p>
-									</div>
+								{recommendList.map((text) => (
+									<Recommend text={text} />
+								))}
 								</div>
 							</div>
 						</div>
@@ -304,11 +288,11 @@ const Top = () => {
 
 				<section className="pb-20">
 					<div className="container text-center space-y-4 mx-auto">
-						<h2 className="text-4xl font-bold">
+						<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
 							今すぐ初めて、<span className="text-primary">健康的な食生活</span>
 							を手に入れよう
 						</h2>
-						<p className="text-lg text-neutral-500 mx-auto">
+						<p className="mg:text-lg lg:text-xl text-neutral-500 mx-auto">
 							VegeGuideなら、忙しい毎日でも無理なく続けられる
 							"ちょうどいい健康習慣"をサポートします。
 						</p>

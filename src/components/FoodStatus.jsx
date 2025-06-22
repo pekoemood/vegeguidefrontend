@@ -36,7 +36,9 @@ const FoodStatus = ({
 			onClick={() => setFoodSelectedStatus(status)}
 		>
 			<p className="text-2xl">{foodStatusCount[status] ?? items.length}</p>
-			<span className="text-neutral-500 whitespace-nowrap text-xs">{label}</span>
+			<span className="text-neutral-500 whitespace-nowrap text-xs">
+				{label}
+			</span>
 		</div>
 	);
 };
