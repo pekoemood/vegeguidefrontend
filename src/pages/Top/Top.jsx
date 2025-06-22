@@ -121,7 +121,7 @@ const Top = () => {
 							/>
 							<FeatureCard
 								title="買い物リスト自動生成"
-								description="レシピを選ぶだけで必要な材料が自動でリストアップ。 仕事帰りのスーパーでもサクッと買い物ができます。"
+								description="レシピを選ぶだけで必要な食材が自動でリストアップ。 仕事帰りのスーパーでもサクッと買い物ができます。"
 								Icon={ShoppingCart}
 							/>
 							<FeatureCard

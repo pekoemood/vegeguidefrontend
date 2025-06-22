@@ -15,10 +15,10 @@ const AddFridgeItemForm = ({ closeModal, categories, handleAdd }) => {
 
 	return (
 		<>
-			<div className="bg-base-100 p-6 rounded-lg min-w-lg shadow-lg">
-				<h2 className="text-lg font-bold mb-1">材料を追加</h2>
+			<div className="bg-base-100 p-6 rounded-lg min-w-sm md:min-w-md lg:min-w-lg shadow-lg">
+				<h2 className="text-lg font-bold mb-1">食材を追加</h2>
 				<p className="text-sm text-neutral-500 mb-4">
-					材料の情報を入力してください
+					食材の情報を入力してください
 				</p>
 
 				<div className="flex flex-col space-y-6 mb-4">
@@ -26,7 +26,7 @@ const AddFridgeItemForm = ({ closeModal, categories, handleAdd }) => {
 						<input
 							type="text"
 							className="input w-full"
-							placeholder="材料名"
+							placeholder="食材名"
 							value={name}
 							onChange={(e) => setName(e.target.value)}
 						/>

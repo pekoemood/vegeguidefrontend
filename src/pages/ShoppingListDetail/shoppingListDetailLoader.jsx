@@ -10,6 +10,6 @@ export const shoppingListDetailLoader = async ({ params }) => {
 		);
 		return { shoppingList: response.data.data };
 	} catch (error) {
-		console.error(`材料データの取得に失敗しました${error}`);
+		console.error(`食材データの取得に失敗しました${error}`);
 	}
 };

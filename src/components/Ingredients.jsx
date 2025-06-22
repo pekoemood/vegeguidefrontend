@@ -1,7 +1,7 @@
 const Ingredients = ({ servings, ingredients }) => {
 	return (
 		<section className="w-full mt-6">
-			<h2 className="text-xl">材料（{servings}人前）</h2>
+			<h2 className="text-xl">食材（{servings}人前）</h2>
 			<ul className="mt-6 mx-auto space-y-4">
 				{ingredients.map((ingredient) => (
 					<li

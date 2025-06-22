@@ -5,7 +5,7 @@ const RecipeSteps = ({ steps }) => {
 			<ul className="steps steps-vertical mt-6">
 				{steps.map((step) => (
 					<li key={step.step_number} className="step">
-						{step.description}
+						<p className="text-left text-xs md:text-base">{step.description}</p>
 					</li>
 				))}
 			</ul>

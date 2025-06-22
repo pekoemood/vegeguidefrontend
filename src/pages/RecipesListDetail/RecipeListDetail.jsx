@@ -58,8 +58,10 @@ const RecipeListDetail = () => {
 				</div>
 
 				<h1 className="text-2xl font-bold">{data.attributes.name}</h1>
-				<p className="mt-4 text-neutral-500">{data.attributes.instructions}</p>
-				<div className="mt-4 flex space-x-2 items-center">
+				<p className="mt-4 text-neutral-500 text-xs md:text-base">
+					{data.attributes.instructions}
+				</p>
+				<div className="mt-4 flex flex-col md:flex-row flex-wrap gap-2">
 					<div className="flex items-center badge badge-secondary">
 						<Clock size={20} />
 						<span>調理時間 : {shoppingList.cooking_time}分</span>
@@ -74,7 +76,7 @@ const RecipeListDetail = () => {
 					</div>
 					<div className="flex items-center badge badge-secondary">
 						<User size={20} />
-						<span className="">材料 : {shoppingList.servings}人分</span>
+						<span className="">食材 : {shoppingList.servings}人分</span>
 					</div>
 				</div>
 
@@ -92,7 +94,7 @@ const RecipeListDetail = () => {
 							className={`tab flex-1 ${activeTab === "tab1" ? "tab-active" : ""}`}
 							onClick={() => setActiveTab("tab1")}
 						>
-							材料
+							食材
 						</a>
 						<a
 							role="tab"

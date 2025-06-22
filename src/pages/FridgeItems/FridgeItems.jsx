@@ -16,6 +16,7 @@ import {
 import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import { useLoaderData, useNavigate } from "react-router";
+import FoodStatus from "../../components/FoodStatus";
 import FridgeItemForm from "../../components/FridgeItemForm";
 import Meta from "../../components/Meta";
 import useModal from "../../hooks/useModal";
@@ -151,10 +152,10 @@ const FridgeItems = () => {
 			});
 			setItems(response.data.data);
 			closeModal();
-			toast.success("材料を追加しました");
+			toast.success("食材を追加しました");
 		} catch (err) {
 			console.error(err);
-			toast.error("材料の追加に失敗しました");
+			toast.error("食材の追加に失敗しました");
 		}
 	};
 
@@ -170,10 +171,10 @@ const FridgeItems = () => {
 			});
 			setItems(response.data.data);
 			closeModal();
-			toast.success("材料情報を編集しました");
+			toast.success("食材情報を編集しました");
 		} catch (err) {
 			console.error(err);
-			toast.error("材料情報の編集に失敗しました");
+			toast.error("食材情報の編集に失敗しました");
 		}
 	};
 
@@ -181,10 +182,10 @@ const FridgeItems = () => {
 		try {
 			const response = await api.delete(`/fridge_items/${id}`);
 			setItems(response.data.data);
-			toast.success("材料を削除しました");
+			toast.success("食材を削除しました");
 		} catch (err) {
 			console.error(err);
-			toast.error("材料の削除に失敗しました");
+			toast.error("食材の削除に失敗しました");
 		}
 	};
 
@@ -236,7 +237,7 @@ const FridgeItems = () => {
 				<div>
 					<h1 className="text-2xl font-bold">冷蔵庫</h1>
 					<p className="mt-4 text-neutral-500">
-						冷蔵庫に登録された材料を確認ができます。また、材料からレシピの提案も可能です
+						冷蔵庫に登録された食材を確認ができます。また、食材からレシピの提案も可能です
 					</p>
 				</div>
 
@@ -244,7 +245,7 @@ const FridgeItems = () => {
 					<input
 						type="text"
 						className="input w-full"
-						placeholder="材料を検索..."
+						placeholder="食材を検索..."
 						value={name}
 						onChange={(e) => setName(e.target.value)}
 					/>
@@ -255,90 +256,98 @@ const FridgeItems = () => {
 							openModal();
 						}}
 					>
-						材料を追加
+						食材を追加
 					</button>
 				</div>
 
-				<div role="tablist" className="tabs tabs-box mt-4">
+				<div
+					role="tablist"
+					className="tabs tabs-box mt-4 overflow-x-auto flex-nowrap"
+				>
 					<a
 						role="tab"
-						className={`tab flex-1 space-x-1 ${selectedCategory === null && "tab-active"}`}
+						className={`tab flex-1 ${selectedCategory === null && "tab-active"}`}
 						onClick={() => setSelectedCategory(null)}
 					>
-						<Layers className="h-5" />
-						<span>すべて</span>
+						<div className="flex flex-col items-center">
+							<Layers className="h-5" />
+							<span className="text-xs lg:text-base whitespace-nowrap">
+								すべて
+							</span>
+						</div>
 					</a>
 					{categories.map(({ name, icon: Icon }) => (
 						<a
 							key={name}
 							role="tab"
-							className={`tab flex-1 space-x-1 ${selectedCategory === name && "tab-active"}`}
+							className={`tab flex-1 ${selectedCategory === name && "tab-active"}`}
 							onClick={() => setSelectedCategory(name)}
 						>
-							<Icon className="h-5" /> <span>{name}</span>
+							<div className="flex flex-col items-center">
+								<Icon className="h-5" />{" "}
+								<span className="text-xs lg:text-base whitespace-nowrap">
+									{name}
+								</span>
+							</div>
 						</a>
 					))}
 				</div>
 
-				<div className="grid grid-cols-5 gap-4 mt-6">
-					<div
-						className={`border border-base-300 p-4 rounded-lg cursor-pointer transition transform hover:scale-105  hover:bg-base-200 hover:shadow-lg ${foodSelectedStatus === null && "bg-base-200"}`}
-						onClick={() => setFoodSelectedStatus(null)}
-					>
-						<p className="text-2xl">{items.length}</p>
-						<span className="text-neutral-500">総材料数</span>
-					</div>
-					<div
-						className={`border border-base-300 p-4 rounded-lg cursor-pointer transition transform hover:scale-105  hover:bg-error hover:shadow-lg ${foodSelectedStatus === "expired" && "bg-error"}`}
-						onClick={() => setFoodSelectedStatus("expired")}
-					>
-						<p className="text-2xl text-error-content">
-							{foodStatusCount.expired}
-						</p>
-						<span className="text-neutral-500">期限切れ</span>
-					</div>
-					<div
-						className={`border border-base-300 p-4 rounded-lg cursor-pointer transition transform hover:scale-105  hover:bg-accent hover:shadow-lg ${foodSelectedStatus === "urgent" && "bg-accent"}`}
-						onClick={() => setFoodSelectedStatus("urgent")}
-					>
-						<p className="text-2xl text-accent-content">
-							{foodStatusCount.urgent}
-						</p>
-						<span className="text-neutral-500">期限間近</span>
-					</div>
-					<div
-						className={`border border-base-300 p-4 rounded-lg cursor-pointer transition transform hover:scale-105  hover:bg-warning hover:shadow-lg ${foodSelectedStatus === "warning" && "bg-warning"}`}
-						onClick={() => setFoodSelectedStatus("warning")}
-					>
-						<p className="text-2xl text-warning-content">
-							{foodStatusCount.warning}
-						</p>
-						<span className="text-neutral-500">注意</span>
-					</div>
-					<div
-						className={`border border-base-300 p-4 rounded-lg cursor-pointer transition transform hover:scale-105  hover:bg-info hover:shadow-lg ${foodSelectedStatus === "safe" && "bg-info"}`}
-						onClick={() => setFoodSelectedStatus("safe")}
-					>
-						<p className="text-2xl text-info-content">{foodStatusCount.safe}</p>
-						<span className="text-neutral-500">安全</span>
-					</div>
+				<div className="flex gap-4 mt-6">
+					<FoodStatus
+						foodSelectedStatus={foodSelectedStatus}
+						setFoodSelectedStatus={setFoodSelectedStatus}
+						status={null}
+						items={items}
+					/>
+
+					<FoodStatus
+						foodSelectedStatus={foodSelectedStatus}
+						setFoodSelectedStatus={setFoodSelectedStatus}
+						status={"expired"}
+						items={items}
+					/>
+
+					<FoodStatus
+						foodSelectedStatus={foodSelectedStatus}
+						setFoodSelectedStatus={setFoodSelectedStatus}
+						status={"urgent"}
+						items={items}
+					/>
+
+					<FoodStatus
+						foodSelectedStatus={foodSelectedStatus}
+						setFoodSelectedStatus={setFoodSelectedStatus}
+						status={"warning"}
+						items={items}
+					/>
+
+					<FoodStatus
+						foodSelectedStatus={foodSelectedStatus}
+						setFoodSelectedStatus={setFoodSelectedStatus}
+						status={"safe"}
+						items={items}
+					/>
 				</div>
 
 				<div>
-					<div className="flex justify-between mt-6 border border-base-300 p-4 rounded-lg items-center">
-						<div className="flex space-x-2">
+					<div className="flex flex-col gap-2 md:flex-row md:justify-between mt-6 border border-base-300 p-4 rounded-lg md:items-center">
+						<div className="flex flex-col gap-2">
 							<p className="font-bold">AIレシピ提案</p>
-							<div className="flex items-center space-x-2">
+							<div className="flex flex-col gap-2">
 								{selectedItem.length > 0 && (
 									<span className="text-sm text-neutral-500">
 										選択中のアイテム
 									</span>
 								)}
-								{selectedItem.map((item) => (
+								<div className="flex gap-2 flex-wrap">
+																{selectedItem.map((item) => (
 									<span key={item} className="badge">
 										{item}
 									</span>
 								))}
+								</div>
+
 							</div>
 						</div>
 
@@ -356,15 +365,17 @@ const FridgeItems = () => {
 					</div>
 
 					{recipe && (
-						<div className="p-6 my-8 border border-base-300 rounded-lg">
+						<div className="p-2 md:p-6">
 							<div className="flex flex-col justify-between items-start space-y-2 mb-4">
 								<div>
 									<h2 className="text-start text-xl font-semibold">
 										{recipe.name}
 									</h2>
-									<p className="text-neutral-500 mt-1">{recipe.instructions}</p>
+									<p className="text-xs md:text-base text-neutral-500 mt-1">
+										{recipe.instructions}
+									</p>
 								</div>
-								<div className="flex gap-2">
+								<div className="flex flex-wrap gap-2">
 									<div className="flex items-center badge badge-secondary">
 										料理カテゴリ: {recipe.recipe_category}
 									</div>
@@ -375,14 +386,14 @@ const FridgeItems = () => {
 										調理時間: {recipe.cooking_time}分
 									</div>
 									<div className="flex items-center badge badge-secondary">
-										目的: {recipe.purpose}
+										目的・シーン: {recipe.purpose}
 									</div>
 								</div>
 							</div>
 
 							<div>
 								<h3 className="font-semibold text-lg flex items-center mb-2">
-									材料
+									食材
 									{
 										<span className="text-sm font-normal ml-2">
 											({recipe.servings}人分)
@@ -390,9 +401,12 @@ const FridgeItems = () => {
 									}
 								</h3>
 								<div className="rounded-md p-4">
-									<ul className="grid grid-cols-3 gap-2">
+									<ul className="flex flex-wrap gap-2">
 										{recipe.ingredients?.map((ingredient, index) => (
-											<li key={index} className="flex items-center gap-2">
+											<li
+												key={index}
+												className="flex items-center gap-1 text-xs md:text-base"
+											>
 												<span className="badge badge-neutral badge-xs"></span>
 												{ingredient.name} {ingredient?.display_amount}
 											</li>
@@ -410,7 +424,9 @@ const FridgeItems = () => {
 								<ul className="steps steps-vertical">
 									{(recipe?.step ?? []).map((st, index) => (
 										<li key={index} className="step flex">
-											<p className="text-balance">{st?.description}</p>
+											<p className="text-left text-xs md:text-base">
+												{st?.description}
+											</p>
 										</li>
 									))}
 								</ul>
@@ -440,7 +456,7 @@ const FridgeItems = () => {
 							<tr>
 								<th>選択</th>
 								<th>アイコン</th>
-								<th>材料名</th>
+								<th>食材名</th>
 								<th
 									onClick={() => handleSort("category")}
 									className="cursor-pointer"

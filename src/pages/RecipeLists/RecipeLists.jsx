@@ -15,7 +15,7 @@ const RecipeLists = () => {
 				title="レシピ一覧"
 				description="簡単＆おいしい野菜レシピを食事別に一覧表示。手順や所要時間も明確にご紹介。"
 			/>
-			<main className="container mx-auto py-6">
+			<main className="container mx-auto px-4 py-8">
 				<div>
 					<h1 className="text-2xl font-bold">登録レシピ一覧</h1>
 					<p className="mt-4 text-neutral-500">
@@ -23,7 +23,7 @@ const RecipeLists = () => {
 					</p>
 				</div>
 
-				<div className="mt-4 grid grid-cols-4 gap-3">
+				<div className="mt-4 flex flex-col items-center md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
 					{recipes.map((recipe) => (
 						<RecipeCard
 							key={recipe.id}

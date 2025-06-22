@@ -115,7 +115,7 @@ const VegeList = () => {
 					</label>
 				</div>
 			</div>
-			
+
 			<div className="mt-4 md:m-8 grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
 				{vegetables.length > 0 ? (
 					vegetables.map((vegetable) => (

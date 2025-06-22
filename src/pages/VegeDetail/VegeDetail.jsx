@@ -19,8 +19,8 @@ const VegeDetail = () => {
 				description="旬の野菜を一覧でチェック。栄養や調理のヒントも満載！次のメニューの参考にどうぞ。"
 			/>
 			<div className="container mx-auto px-4">
-				<div className="flex justify-center gap-8 my-8 mx-auto">
-					<div className="max-w-md">
+				<div className="flex flex-col md:flex-row justify-center gap-8 my-8 mx-auto">
+					<div className="max-w-md order-2 md:order-1 mx-auto md:mx-0">
 						<div className="rounded-lg overflow-hidden shadow-md">
 							<img
 								src={data.attributes.image_url}
@@ -30,8 +30,8 @@ const VegeDetail = () => {
 						</div>
 					</div>
 
-					<div>
-						<h1 className="text-3xl md:text-4xl md:text-4xl font-bold mb-4">
+					<div className="order-1 md:order-2">
+						<h1 className="text-3xl md:text-4xl font-bold mb-4">
 							{data.attributes.name}
 						</h1>
 						<p className="text-neutral-500 mb-4">

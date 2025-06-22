@@ -115,10 +115,10 @@ const ShoppingListDetail = () => {
 			);
 			console.log(response);
 			setItems((prev) => [...prev, { ...response.data.item }]);
-			toast.success("材料を追加しました");
+			toast.success("食材を追加しました");
 		} catch (error) {
 			console.error(error);
-			toast.error("材料の追加に失敗しました");
+			toast.error("食材の追加に失敗しました");
 		}
 	};
 
@@ -126,10 +126,10 @@ const ShoppingListDetail = () => {
 		try {
 			await api.delete(`/shopping_list_items/${id}`);
 			setItems((prev) => prev.filter((item) => item.item_id !== id));
-			toast.success("材料を削除しました");
+			toast.success("食材を削除しました");
 		} catch (error) {
 			console.error(error);
-			toast.error("材料の削除に失敗しました");
+			toast.error("食材の削除に失敗しました");
 		}
 	};
 
@@ -159,31 +159,31 @@ const ShoppingListDetail = () => {
 				description="必要な食材をまとめて管理。買い忘れを防げて、効率的な買い物ができます！"
 			/>
 			<div className="container max-w-screen-md mx-auto px-4 py-8">
-				<div className="mb-6 flex justify-between">
+				<div className="mb-6 flex flex-col md:flex-row gap-2 md:justify-between">
 					<button
 						onClick={() => navigate("/shoppinglist")}
 						className="btn btn-outline"
 					>
 						戻る
 					</button>
-					<div className="space-x-2">
+					<div className="flex flex-col md:flex-row gap-2">
 						<button className="btn btn-outline" onClick={openModal}>
-							材料を追加する
+							食材を追加する
 						</button>
 						<button
 							className="btn btn-outline"
 							onClick={() => handleAddFridge(items)}
 						>
-							全ての材料を冷蔵庫に追加する
+							全ての食材を冷蔵庫に追加する
 						</button>
 					</div>
 				</div>
 
 				<div className="px-4 pb-2">
 					<div className="flex flex-col space-y-2">
-						<div className="flex space-x-2">
+						<div className="flex flex-wrap gap-2">
 							<button
-								className={`badge ${selectedCategory === null && "badge-neutral"}`}
+								className={`text-xs  md:text-base badge ${selectedCategory === null && "badge-neutral"}`}
 								onClick={() => setSelectedCategory(null)}
 							>
 								すべてのカテゴリ
@@ -191,7 +191,7 @@ const ShoppingListDetail = () => {
 							{categories.map((category) => (
 								<button
 									key={category}
-									className={`badge ${selectedCategory === category && "badge-neutral"}`}
+									className={`text-xs md:text-base badge ${selectedCategory === category && "badge-neutral"}`}
 									onClick={() => setSelectedCategory(category)}
 								>
 									{category}
@@ -244,7 +244,7 @@ const ShoppingListDetail = () => {
 										<ul className="space-y-2">
 											{categoryItems.map((item) => (
 												<li key={item.id}>
-													<div className="flex items-center justify-between space-x-4 py-4 px-4 rounded-lg border border-base-300">
+													<div className="flex flex-col md:flex-row md:items-center justify-between space-x-4 py-4 px-4 rounded-lg border border-base-300">
 														<div className="flex items-center space-x-4">
 															<input
 																type="checkbox"
@@ -265,7 +265,7 @@ const ShoppingListDetail = () => {
 																<span className="loading loading-spinner loading-xs ml-2"></span>
 															)}
 														</div>
-														<div className="flex items-center space-x-4">
+														<div className="flex justify-end md:justify-start items-center space-x-4">
 															<span>{item.display_amount}</span>
 															<Refrigerator
 																className="hover:text-info"
