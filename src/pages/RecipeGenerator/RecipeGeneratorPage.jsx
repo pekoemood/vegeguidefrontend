@@ -87,7 +87,7 @@ const RecipeGeneratorPage = () => {
 			<main className="container mx-auto px-4 py-8">
 				<h1 className="text-2xl font-bold">レシピ提案</h1>
 
-				<div className="flex flex-wrap gap-2 mt-2">
+				<div className="flex flex-wrap gap-2">
 					{selectedVegetables.length > 0 ? (
 						selectedVegetables.map((id) => {
 							const veg = data.find((v) => v.id === id);
@@ -138,7 +138,7 @@ const RecipeGeneratorPage = () => {
 
 				<section>
 					<h2 className="text-xl font-semibold mt-8">レシピ条件設定</h2>
-					<div className="grid grid-cols-2 gap-6 mt-4">
+					<div className="flex flex-col md:grid md:grid-cols-2 gap-6 mt-4">
 						<div className="space-y-2 flex flex-col">
 							<label className="label" htmlFor="cookingTime">
 								調理時間
@@ -275,15 +275,17 @@ const RecipeGeneratorPage = () => {
 					)}
 
 					{recipe && (
-						<div className="p-6">
+						<div className="p-2 md:p-6">
 							<div className="flex flex-col justify-between items-start space-y-2 mb-4">
 								<div>
 									<h2 className="text-start text-xl font-semibold">
 										{recipe.name}
 									</h2>
-									<p className="text-neutral-500 mt-1">{recipe.instructions}</p>
+									<p className="text-xs md:text-base text-neutral-500 mt-1">
+										{recipe.instructions}
+									</p>
 								</div>
-								<div className="flex gap-2">
+								<div className="flex flex-wrap gap-2">
 									<div className="flex items-center badge badge-secondary">
 										料理カテゴリ: {recipe.recipe_category}
 									</div>
@@ -301,7 +303,7 @@ const RecipeGeneratorPage = () => {
 
 							<div>
 								<h3 className="font-semibold text-lg flex items-center mb-2">
-									材料
+									食材
 									{
 										<span className="text-sm font-normal ml-2">
 											({recipe.servings}人分)
@@ -309,9 +311,12 @@ const RecipeGeneratorPage = () => {
 									}
 								</h3>
 								<div className="rounded-md p-4">
-									<ul className="grid grid-cols-3 gap-2">
+									<ul className="flex flex-wrap gap-2">
 										{recipe.ingredients?.map((ingredient, index) => (
-											<li key={index} className="flex items-center gap-2">
+											<li
+												key={index}
+												className="flex items-center gap-1 text-xs md:text-base"
+											>
 												<span className="badge badge-neutral badge-xs"></span>
 												{ingredient.name} {ingredient?.display_amount}
 											</li>
@@ -329,7 +334,9 @@ const RecipeGeneratorPage = () => {
 								<ul className="steps steps-vertical">
 									{(recipe?.step ?? []).map((st, index) => (
 										<li key={index} className="step flex">
-											<p className="text-balance">{st?.description}</p>
+											<p className="text-left text-xs md:text-base">
+												{st?.description}
+											</p>
 										</li>
 									))}
 								</ul>
