@@ -5,7 +5,11 @@ const UsageCard = ({ image, title, description, number }) => {
 				<span className="flex justify-center items-center rounded-full bg-primary w-8 h-8 absolute -left-3 -top-3 text-white">
 					{number}
 				</span>
-				<img src={image} alt="Image from Gyazo" className="object-contain h-full w-full" />
+				<img
+					src={image}
+					alt="Image from Gyazo"
+					className="object-contain h-full w-full"
+				/>
 			</div>
 			<h3 className="text-md text-primary-content lg:text-xl font-semibold">
 				{title}

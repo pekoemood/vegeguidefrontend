@@ -13,15 +13,15 @@ import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
 import FeatureCard from "./FeatureCard";
 import MeritHighLight from "./MeritHighLight";
-import UsageCard from "./UsageCard";
 import Recommend from "./Recommend";
+import UsageCard from "./UsageCard";
 
 const recommendList = [
-  "忙しい仕事の合間に健康的な食事を摂りたい方",
-  "料理は苦手だけど、外食やコンビニ食を減らしたい方",
-  "健康を意識し始めた社会人の方",
-  "食費を抑えつつ、栄養バランスの良い食事をしたい方",
-  "食材を無駄にせず、効率的に使い切りたい方"
+	"忙しい仕事の合間に健康的な食事を摂りたい方",
+	"料理は苦手だけど、外食やコンビニ食を減らしたい方",
+	"健康を意識し始めた社会人の方",
+	"食費を抑えつつ、栄養バランスの良い食事をしたい方",
+	"食材を無駄にせず、効率的に使い切りたい方",
 ];
 
 const Top = () => {
@@ -277,9 +277,9 @@ const Top = () => {
 								</h2>
 
 								<div className="space-y-4 mt-8">
-								{recommendList.map((text) => (
-									<Recommend text={text} />
-								))}
+									{recommendList.map((text) => (
+										<Recommend text={text} />
+									))}
 								</div>
 							</div>
 						</div>
