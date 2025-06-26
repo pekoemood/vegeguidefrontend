@@ -23,6 +23,7 @@ const RecipeGeneratorPage = () => {
 	const [cookingMethod, setCookingMethod] = useState("指定なし");
 	const [recipe, setRecipe] = useState(null);
 	const [isPending, startTransition] = useTransition();
+	const [isSaving, startSaving] = useTransition();
 	const navigation = useNavigate();
 	const [recipeImage, setRecipeImage] = useState(null);
 
@@ -66,7 +67,7 @@ const RecipeGeneratorPage = () => {
 	};
 
 	const handleClickSave = () => {
-		startTransition(async () => {
+		startSaving(async () => {
 			try {
 				await api.post(`/recipes`, {
 					...recipe,
@@ -299,9 +300,12 @@ const RecipeGeneratorPage = () => {
 
 					{recipe && (
 						<div className="container mx-auto px-4 flex flex-col lg:flex-row items-center">
-							<div className="lg:w-1/2">
-							{ recipeImage && (
-								<img src={recipeImage} alt="" />
+							<div className="lg:w-1/2 md:80 lg:h-140">
+							{ recipeImage ? (
+								<img src={recipeImage} alt="料理画像" className="rounded-lg w-full h-full object-cover" />
+								
+							) : (
+								<div className="skeleton h-full w-full"></div>
 							)}
 								
 							</div>
@@ -378,10 +382,10 @@ const RecipeGeneratorPage = () => {
 										className="btn relative"
 										disabled={isPending}
 									>
-										<span className={isPending ? "invisible" : ""}>
+										<span className={isSaving ? "invisible" : ""}>
 											レシピを保存
 										</span>
-										{isPending && (
+										{isSaving && (
 											<span className="absolute left-1/2 -translate-x-1/2 loading loading-spinner loading-md"></span>
 										)}
 									</button>
