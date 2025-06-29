@@ -15,7 +15,7 @@ const RecipeLists = () => {
 				title="レシピ一覧"
 				description="簡単＆おいしい野菜レシピを食事別に一覧表示。手順や所要時間も明確にご紹介。"
 			/>
-			<main className="container mx-auto px-2 md:px-4 py-8">
+			<main className="container mx-auto px-2 py-8">
 				<div>
 					<h1 className="text-2xl font-bold">登録レシピ一覧</h1>
 					<p className="mt-4 text-neutral-500">
