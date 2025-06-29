@@ -1,4 +1,11 @@
-import { Clock, CookingPot, Leaf, ShoppingCart, Trash2 } from "lucide-react";
+import {
+	Clock,
+	CookingPot,
+	Leaf,
+	ShoppingCart,
+	Trash2,
+	User,
+} from "lucide-react";
 import { Link, useNavigate } from "react-router";
 import { api } from "../utils/axios";
 
@@ -13,6 +20,8 @@ const RecipeCard = ({
 	ingredients,
 	setRecipes,
 	toast,
+	image,
+	category,
 }) => {
 	const handleClickDelete = async (e) => {
 		e.stopPropagation();
@@ -33,43 +42,33 @@ const RecipeCard = ({
 
 	return (
 		<div onClick={() => navigate(`/recipe-lists/${id}`)}>
-			<div className="cursor-pointer card max-w-md shadow-sm transition-transform duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
+			<div className="cursor-pointer w-90 card shadow-sm transition-transform duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
+				<figure>
+					<img src={image} alt="料理画像" className="aspect-square w-full" />
+				</figure>
 				<div className="card-body">
-					<div className="flex justify-between items-center gap-2">
-						<h2 className="flex-auto card-title line-clamp-1">{title}</h2>
-						<span className="flex-none badge badge-secondary">{purpose}</span>
+					<h2 className="card-title line-clamp-1">{title}</h2>
+					<div className="flex gap-1 flex-nowrap">
+						<span className="badge badge-secondary line-clamp-1">
+							{category}
+						</span>
+						<span className="badge badge-secondary flex items-center line-clamp-1">
+							<Clock size={15} />
+							{cookingTime}分
+						</span>
+						<span className="badge badge-secondary flex items-center line-clamp-1">
+							<User size={15} />
+							{servings}人分
+						</span>
 					</div>
 
 					<p className="text-neutral-500 line-clamp-2">{instructions}</p>
-
-					<div className="flex flex-col gap-2 justify-center">
-						<div className="flex items-center gap-2">
-							<Clock className="w-5 h-5" />
-							<span>{cookingTime}分</span>
-						</div>
-						<div className="flex items-center gap-2">
-							<CookingPot className="w-5 h-5" />
-							<span>
-								{ingredients.length >= 2 ? (
-									<>
-										{ingredients[0].name}, {ingredients[1].name}
-										{ingredients.length > 2 && (
-											<> その他: {ingredients.length - 2}個</>
-										)}
-									</>
-								) : (
-									ingredients.map((ingredient) => ingredient.name).json(", ")
-								)}
-							</span>
-						</div>
-					</div>
-
-					<div className="mt-2 flex justify-end gap-2">
+					<div className="card-actions items-center justify-end">
 						<button
-							onClick={(e) => handleClickDelete(e)}
-							className="btn btn-outline btn-error flex items-center"
+							onClick={handleClickDelete}
+							className="btn btn-error flex items-center gap-1"
 						>
-							<Trash2 />
+							<Trash2 size={20} />
 							<span>削除する</span>
 						</button>
 					</div>

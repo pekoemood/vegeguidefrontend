@@ -13,12 +13,13 @@ import {
 	Trash2,
 	Wheat,
 } from "lucide-react";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import { useLoaderData, useNavigate } from "react-router";
 import FoodStatus from "../../components/FoodStatus";
 import FridgeItemForm from "../../components/FridgeItemForm";
 import Meta from "../../components/Meta";
+import RecipeSkeleton from "../../components/RecipeSkeleton";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
 
@@ -56,6 +57,8 @@ const FridgeItems = () => {
 	const [sortOrder, setSortOrder] = useState(null);
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	const [foodSelectedStatus, setFoodSelectedStatus] = useState(null);
+	const [recipeImage, setRecipeImage] = useState(null);
+	const [isSaving, startSaving] = useTransition();
 
 	const foodStatusCount = items.reduce(
 		(acc, item) => {
@@ -216,6 +219,7 @@ const FridgeItems = () => {
 		try {
 			const response = await api.post(`/recipes`, {
 				...recipe,
+				image_id: recipeImage.image_id,
 			});
 			navigation("/recipe-lists");
 			toast.success("レシピを保存しました");
@@ -227,13 +231,30 @@ const FridgeItems = () => {
 
 	console.log("レシピ", recipe);
 
+	useEffect(() => {
+		const getRecipeImage = async () => {
+			try {
+				const response = await api.post("/recipe_image_generations", {
+					recipe: {
+						name: recipe.name,
+						ingredients: recipe.ingredients,
+					},
+				});
+				setRecipeImage(response.data);
+			} catch (err) {
+				console.error(err);
+			}
+		};
+		getRecipeImage();
+	}, [recipe]);
+
 	return (
 		<>
 			<Meta
 				title="冷蔵庫"
 				description="冷蔵庫の食材をスマートに管理。不足・賞味期限も通知で安心。食材をムダなく使えます。"
 			/>
-			<main className="container mx-auto py-6">
+			<main className="container mx-auto py-6 px-2">
 				<div>
 					<h1 className="text-2xl font-bold">冷蔵庫</h1>
 					<p className="mt-4 text-neutral-500">
@@ -331,7 +352,7 @@ const FridgeItems = () => {
 				</div>
 
 				<div>
-					<div className="flex flex-col gap-2 md:flex-row md:justify-between mt-6 border border-base-300 p-4 rounded-lg md:items-center">
+					<div className="flex flex-col gap-2 md:flex-row md:justify-between mt-6 border border-base-300 p-4 rounded-lg md:items-center mb-4">
 						<div className="flex flex-col gap-2">
 							<p className="font-bold">AIレシピ提案</p>
 							<div className="flex flex-col gap-2">
@@ -351,99 +372,122 @@ const FridgeItems = () => {
 						</div>
 
 						<button
-							className="btn"
+							className="btn relative"
 							onClick={handleSuggestRecipe}
 							disabled={isPending || selectedItem.length === 0}
 						>
-							{isPending ? (
-								<span className="loading loading-spinner"></span>
-							) : (
-								"レシピを提案"
+							<span className={isPending ? "invisible" : ""}>レシピを提案</span>
+							{isPending && (
+								<span className="absolute left-1/2 -translate-x-1/2 loading loading-spinner loading-md"></span>
 							)}
 						</button>
 					</div>
 
-					{recipe && (
-						<div className="p-2 md:p-6">
-							<div className="flex flex-col justify-between items-start space-y-2 mb-4">
-								<div>
-									<h2 className="text-start text-xl font-semibold">
-										{recipe.name}
-									</h2>
-									<p className="text-xs md:text-base text-neutral-500 mt-1">
-										{recipe.instructions}
-									</p>
-								</div>
-								<div className="flex flex-wrap gap-2">
-									<div className="flex items-center badge badge-secondary">
-										料理カテゴリ: {recipe.recipe_category}
-									</div>
-									<div className="flex items-center badge badge-secondary">
-										カロリー: {recipe.calorie}kcal
-									</div>
-									<div className="flex items-center badge badge-secondary">
-										調理時間: {recipe.cooking_time}分
-									</div>
-									<div className="flex items-center badge badge-secondary">
-										目的・シーン: {recipe.purpose}
-									</div>
-								</div>
-							</div>
+					{isPending && <RecipeSkeleton />}
 
-							<div>
-								<h3 className="font-semibold text-lg flex items-center mb-2">
-									食材
-									{
-										<span className="text-sm font-normal ml-2">
-											({recipe.servings}人分)
-										</span>
-									}
-								</h3>
-								<div className="rounded-md p-4">
-									<ul className="flex flex-wrap gap-2">
-										{recipe.ingredients?.map((ingredient, index) => (
-											<li
-												key={index}
-												className="flex items-center gap-1 text-xs md:text-base"
-											>
-												<span className="badge badge-neutral badge-xs"></span>
-												{ingredient.name} {ingredient?.display_amount}
+					{recipe && (
+						<div className="container mx-auto px-4 flex flex-col lg:flex-row items-center">
+							<div className="w-full lg:w-1/2 h-80 lg:h-140">
+								{recipeImage ? (
+									<img
+										src={recipeImage.image_url}
+										alt="料理画像"
+										className="rounded-lg w-full h-full object-cover"
+									/>
+								) : (
+									<div className="skeleton h-full w-full"></div>
+								)}
+							</div>
+							<div className="p-2 md:p-6 lg:w-1/2">
+								<div className="flex flex-col justify-between items-start space-y-2 mb-4">
+									<div>
+										<h2 className="text-start text-xl font-semibold">
+											{recipe.name}
+										</h2>
+										<p className="text-xs md:text-base text-neutral-500 mt-1">
+											{recipe.instructions}
+										</p>
+									</div>
+									<div className="flex flex-wrap gap-2">
+										<div className="flex items-center badge badge-secondary">
+											料理カテゴリ: {recipe.recipe_category}
+										</div>
+										<div className="flex items-center badge badge-secondary">
+											カロリー: {recipe.calorie}kcal
+										</div>
+										<div className="flex items-center badge badge-secondary">
+											調理時間: {recipe.cooking_time}分
+										</div>
+										<div className="flex items-center badge badge-secondary">
+											目的・シーン: {recipe.purpose}
+										</div>
+									</div>
+								</div>
+
+								<div>
+									<h3 className="font-semibold text-lg flex items-center mb-2">
+										食材
+										{
+											<span className="text-sm font-normal ml-2">
+												({recipe.servings}人分)
+											</span>
+										}
+									</h3>
+									<div className="rounded-md p-4">
+										<ul className="flex flex-wrap gap-2">
+											{recipe.ingredients?.map((ingredient, index) => (
+												<li
+													key={index}
+													className="flex items-center gap-1 text-xs md:text-base"
+												>
+													<span className="badge badge-neutral badge-xs"></span>
+													{ingredient.name} {ingredient?.display_amount}
+												</li>
+											))}
+										</ul>
+									</div>
+								</div>
+
+								<hr className="border-t border-base-300 my-6" />
+
+								<div className="flex flex-col">
+									<h3 className="font-semibold text-lg flex items-center mb-4">
+										調理手順
+									</h3>
+									<ul className="steps steps-vertical">
+										{(recipe?.step ?? []).map((st, index) => (
+											<li key={index} className="step flex">
+												<p className="text-left text-xs md:text-base">
+													{st?.description}
+												</p>
 											</li>
 										))}
 									</ul>
 								</div>
-							</div>
 
-							<hr className="border-t border-base-300 my-6" />
-
-							<div className="flex flex-col">
-								<h3 className="font-semibold text-lg flex items-center mb-4">
-									調理手順
-								</h3>
-								<ul className="steps steps-vertical">
-									{(recipe?.step ?? []).map((st, index) => (
-										<li key={index} className="step flex">
-											<p className="text-left text-xs md:text-base">
-												{st?.description}
-											</p>
-										</li>
-									))}
-								</ul>
-							</div>
-
-							<div className="flex justify-end gap-3 mt-6">
-								<button className="btn" onClick={handleSaveRecipe}>
-									レシピを保存
-								</button>
-								<button
-									className="btn"
-									onClick={() => {
-										setRecipe(null);
-										setSelectedItem([]);
-									}}
-								>
-									閉じる
-								</button>
+								<div className="flex justify-end gap-3 mt-6">
+									<button
+										onClick={handleSaveRecipe}
+										className="btn relative"
+										disabled={isPending}
+									>
+										<span className={isSaving ? "invisible" : ""}>
+											レシピを保存
+										</span>
+										{isSaving && (
+											<span className="absolute left-1/2 -translate-x-1/2 loading loading-spinner loading-md"></span>
+										)}
+									</button>
+									<button
+										className="btn"
+										onClick={() => {
+											setRecipe(null);
+											setSelectedItem([]);
+										}}
+									>
+										閉じる
+									</button>
+								</div>
 							</div>
 						</div>
 					)}
