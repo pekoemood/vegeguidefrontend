@@ -71,6 +71,7 @@ const RecipeGeneratorPage = () => {
 			try {
 				await api.post(`/recipes`, {
 					...recipe,
+					image_id: recipeImage.image_id,
 				});
 				navigation("/recipe-lists");
 				toast.success("レシピを保存しました");
@@ -83,24 +84,23 @@ const RecipeGeneratorPage = () => {
 	console.log(recipe);
 
 	useEffect(() => {
-		const getRecipeImage = async() => {
+		const getRecipeImage = async () => {
 			try {
-				const response = await api.post('/recipe_image_generations', {
-				recipe: {
-					name: recipe.name,
-					step: recipe.step,
-					ingredients: recipe.ingredients
-				}
-			})
-			setRecipeImage(response.data.image_url);
+				const response = await api.post("/recipe_image_generations", {
+					recipe: {
+						name: recipe.name,
+						ingredients: recipe.ingredients,
+					},
+				});
+				setRecipeImage(response.data);
 			} catch (err) {
 				console.error(err);
 			}
-		}
+		};
 		getRecipeImage();
-	},[recipe])
+	}, [recipe]);
 
-	console.log(recipeImage);
+	console.log("レシピイメージ:", recipeImage);
 
 	return (
 		<>
@@ -301,13 +301,15 @@ const RecipeGeneratorPage = () => {
 					{recipe && (
 						<div className="container mx-auto px-4 flex flex-col lg:flex-row items-center">
 							<div className="lg:w-1/2 md:80 lg:h-140">
-							{ recipeImage ? (
-								<img src={recipeImage} alt="料理画像" className="rounded-lg w-full h-full object-cover" />
-								
-							) : (
-								<div className="skeleton h-full w-full"></div>
-							)}
-								
+								{recipeImage ? (
+									<img
+										src={recipeImage.image_url}
+										alt="料理画像"
+										className="rounded-lg w-full h-full object-cover"
+									/>
+								) : (
+									<div className="skeleton h-full w-full"></div>
+								)}
 							</div>
 							<div className="p-2 md:p-6 lg:w-1/2">
 								<div className="flex flex-col justify-between items-start space-y-2 mb-4">
