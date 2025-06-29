@@ -233,7 +233,7 @@ const FridgeItems = () => {
 				title="冷蔵庫"
 				description="冷蔵庫の食材をスマートに管理。不足・賞味期限も通知で安心。食材をムダなく使えます。"
 			/>
-			<main className="container mx-auto py-6">
+			<main className="container mx-auto py-6 px-2">
 				<div>
 					<h1 className="text-2xl font-bold">冷蔵庫</h1>
 					<p className="mt-4 text-neutral-500">
