@@ -49,7 +49,9 @@ const RecipeCard = ({
 				<div className="card-body">
 					<h2 className="card-title line-clamp-1">{title}</h2>
 					<div className="flex gap-1 flex-nowrap">
-						<span className="badge badge-secondary line-clamp-1">{category}</span>
+						<span className="badge badge-secondary line-clamp-1">
+							{category}
+						</span>
 						<span className="badge badge-secondary flex items-center line-clamp-1">
 							<Clock size={15} />
 							{cookingTime}分

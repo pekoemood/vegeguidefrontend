@@ -3,6 +3,7 @@ import { useEffect, useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import { useLoaderData, useLocation, useNavigate } from "react-router";
 import Meta from "../../components/Meta";
+import RecipeSkeleton from "../../components/RecipeSkeleton";
 import { api } from "../../utils/axios";
 import VegetableCard from "./VegetableCard";
 
@@ -282,7 +283,7 @@ const RecipeGeneratorPage = () => {
 
 				<section className="mt-8 flex flex-col items-center space-y-4">
 					{isPending ? (
-						<span className="loading loading-spinner loading-xl"></span>
+						<RecipeSkeleton />
 					) : (
 						!recipe && (
 							<>
@@ -300,7 +301,7 @@ const RecipeGeneratorPage = () => {
 
 					{recipe && (
 						<div className="container mx-auto px-4 flex flex-col lg:flex-row items-center">
-							<div className="lg:w-1/2 md:80 lg:h-140">
+							<div className="w-full lg:w-1/2 h-80 lg:h-140">
 								{recipeImage ? (
 									<img
 										src={recipeImage.image_url}
