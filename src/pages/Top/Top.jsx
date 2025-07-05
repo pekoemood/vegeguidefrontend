@@ -79,7 +79,7 @@ const Top = () => {
 							<span className="text-primary">毎日のちょうどいい健康習慣</span>
 						</h1>
 						<p className=" text-lg md:text-xl lg:text-2xl text-neutral-500">
-							旬の野菜情報・価格比較・レシピ提案・買い物リスト・食材管理を一元化。
+							野菜情報・価格比較・レシピ提案・買い物リスト・食材管理を一元化。
 							<br />
 							料理のハードルを下げ、食材のムダを防ぎながら、栄養価が高くコスパの良い食生活をサポートします。
 						</p>
