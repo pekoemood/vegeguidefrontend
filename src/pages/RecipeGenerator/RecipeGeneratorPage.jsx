@@ -44,6 +44,8 @@ const RecipeGeneratorPage = () => {
 	const RecipeGenerator = () => {
 		startTransition(async () => {
 			try {
+				setRecipe(null);
+				setRecipeImage(null);
 				const selectedVegetableNames = selectedVegetables
 					.map((id) => {
 						const veg = data.find((v) => v.id === id);
@@ -300,8 +302,10 @@ const RecipeGeneratorPage = () => {
 						)
 					)}
 
-
-					<GenerateRecipeArea recipe={recipe} recipeImage={recipeImage} isSaving={isSaving} isPending={isPending} handleClickSave={handleClickSave} />
+					{!isPending && (
+						<GenerateRecipeArea recipe={recipe} recipeImage={recipeImage} isSaving={isSaving} isPending={isPending} handleClickSave={handleClickSave} />
+					)}
+					
 					
 				</section>
 			</main>
