@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 const useModal = () => {
@@ -19,7 +19,7 @@ const useModal = () => {
 		};
 	}, [show]);
 
-	const Modal = ({ children }) => {
+	const Modal = ({ children }: { children: ReactNode }) => {
 		if (!show) return null;
 		return createPortal(
 			<div className="fixed inset-0 flex justify-center items-center z-50">
