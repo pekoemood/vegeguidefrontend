@@ -15,7 +15,7 @@ export const vegeListLoader = async ({ request }) => {
 				discounted: discounted,
 			},
 		});
-		return { data: response.data };
+		return response.data;
 	} catch (error) {
 		throw new Response("野菜一覧の取得に失敗しました", {
 			status: error.response?.status || 500,
