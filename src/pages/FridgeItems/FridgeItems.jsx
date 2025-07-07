@@ -75,7 +75,7 @@ const FridgeItems = () => {
 				return <span className="text-red-500">期限切れ</span>;
 
 			case "urgent":
-				return <span className="text-error">期限間近</span>;
+				return <span className="text-accent">期限間近</span>;
 
 			case "warning":
 				return <span className="text-warning">注意</span>;
