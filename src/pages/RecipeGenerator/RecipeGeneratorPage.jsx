@@ -112,7 +112,7 @@ const RecipeGeneratorPage = () => {
 				title="レシピ提案"
 				description="あなたの冷蔵庫にある食材からぴったりのレシピを提案します。今日の献立に迷ったらこちら！"
 			/>
-			<main className="container mx-auto px-4 py-8">
+			<main className="container mx-auto px-4 py-8 animate-fade-up">
 				<h1 className="text-2xl font-bold">レシピ提案</h1>
 
 				<div className="flex flex-wrap gap-2">
@@ -151,20 +151,21 @@ const RecipeGeneratorPage = () => {
 
 				<div className="mt-8 overflow-x-auto">
 					<div className="flex gap-4 w-max py-4">
-						{filterVegetables.map((vegetable) => (
-							<VegetableCard
-								key={vegetable.id}
-								id={vegetable.id}
-								name={vegetable.name}
-								img={vegetable.image_url}
-								onClick={() => toggleVegetable(vegetable.id)}
-								selected={selectedVegetables.includes(vegetable.id)}
-							/>
+						{filterVegetables.map((vegetable, index) => (
+							<div key={vegetable.id} className="animate-fade-up" style={{animationDelay: `${index * 0.05}s`, animationFillMode: 'both'}}>
+								<VegetableCard
+									id={vegetable.id}
+									name={vegetable.name}
+									img={vegetable.image_url}
+									onClick={() => toggleVegetable(vegetable.id)}
+									selected={selectedVegetables.includes(vegetable.id)}
+								/>
+							</div>
 						))}
 					</div>
 				</div>
 
-				<section>
+				<section className="animate-fade-up" style={{animationDelay: '0.3s', animationFillMode: 'both'}}>
 					<h2 className="text-xl font-semibold mt-8">レシピ条件設定</h2>
 					<div className="flex flex-col md:grid md:grid-cols-2 gap-6 mt-4">
 						<div className="space-y-2 flex flex-col">
@@ -284,7 +285,7 @@ const RecipeGeneratorPage = () => {
 					</div>
 				</section>
 
-				<section className="mt-8 flex flex-col items-center space-y-4">
+				<section className="mt-8 flex flex-col items-center space-y-4 animate-fade-up" style={{animationDelay: '0.5s', animationFillMode: 'both'}}>
 					{isPending ? (
 						<RecipeSkeleton />
 					) : (

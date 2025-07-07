@@ -254,7 +254,7 @@ const FridgeItems = () => {
 				title="冷蔵庫"
 				description="冷蔵庫の食材をスマートに管理。不足・賞味期限も通知で安心。食材をムダなく使えます。"
 			/>
-			<main className="container mx-auto py-6 px-2">
+			<main className="container mx-auto py-6 px-2 animate-fade-up">
 				<div>
 					<h1 className="text-2xl font-bold">冷蔵庫</h1>
 					<p className="mt-4 text-neutral-500">
@@ -262,7 +262,7 @@ const FridgeItems = () => {
 					</p>
 				</div>
 
-				<div className="flex space-x-4 mt-4">
+				<div className="flex space-x-4 mt-4 animate-fade-up" style={{animationDelay: '0.2s', animationFillMode: 'both'}}>
 					<input
 						type="text"
 						className="input w-full"
@@ -283,12 +283,14 @@ const FridgeItems = () => {
 
 				<div
 					role="tablist"
-					className="tabs tabs-box mt-4 overflow-x-auto flex-nowrap"
+					className="tabs tabs-box mt-4 overflow-x-auto flex-nowrap animate-fade-up"
+					style={{animationDelay: '0.3s', animationFillMode: 'both'}}
 				>
 					<a
 						role="tab"
-						className={`tab flex-1 ${selectedCategory === null && "tab-active"}`}
+						className={`tab flex-1 ${selectedCategory === null && "tab-active"} animate-fade-up`}
 						onClick={() => setSelectedCategory(null)}
+						style={{animationDelay: '0.35s', animationFillMode: 'both'}}
 					>
 						<div className="flex flex-col items-center">
 							<Layers className="h-5" />
@@ -297,12 +299,13 @@ const FridgeItems = () => {
 							</span>
 						</div>
 					</a>
-					{categories.map(({ name, icon: Icon }) => (
+					{categories.map(({ name, icon: Icon }, index) => (
 						<a
 							key={name}
 							role="tab"
-							className={`tab flex-1 ${selectedCategory === name && "tab-active"}`}
+							className={`tab flex-1 ${selectedCategory === name && "tab-active"} animate-fade-up`}
 							onClick={() => setSelectedCategory(name)}
+							style={{animationDelay: `${0.4 + index * 0.05}s`, animationFillMode: 'both'}}
 						>
 							<div className="flex flex-col items-center">
 								<Icon className="h-5" />{" "}
@@ -314,7 +317,7 @@ const FridgeItems = () => {
 					))}
 				</div>
 
-				<div className="flex gap-4 mt-6">
+				<div className="flex gap-4 mt-6 animate-fade-up" style={{animationDelay: '0.7s', animationFillMode: 'both'}}>
 					<FoodStatus
 						foodSelectedStatus={foodSelectedStatus}
 						setFoodSelectedStatus={setFoodSelectedStatus}
@@ -351,8 +354,8 @@ const FridgeItems = () => {
 					/>
 				</div>
 
-				<div>
-					<div className="flex flex-col gap-2 md:flex-row md:justify-between mt-6 border border-base-300 p-4 rounded-lg md:items-center mb-4">
+				<div className="animate-fade-up" style={{animationDelay: '0.9s', animationFillMode: 'both'}}>
+					<div className="flex flex-col gap-2 md:flex-row md:justify-between mt-6 border border-base-300 p-4 rounded-lg md:items-center mb-14">
 						<div className="flex flex-col gap-2">
 							<p className="font-bold">AIレシピ提案</p>
 							<div className="flex flex-col gap-2">
@@ -493,7 +496,7 @@ const FridgeItems = () => {
 					)}
 				</div>
 
-				<div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 mt-6">
+				<div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 mt-6 animate-fade-up" style={{animationDelay: '1.1s', animationFillMode: 'both'}}>
 					<table className="table">
 						<thead>
 							<tr>
