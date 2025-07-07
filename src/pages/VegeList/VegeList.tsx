@@ -5,33 +5,38 @@ import Card from "../../components/Card";
 import Meta from "../../components/Meta";
 import PaginationButtons from "../../components/PageinationButtons";
 import useVegeNames from "../../hooks/useVegeNames";
-import { api } from "../../utils/axios";
+import { Vegetable, VegetablesLoaderData } from "../../types/vegetalbe";
+
+
+
+
 
 const VegeList = () => {
-	const { data } = useLoaderData();
-	const { data: vegetables, meta } = data;
+	const loaderData = useLoaderData() as VegetablesLoaderData;
+	const { data: vegetables, meta } = loaderData;
 	const { total_pages, current_page } = meta;
 	const [searchParams, setSearchParams] = useSearchParams();
-	const [searchText, setSearchText] = useState("");
-	const [isInSeason, setIsInSeason] = useState(false);
-	const [isDiscounted, setIsDiscounted] = useState(false);
-	const { vegeNames, error, loading } = useVegeNames();
-	const [filteredNames, setFilteredNames] = useState([]);
-	const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+	const [searchText, setSearchText] = useState<string>("");
+	const [isInSeason, setIsInSeason] = useState<boolean>(false);
+	const [isDiscounted, setIsDiscounted] = useState<boolean>(false);
+	const { vegeNames } = useVegeNames();
+	const [filteredNames, setFilteredNames] = useState<string[]>([]);
+	const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
 
+	//野菜名の遅延検索
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			setSearchParams({
 				keyword: searchText,
-				season: isInSeason,
-				discounted: isDiscounted,
+				season: isInSeason ? 'true' : 'false',
+				discounted: isDiscounted ? 'true' : 'false',
 			});
 		}, 500);
 
 		return () => clearTimeout(timer);
 	}, [searchText, isInSeason, isDiscounted]);
 
-	const handleChange = (e) => {
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
 		setSearchText(value);
 
@@ -48,7 +53,7 @@ const VegeList = () => {
 		setIsDropdownVisible(filtered.length > 0);
 	};
 
-	const handleSelect = (name) => {
+	const handleSelect = (name: string) => {
 		setSearchText(name);
 		setIsDropdownVisible(false);
 	};
@@ -118,17 +123,25 @@ const VegeList = () => {
 
 			<div className="mt-4 md:m-8 grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
 				{vegetables.length > 0 ? (
-					vegetables.map((vegetable) => (
-						<Card
+					vegetables.map((vegetable, index) => (
+						<div
 							key={vegetable.id}
-							id={vegetable.id}
-							name={vegetable.attributes.name}
-							description={vegetable.attributes.description}
-							price={vegetable.attributes.latest_price.latest_price}
-							rate={vegetable.attributes.compare_last_month.compare_price}
-							image={vegetable.attributes.image_url}
-							season={vegetable.attributes.seasons[0]?.in_season}
-						/>
+							className="animate-fade-up"
+							style={{
+								animationDelay: `${index * 0.1}s`,
+								animationFillMode: 'both'
+							}}
+						>
+							<Card
+								id={vegetable.id}
+								name={vegetable.attributes.name}
+								description={vegetable.attributes.description}
+								price={vegetable.attributes.latest_price.latest_price}
+								rate={vegetable.attributes.compare_last_month.compare_price}
+								image={vegetable.attributes.image_url}
+								season={vegetable.attributes.seasons[0].in_season}
+							/>
+						</div>
 					))
 				) : (
 					<p className="col-span-4 font-bold text-error text-lg">

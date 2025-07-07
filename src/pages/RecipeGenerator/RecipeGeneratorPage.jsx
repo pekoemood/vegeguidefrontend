@@ -6,6 +6,7 @@ import Meta from "../../components/Meta";
 import RecipeSkeleton from "../../components/RecipeSkeleton";
 import { api } from "../../utils/axios";
 import VegetableCard from "./VegetableCard";
+import GenerateRecipeArea from "../../components/GenerateRecipeArea";
 
 const RecipeGeneratorPage = () => {
 	const location = useLocation();
@@ -43,6 +44,8 @@ const RecipeGeneratorPage = () => {
 	const RecipeGenerator = () => {
 		startTransition(async () => {
 			try {
+				setRecipe(null);
+				setRecipeImage(null);
 				const selectedVegetableNames = selectedVegetables
 					.map((id) => {
 						const veg = data.find((v) => v.id === id);
@@ -109,7 +112,7 @@ const RecipeGeneratorPage = () => {
 				title="レシピ提案"
 				description="あなたの冷蔵庫にある食材からぴったりのレシピを提案します。今日の献立に迷ったらこちら！"
 			/>
-			<main className="container mx-auto px-4 py-8">
+			<main className="container mx-auto px-4 py-8 animate-fade-up">
 				<h1 className="text-2xl font-bold">レシピ提案</h1>
 
 				<div className="flex flex-wrap gap-2">
@@ -148,20 +151,21 @@ const RecipeGeneratorPage = () => {
 
 				<div className="mt-8 overflow-x-auto">
 					<div className="flex gap-4 w-max py-4">
-						{filterVegetables.map((vegetable) => (
-							<VegetableCard
-								key={vegetable.id}
-								id={vegetable.id}
-								name={vegetable.name}
-								img={vegetable.image_url}
-								onClick={() => toggleVegetable(vegetable.id)}
-								selected={selectedVegetables.includes(vegetable.id)}
-							/>
+						{filterVegetables.map((vegetable, index) => (
+							<div key={vegetable.id} className="animate-fade-up" style={{animationDelay: `${index * 0.05}s`, animationFillMode: 'both'}}>
+								<VegetableCard
+									id={vegetable.id}
+									name={vegetable.name}
+									img={vegetable.image_url}
+									onClick={() => toggleVegetable(vegetable.id)}
+									selected={selectedVegetables.includes(vegetable.id)}
+								/>
+							</div>
 						))}
 					</div>
 				</div>
 
-				<section>
+				<section className="animate-fade-up" style={{animationDelay: '0.3s', animationFillMode: 'both'}}>
 					<h2 className="text-xl font-semibold mt-8">レシピ条件設定</h2>
 					<div className="flex flex-col md:grid md:grid-cols-2 gap-6 mt-4">
 						<div className="space-y-2 flex flex-col">
@@ -281,7 +285,7 @@ const RecipeGeneratorPage = () => {
 					</div>
 				</section>
 
-				<section className="mt-8 flex flex-col items-center space-y-4">
+				<section className="mt-8 flex flex-col items-center space-y-4 animate-fade-up" style={{animationDelay: '0.5s', animationFillMode: 'both'}}>
 					{isPending ? (
 						<RecipeSkeleton />
 					) : (
@@ -299,103 +303,11 @@ const RecipeGeneratorPage = () => {
 						)
 					)}
 
-					{recipe && (
-						<div className="container mx-auto px-4 flex flex-col lg:flex-row items-center">
-							<div className="w-full lg:w-1/2 h-80 lg:h-140">
-								{recipeImage ? (
-									<img
-										src={recipeImage.image_url}
-										alt="料理画像"
-										className="rounded-lg w-full h-full object-cover"
-									/>
-								) : (
-									<div className="skeleton h-full w-full"></div>
-								)}
-							</div>
-							<div className="p-2 md:p-6 lg:w-1/2">
-								<div className="flex flex-col justify-between items-start space-y-2 mb-4">
-									<div>
-										<h2 className="text-start text-xl font-semibold">
-											{recipe.name}
-										</h2>
-										<p className="text-xs md:text-base text-neutral-500 mt-1">
-											{recipe.instructions}
-										</p>
-									</div>
-									<div className="flex flex-wrap gap-2">
-										<div className="flex items-center badge badge-secondary">
-											料理カテゴリ: {recipe.recipe_category}
-										</div>
-										<div className="flex items-center badge badge-secondary">
-											カロリー: {recipe.calorie}kcal
-										</div>
-										<div className="flex items-center badge badge-secondary">
-											調理時間: {recipe.cooking_time}分
-										</div>
-										<div className="flex items-center badge badge-secondary">
-											目的・シーン: {recipe.purpose}
-										</div>
-									</div>
-								</div>
-
-								<div>
-									<h3 className="font-semibold text-lg flex items-center mb-2">
-										食材
-										{
-											<span className="text-sm font-normal ml-2">
-												({recipe.servings}人分)
-											</span>
-										}
-									</h3>
-									<div className="rounded-md p-4">
-										<ul className="flex flex-wrap gap-2">
-											{recipe.ingredients?.map((ingredient, index) => (
-												<li
-													key={index}
-													className="flex items-center gap-1 text-xs md:text-base"
-												>
-													<span className="badge badge-neutral badge-xs"></span>
-													{ingredient.name} {ingredient?.display_amount}
-												</li>
-											))}
-										</ul>
-									</div>
-								</div>
-
-								<hr className="border-t border-base-300 my-6" />
-
-								<div className="flex flex-col">
-									<h3 className="font-semibold text-lg flex items-center mb-4">
-										調理手順
-									</h3>
-									<ul className="steps steps-vertical">
-										{(recipe?.step ?? []).map((st, index) => (
-											<li key={index} className="step flex">
-												<p className="text-left text-xs md:text-base">
-													{st?.description}
-												</p>
-											</li>
-										))}
-									</ul>
-								</div>
-
-								<div className="flex justify-end gap-3 mt-6">
-									<button
-										onClick={handleClickSave}
-										className="btn relative"
-										disabled={isPending}
-									>
-										<span className={isSaving ? "invisible" : ""}>
-											レシピを保存
-										</span>
-										{isSaving && (
-											<span className="absolute left-1/2 -translate-x-1/2 loading loading-spinner loading-md"></span>
-										)}
-									</button>
-								</div>
-							</div>
-						</div>
+					{!isPending && (
+						<GenerateRecipeArea recipe={recipe} recipeImage={recipeImage} isSaving={isSaving} isPending={isPending} handleClickSave={handleClickSave} />
 					)}
+					
+					
 				</section>
 			</main>
 		</>

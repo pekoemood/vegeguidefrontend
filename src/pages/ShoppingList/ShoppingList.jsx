@@ -31,7 +31,7 @@ const ShoppingList = () => {
 				title="買い物リスト"
 				description="必要な食材をまとめて管理。買い忘れを防げて、効率的な買い物ができます！"
 			/>
-			<main className="container mx-auto px-4 py-8">
+			<main className="container mx-auto px-4 py-8 animate-fade-up">
 				<div>
 					<h1 className="text-2xl font-bold">買い物リスト</h1>
 					<p className="text-neutral-500 my-4">
@@ -49,15 +49,16 @@ const ShoppingList = () => {
 				</div>
 
 				<div className="flex flex-col items-center  md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  gap-4 mt-4">
-					{lists.map((list) => (
-						<ShoppingCard
-							key={list.id}
-							id={list.id}
-							title={list.attributes.name}
-							time={list.attributes.created_at_jst}
-							items={list.attributes.shopping_items}
-							setLists={setLists}
-						/>
+					{lists.map((list, index) => (
+						<div key={list.id} className="animate-fade-up" style={{animationDelay: `${index * 0.1}s`, animationFillMode: 'both'}}>
+							<ShoppingCard
+								id={list.id}
+								title={list.attributes.name}
+								time={list.attributes.created_at_jst}
+								items={list.attributes.shopping_items}
+								setLists={setLists}
+							/>
+						</div>
 					))}
 				</div>
 			</main>
