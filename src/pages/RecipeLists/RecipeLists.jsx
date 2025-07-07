@@ -23,10 +23,10 @@ const RecipeLists = () => {
 					</p>
 				</div>
 
-				<div className="mt-4 flex flex-col justify-center items-center md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-					{recipes.map((recipe) => (
-						<RecipeCard
-							key={recipe.id}
+				<div className="mt-4 flex flex-col justify-center items-center md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 animate-fade-up">
+					{recipes.map((recipe, index) => (
+						<div key={recipe.id} className="animate-fade-up" style={{animationDelay: `${index * 0.1}s`, animationFillMode: 'both'}}>
+							<RecipeCard
 							id={recipe.id}
 							title={recipe.attributes.name}
 							instructions={recipe.attributes.instructions}
@@ -40,7 +40,9 @@ const RecipeLists = () => {
 							image={recipe.attributes.image_url}
 							category={recipe.attributes.recipe_category}
 						/>
-					))}
+	
+						</div>				))}
+						
 				</div>
 			</main>
 		</>

@@ -123,17 +123,25 @@ const VegeList = () => {
 
 			<div className="mt-4 md:m-8 grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
 				{vegetables.length > 0 ? (
-					vegetables.map((vegetable) => (
-						<Card
+					vegetables.map((vegetable, index) => (
+						<div
 							key={vegetable.id}
-							id={vegetable.id}
-							name={vegetable.attributes.name}
-							description={vegetable.attributes.description}
-							price={vegetable.attributes.latest_price.latest_price}
-							rate={vegetable.attributes.compare_last_month.compare_price}
-							image={vegetable.attributes.image_url}
-							season={vegetable.attributes.seasons[0].in_season}
-						/>
+							className="animate-fade-up"
+							style={{
+								animationDelay: `${index * 0.1}s`,
+								animationFillMode: 'both'
+							}}
+						>
+							<Card
+								id={vegetable.id}
+								name={vegetable.attributes.name}
+								description={vegetable.attributes.description}
+								price={vegetable.attributes.latest_price.latest_price}
+								rate={vegetable.attributes.compare_last_month.compare_price}
+								image={vegetable.attributes.image_url}
+								season={vegetable.attributes.seasons[0].in_season}
+							/>
+						</div>
 					))
 				) : (
 					<p className="col-span-4 font-bold text-error text-lg">
