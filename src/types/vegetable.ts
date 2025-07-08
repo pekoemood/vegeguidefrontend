@@ -38,3 +38,7 @@ export type VegetablesLoaderData = {
 		current_page: number;
 	};
 };
+
+export type VegetablesResponse = {
+	data: Vegetable;
+};
