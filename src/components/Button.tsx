@@ -1,4 +1,11 @@
-const Button = ({ children, className, ...props }) => {
+import { ButtonHTMLAttributes, FC, ReactNode } from "react";
+
+type ButtonProps = {
+	children: ReactNode;
+	className?: string;
+} & ButtonHTMLAttributes<HTMLButtonElement>;
+
+const Button = ({ children, className = "", ...props }: ButtonProps) => {
 	return (
 		<button
 			{...props}

@@ -7,8 +7,7 @@ import RecipeGenerator from "../../components/RecipeGenerator";
 import StorageMethod from "../../components/StorageMethod";
 
 const VegeDetail = () => {
-	const { vegetable } = useLoaderData();
-	const { data } = vegetable;
+	const { data } = useLoaderData();
 	console.log(data);
 	const [activeTab, setActiveTab] = useState("tab1");
 
