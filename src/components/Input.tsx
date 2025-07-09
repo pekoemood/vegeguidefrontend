@@ -1,4 +1,12 @@
-const Input = ({ className, id, placeholder, ...props }) => {
+import { InputHTMLAttributes } from "react";
+
+type InputProps = {
+	className?: string;
+	id: string;
+	placeholder?: string;
+} & InputHTMLAttributes<HTMLInputElement>
+
+const Input = ({ className, id, placeholder, ...props }: InputProps) => {
 	return (
 		<input
 			type="text"
