@@ -1,9 +1,19 @@
 import { useNavigate } from "react-router";
+import { UserContext } from "../context/UserContext";
+import { useContext } from "react";
+import toast from "react-hot-toast";
 
 const RecipeGenerator = ({ vegetableName, id }) => {
 	const navigate = useNavigate();
+	const { user } = useContext(UserContext);
 
 	const handleClick = () => {
+		if (!user) {
+			toast.error('レシピ機能をご利用いただくにはログインが必要です');
+			navigate("/login");
+			return;
+		}
+
 		navigate("/recipe-generator", { state: { selectedVegetableId: id } });
 	};
 
