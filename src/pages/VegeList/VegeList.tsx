@@ -5,7 +5,7 @@ import Card from "../../components/Card";
 import Meta from "../../components/Meta";
 import PaginationButtons from "../../components/PageinationButtons";
 import useVegeNames from "../../hooks/useVegeNames";
-import { Vegetable, VegetablesLoaderData } from "../../types/vegetalbe";
+import { Vegetable, VegetablesLoaderData } from "../../types/vegetable";
 
 
 
