@@ -11,10 +11,26 @@ import {
 	YAxis,
 } from "recharts";
 
-const PriceChart = ({ prices }) => {
+type Price = {
+	month: string;
+	average_price: number;
+};
+
+type PriceChartProps = {
+	prices: Price[];
+};
+
+//インデックスシグネチャ
+type YearlyPrice = {
+	month: string;
+	[year: string]: number | string;
+};
+
+
+const PriceChart = ({ prices }: PriceChartProps) => {
 	console.log("price", prices);
 
-	const groupedData = {};
+	const groupedData: { [month: string]: YearlyPrice } = {};
 
 	prices.forEach(({ month, average_price }) => {
 		const [year, mon] = month.split("-");
@@ -23,8 +39,8 @@ const PriceChart = ({ prices }) => {
 	});
 	console.log("group:", groupedData);
 
-	const chartData = Object.values(groupedData).sort(
-		(a, b) => a.month - b.month,
+	const chartData: YearlyPrice[] = Object.values(groupedData).sort(
+		(a, b) => parseInt(a.month) - parseInt(b.month)
 	);
 	console.log("chart:", chartData);
 

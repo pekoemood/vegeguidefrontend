@@ -1,4 +1,11 @@
-const UsageCard = ({ image, title, description, number }) => {
+interface UsageCardProps {
+	image: string;
+	title: string;
+	description: string;
+	number: string;
+}
+
+const UsageCard = ({ image, title, description, number }: UsageCardProps) => {
 	return (
 		<div className="max-w-lg rounded-xl p-6 text-center space-y-4 bg-primary/10 hover:shadow-md transition relative">
 			<div className="lg:h-48 flex items-center justify-center">

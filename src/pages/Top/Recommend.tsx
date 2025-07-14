@@ -1,6 +1,6 @@
 import { CircleCheckBigIcon } from "lucide-react";
 
-const Recommend = ({ text }) => {
+const Recommend = ({ text }: {text: string}) => {
 	return (
 		<div className="flex items-center gap-2 sm:gap-3 sm:pl-10">
 			<div className="flex items-center bg-primary/10 p-2 rounded-full">

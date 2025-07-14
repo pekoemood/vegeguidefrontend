@@ -5,11 +5,12 @@ import NutritionInfo from "../../components/NutritionInfo";
 import PriceChart from "../../components/PriceChart";
 import RecipeGenerator from "../../components/RecipeGenerator";
 import StorageMethod from "../../components/StorageMethod";
+import { VegetablesResponse } from "../../types/vegetable";
 
 const VegeDetail = () => {
-	const { data } = useLoaderData();
+	const { data } = useLoaderData<VegetablesResponse>();
 	console.log(data);
-	const [activeTab, setActiveTab] = useState("tab1");
+	const [activeTab, setActiveTab] = useState<string>("tab1");
 
 	return (
 		<>
@@ -51,28 +52,28 @@ const VegeDetail = () => {
 					<div role="tablist" className="tabs tabs-box flex justify-between">
 						<a
 							role="tab"
-							className={`text-xs mg:text-base tab flex-1 ${activeTab === "tab1" ? "tab-active" : ""}`}
+							className={`text-xs md:text-base tab flex-1 ${activeTab === "tab1" ? "tab-active" : ""}`}
 							onClick={() => setActiveTab("tab1")}
 						>
 							価格推移
 						</a>
 						<a
 							role="tab"
-							className={`text-xs mg:text-base tab flex-1 ${activeTab === "tab2" ? "tab-active" : ""}`}
+							className={`text-xs md:text-base tab flex-1 ${activeTab === "tab2" ? "tab-active" : ""}`}
 							onClick={() => setActiveTab("tab2")}
 						>
 							栄養成分
 						</a>
 						<a
 							role="tab"
-							className={`text-xs mg:text-base tab flex-1 ${activeTab === "tab3" ? "tab-active" : ""}`}
+							className={`text-xs md:text-base tab flex-1 ${activeTab === "tab3" ? "tab-active" : ""}`}
 							onClick={() => setActiveTab("tab3")}
 						>
 							保存方法
 						</a>
 						<a
 							role="tab"
-							className={`text-xs mg:text-base tab flex-1 ${activeTab === "tab4" ? "tab-active" : ""}`}
+							className={`text-xs md:text-base tab flex-1 ${activeTab === "tab4" ? "tab-active" : ""}`}
 							onClick={() => setActiveTab("tab4")}
 						>
 							レシピ

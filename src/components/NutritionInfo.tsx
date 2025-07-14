@@ -1,8 +1,20 @@
-const NutritionInfo = ({ nutritions }) => {
-	console.log(nutritions);
+interface NutritionProp {
+	name: string;
+	amount: string;
+	unit: string;
+};
+
+interface NutritionProps {
+	nutritions: NutritionProp[];
+};
+
+import { ChartBarIncreasing } from 'lucide-react';
+
+const NutritionInfo = ({ nutritions }: NutritionProps) => {
 	return (
 		<div className="rounded-2xl shadow-md p-6 mt-4">
-			<h2 className="text-xl font-semibold text-primary mb-4 flex items-center">
+			<h2 className="text-xl font-semibold text-primary mb-4 flex items-center gap-2">
+				<ChartBarIncreasing className="w-5 h-5 text-primary" />
 				栄養成分情報
 			</h2>
 			<div className="overflow-x-auto">
