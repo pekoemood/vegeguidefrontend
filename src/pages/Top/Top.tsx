@@ -1,12 +1,11 @@
 import {
 	ChefHat,
-	CircleCheckBigIcon,
 	Leaf,
 	Refrigerator,
 	ShoppingCart,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import EmailChangeSuccess from "../../components/EmailChangeSuccess";
 import Meta from "../../components/Meta";
 import useModal from "../../hooks/useModal";
@@ -16,7 +15,7 @@ import MeritHighLight from "./MeritHighLight";
 import Recommend from "./Recommend";
 import UsageCard from "./UsageCard";
 
-const recommendList = [
+const recommendList: string[] = [
 	"忙しい仕事の合間に健康的な食事を摂りたい方",
 	"料理は苦手だけど、外食やコンビニ食を減らしたい方",
 	"健康を意識し始めた社会人の方",
@@ -24,29 +23,38 @@ const recommendList = [
 	"食材を無駄にせず、効率的に使い切りたい方",
 ];
 
-const Top = () => {
+interface EmailProps {
+		message: string;
+		email: string;
+}
+
+function Top(): React.ReactElement {
 	const navigate = useNavigate();
 
 	const { Modal, openModal, closeModal } = useModal();
 	const location = useLocation();
-	const [email, setEmail] = useState("");
+	const [email, setEmail] = useState<string>("");
 
 	useEffect(() => {
-		const changeMail = async () => {
+		const changeMail = async ():Promise<void> => {
 			try {
 				const params = new URLSearchParams(location.search);
 				const token = params.get("token");
 
 				if (token) {
-					const response = await api.get(`/email_change_requests/confirm`, {
+					const response = await api.get<EmailProps>(`/email_change_requests/confirm`, {
 						params: { token },
 					});
-					setEmail(response.data?.email);
+					setEmail(response.data.email);
 					openModal();
 					navigate(location.pathname, { replace: true });
 				}
-			} catch (err) {
-				console.error(err);
+			} catch (err: unknown) {
+				if (err instanceof Error) {
+					console.error(err.message)
+				} else {
+					console.error(err);
+				}
 			}
 		};
 		changeMail();
