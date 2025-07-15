@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import ReactGA from "react-ga4";
 import { Toaster } from "react-hot-toast";
 import {
@@ -11,7 +11,7 @@ import Footer from "./components/Footer";
 import Navibar from "./components/Navibar";
 import { UserProvider } from "./context/UserContext";
 
-const GAListener = () => {
+const GAListener: React.FC = () => {
 	const location = useLocation();
 	useEffect(() => {
 		ReactGA.send({
@@ -22,9 +22,9 @@ const GAListener = () => {
 	return null;
 };
 
-const Layout = () => {
+const Layout: React.FC = () => {
 	const navigation = useNavigation();
-	const isNavigating = Boolean(navigation.location);
+	const isNavigating = navigation.state === 'loading';
 
 	return (
 		<>

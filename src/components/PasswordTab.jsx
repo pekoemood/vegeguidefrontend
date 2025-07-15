@@ -2,7 +2,7 @@ import { Eye, EyeOff, Lock } from "lucide-react";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { api } from "../utils/axios";
-import { passwordSchema } from "../utils/validation";
+import { passwordChangeSchema } from "../utils/validation";
 
 const PasswordTab = () => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -23,7 +23,7 @@ const PasswordTab = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const result = passwordSchema.safeParse(formDate);
+		const result = passwordChangeSchema.safeParse(formDate);
 
 		if (!result.success) {
 			const fieldErrors = {};
