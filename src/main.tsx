@@ -3,7 +3,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import ReactGA from "react-ga4";
 import { RouterProvider } from "react-router";
-import { routes } from "./routes/routes.jsx";
+import { routes } from "./routes/routes.tsx";
 
 ReactGA.initialize(import.meta.env.VITE_GA_MEASUREMENT_ID);
 

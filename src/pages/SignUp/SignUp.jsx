@@ -9,7 +9,7 @@ import GoogleLoginButton from "../../components/GoogleLoginButton";
 import Meta from "../../components/Meta";
 import Spinner from "../../components/Spinner";
 import { UserContext } from "../../context/UserContext";
-import { signUpSchema } from "../../utils/validation";
+import { singUpSchema } from "../../utils/validation";
 
 const SignUp = () => {
 	const [isPending, startTransition] = useTransition();
@@ -27,7 +27,7 @@ const SignUp = () => {
 		formState: { errors, isSubmitting },
 	} = useForm({
 		defaultValues,
-		resolver: zodResolver(signUpSchema),
+		resolver: zodResolver(singUpSchema),
 	});
 
 	const onSubmit = ({ name, email, password }) => {
