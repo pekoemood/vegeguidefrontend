@@ -162,7 +162,7 @@ const Login = ():JSX.Element => {
 
 							<form
 								className="space-y-6 animate-fade-up"
-								onSubmit={handleSubmit(onSubmit, onError)}
+								onSubmit={handleSubmit(onSubmit)}
 								noValidate
 								style={{animationDelay: '0.4s', animationFillMode: 'both'}}
 							>
