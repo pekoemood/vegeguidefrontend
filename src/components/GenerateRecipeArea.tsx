@@ -1,10 +1,12 @@
+import { RecipeImage, RecipeResponse } from "../types/apiResponse";
+
 const GenerateRecipeArea = ({
 	recipe,
 	recipeImage,
 	isSaving,
 	isPending,
 	handleClickSave,
-}) => {
+}:{ recipe: RecipeResponse, recipeImage: RecipeImage, isSaving: boolean, isPending: boolean, handleClickSave: () => void}) => {
 	return (
 		<>
 			{recipe && (

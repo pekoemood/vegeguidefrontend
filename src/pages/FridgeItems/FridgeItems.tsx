@@ -22,6 +22,7 @@ import Meta from "../../components/Meta";
 import RecipeSkeleton from "../../components/RecipeSkeleton";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
+import type { FridgeItems, FridgeItemsResponse, RecipeResponse } from "../../types/apiResponse";
 
 const categories = [
 	{ name: "野菜", icon: Carrot },
@@ -44,16 +45,17 @@ const initialStatus = {
 
 const FridgeItems = () => {
 	const navigation = useNavigate();
-	const { data } = useLoaderData();
+	const data = useLoaderData<FridgeItemsResponse>();
 	const [items, setItems] = useState(data.data);
-	const [name, setName] = useState("");
-	const [selectedItem, setSelectedItem] = useState([]);
-	const [recipe, setRecipe] = useState(null);
+	console.log('アイテム', items)
+	const [name, setName] = useState<string>("");
+	const [selectedItem, setSelectedItem] = useState<string[]>([]);
+	const [recipe, setRecipe] = useState<RecipeResponse | null>(null);
 	const [isPending, startTransition] = useTransition();
 	const { Modal, openModal, closeModal } = useModal();
-	const [editingItemId, setEditingItemId] = useState(null);
+	const [editingItemId, setEditingItemId] = useState<number | null>(null);
 	const editItem = items.filter((item) => item.id === editingItemId);
-	const [sortKey, setSortKey] = useState(null);
+	const [sortKey, setSortKey] = useState<'expire_date' | 'created_at' | null>(null);
 	const [sortOrder, setSortOrder] = useState(null);
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	const [foodSelectedStatus, setFoodSelectedStatus] = useState(null);
@@ -108,8 +110,8 @@ const FridgeItems = () => {
 	const sortedItems = [...filterItems].sort((a, b) => {
 		if (!sortKey) return 0;
 
-		let aValue = a.attributes[sortKey];
-		let bValue = b.attributes[sortKey];
+		let aValue: string | Date = a.attributes[sortKey];
+		let bValue: string | Date = b.attributes[sortKey];
 
 		if (sortKey === "expire_date" || sortKey === "created_at") {
 			aValue = new Date(aValue);

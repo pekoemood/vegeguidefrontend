@@ -50,6 +50,7 @@ interface Recipe {
   servings: number;
   purpose: string;
   recipe_category: string;
+  calorie: number;
 }
 
 interface Ingredient {
@@ -79,6 +80,7 @@ export interface RecipeResponse extends Recipe {
     ingredients: Ingredient[];
     recipe_steps: RecipeStep[];
     shopping_lists: ShoppingList[];
+    step?: RecipeStep[]
 }
 
 export interface Recipes {
@@ -86,3 +88,30 @@ export interface Recipes {
   type: string;
   attributes: RecipeResponse;
 }
+
+export interface RecipeImage {
+  image_id: string;
+  image_url: string;
+}
+
+export interface FridgeItem {
+  id: string;
+  name: string;
+  category: string;
+  display_amount: string;
+  expire_date: string;
+  created_at: string;
+  created_day: string;
+  expire_status: string
+}
+
+export interface FridgeItemsResponse {
+  data: {
+    id: number;
+    type: string;
+    attributes: FridgeItem;
+  }[]
+}
+
+export interface FridgeItems extends Array<FridgeItem>{}
+
