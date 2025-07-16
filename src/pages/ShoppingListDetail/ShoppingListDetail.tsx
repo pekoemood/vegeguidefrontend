@@ -6,27 +6,26 @@ import AddItemForm from "../../components/AddItemForm";
 import Meta from "../../components/Meta";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
+import { ShoppingItem, ShoppingListAddItem, ShoppingListEntry } from "../../types/apiResponse";
 
 const ShoppingListDetail = () => {
-	const { shoppingList } = useLoaderData();
-	const { attributes } = shoppingList;
-	const { shopping_items } = attributes;
-	const [items, setItems] = useState(shopping_items);
-	const check = items.filter((item) => item.checked === true);
+	const shoppingList = useLoaderData<ShoppingListEntry>();
+	const [items, setItems] = useState(shoppingList.attributes.shopping_items)
 	const navigate = useNavigate();
-	const [selectedCategory, setSelectedCategory] = useState(null);
+	const check = items.filter((item) => item.checked === true);
+	const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 	const { Modal, openModal, closeModal } = useModal();
-	const [changedItems, setChangedItems] = useState(new Set());
-	const [loadingItems, setLoadingItems] = useState([]);
+	const [changedItems, setChangedItems] = useState(new Set<number>());
+	const [loadingItems, setLoadingItems] = useState<number[]>([]);
 	let filteredItems = items;
-
-	console.log(items);
-
 	if (selectedCategory) {
 		filteredItems = filteredItems.filter(
 			(item) => item.category === selectedCategory,
 		);
 	}
+
+	console.log('items', items);
+	
 
 	const filteredGroupedItems = filteredItems.reduce((acc, item) => {
 		if (!acc[item.category]) {
@@ -64,7 +63,7 @@ const ShoppingListDetail = () => {
 		return preferredOrder.indexOf(a) - preferredOrder.indexOf(b);
 	});
 
-	const handleClick = (item) => {
+	const handleClick = (item: ShoppingItem) => {
 		setItems((prev) =>
 			prev.map((preItem) => {
 				return preItem.id === item.id
@@ -103,9 +102,10 @@ const ShoppingListDetail = () => {
 		return () => clearTimeout(timer);
 	}, [changedItems]);
 
-	const handleAddItem = async (name, display_amount, category) => {
+	const handleAddItem = async ({name, display_amount, category}: ShoppingListAddItem): Promise<void> => {
 		try {
-			const response = await api.post(
+			console.log('送信データ', name)
+			const response = await api.post<{ item: ShoppingItem }>(
 				`/shopping_lists/${shoppingList.id}/shopping_list_items`,
 				{
 					name,
@@ -114,7 +114,7 @@ const ShoppingListDetail = () => {
 				},
 			);
 			console.log(response);
-			setItems((prev) => [...prev, { ...response.data.item }]);
+			setItems((prev) => [...prev,  {...response.data.item}]);
 			toast.success("食材を追加しました");
 		} catch (error) {
 			console.error(error);
@@ -122,7 +122,7 @@ const ShoppingListDetail = () => {
 		}
 	};
 
-	const handleDeleteItem = async (id) => {
+	const handleDeleteItem = async (id: number) => {
 		try {
 			await api.delete(`/shopping_list_items/${id}`);
 			setItems((prev) => prev.filter((item) => item.item_id !== id));
@@ -133,7 +133,7 @@ const ShoppingListDetail = () => {
 		}
 	};
 
-	const handleAddFridge = async (item) => {
+	const handleAddFridge = async (item: ShoppingItem | ShoppingItem[]) => {
 		const items = Array.isArray(item) ? item : [item];
 		try {
 			await api.post(`/fridge_items`, {
@@ -206,7 +206,7 @@ const ShoppingListDetail = () => {
 						<div className="flex justify-between items-center mb-2">
 							<h2 className="flex items-center text-2xl ">
 								<ShoppingCart className="mr-2 h-5 w-5" />
-								<span>{attributes.name}</span>
+								<span>{shoppingList.attributes.name}</span>
 							</h2>
 							<span
 								className={`badge ${check.length === items.length ? "badge-success" : "badge-outline badge-primary"}`}

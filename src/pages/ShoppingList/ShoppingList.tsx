@@ -6,16 +6,17 @@ import Meta from "../../components/Meta";
 import ShoppingCard from "../../components/ShoppingCard";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
+import { ShoppingListEntry, ShoppingListResponse, ShoppingListsLoader } from "../../types/apiResponse";
 
 const ShoppingList = () => {
-	const { shoppingLists } = useLoaderData();
+	const shoppingLists = useLoaderData<ShoppingListsLoader>();
 	const [lists, setLists] = useState(shoppingLists);
 	const { Modal, openModal, closeModal } = useModal();
-	console.log(lists);
+	console.log('APIデーター',shoppingLists);
 
-	const handleAddList = async (name) => {
+	const handleAddList = async (name: string) => {
 		try {
-			const response = await api.post(`/shopping_lists`, { name });
+			const response = await api.post<ShoppingListResponse>(`/shopping_lists`, { name });
 			console.log(response);
 			setLists((prev) => [...prev, response.data.data]);
 			toast.success("買い物リストを作成しました");

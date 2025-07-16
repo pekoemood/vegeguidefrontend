@@ -60,7 +60,7 @@ const AddItemForm = ({ categories, closeModal, handleAddItem }) => {
 					</button>
 					<button
 						className="btn"
-						onClick={() => handleAddItem(name, amount, category)}
+						onClick={() => handleAddItem({name, display_amount: amount, category})}
 					>
 						追加
 					</button>
