@@ -42,3 +42,9 @@ export type VegetablesLoaderData = {
 export type VegetablesResponse = {
 	data: Vegetable;
 };
+
+export interface VegetableSummary {
+	id: number;
+	name: string;
+	image_url: string;
+}

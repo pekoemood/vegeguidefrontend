@@ -7,11 +7,14 @@ import RecipeSkeleton from "../../components/RecipeSkeleton";
 import { api } from "../../utils/axios";
 import VegetableCard from "./VegetableCard";
 import GenerateRecipeArea from "../../components/GenerateRecipeArea";
+import { VegetableSummary } from "../../types/vegetable";
+import { RecipeImage, RecipeResponse } from "../../types/apiResponse";
+import axios from "axios";
 
 const RecipeGeneratorPage = () => {
 	const location = useLocation();
-	const { data } = useLoaderData();
-	const [vegeName, setVegeName] = useState("");
+	const data = useLoaderData<VegetableSummary[]>();
+	const [vegeName, setVegeName] = useState<string>("");
 	const [selectedVegetables, setSelectedVegetables] = useState(() =>
 		location.state?.selectedVegetableId
 			? [location.state.selectedVegetableId]
@@ -23,17 +26,17 @@ const RecipeGeneratorPage = () => {
 	const [purpose, setPurpose] = useState("普段使い");
 	const [servings, setServings] = useState(1);
 	const [cookingMethod, setCookingMethod] = useState("指定なし");
-	const [recipe, setRecipe] = useState(null);
+	const [recipe, setRecipe] = useState<RecipeResponse | null>(null);
 	const [isPending, startTransition] = useTransition();
 	const [isSaving, startSaving] = useTransition();
 	const navigation = useNavigate();
-	const [recipeImage, setRecipeImage] = useState(null);
+	const [recipeImage, setRecipeImage] = useState<RecipeImage | null>(null);
 
 	const filterVegetables = data.filter((vegetable) =>
 		vegetable.name.toLowerCase().includes(vegeName.toLowerCase()),
 	);
 
-	const toggleVegetable = (id) => {
+	const toggleVegetable = (id: number) => {
 		if (selectedVegetables.includes(id)) {
 			setSelectedVegetables((prev) => prev.filter((vegeId) => vegeId !== id));
 		} else {
@@ -53,7 +56,7 @@ const RecipeGeneratorPage = () => {
 					})
 					.filter(Boolean);
 
-				const response = await api.post(`/recipe_generations`, {
+				const response = await api.post<RecipeResponse>(`/recipe_generations`, {
 					cookingTime,
 					calorie,
 					category,
@@ -70,7 +73,7 @@ const RecipeGeneratorPage = () => {
 		});
 	};
 
-	const handleClickSave = () => {
+	const handleClickSave = (): void => {
 		startSaving(async () => {
 			try {
 				await api.post(`/recipes`, {
@@ -85,12 +88,12 @@ const RecipeGeneratorPage = () => {
 		});
 	};
 
-	console.log(recipe);
-
 	useEffect(() => {
+		if (!recipe) return;
+		
 		const getRecipeImage = async () => {
 			try {
-				const response = await api.post("/recipe_image_generations", {
+				const response = await api.post<RecipeImage>("/recipe_image_generations", {
 					recipe: {
 						name: recipe.name,
 						ingredients: recipe.ingredients,
@@ -99,12 +102,16 @@ const RecipeGeneratorPage = () => {
 				setRecipeImage(response.data);
 			} catch (err) {
 				console.error(err);
+				if (axios.isAxiosError(err)) {
+					const message = err.response?.data?.error ?? 'エラーが発生しました';
+					toast.error(message);
+				} else {
+					toast.error('エラーが発生しました');
+				}
 			}
 		};
 		getRecipeImage();
 	}, [recipe]);
-
-	console.log("レシピイメージ:", recipeImage);
 
 	return (
 		<>
