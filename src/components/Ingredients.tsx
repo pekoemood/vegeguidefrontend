@@ -1,4 +1,6 @@
-const Ingredients = ({ servings, ingredients }) => {
+import { RecipeResponse } from "../types/apiResponse";
+
+const Ingredients = ({ servings, ingredients }: Pick<RecipeResponse, 'servings' | 'ingredients'>) => {
 	return (
 		<section className="w-full mt-6">
 			<h2 className="text-xl">食材（{servings}人前）</h2>

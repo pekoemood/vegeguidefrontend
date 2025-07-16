@@ -24,7 +24,6 @@ const ShoppingListDetail = () => {
 		);
 	}
 
-	console.log('items', items);
 	
 
 	const filteredGroupedItems = filteredItems.reduce((acc, item) => {
@@ -104,7 +103,6 @@ const ShoppingListDetail = () => {
 
 	const handleAddItem = async ({name, display_amount, category}: ShoppingListAddItem): Promise<void> => {
 		try {
-			console.log('送信データ', name)
 			const response = await api.post<{ item: ShoppingItem }>(
 				`/shopping_lists/${shoppingList.id}/shopping_list_items`,
 				{
@@ -113,7 +111,6 @@ const ShoppingListDetail = () => {
 					category,
 				},
 			);
-			console.log(response);
 			setItems((prev) => [...prev,  {...response.data.item}]);
 			toast.success("食材を追加しました");
 		} catch (error) {

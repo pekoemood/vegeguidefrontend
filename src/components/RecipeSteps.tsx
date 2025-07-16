@@ -1,4 +1,6 @@
-const RecipeSteps = ({ steps }) => {
+import { RecipeResponse, RecipeStep } from "../types/apiResponse";
+
+const RecipeSteps = ({ steps }: {steps: RecipeStep[]}) => {
 	return (
 		<section className="w-full mt-6">
 			<h2 className="text-xl">調理手順</h2>
