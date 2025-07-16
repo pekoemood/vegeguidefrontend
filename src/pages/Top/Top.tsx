@@ -63,8 +63,7 @@ function Top(): React.ReactElement {
 	return (
 		<>
 			<Meta title="トップ" description="VegeGuideのアプリ概要です。" />
-			<main className="container flex flex-col px-4 lg:px-0  mx-auto space-y-16 lg:space-y-32 min-h-screen animate-fade-up">
-				<header className="w-full mx-auto sticky top-0 z-40 backdrop-blur bg-white animate-fade-up" style={{animationDelay: '0.1s', animationFillMode: 'both'}}>
+			<header className="w-full mx-auto sticky top-0 z-40 backdrop-blur bg-white animate-fade-up mb-16 lg:mb-32"  >
 					<div className="container mx-auto flex h-16 items-center justify-center">
 						<nav className="flex justify-center gap-8">
 							<a href="#feature" className="transition hover:text-primary">
@@ -79,6 +78,8 @@ function Top(): React.ReactElement {
 						</nav>
 					</div>
 				</header>
+			<main className="container flex flex-col px-4 lg:px-0  mx-auto space-y-16 lg:space-y-32 min-h-screen animate-fade-up" style={{animationDelay: '0.1s', animationFillMode: 'both'}}>
+				
 				<section className="flex mx-auto animate-fade-up" style={{animationDelay: '0.2s', animationFillMode: 'both'}}>
 					<div className="flex-1 flex flex-col items-center justify-center space-y-8">
 						<h1 className="text-center lg:text-left text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight animate-fade-up" style={{animationDelay: '0.3s', animationFillMode: 'both'}}>

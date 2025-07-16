@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { use, useTransition } from "react";
+import { JSX, use, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import Button from "../../components/Button";
@@ -9,13 +9,28 @@ import GoogleLoginButton from "../../components/GoogleLoginButton";
 import Meta from "../../components/Meta";
 import Spinner from "../../components/Spinner";
 import { UserContext } from "../../context/UserContext";
-import { loginSchema } from "../../utils/validation";
+import { LoginInput, loginSchema } from "../../utils/validation";
+import { api } from "../../utils/axios";
+import toast from "react-hot-toast";
 
-const Login = () => {
+interface UserProps {
+	name: string;
+	email: string;
+	password: string;
+}
+
+interface UserResponse {
+	name: string;
+	email: string;
+	status?: string;
+}
+
+
+const Login = ():JSX.Element => {
 	const [isPending, startTransition] = useTransition();
 	const navigate = useNavigate();
-	const { user, setUser, loading, fetchUser } = use(UserContext);
-	const defaultValues = {
+	const { setUser } = use(UserContext);
+	const defaultValues: UserProps = {
 		name: "",
 		email: "",
 		password: "",
@@ -24,23 +39,19 @@ const Login = () => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors, isSubmitting },
-	} = useForm({
+		formState: { errors },
+	} = useForm<LoginInput>({
 		defaultValues,
 		resolver: zodResolver(loginSchema),
 	});
 
-	const onSubmit = ({ email, password }) => {
+	const onSubmit = ({ email, password }: { email: string, password: string}) => {
 		startTransition(async () => {
 			try {
-				const response = await axios.post(
-					`${import.meta.env.VITE_RAILS_API}/login`,
+				const response = await api.post<UserResponse>(`/login`,
 					{
 						email,
 						password,
-					},
-					{
-						withCredentials: true,
 					},
 				);
 				setUser(response.data);
@@ -48,8 +59,10 @@ const Login = () => {
 			} catch (error) {
 				if (error.response) {
 					console.log("エラーメッセージ", error.response.data.status);
+					toast.error(error.response.data.status)
 				} else if (error.request) {
 					console.log("サーバーからの応答なし");
+					toast.error('サーバーからの応答なし');
 				} else {
 					console.log("エラー:", error.message);
 				}
@@ -57,8 +70,6 @@ const Login = () => {
 			}
 		});
 	};
-
-	const onError = (error, e) => console.log(error, e);
 
 	return (
 		<>

@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
-import { use, useContext, useTransition } from "react";
+import axios, { AxiosResponse } from "axios";
+import { JSX, use, useContext, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import Button from "../../components/Button";
@@ -9,13 +9,23 @@ import GoogleLoginButton from "../../components/GoogleLoginButton";
 import Meta from "../../components/Meta";
 import Spinner from "../../components/Spinner";
 import { UserContext } from "../../context/UserContext";
-import { singUpSchema } from "../../utils/validation";
+import { SignUpInput, singUpSchema } from "../../utils/validation";
+import { api } from "../../utils/axios";
+import toast from "react-hot-toast";
 
-const SignUp = () => {
+interface UserProps {
+	status: string;
+	name: string;
+	email: string;
+}
+
+
+const SignUp = (): JSX.Element => {
 	const [isPending, startTransition] = useTransition();
 	const navigate = useNavigate();
-	const { user, setUser, loading } = use(UserContext);
-	const defaultValues = {
+	const { setUser } = use(UserContext);
+	
+	const defaultValues: SignUpInput = {
 		name: "",
 		email: "",
 		password: "",
@@ -24,24 +34,20 @@ const SignUp = () => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors, isSubmitting },
-	} = useForm({
+		formState: { errors },
+	} = useForm<SignUpInput>({
 		defaultValues,
 		resolver: zodResolver(singUpSchema),
 	});
 
-	const onSubmit = ({ name, email, password }) => {
+	const onSubmit = ({ name, email, password }: SignUpInput) => {
 		startTransition(async () => {
 			try {
-				const response = await axios.post(
-					`${import.meta.env.VITE_RAILS_API}/users`,
+				const response = await api.post<UserProps>(`/users`,
 					{
 						name,
 						email,
 						password,
-					},
-					{
-						withCredentials: true,
 					},
 				);
 				setUser(response.data);
@@ -49,17 +55,18 @@ const SignUp = () => {
 			} catch (error) {
 				if (error.response) {
 					console.log("エラーメッセージ", error.response.data.status);
+					toast.error(error.response.data.error);
 				} else if (error.request) {
 					console.log("サーバーからの応答なし");
+					toast.error('サーバーからの応答なし');
 				} else {
 					console.log("エラー", error.message);
+					toast.error('エラーが発生しました');
 				}
 				console.error("登録に失敗しました:", error);
 			}
 		});
 	};
-
-	const onError = (error, e) => console.log(error, e);
 
 	return (
 		<>
@@ -152,7 +159,7 @@ const SignUp = () => {
 
 							<form
 								className="space-y-6 animate-fade-up"
-								onSubmit={handleSubmit(onSubmit, onError)}
+								onSubmit={handleSubmit(onSubmit)}
 								noValidate
 								style={{animationDelay: '0.4s', animationFillMode: 'both'}}
 							>
