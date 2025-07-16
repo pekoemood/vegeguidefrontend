@@ -40,3 +40,49 @@ export interface ShoppingListAddItem {
   display_amount: string;
   category: string;
 }
+
+
+interface Recipe {
+  id: number;
+  name: string;
+  instructions: string;
+  cooking_time: number;
+  servings: number;
+  purpose: string;
+  recipe_category: string;
+}
+
+interface Ingredient {
+  name: string;
+  amount: string;
+  unit: string;
+  display_amount: string;
+  category: string;
+}
+
+export interface RecipeStep {
+  step_number: number;
+  description: string;
+}
+
+interface ShoppingList {
+  id: number;
+  name: string;
+  updated: number;
+  items_count: number;
+  checked_count: number;
+  already_added: boolean;
+}
+
+export interface RecipeResponse extends Recipe {
+    image_url: string;
+    ingredients: Ingredient[];
+    recipe_steps: RecipeStep[];
+    shopping_lists: ShoppingList[];
+}
+
+export interface Recipes {
+  id: number;
+  type: string;
+  attributes: RecipeResponse;
+}

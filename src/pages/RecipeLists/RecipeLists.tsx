@@ -1,12 +1,13 @@
 import { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useLoaderData } from "react-router";
 import Meta from "../../components/Meta";
 import RecipeCard from "../../components/RecipeCard";
+import { Recipes } from "../../types/apiResponse";
 
 const RecipeLists = () => {
-	const { data } = useLoaderData();
-	const [recipes, setRecipes] = useState(data);
+	const data = useLoaderData<Recipes[]>();
+	const [recipes, setRecipes] = useState<Recipes[]>(data);
 	console.log(recipes);
 
 	return (

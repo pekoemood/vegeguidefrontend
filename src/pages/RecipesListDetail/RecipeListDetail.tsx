@@ -9,7 +9,7 @@ import {
 	User,
 } from "lucide-react";
 import { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useLoaderData, useNavigate } from "react-router";
 import AddLItemFromRecipe from "../../components/AddItemFromRecipe";
 import Ingredients from "../../components/Ingredients";
@@ -17,18 +17,19 @@ import Meta from "../../components/Meta";
 import RecipeSteps from "../../components/RecipeSteps";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
+import { RecipeResponse, Recipes } from "../../types/apiResponse";
 
 const RecipeListDetail = () => {
-	const { data } = useLoaderData();
-	const [shoppingList, setShoppingLists] = useState(data.attributes);
-	const navigate = useNavigate();
-	const [activeTab, setActiveTab] = useState("tab1");
-	const { Modal, openModal, closeModal } = useModal();
+	const data = useLoaderData<Recipes>();
 	console.log(data);
+	const [shoppingList, setShoppingLists] = useState<RecipeResponse>(data.attributes);
+	const navigate = useNavigate();
+	const [activeTab, setActiveTab] = useState<string>("tab1");
+	const { Modal, openModal, closeModal } = useModal();
 
-	const handleAddShoppingList = async ({ shoppingListId, name }) => {
+	const handleAddShoppingList = async ({ shoppingListId, name }:{shoppingListId: number, name: string}): Promise<void> => {
 		try {
-			const response = await api.post(`/shopping_lists/from_recipe`, {
+			const response = await api.post<{data: Recipes}>(`/shopping_lists/from_recipe`, {
 				recipe_id: data.id,
 				shopping_list_id: shoppingListId,
 				name: name,

@@ -12,7 +12,6 @@ const ShoppingList = () => {
 	const shoppingLists = useLoaderData<ShoppingListsLoader>();
 	const [lists, setLists] = useState(shoppingLists);
 	const { Modal, openModal, closeModal } = useModal();
-	console.log('APIデーター',shoppingLists);
 
 	const handleAddList = async (name: string) => {
 		try {
