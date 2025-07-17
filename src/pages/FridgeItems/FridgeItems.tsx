@@ -22,7 +22,7 @@ import Meta from "../../components/Meta";
 import RecipeSkeleton from "../../components/RecipeSkeleton";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
-import type { FridgeItems, FridgeItemsResponse, RecipeResponse } from "../../types/apiResponse";
+import { RecipeImage, type FridgeItems, type FridgeItemsResponse, type RecipeResponse } from "../../types/apiResponse";
 
 const categories = [
 	{ name: "野菜", icon: Carrot },
@@ -56,10 +56,10 @@ const FridgeItems = () => {
 	const [editingItemId, setEditingItemId] = useState<number | null>(null);
 	const editItem = items.filter((item) => item.id === editingItemId);
 	const [sortKey, setSortKey] = useState<'expire_date' | 'created_at' | null>(null);
-	const [sortOrder, setSortOrder] = useState(null);
-	const [selectedCategory, setSelectedCategory] = useState(null);
-	const [foodSelectedStatus, setFoodSelectedStatus] = useState(null);
-	const [recipeImage, setRecipeImage] = useState(null);
+	const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | null>(null);
+	const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+	const [foodSelectedStatus, setFoodSelectedStatus] = useState<string | null>(null);
+	const [recipeImage, setRecipeImage] = useState<RecipeImage | null>(null);
 	const [isSaving, startSaving] = useTransition();
 
 	const foodStatusCount = items.reduce(
