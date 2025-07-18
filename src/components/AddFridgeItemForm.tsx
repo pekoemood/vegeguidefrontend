@@ -1,15 +1,16 @@
 import { ja } from "date-fns/locale";
 import { useState } from "react";
 import { DayPicker } from "react-day-picker";
+import { FridgeAddItem } from "../types/apiResponse";
 
-const AddFridgeItemForm = ({ closeModal, categories, handleAdd }) => {
-	const [name, setName] = useState("");
-	const [amount, setAmount] = useState("");
-	const [category, setCategory] = useState("");
-	const [date, setDate] = useState(null);
+const AddFridgeItemForm = ({ closeModal, categories, handleAdd }:{ closeModal: () => void, categories: {name: string, icon: string}[], handleAdd: (props: FridgeAddItem) => void}) => {
+	const [name, setName] = useState<string>("");
+	const [amount, setAmount] = useState<string>("");
+	const [category, setCategory] = useState<string>("");
+	const [date, setDate] = useState<Date | null >(null);
 	const itemCategories = categories.filter((ct) => ct.name !== "全て");
 
-	const handleDateChange = (selectedDate) => {
+	const handleDateChange = (selectedDate: Date) => {
 		setDate(selectedDate);
 	};
 
@@ -65,7 +66,7 @@ const AddFridgeItemForm = ({ closeModal, categories, handleAdd }) => {
 						<button
 							popoverTarget="rdp-popover"
 							className="input input-border w-full"
-							style={{ anchorName: "--rdp" }}
+							style={{ [`anchorName` as string]: "--rdp" }}
 						>
 							{date ? date.toLocaleDateString() : "賞味期限を選択してください"}
 						</button>
@@ -73,7 +74,7 @@ const AddFridgeItemForm = ({ closeModal, categories, handleAdd }) => {
 							popover="auto"
 							id="rdp-popover"
 							className="dropdown"
-							style={{ positionAnchor: "--rdp" }}
+							style={{ [`positionAnchor` as string]: "--rdp" }}
 						>
 							<DayPicker
 								className="react-day-picker"
@@ -91,7 +92,7 @@ const AddFridgeItemForm = ({ closeModal, categories, handleAdd }) => {
 						</button>
 						<button
 							className="btn"
-							onClick={() => handleAdd(name, category, amount, date)}
+							onClick={() => handleAdd({name, category, amount, date})}
 						>
 							追加
 						</button>
