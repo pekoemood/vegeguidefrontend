@@ -105,6 +105,12 @@ export interface FridgeItem {
   expire_status: string
 }
 
+export interface FridgeItemsRes {
+  id: number;
+  type: string;
+  attributes: FridgeAddItem;
+}
+
 export interface FridgeItemsResponse {
   data: {
     id: number;
@@ -113,5 +119,23 @@ export interface FridgeItemsResponse {
   }[]
 }
 
+
+
 export interface FridgeItems extends Array<FridgeItem>{}
+
+export interface FridgeAddItem {
+  id?: number;
+  name: string;
+  category: string;
+  amount: string;
+  date: Date;
+}
+
+export interface FridgeItemResponse {
+  data: {
+    id: number;
+    type: string;
+    attributes: FridgeItem;
+  }
+}
 

@@ -97,7 +97,7 @@ const EditFridgeItemForm = ({
 						</button>
 						<button
 							className="btn"
-							onClick={() => handleEdit(id, name, category, amount, date)}
+							onClick={() => handleEdit({id, name, category, amount, date})}
 						>
 							編集
 						</button>

@@ -22,7 +22,7 @@ import Meta from "../../components/Meta";
 import RecipeSkeleton from "../../components/RecipeSkeleton";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
-import { RecipeImage, type FridgeItems, type FridgeItemsResponse, type RecipeResponse } from "../../types/apiResponse";
+import { RecipeImage, type FridgeItems, type FridgeItemsResponse, type RecipeResponse, type FridgeItemResponse, FridgeAddItem, FridgeItemsRes } from "../../types/apiResponse";
 
 const categories = [
 	{ name: "野菜", icon: Carrot },
@@ -55,23 +55,14 @@ const FridgeItems = () => {
 	const { Modal, openModal, closeModal } = useModal();
 	const [editingItemId, setEditingItemId] = useState<number | null>(null);
 	const editItem = items.filter((item) => item.id === editingItemId);
-	const [sortKey, setSortKey] = useState<'expire_date' | 'created_at' | null>(null);
+	const [sortKey, setSortKey] = useState<'category' | 'expire_date' | 'expire_status' | 'created_day' | 'created_at'| null>(null);
 	const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | null>(null);
 	const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 	const [foodSelectedStatus, setFoodSelectedStatus] = useState<string | null>(null);
 	const [recipeImage, setRecipeImage] = useState<RecipeImage | null>(null);
 	const [isSaving, startSaving] = useTransition();
 
-	const foodStatusCount = items.reduce(
-		(acc, item) => {
-			const status = item.attributes.expire_status;
-			acc[status] += 1;
-			return acc;
-		},
-		{ ...initialStatus },
-	);
-
-	const foodStatus = (status) => {
+	const foodStatus = (status: string) => {
 		switch (status) {
 			case "expired":
 				return <span className="text-red-500">期限切れ</span>;
@@ -123,7 +114,7 @@ const FridgeItems = () => {
 		return 0;
 	});
 
-	const handleSort = (key) => {
+	const handleSort = (key: 'category' | 'expire_date' | 'expire_status' | 'created_day') => {
 		if (sortKey === key) {
 			setSortOrder(sortOrder === "asc" ? "desc" : "asc");
 		} else {
@@ -132,20 +123,18 @@ const FridgeItems = () => {
 		}
 	};
 
-	console.log(items);
-
 	const categoryIconMap = Object.fromEntries(
 		categories.map(({ name, icon }) => [name, icon]),
 	);
 
-	const changeIcon = (category) => {
+	const changeIcon = (category: string) => {
 		const Icon = categoryIconMap[category];
 		return <Icon />;
 	};
 
-	const handleAdd = async (name, category, amount, date) => {
+	const handleAdd = async ({name, category, amount, date}: FridgeAddItem) => {
 		try {
-			const response = await api.post(`/fridge_items`, {
+			const response = await api.post<FridgeItemsResponse>(`/fridge_items`, {
 				fridge: [
 					{
 						name: name,
@@ -164,9 +153,9 @@ const FridgeItems = () => {
 		}
 	};
 
-	const handleEdit = async (id, name, category, amount, date) => {
+	const handleEdit = async ({id, name, category, amount, date}: FridgeAddItem) => {
 		try {
-			const response = await api.patch(`/fridge_items/${id}`, {
+			const response = await api.patch<FridgeItemsResponse>(`/fridge_items/${id}`, {
 				fridge: {
 					name: name,
 					category: category,
@@ -183,9 +172,9 @@ const FridgeItems = () => {
 		}
 	};
 
-	const handleDelete = async (id) => {
+	const handleDelete = async (id: number) => {
 		try {
-			const response = await api.delete(`/fridge_items/${id}`);
+			const response = await api.delete<FridgeItemsResponse>(`/fridge_items/${id}`);
 			setItems(response.data.data);
 			toast.success("食材を削除しました");
 		} catch (err) {
@@ -194,7 +183,7 @@ const FridgeItems = () => {
 		}
 	};
 
-	const handleChecked = (item) => {
+	const handleChecked = (item: FridgeItemsRes) => {
 		setSelectedItem((prev) => {
 			if (prev.includes(item.attributes.name)) {
 				return prev.filter((_item) => _item !== item.attributes.name);
@@ -207,7 +196,7 @@ const FridgeItems = () => {
 	const handleSuggestRecipe = () => {
 		startTransition(async () => {
 			try {
-				const response = await api.post(`/recipe_generations`, {
+				const response = await api.post<RecipeResponse>(`/recipe_generations`, {
 					selectedVegetables: selectedItem,
 				});
 				setRecipe(response.data[0]);
@@ -219,7 +208,7 @@ const FridgeItems = () => {
 
 	const handleSaveRecipe = async () => {
 		try {
-			const response = await api.post(`/recipes`, {
+			await api.post(`/recipes`, {
 				...recipe,
 				image_id: recipeImage.image_id,
 			});
@@ -231,12 +220,10 @@ const FridgeItems = () => {
 		}
 	};
 
-	console.log("レシピ", recipe);
-
 	useEffect(() => {
 		const getRecipeImage = async () => {
 			try {
-				const response = await api.post("/recipe_image_generations", {
+				const response = await api.post<RecipeImage>("/recipe_image_generations", {
 					recipe: {
 						name: recipe.name,
 						ingredients: recipe.ingredients,
