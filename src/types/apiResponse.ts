@@ -10,7 +10,7 @@ export interface ShoppingItem {
   unit: string;
 }
 
-interface ShoppingList {
+interface ShoppingLists {
   id: number;
   name: string;
   created_at_jst: string;
@@ -20,7 +20,7 @@ interface ShoppingList {
 export interface ShoppingListEntry {
   id: string;
   type: string;
-  attributes: ShoppingList;
+  attributes: ShoppingLists;
 }
 
 
@@ -66,7 +66,7 @@ export interface RecipeStep {
   description: string;
 }
 
-interface ShoppingList {
+export interface ShoppingList {
   id: number;
   name: string;
   updated: number;
@@ -138,4 +138,12 @@ export interface FridgeItemResponse {
     attributes: FridgeItem;
   }
 }
+
+export type AddShoppingListParams =
+  | { shoppingListId: number }
+  | { name: string }
+
+
+
+
 

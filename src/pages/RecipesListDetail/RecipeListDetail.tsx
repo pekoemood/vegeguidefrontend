@@ -17,7 +17,7 @@ import Meta from "../../components/Meta";
 import RecipeSteps from "../../components/RecipeSteps";
 import useModal from "../../hooks/useModal";
 import { api } from "../../utils/axios";
-import { RecipeResponse, Recipes } from "../../types/apiResponse";
+import { AddShoppingListParams, RecipeResponse, Recipes } from "../../types/apiResponse";
 
 const RecipeListDetail = () => {
 	const data = useLoaderData<Recipes>();
@@ -27,12 +27,12 @@ const RecipeListDetail = () => {
 	const [activeTab, setActiveTab] = useState<string>("tab1");
 	const { Modal, openModal, closeModal } = useModal();
 
-	const handleAddShoppingList = async ({ shoppingListId, name }:{shoppingListId: number, name: string}): Promise<void> => {
+	const handleAddShoppingList = async (params: AddShoppingListParams): Promise<void> => {
 		try {
 			const response = await api.post<{data: Recipes}>(`/shopping_lists/from_recipe`, {
 				recipe_id: data.id,
-				shopping_list_id: shoppingListId,
-				name: name,
+				shopping_list_id: 'shoppingListId' in params ? params.shoppingListId : undefined,
+				name: 'name' in params ? params.name : undefined,
 			});
 			setShoppingLists(response.data.data.attributes);
 			toast.success("買い物リストに追加しました");

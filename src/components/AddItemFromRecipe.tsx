@@ -1,14 +1,20 @@
 import { Check, Plus } from "lucide-react";
 import { useState } from "react";
+import { AddShoppingListParams, ShoppingItem, ShoppingList } from "../types/apiResponse";
 
 const AddLItemFromRecipe = ({
 	closeModal,
 	shoppingLists,
 	recipeName,
 	handleAddShoppingList,
+}:{
+	closeModal: () => void,
+	shoppingLists: ShoppingList[],
+	recipeName: string,
+	handleAddShoppingList: (params: AddShoppingListParams) => Promise<void> 
 }) => {
-	const [isCreateMode, setIsCreateMode] = useState(false);
-	const [name, setName] = useState("");
+	const [isCreateMode, setIsCreateMode] = useState<boolean>(false);
+	const [name, setName] = useState<string>("");
 	return (
 		<>
 			<div className="bg-base-100 p-6 rounded-lg min-w-sm md:min-w-md lg:min-w-lg shadow-lg">
@@ -37,7 +43,7 @@ const AddLItemFromRecipe = ({
 							</button>
 							<button
 								className="btn"
-								onClick={() => handleAddShoppingList({ name: name })}
+								onClick={() => handleAddShoppingList({ name })}
 							>
 								作成して追加
 							</button>

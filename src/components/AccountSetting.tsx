@@ -5,7 +5,7 @@ import PasswordTab from "./PasswordTab";
 import ProfileTab from "./ProfileTab";
 
 const AccountSetting = ({ name, email }) => {
-	const [activeTab, setActiveTab] = useState("profile");
+	const [activeTab, setActiveTab] = useState<string>("profile");
 	const { user } = useContext(UserContext);
 
 	return (
