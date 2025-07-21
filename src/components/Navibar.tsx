@@ -16,6 +16,8 @@ import { UserContext } from "../context/UserContext";
 import useModal from "../hooks/useModal";
 import AccountSetting from "./AccountSetting";
 import Spinner from "./Spinner";
+import { api } from "../utils/axios";
+import toast from "react-hot-toast";
 
 const Navibar = () => {
 	const navigate = useNavigate();
@@ -26,20 +28,15 @@ const Navibar = () => {
 
 	const handleLogout = async () => {
 		try {
-			await axios.post(
-				`${import.meta.env.VITE_RAILS_API}/logout`,
-				{},
-				{
-					withCredentials: true,
-				},
-			);
+			await api.post(`/logout`);
 			setUser(null);
 			navigate("/");
+			toast.success('ログアウトしました');
 		} catch (error) {
 			console.log("ログアウトに失敗しました", error);
+			toast.error('ログアウトに失敗しました');
 		}
 	};
-	console.log(user);
 
 	if (loading) return <Spinner />;
 

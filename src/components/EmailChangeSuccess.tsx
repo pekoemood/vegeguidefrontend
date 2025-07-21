@@ -1,6 +1,6 @@
 import { CircleCheckBig, Mail } from "lucide-react";
 
-const EmailChangeSuccess = ({ email, closeModal }) => {
+const EmailChangeSuccess = ({ email, closeModal }:{email: string, closeModal: () => void}) => {
 	return (
 		<section className="bg-base-100 p-6 rounded-lg min-w-lg shadow-lg">
 			<div className="flex justify-center flex-col items-center space-y-4">

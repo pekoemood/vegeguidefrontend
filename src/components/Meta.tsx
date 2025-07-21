@@ -1,4 +1,4 @@
-const Meta = ({ title, description }) => {
+const Meta = ({ title, description }:{title: string, description: string}) => {
 	return (
 		<>
 			<title>{`${title} | VegeGuide`}</title>

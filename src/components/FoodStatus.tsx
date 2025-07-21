@@ -1,9 +1,11 @@
+import { FoodStatusProps } from "../types/apiResponse";
+
 const FoodStatus = ({
 	foodSelectedStatus,
 	setFoodSelectedStatus,
 	status,
 	items,
-}) => {
+}: FoodStatusProps) => {
 	const initialStatus = {
 		expired: 0,
 		urgent: 0,

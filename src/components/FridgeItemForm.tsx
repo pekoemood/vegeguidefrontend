@@ -1,3 +1,4 @@
+import { FridgeItemFormProps } from "../types/apiResponse";
 import AddFridgeItemForm from "./AddFridgeItemForm";
 import EditFridgeItemForm from "./EditFridgeItemForm";
 
@@ -8,7 +9,7 @@ const FridgeItemForm = ({
 	item,
 	handleEdit,
 	handleAdd,
-}) => {
+}: FridgeItemFormProps) => {
 	return (
 		<>
 			{id ? (

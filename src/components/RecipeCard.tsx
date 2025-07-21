@@ -1,13 +1,12 @@
 import {
 	Clock,
-	CookingPot,
-	Leaf,
-	ShoppingCart,
 	Trash2,
 	User,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router";
 import { api } from "../utils/axios";
+import toast from "react-hot-toast";
+import { RecipeCardProps } from "../types/apiResponse";
 
 const RecipeCard = ({
 	id,
@@ -15,19 +14,15 @@ const RecipeCard = ({
 	instructions,
 	cookingTime,
 	servings,
-	purpose,
-	steps,
-	ingredients,
 	setRecipes,
-	toast,
 	image,
 	category,
-}) => {
-	const handleClickDelete = async (e) => {
+}: RecipeCardProps) => {
+	const handleClickDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.stopPropagation();
 		e.preventDefault();
 		try {
-			await api.delete(`/recipes/${id}`);
+			await api.delete<{message: string}>(`/recipes/${id}`);
 			setRecipes((prevRecipes) =>
 				prevRecipes.filter((recipe) => recipe.id !== id),
 			);

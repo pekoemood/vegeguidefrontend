@@ -2,21 +2,18 @@ import axios from "axios";
 import { SquarePen, Trash2 } from "lucide-react";
 import toast from "react-hot-toast";
 import { Link } from "react-router";
+import { ShoppingCardProps } from "../types/apiResponse";
+import { api } from "../utils/axios";
 
-const ShoppingCard = ({ id, title, time, items, setLists }) => {
+const ShoppingCard = ({ id, title, time, items, setLists }: ShoppingCardProps) => {
 	const check = items.filter((item) => item.checked);
 
-	const handleDestroy = async (e, id) => {
+	const handleDestroy = async (e: React.MouseEvent<HTMLButtonElement>, id: number) => {
 		e.stopPropagation();
 		e.preventDefault();
 		try {
-			await axios.delete(
-				`${import.meta.env.VITE_RAILS_API}/shopping_lists/${id}`,
-				{
-					withCredentials: true,
-				},
-			);
-			setLists((prevList) => prevList.filter((list) => list.id !== id));
+			await api.delete<{status: string, message: string}>(`/shopping_lists/${id}`);
+			setLists((prevList) => prevList.filter((list) => Number(list.id) !== id));
 			toast.success("買い物リストを削除しました");
 		} catch (error) {
 			console.log(error);
