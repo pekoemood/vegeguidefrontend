@@ -1,16 +1,18 @@
 import { Mail } from "lucide-react";
-import { useActionState, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { useActionState } from "react";
+import toast from "react-hot-toast";
 import { api } from "../utils/axios";
+import { EmailFormData } from "../types/apiResponse";
 
-const MailTab = ({ email }) => {
+
+const MailTab = ({ email }:{email: string}) => {
 	const initialState = {
 		new_email: "",
 		password: "",
 	};
 
 	const [state, formAction, isPending] = useActionState(
-		async (currentState, formData) => {
+		async (_currentState, formData: FormData) => {
 			const data = Object.fromEntries(formData.entries());
 
 			try {

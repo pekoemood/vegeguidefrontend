@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useLoaderData, useSearchParams } from "react-router";
 import Card from "../../components/Card";
 import Meta from "../../components/Meta";
-import PaginationButtons from "../../components/PageinationButtons";
+import PaginationButtons from "../../components/PaginationButtons";
 import useVegeNames from "../../hooks/useVegeNames";
 import { Vegetable, VegetablesLoaderData } from "../../types/vegetable";
 

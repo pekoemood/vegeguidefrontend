@@ -1,6 +1,7 @@
 import { ja } from "date-fns/locale";
 import { useState } from "react";
 import { DayPicker } from "react-day-picker";
+import { EditFridgeItemFormProps } from "../types/apiResponse";
 
 const EditFridgeItemForm = ({
 	closeModal,
@@ -8,16 +9,16 @@ const EditFridgeItemForm = ({
 	id,
 	item,
 	handleEdit,
-}) => {
-	const [name, setName] = useState(item.name);
-	const [amount, setAmount] = useState(item.display_amount);
-	const [category, setCategory] = useState(item.category);
-	const [date, setDate] = useState(
+}: EditFridgeItemFormProps) => {
+	const [name, setName] = useState<string>(item.name);
+	const [amount, setAmount] = useState<string>(item.display_amount);
+	const [category, setCategory] = useState<string>(item.category);
+	const [date, setDate] = useState<Date | null>(
 		item.expire_date ? new Date(item.expire_date) : null,
 	);
 	const itemCategories = categories.filter((ct) => ct.name !== "全て");
 
-	const handleDateChange = (selectedDate) => {
+	const handleDateChange = (selectedDate: Date) => {
 		setDate(selectedDate);
 	};
 	console.log(item);
@@ -71,7 +72,7 @@ const EditFridgeItemForm = ({
 						<button
 							popoverTarget="rdp-popover"
 							className="input input-border w-full"
-							style={{ anchorName: "--rdp" }}
+							style={{ anchorName: "--rdp" } as React.CSSProperties}
 						>
 							{date ? date.toLocaleDateString() : "賞味期限を選択してください"}
 						</button>
@@ -79,7 +80,7 @@ const EditFridgeItemForm = ({
 							popover="auto"
 							id="rdp-popover"
 							className="dropdown"
-							style={{ positionAnchor: "--rdp" }}
+							style={{ positionAnchor: "--rdp" } as React.CSSProperties}
 						>
 							<DayPicker
 								className="react-day-picker"

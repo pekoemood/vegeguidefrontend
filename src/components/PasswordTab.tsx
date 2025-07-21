@@ -1,45 +1,44 @@
 import { Eye, EyeOff, Lock } from "lucide-react";
 import { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { api } from "../utils/axios";
 import { passwordChangeSchema } from "../utils/validation";
+import { Errors, PasswordChangeResponse } from "../types/apiResponse";
 
 const PasswordTab = () => {
 	const [showPassword, setShowPassword] = useState(false);
 	const [showConfirm, setShowConfirm] = useState(false);
-	const [errors, setErrors] = useState({});
-	const [formDate, setFormDate] = useState({
+	const [errors, setErrors] = useState<Record<string, string[] | undefined>>({});
+	const [formData, setFormDate] = useState({
 		oldPassword: "",
 		newPassword: "",
 	});
 
-	const handleChange = (e) => {
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setFormDate((prev) => ({
 			...prev,
 			[e.target.name]: e.target.value,
 		}));
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLElement>) => {
 		e.preventDefault();
 
-		const result = passwordChangeSchema.safeParse(formDate);
+		const result = passwordChangeSchema.safeParse(formData);
 
 		if (!result.success) {
-			const fieldErrors = {};
-			result.error.errors.forEach((err) => {
-				const field = err.path[0];
-				fieldErrors[field] = err.message;
-			});
+			console.log('確認',result.error.flatten().fieldErrors);
+			const fieldErrors = result.error.flatten().fieldErrors;
+			console.log('チェック', fieldErrors);
 			setErrors(fieldErrors);
 			return;
 		}
 
 		setErrors({});
 		try {
-			await api.patch(`/password`, {
-				old_password: formDate.oldPassword,
-				new_password: formDate.newPassword,
+			await api.patch<PasswordChangeResponse>(`/password`, {
+				old_password: formData.oldPassword,
+				new_password: formData.newPassword,
 			});
 			toast.success("パスワードの更新が完了しました");
 		} catch (err) {
@@ -73,7 +72,7 @@ const PasswordTab = () => {
 								placeholder="現在のパスワードを入力"
 								className="input w-full"
 								name="oldPassword"
-								value={formDate.oldPassword}
+								value={formData.oldPassword}
 								onChange={handleChange}
 							/>
 							<button
@@ -84,9 +83,11 @@ const PasswordTab = () => {
 								{showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
 							</button>
 						</div>
-						{errors.oldPassword && (
-							<p className="mt-2 text-red-500">{errors.oldPassword}</p>
-						)}
+						{errors.oldPassword && 
+							errors.oldPassword.map((text) => (
+								<p key={text} className="mt-2 text-red-500">{text}</p>
+							))
+						}
 					</div>
 
 					<div>
@@ -99,7 +100,7 @@ const PasswordTab = () => {
 								placeholder="新しいパスワードを入力"
 								className="input w-full"
 								name="newPassword"
-								value={formDate.newPassword}
+								value={formData.newPassword}
 								onChange={handleChange}
 							/>
 							<button
@@ -111,7 +112,9 @@ const PasswordTab = () => {
 							</button>
 						</div>
 						{errors.newPassword && (
-							<p className="mt-2 text-red-500">{errors.newPassword}</p>
+							errors.newPassword.map((text) => (
+								<p key={text} className="mt-2 text-red-500">{text}</p>
+							))
 						)}
 					</div>
 

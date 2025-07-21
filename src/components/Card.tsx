@@ -1,7 +1,8 @@
 import { TrendingDown, TrendingUp } from "lucide-react";
 import { Link, useNavigate } from "react-router";
+import { CardProps } from "../types/apiResponse";
 
-const Card = ({ id, name, image, description, season, price, rate }) => {
+const Card = ({ id, name, image, description, season, price, rate }: CardProps) => {
 	const navigation = useNavigate();
 
 	const handleClick = () => {

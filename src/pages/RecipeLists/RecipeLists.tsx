@@ -37,7 +37,6 @@ const RecipeLists = () => {
 							ingredients={recipe.attributes.ingredients}
 							steps={recipe.attributes.recipe_steps}
 							setRecipes={setRecipes}
-							toast={toast}
 							image={recipe.attributes.image_url}
 							category={recipe.attributes.recipe_category}
 						/>

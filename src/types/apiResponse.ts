@@ -144,6 +144,87 @@ export type AddShoppingListParams =
   | { name: string }
 
 
+export interface CardProps {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  rate: number;
+  image: string;
+  season: string;
+}
+
+interface Category {
+  name: string;
+  icon: string;
+}
+
+export interface FridgeItemFormProps {
+  closeModal: () => void;
+  categories: Category[];
+  id: number;
+  item: FridgeItem;
+  handleEdit: ({id, name, category, amount, date}: FridgeAddItem) => Promise<void>;
+  handleAdd: ({name, category, amount, date}: FridgeAddItem) => Promise<void>;
+}
+
+export type EditFridgeItemFormProps = Omit<FridgeItemFormProps, 'handleAdd'>
+
+export interface FoodStatus {
+  foodSelectedStatus: string | null;
+  setFoodSelectedStatus: React.Dispatch<React.SetStateAction<string>>;
+  status: null | 'expired' | 'urgent' | 'warning' | 'safe';
+  items: {
+    id: number;
+    type: string;
+    attributes: FridgeItem
+  }[];
+}
 
 
+export interface googleLoginResponse {
+  status: string;
+  name: string;
+  email: string;
+  google_account: boolean;
+}
 
+export interface EmailFormData {
+  data: {
+    new_email: string;
+    password: string;
+  }
+
+}
+
+
+export interface Errors {
+  oldPassword?: string[];
+  newPassword?: string[];
+}
+
+
+export interface PasswordChangeResponse {
+  status: string;
+  message?: string;
+  errors?: string;
+}
+
+export interface RecipeCardProps {
+  id: number;
+  title: string;
+  instructions: string;
+  cookingTime: number;
+  servings: number;
+  setRecipes: React.Dispatch<React.SetStateAction<Recipe[]>>;
+  image: string;
+  category: string;
+}
+
+export interface ShoppingCardProps {
+  id: number;
+  title: string;
+  time: number;
+  items: ShoppingItem[];
+  setLists: React.Dispatch<React.SetStateAction<ShoppingListsLoader>>;
+}

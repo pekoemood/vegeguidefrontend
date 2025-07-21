@@ -1,4 +1,4 @@
-const ProfileTab = ({ name, email, googleUser }) => {
+const ProfileTab = ({ name, email, googleUser }:{ name: string, email: string, googleUser: boolean}) => {
 	return (
 		<section className="flex flex-col space-y-6">
 			<div>
