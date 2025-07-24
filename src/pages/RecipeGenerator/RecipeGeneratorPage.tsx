@@ -61,6 +61,9 @@ const RecipeGeneratorPage = () => {
 	const [isSaving, startSaving] = useTransition();
 	const navigation = useNavigate();
 	const [recipeImage, setRecipeImage] = useState<RecipeImage | null>(null);
+	const [showAllVegetables, setShowAllVegetables] = useState(false);
+
+
 
 	const filterVegetables = data.filter((vegetable) =>
 		vegetable.name.toLowerCase().includes(vegeName.toLowerCase()),
@@ -219,11 +222,37 @@ const RecipeGeneratorPage = () => {
 				</div>
 
 				<div className="mt-8">
-					<h3 className="text-sm font-semibold text-base-content mb-4">
-						野菜を選択
-					</h3>
+					<div className="flex items-center justify-between mb-4">
+						<div className="flex items-center gap-3">
+							<h3 className="text-sm font-semibold text-base-content">
+								野菜を選択
+							</h3>
+							{selectedVegetables.length > 0 && (
+								<div className="flex items-center gap-2">
+									<button
+										type="button"
+										onClick={() => setSelectedVegetables([])}
+										className="btn btn-ghost btn-xs text-base-content/60 hover:text-error"
+										aria-label="全ての野菜選択を解除"
+									>
+										<X size={14} />
+										すべて解除
+									</button>
+								</div>
+							)}
+						</div>
+						{!showAllVegetables && filterVegetables.length > 12 && (
+							<button
+								type="button"
+								onClick={() => setShowAllVegetables(true)}
+								className="btn btn-outline btn-sm md:hidden"
+							>
+								すべて表示
+							</button>
+						)}
+					</div>
 					<div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 md:hidden">
-						{filterVegetables.slice(0, 12).map((vegetable, index) => (
+						{(showAllVegetables ? filterVegetables : filterVegetables.slice(0, 12)).map((vegetable, index) => (
 							<div
 								key={vegetable.id}
 								className="animate-fade-up"
@@ -264,10 +293,21 @@ const RecipeGeneratorPage = () => {
 							))}
 						</div>
 					</div>
-					{filterVegetables.length > 12 && (
+					{showAllVegetables && filterVegetables.length > 12 && (
+						<div className="md:hidden mt-4 text-center">
+							<button
+								type="button"
+								onClick={() => setShowAllVegetables(false)}
+								className="btn btn-outline btn-sm"
+							>
+								表示を減らす
+							</button>
+						</div>
+					)}
+					{!showAllVegetables && filterVegetables.length > 12 && (
 						<div className="md:hidden mt-4 text-center">
 							<p className="text-sm text-base-content/60">
-								検索で絞り込むと、より多くの野菜が表示されます
+								{12}個表示中 / 全{filterVegetables.length}個
 							</p>
 						</div>
 					)}
