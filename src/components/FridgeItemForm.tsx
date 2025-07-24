@@ -1,4 +1,4 @@
-import { FridgeItemFormProps } from "../types/apiResponse";
+import type { FridgeItemFormProps } from "../types/apiResponse";
 import AddFridgeItemForm from "./AddFridgeItemForm";
 import EditFridgeItemForm from "./EditFridgeItemForm";
 

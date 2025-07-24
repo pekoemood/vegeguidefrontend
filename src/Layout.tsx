@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import type React from "react";
+import { useEffect } from "react";
 import ReactGA from "react-ga4";
 import { Toaster } from "react-hot-toast";
 import {
@@ -24,7 +25,7 @@ const GAListener: React.FC = () => {
 
 const Layout: React.FC = () => {
 	const navigation = useNavigation();
-	const isNavigating = navigation.state === 'loading';
+	const isNavigating = navigation.state === "loading";
 
 	return (
 		<>

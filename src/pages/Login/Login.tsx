@@ -1,7 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { JSX, use, useTransition } from "react";
+import { type JSX, use, useTransition } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
 import Button from "../../components/Button";
 import FormField from "../../components/FormField";
@@ -9,9 +10,8 @@ import GoogleLoginButton from "../../components/GoogleLoginButton";
 import Meta from "../../components/Meta";
 import Spinner from "../../components/Spinner";
 import { UserContext } from "../../context/UserContext";
-import { LoginInput, loginSchema } from "../../utils/validation";
 import { api } from "../../utils/axios";
-import toast from "react-hot-toast";
+import { type LoginInput, loginSchema } from "../../utils/validation";
 
 interface UserProps {
 	name: string;
@@ -25,8 +25,7 @@ interface UserResponse {
 	status?: string;
 }
 
-
-const Login = ():JSX.Element => {
+const Login = (): JSX.Element => {
 	const [isPending, startTransition] = useTransition();
 	const navigate = useNavigate();
 	const { setUser } = use(UserContext);
@@ -45,24 +44,25 @@ const Login = ():JSX.Element => {
 		resolver: zodResolver(loginSchema),
 	});
 
-	const onSubmit = ({ email, password }: { email: string, password: string}) => {
+	const onSubmit = ({
+		email,
+		password,
+	}: { email: string; password: string }) => {
 		startTransition(async () => {
 			try {
-				const response = await api.post<UserResponse>(`/login`,
-					{
-						email,
-						password,
-					},
-				);
+				const response = await api.post<UserResponse>(`/login`, {
+					email,
+					password,
+				});
 				setUser(response.data);
 				navigate("/vegelist");
 			} catch (error) {
 				if (error.response) {
 					console.log("エラーメッセージ", error.response.data.status);
-					toast.error(error.response.data.status)
+					toast.error(error.response.data.status);
 				} else if (error.request) {
 					console.log("サーバーからの応答なし");
-					toast.error('サーバーからの応答なし');
+					toast.error("サーバーからの応答なし");
 				} else {
 					console.log("エラー:", error.message);
 				}
@@ -78,10 +78,16 @@ const Login = ():JSX.Element => {
 				description="冷蔵庫の食材をスマートに管理。不足・賞味期限も通知で安心。食材をムダなく使えます。"
 			/>
 			<div className="flex min-h-screen flex-col md:flex-row animate-fade-up">
-				<div className="relative hidden md:block md:w-1/2 bg-gradient-to-br from-green-50 to-green-100 animate-fade-up" style={{animationDelay: '0.1s', animationFillMode: 'both'}}>
+				<div
+					className="relative hidden md:block md:w-1/2 bg-gradient-to-br from-green-50 to-green-100 animate-fade-up"
+					style={{ animationDelay: "0.1s", animationFillMode: "both" }}
+				>
 					<div className="absolute inset-0 flex flex-col items-center justify-center p-12">
 						<div className="max-w-md space-y-6">
-							<div className="space-y-2 text-center animate-fade-up" style={{animationDelay: '0.2s', animationFillMode: 'both'}}>
+							<div
+								className="space-y-2 text-center animate-fade-up"
+								style={{ animationDelay: "0.2s", animationFillMode: "both" }}
+							>
 								<h1 className="text-3xl font-bold tracking-tighter text-green-800 sm:text-4xl mad:text-5xl">
 									VegeGuide
 								</h1>
@@ -90,7 +96,10 @@ const Login = ():JSX.Element => {
 								</p>
 							</div>
 
-							<div className="relative h-64 w-full overflow-hidden rounded-xl animate-fade-up" style={{animationDelay: '0.3s', animationFillMode: 'both'}}>
+							<div
+								className="relative h-64 w-full overflow-hidden rounded-xl animate-fade-up"
+								style={{ animationDelay: "0.3s", animationFillMode: "both" }}
+							>
 								<img
 									className="object-cover"
 									src="https://images.unsplash.com/photo-1610348725531-843dff563e2c"
@@ -99,21 +108,30 @@ const Login = ():JSX.Element => {
 							</div>
 
 							<div className="space-y-4">
-								<div className="animate-fade-up" style={{animationDelay: '0.4s', animationFillMode: 'both'}}>
+								<div
+									className="animate-fade-up"
+									style={{ animationDelay: "0.4s", animationFillMode: "both" }}
+								>
 									<h3 className="font-medium">栄養価の高い旬の野菜</h3>
 									<p className="text-sm text-gray-500">
 										コスパ良く健康的な食生活を実現
 									</p>
 								</div>
 
-								<div className="animate-fade-up" style={{animationDelay: '0.45s', animationFillMode: 'both'}}>
+								<div
+									className="animate-fade-up"
+									style={{ animationDelay: "0.45s", animationFillMode: "both" }}
+								>
 									<h3 className="font-medium">時短レシピ提案</h3>
 									<p className="text-sm text-gray-500">
 										忙しい毎日でも簡単に調理可能
 									</p>
 								</div>
 
-								<div className="animate-fade-up" style={{animationDelay: '0.5s', animationFillMode: 'both'}}>
+								<div
+									className="animate-fade-up"
+									style={{ animationDelay: "0.5s", animationFillMode: "both" }}
+								>
 									<h3 className="font-medium">買い物リスト自動生成</h3>
 									<p className="text-sm text-gray-500">
 										効率的な買い物をサポート
@@ -124,9 +142,15 @@ const Login = ():JSX.Element => {
 					</div>
 				</div>
 
-				<div className="flex flex-1 items-center justify-center p-6 md:p-12 animate-fade-up" style={{animationDelay: '0.15s', animationFillMode: 'both'}}>
+				<div
+					className="flex flex-1 items-center justify-center p-6 md:p-12 animate-fade-up"
+					style={{ animationDelay: "0.15s", animationFillMode: "both" }}
+				>
 					<div className="w-full max-w-md space-y-8">
-						<div className="space-y-2 text-center md:hidden animate-fade-up" style={{animationDelay: '0.2s', animationFillMode: 'both'}}>
+						<div
+							className="space-y-2 text-center md:hidden animate-fade-up"
+							style={{ animationDelay: "0.2s", animationFillMode: "both" }}
+						>
 							<h1 className="text-3xl font-bold tracking-tighter text-green-800">
 								VegeGuide
 							</h1>
@@ -136,7 +160,10 @@ const Login = ():JSX.Element => {
 						</div>
 
 						<div className="space-y-6">
-							<div className="space-y-2 text-center animate-fade-up" style={{animationDelay: '0.25s', animationFillMode: 'both'}}>
+							<div
+								className="space-y-2 text-center animate-fade-up"
+								style={{ animationDelay: "0.25s", animationFillMode: "both" }}
+							>
 								<h2 className="text-2xl font-semibold tracking-tight">
 									アカウントにログイン
 								</h2>
@@ -145,11 +172,17 @@ const Login = ():JSX.Element => {
 								</p>
 							</div>
 
-							<div className="animate-fade-up" style={{animationDelay: '0.3s', animationFillMode: 'both'}}>
+							<div
+								className="animate-fade-up"
+								style={{ animationDelay: "0.3s", animationFillMode: "both" }}
+							>
 								<GoogleLoginButton text="Googleでログイン" />
 							</div>
 
-							<div className="relative animate-fade-up" style={{animationDelay: '0.35s', animationFillMode: 'both'}}>
+							<div
+								className="relative animate-fade-up"
+								style={{ animationDelay: "0.35s", animationFillMode: "both" }}
+							>
 								<div className="absolute inset-0 flex items-center">
 									<span className="w-full border-t border-base-300"></span>
 								</div>
@@ -164,9 +197,12 @@ const Login = ():JSX.Element => {
 								className="space-y-6 animate-fade-up"
 								onSubmit={handleSubmit(onSubmit)}
 								noValidate
-								style={{animationDelay: '0.4s', animationFillMode: 'both'}}
+								style={{ animationDelay: "0.4s", animationFillMode: "both" }}
 							>
-								<div className="animate-fade-up" style={{animationDelay: '0.45s', animationFillMode: 'both'}}>
+								<div
+									className="animate-fade-up"
+									style={{ animationDelay: "0.45s", animationFillMode: "both" }}
+								>
 									<FormField
 										id="email"
 										label="メールアドレス"
@@ -176,7 +212,10 @@ const Login = ():JSX.Element => {
 										{...register("email")}
 									/>
 								</div>
-								<div className="animate-fade-up" style={{animationDelay: '0.5s', animationFillMode: 'both'}}>
+								<div
+									className="animate-fade-up"
+									style={{ animationDelay: "0.5s", animationFillMode: "both" }}
+								>
 									<FormField
 										id="password"
 										label="パスワード"
@@ -186,14 +225,20 @@ const Login = ():JSX.Element => {
 										{...register("password")}
 									/>
 								</div>
-								<div className="animate-fade-up" style={{animationDelay: '0.55s', animationFillMode: 'both'}}>
+								<div
+									className="animate-fade-up"
+									style={{ animationDelay: "0.55s", animationFillMode: "both" }}
+								>
 									<Button type="submit" disabled={isPending}>
 										{isPending ? <Spinner /> : "ログイン"}
 									</Button>
 								</div>
 							</form>
 
-							<div className="text-center text-sm animate-fade-up" style={{animationDelay: '0.6s', animationFillMode: 'both'}}>
+							<div
+								className="text-center text-sm animate-fade-up"
+								style={{ animationDelay: "0.6s", animationFillMode: "both" }}
+							>
 								アカウントをお持ちでないですか？{" "}
 								<Link
 									to="/signup"

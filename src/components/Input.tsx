@@ -1,10 +1,10 @@
-import { InputHTMLAttributes } from "react";
+import type { InputHTMLAttributes } from "react";
 
 type InputProps = {
 	className?: string;
 	id: string;
 	placeholder?: string;
-} & InputHTMLAttributes<HTMLInputElement>
+} & InputHTMLAttributes<HTMLInputElement>;
 
 const Input = ({ className, id, placeholder, ...props }: InputProps) => {
 	return (

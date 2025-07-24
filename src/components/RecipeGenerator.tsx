@@ -1,8 +1,8 @@
-import { useNavigate } from "react-router";
-import { UserContext } from "../context/UserContext";
+import { ChefHat } from "lucide-react";
 import { useContext } from "react";
 import toast from "react-hot-toast";
-import { ChefHat } from 'lucide-react';
+import { useNavigate } from "react-router";
+import { UserContext } from "../context/UserContext";
 
 type Props = {
 	vegetableName: string;
@@ -15,7 +15,7 @@ const RecipeGenerator = ({ vegetableName, id }: Props) => {
 
 	const handleClick = (): void => {
 		if (!user) {
-			toast.error('レシピ機能をご利用いただくにはログインが必要です');
+			toast.error("レシピ機能をご利用いただくにはログインが必要です");
 			navigate("/login");
 			return;
 		}

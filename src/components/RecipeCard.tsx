@@ -1,12 +1,8 @@
-import {
-	Clock,
-	Trash2,
-	User,
-} from "lucide-react";
-import { Link, useNavigate } from "react-router";
-import { api } from "../utils/axios";
+import { Clock, Trash2, User } from "lucide-react";
 import toast from "react-hot-toast";
-import { RecipeCardProps } from "../types/apiResponse";
+import { Link, useNavigate } from "react-router";
+import type { RecipeCardProps } from "../types/apiResponse";
+import { api } from "../utils/axios";
 
 const RecipeCard = ({
 	id,
@@ -22,7 +18,7 @@ const RecipeCard = ({
 		e.stopPropagation();
 		e.preventDefault();
 		try {
-			await api.delete<{message: string}>(`/recipes/${id}`);
+			await api.delete<{ message: string }>(`/recipes/${id}`);
 			setRecipes((prevRecipes) =>
 				prevRecipes.filter((recipe) => recipe.id !== id),
 			);

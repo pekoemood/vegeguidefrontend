@@ -2,13 +2,13 @@ interface NutritionProp {
 	name: string;
 	amount: string;
 	unit: string;
-};
+}
 
 interface NutritionProps {
 	nutritions: NutritionProp[];
-};
+}
 
-import { ChartBarIncreasing } from 'lucide-react';
+import { ChartBarIncreasing } from "lucide-react";
 
 const NutritionInfo = ({ nutritions }: NutritionProps) => {
 	return (

@@ -1,13 +1,21 @@
 import { ja } from "date-fns/locale";
 import { useState } from "react";
 import { DayPicker } from "react-day-picker";
-import { FridgeAddItem } from "../types/apiResponse";
+import type { FridgeAddItem } from "../types/apiResponse";
 
-const AddFridgeItemForm = ({ closeModal, categories, handleAdd }:{ closeModal: () => void, categories: {name: string, icon: string}[], handleAdd: (props: FridgeAddItem) => void}) => {
+const AddFridgeItemForm = ({
+	closeModal,
+	categories,
+	handleAdd,
+}: {
+	closeModal: () => void;
+	categories: { name: string; icon: string }[];
+	handleAdd: (props: FridgeAddItem) => void;
+}) => {
 	const [name, setName] = useState<string>("");
 	const [amount, setAmount] = useState<string>("");
 	const [category, setCategory] = useState<string>("");
-	const [date, setDate] = useState<Date | null >(null);
+	const [date, setDate] = useState<Date | null>(null);
 	const itemCategories = categories.filter((ct) => ct.name !== "全て");
 
 	const handleDateChange = (selectedDate: Date) => {
@@ -92,7 +100,7 @@ const AddFridgeItemForm = ({ closeModal, categories, handleAdd }:{ closeModal: (
 						</button>
 						<button
 							className="btn"
-							onClick={() => handleAdd({name, category, amount, date})}
+							onClick={() => handleAdd({ name, category, amount, date })}
 						>
 							追加
 						</button>

@@ -21,8 +21,16 @@ import FridgeItemForm from "../../components/FridgeItemForm";
 import Meta from "../../components/Meta";
 import RecipeSkeleton from "../../components/RecipeSkeleton";
 import useModal from "../../hooks/useModal";
+import type {
+	FridgeAddItem,
+	FridgeItemResponse,
+	FridgeItems,
+	FridgeItemsRes,
+	FridgeItemsResponse,
+	RecipeImage,
+	RecipeResponse,
+} from "../../types/apiResponse";
 import { api } from "../../utils/axios";
-import { RecipeImage, type FridgeItems, type FridgeItemsResponse, type RecipeResponse, type FridgeItemResponse, FridgeAddItem, FridgeItemsRes } from "../../types/apiResponse";
 
 const categories = [
 	{ name: "野菜", icon: Carrot },
@@ -47,7 +55,7 @@ const FridgeItems = () => {
 	const navigation = useNavigate();
 	const data = useLoaderData<FridgeItemsResponse>();
 	const [items, setItems] = useState(data.data);
-	console.log('アイテム', items)
+	console.log("アイテム", items);
 	const [name, setName] = useState<string>("");
 	const [selectedItem, setSelectedItem] = useState<string[]>([]);
 	const [recipe, setRecipe] = useState<RecipeResponse | null>(null);
@@ -55,10 +63,19 @@ const FridgeItems = () => {
 	const { Modal, openModal, closeModal } = useModal();
 	const [editingItemId, setEditingItemId] = useState<number | null>(null);
 	const editItem = items.filter((item) => item.id === editingItemId);
-	const [sortKey, setSortKey] = useState<'category' | 'expire_date' | 'expire_status' | 'created_day' | 'created_at'| null>(null);
-	const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | null>(null);
+	const [sortKey, setSortKey] = useState<
+		| "category"
+		| "expire_date"
+		| "expire_status"
+		| "created_day"
+		| "created_at"
+		| null
+	>(null);
+	const [sortOrder, setSortOrder] = useState<"asc" | "desc" | null>(null);
 	const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-	const [foodSelectedStatus, setFoodSelectedStatus] = useState<string | null>(null);
+	const [foodSelectedStatus, setFoodSelectedStatus] = useState<string | null>(
+		null,
+	);
 	const [recipeImage, setRecipeImage] = useState<RecipeImage | null>(null);
 	const [isSaving, startSaving] = useTransition();
 
@@ -114,7 +131,9 @@ const FridgeItems = () => {
 		return 0;
 	});
 
-	const handleSort = (key: 'category' | 'expire_date' | 'expire_status' | 'created_day') => {
+	const handleSort = (
+		key: "category" | "expire_date" | "expire_status" | "created_day",
+	) => {
 		if (sortKey === key) {
 			setSortOrder(sortOrder === "asc" ? "desc" : "asc");
 		} else {
@@ -132,7 +151,7 @@ const FridgeItems = () => {
 		return <Icon />;
 	};
 
-	const handleAdd = async ({name, category, amount, date}: FridgeAddItem) => {
+	const handleAdd = async ({ name, category, amount, date }: FridgeAddItem) => {
 		try {
 			const response = await api.post<FridgeItemsResponse>(`/fridge_items`, {
 				fridge: [
@@ -153,16 +172,25 @@ const FridgeItems = () => {
 		}
 	};
 
-	const handleEdit = async ({id, name, category, amount, date}: FridgeAddItem) => {
+	const handleEdit = async ({
+		id,
+		name,
+		category,
+		amount,
+		date,
+	}: FridgeAddItem) => {
 		try {
-			const response = await api.patch<FridgeItemsResponse>(`/fridge_items/${id}`, {
-				fridge: {
-					name: name,
-					category: category,
-					display_amount: amount,
-					expire_date: date,
+			const response = await api.patch<FridgeItemsResponse>(
+				`/fridge_items/${id}`,
+				{
+					fridge: {
+						name: name,
+						category: category,
+						display_amount: amount,
+						expire_date: date,
+					},
 				},
-			});
+			);
 			setItems(response.data.data);
 			closeModal();
 			toast.success("食材情報を編集しました");
@@ -174,7 +202,9 @@ const FridgeItems = () => {
 
 	const handleDelete = async (id: number) => {
 		try {
-			const response = await api.delete<FridgeItemsResponse>(`/fridge_items/${id}`);
+			const response = await api.delete<FridgeItemsResponse>(
+				`/fridge_items/${id}`,
+			);
 			setItems(response.data.data);
 			toast.success("食材を削除しました");
 		} catch (err) {
@@ -223,12 +253,15 @@ const FridgeItems = () => {
 	useEffect(() => {
 		const getRecipeImage = async () => {
 			try {
-				const response = await api.post<RecipeImage>("/recipe_image_generations", {
-					recipe: {
-						name: recipe.name,
-						ingredients: recipe.ingredients,
+				const response = await api.post<RecipeImage>(
+					"/recipe_image_generations",
+					{
+						recipe: {
+							name: recipe.name,
+							ingredients: recipe.ingredients,
+						},
 					},
-				});
+				);
 				setRecipeImage(response.data);
 			} catch (err) {
 				console.error(err);
@@ -251,7 +284,10 @@ const FridgeItems = () => {
 					</p>
 				</div>
 
-				<div className="flex space-x-4 mt-4 animate-fade-up" style={{animationDelay: '0.2s', animationFillMode: 'both'}}>
+				<div
+					className="flex space-x-4 mt-4 animate-fade-up"
+					style={{ animationDelay: "0.2s", animationFillMode: "both" }}
+				>
 					<input
 						type="text"
 						className="input w-full"
@@ -273,13 +309,13 @@ const FridgeItems = () => {
 				<div
 					role="tablist"
 					className="tabs tabs-box mt-4 overflow-x-auto flex-nowrap animate-fade-up"
-					style={{animationDelay: '0.3s', animationFillMode: 'both'}}
+					style={{ animationDelay: "0.3s", animationFillMode: "both" }}
 				>
 					<a
 						role="tab"
 						className={`tab flex-1 ${selectedCategory === null && "tab-active"} animate-fade-up`}
 						onClick={() => setSelectedCategory(null)}
-						style={{animationDelay: '0.35s', animationFillMode: 'both'}}
+						style={{ animationDelay: "0.35s", animationFillMode: "both" }}
 					>
 						<div className="flex flex-col items-center">
 							<Layers className="h-5" />
@@ -294,7 +330,10 @@ const FridgeItems = () => {
 							role="tab"
 							className={`tab flex-1 ${selectedCategory === name && "tab-active"} animate-fade-up`}
 							onClick={() => setSelectedCategory(name)}
-							style={{animationDelay: `${0.4 + index * 0.05}s`, animationFillMode: 'both'}}
+							style={{
+								animationDelay: `${0.4 + index * 0.05}s`,
+								animationFillMode: "both",
+							}}
 						>
 							<div className="flex flex-col items-center">
 								<Icon className="h-5" />{" "}
@@ -306,7 +345,10 @@ const FridgeItems = () => {
 					))}
 				</div>
 
-				<div className="flex gap-4 mt-6 animate-fade-up" style={{animationDelay: '0.7s', animationFillMode: 'both'}}>
+				<div
+					className="flex gap-4 mt-6 animate-fade-up"
+					style={{ animationDelay: "0.7s", animationFillMode: "both" }}
+				>
 					<FoodStatus
 						foodSelectedStatus={foodSelectedStatus}
 						setFoodSelectedStatus={setFoodSelectedStatus}
@@ -343,7 +385,10 @@ const FridgeItems = () => {
 					/>
 				</div>
 
-				<div className="animate-fade-up" style={{animationDelay: '0.9s', animationFillMode: 'both'}}>
+				<div
+					className="animate-fade-up"
+					style={{ animationDelay: "0.9s", animationFillMode: "both" }}
+				>
 					<div className="flex flex-col gap-2 md:flex-row md:justify-between mt-6 border border-base-300 p-4 rounded-lg md:items-center mb-14">
 						<div className="flex flex-col gap-2">
 							<p className="font-bold">AIレシピ提案</p>
@@ -485,7 +530,10 @@ const FridgeItems = () => {
 					)}
 				</div>
 
-				<div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 mt-6 animate-fade-up" style={{animationDelay: '1.1s', animationFillMode: 'both'}}>
+				<div
+					className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 mt-6 animate-fade-up"
+					style={{ animationDelay: "1.1s", animationFillMode: "both" }}
+				>
 					<table className="table">
 						<thead>
 							<tr>

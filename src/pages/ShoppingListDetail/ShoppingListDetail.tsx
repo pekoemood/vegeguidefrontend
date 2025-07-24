@@ -5,12 +5,16 @@ import { useLoaderData, useNavigate } from "react-router";
 import AddItemForm from "../../components/AddItemForm";
 import Meta from "../../components/Meta";
 import useModal from "../../hooks/useModal";
+import type {
+	ShoppingItem,
+	ShoppingListAddItem,
+	ShoppingListEntry,
+} from "../../types/apiResponse";
 import { api } from "../../utils/axios";
-import { ShoppingItem, ShoppingListAddItem, ShoppingListEntry } from "../../types/apiResponse";
 
 const ShoppingListDetail = () => {
 	const shoppingList = useLoaderData<ShoppingListEntry>();
-	const [items, setItems] = useState(shoppingList.attributes.shopping_items)
+	const [items, setItems] = useState(shoppingList.attributes.shopping_items);
 	const navigate = useNavigate();
 	const check = items.filter((item) => item.checked === true);
 	const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -23,8 +27,6 @@ const ShoppingListDetail = () => {
 			(item) => item.category === selectedCategory,
 		);
 	}
-
-	
 
 	const filteredGroupedItems = filteredItems.reduce((acc, item) => {
 		if (!acc[item.category]) {
@@ -101,7 +103,11 @@ const ShoppingListDetail = () => {
 		return () => clearTimeout(timer);
 	}, [changedItems]);
 
-	const handleAddItem = async ({name, display_amount, category}: ShoppingListAddItem): Promise<void> => {
+	const handleAddItem = async ({
+		name,
+		display_amount,
+		category,
+	}: ShoppingListAddItem): Promise<void> => {
 		try {
 			const response = await api.post<{ item: ShoppingItem }>(
 				`/shopping_lists/${shoppingList.id}/shopping_list_items`,
@@ -111,7 +117,7 @@ const ShoppingListDetail = () => {
 					category,
 				},
 			);
-			setItems((prev) => [...prev,  {...response.data.item}]);
+			setItems((prev) => [...prev, { ...response.data.item }]);
 			toast.success("食材を追加しました");
 		} catch (error) {
 			console.error(error);

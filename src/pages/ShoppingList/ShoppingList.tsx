@@ -5,8 +5,12 @@ import AddListForm from "../../components/AddListForm";
 import Meta from "../../components/Meta";
 import ShoppingCard from "../../components/ShoppingCard";
 import useModal from "../../hooks/useModal";
+import {
+	ShoppingListEntry,
+	type ShoppingListResponse,
+	type ShoppingListsLoader,
+} from "../../types/apiResponse";
 import { api } from "../../utils/axios";
-import { ShoppingListEntry, ShoppingListResponse, ShoppingListsLoader } from "../../types/apiResponse";
 
 const ShoppingList = () => {
 	const shoppingLists = useLoaderData<ShoppingListsLoader>();
@@ -15,7 +19,9 @@ const ShoppingList = () => {
 
 	const handleAddList = async (name: string) => {
 		try {
-			const response = await api.post<ShoppingListResponse>(`/shopping_lists`, { name });
+			const response = await api.post<ShoppingListResponse>(`/shopping_lists`, {
+				name,
+			});
 			console.log(response);
 			setLists((prev) => [...prev, response.data.data]);
 			toast.success("買い物リストを作成しました");
@@ -50,7 +56,14 @@ const ShoppingList = () => {
 
 				<div className="flex flex-col items-center  md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  gap-4 mt-4">
 					{lists.map((list, index) => (
-						<div key={list.id} className="animate-fade-up" style={{animationDelay: `${index * 0.1}s`, animationFillMode: 'both'}}>
+						<div
+							key={list.id}
+							className="animate-fade-up"
+							style={{
+								animationDelay: `${index * 0.1}s`,
+								animationFillMode: "both",
+							}}
+						>
 							<ShoppingCard
 								id={list.id}
 								title={list.attributes.name}
