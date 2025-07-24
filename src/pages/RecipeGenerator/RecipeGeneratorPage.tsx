@@ -1,5 +1,35 @@
 import axios from "axios";
-import { ChefHat, Search, X } from "lucide-react";
+import { 
+	ChefHat, 
+	Search, 
+	X, 
+	Clock, 
+	Zap, 
+	Flame, 
+	Utensils, 
+	Leaf, 
+	Cookie, 
+	Salad, 
+	Soup, 
+	Pizza, 
+	Beef, 
+	Fish, 
+	Wheat, 
+	Coffee, 
+	Cake,
+	Users,
+	Minus,
+	Plus,
+	Radio,
+	Microwave,
+	Flame as FireIcon,
+	ShoppingCart,
+	Target,
+	Home,
+	Box,
+	PartyPopper,
+	Heart
+} from "lucide-react";
 import { useEffect, useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import { useLoaderData, useLocation, useNavigate } from "react-router";
@@ -253,14 +283,14 @@ const RecipeGeneratorPage = () => {
 						<div className="bg-base-100 p-6 rounded-xl border border-base-300 shadow-sm">
 							<label className="label">
 								<span className="label-text text-base font-semibold flex items-center gap-2">
-									⏰ 調理時間
+									<Clock size={16} className="inline" /> 調理時間
 								</span>
 							</label>
 							<div className="grid grid-cols-3 gap-3 mt-3">
 								{[
-									{ value: "30分以内", icon: "⚡", label: "時短", desc: "30分以内" },
-									{ value: "30分〜1時間", icon: "🍳", label: "普通", desc: "30分〜1時間" },
-									{ value: "１時間以上", icon: "🔥", label: "じっくり", desc: "1時間以上" }
+									{ value: "30分以内", icon: Zap, label: "時短", desc: "30分以内" },
+									{ value: "30分〜1時間", icon: Clock, label: "普通", desc: "30分〜1時間" },
+									{ value: "１時間以上", icon: Flame, label: "じっくり", desc: "1時間以上" }
 								].map((option) => (
 									<button
 										key={option.value}
@@ -274,7 +304,9 @@ const RecipeGeneratorPage = () => {
 											}
 										`}
 									>
-										<div className="text-xl mb-1">{option.icon}</div>
+										<div className="text-xl mb-1">
+											<option.icon size={20} />
+										</div>
 										<div className="font-semibold text-xs">{option.label}</div>
 										<div className="text-xs text-base-content/60 mt-1">{option.desc}</div>
 									</button>
@@ -285,7 +317,7 @@ const RecipeGeneratorPage = () => {
 						<div className="bg-base-100 p-6 rounded-xl border border-base-300 shadow-sm">
 							<label className="label" htmlFor="calorie">
 								<span className="label-text text-base font-semibold flex items-center gap-2">
-									🔥 カロリー目安: <span className="font-bold text-primary">{calorie}kcal</span> 
+									<Flame size={16} className="inline" /> カロリー目安: <span className="font-bold text-primary">{calorie}kcal</span> 
 									<span className="text-sm text-base-content/60">({getCalorieLabel(calorie)})</span>
 								</span>
 							</label>
@@ -322,22 +354,22 @@ const RecipeGeneratorPage = () => {
 					<div className="bg-base-100 p-6 rounded-xl border border-base-300 shadow-sm mt-6">
 						<label className="label">
 							<span className="label-text text-base font-semibold flex items-center gap-2">
-								🍽️ 料理カテゴリ
+								<Utensils size={16} className="inline" /> 料理カテゴリ
 							</span>
 						</label>
 						<div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-2 mt-3">
 							{[
-								{ value: "主菜", icon: "🍖" },
-								{ value: "副菜", icon: "🥗" },
-								{ value: "スープ", icon: "🍲" },
-								{ value: "サラダ", icon: "🥙" },
-								{ value: "ご飯もの", icon: "🍚" },
-								{ value: "麺類", icon: "🍜" },
-								{ value: "和食", icon: "🍱" },
-								{ value: "洋食", icon: "🍝" },
-								{ value: "中華", icon: "🥟" },
-								{ value: "エスニック", icon: "🍛" },
-								{ value: "デザート", icon: "🍰" }
+								{ value: "主菜", icon: Beef },
+								{ value: "副菜", icon: Salad },
+								{ value: "スープ", icon: Soup },
+								{ value: "サラダ", icon: Leaf },
+								{ value: "ご飯もの", icon: Wheat },
+								{ value: "麺類", icon: Coffee },
+								{ value: "和食", icon: Fish },
+								{ value: "洋食", icon: Pizza },
+								{ value: "中華", icon: Cookie },
+								{ value: "エスニック", icon: ChefHat },
+								{ value: "デザート", icon: Cake }
 							].map((cat) => (
 								<button
 									key={cat.value}
@@ -351,7 +383,9 @@ const RecipeGeneratorPage = () => {
 										}
 									`}
 								>
-									<div className="text-lg mb-1">{cat.icon}</div>
+									<div className="text-lg mb-1">
+										<cat.icon size={20} />
+									</div>
 									<div className="text-xs font-medium">{cat.value}</div>
 								</button>
 							))}
@@ -363,31 +397,34 @@ const RecipeGeneratorPage = () => {
 						<div className="bg-base-100 p-6 rounded-xl border border-base-300 shadow-sm">
 							<label className="label">
 								<span className="label-text text-base font-semibold flex items-center gap-2">
-									🎯 目的・シーン
+									<Target size={16} className="inline" /> 目的・シーン
 								</span>
 							</label>
-							<div className="flex flex-wrap gap-2 mt-3">
+							<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mt-3">
 								{[
-									{ value: "普段使い", color: "badge-neutral", icon: "🏠" },
-									{ value: "時短・スピード", color: "badge-primary", icon: "⚡" },
-									{ value: "作り置き", color: "badge-secondary", icon: "📦" },
-									{ value: "ダイエット・ヘルシー", color: "badge-accent", icon: "🥬" },
-									{ value: "おもてなし", color: "badge-info", icon: "🎉" }
+									{ value: "普段使い", icon: Home, desc: "日常の食事" },
+									{ value: "時短・スピード", icon: Zap, desc: "手軽に素早く" },
+									{ value: "作り置き", icon: Box, desc: "まとめて調理" },
+									{ value: "ダイエット・ヘルシー", icon: Heart, desc: "健康重視" },
+									{ value: "おもてなし", icon: PartyPopper, desc: "特別な日に" }
 								].map((option) => (
 									<button
 										key={option.value}
 										type="button"
 										onClick={() => setPurpose(option.value)}
 										className={`
-											badge badge-lg cursor-pointer transition-all duration-200 hover:scale-105 flex items-center gap-1 py-3 px-4
+											p-4 border-2 rounded-lg transition-all duration-200 text-center hover:scale-105
 											${purpose === option.value 
-												? `${option.color} scale-110 shadow-md` 
-												: "badge-outline hover:bg-base-200"
+												? "border-primary bg-primary/10 text-primary shadow-md scale-105" 
+												: "border-base-300 hover:border-primary/50 hover:bg-base-100"
 											}
 										`}
 									>
-										<span className="text-sm">{option.icon}</span>
-										<span className="font-medium">{option.value}</span>
+										<div className="text-2xl mb-2">
+											<option.icon size={24} />
+										</div>
+										<div className="font-semibold text-sm mb-1">{option.value}</div>
+										<div className="text-xs text-base-content/60">{option.desc}</div>
 									</button>
 								))}
 							</div>
@@ -396,7 +433,7 @@ const RecipeGeneratorPage = () => {
 						<div className="bg-base-100 p-6 rounded-xl border border-base-300 shadow-sm">
 							<label className="label">
 								<span className="label-text text-base font-semibold flex items-center gap-2">
-									👥 分量
+									<Users size={16} className="inline" /> 分量
 								</span>
 							</label>
 							<div className="flex items-center justify-center gap-4 mt-4">
@@ -406,7 +443,7 @@ const RecipeGeneratorPage = () => {
 									className="btn btn-outline btn-circle"
 									disabled={servings <= 1}
 								>
-									−
+									<Minus size={16} />
 								</button>
 								<div className="text-center min-w-[100px] px-4 py-2 bg-base-200 rounded-lg">
 									<div className="text-3xl font-bold text-primary">{servings}</div>
@@ -418,7 +455,7 @@ const RecipeGeneratorPage = () => {
 									className="btn btn-outline btn-circle"
 									disabled={servings >= 10}
 								>
-									＋
+									<Plus size={16} />
 								</button>
 							</div>
 							<div className="text-center text-xs text-base-content/60 mt-3">
@@ -431,16 +468,16 @@ const RecipeGeneratorPage = () => {
 					<div className="bg-base-100 p-6 rounded-xl border border-base-300 shadow-sm mt-6">
 						<label className="label">
 							<span className="label-text text-base font-semibold flex items-center gap-2">
-								🍳 調理方法
+								<ChefHat size={16} className="inline" /> 調理方法
 							</span>
 						</label>
 						<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mt-3">
 							{[
-								{ value: "指定なし", icon: "🤷", desc: "おまかせ" },
-								{ value: "電子レンジ", icon: "📻", desc: "簡単調理" },
-								{ value: "フライパン", icon: "🍳", desc: "炒める・焼く" },
-								{ value: "鍋", icon: "🍲", desc: "煮る・茹でる" },
-								{ value: "オーブン", icon: "🔥", desc: "焼く・ロースト" }
+								{ value: "指定なし", icon: ShoppingCart, desc: "おまかせ" },
+								{ value: "電子レンジ", icon: Microwave, desc: "簡単調理" },
+								{ value: "フライパン", icon: Utensils, desc: "炒める・焼く" },
+								{ value: "鍋", icon: Soup, desc: "煮る・茹でる" },
+								{ value: "オーブン", icon: FireIcon, desc: "焼く・ロースト" }
 							].map((method) => (
 								<button
 									key={method.value}
@@ -454,7 +491,9 @@ const RecipeGeneratorPage = () => {
 										}
 									`}
 								>
-									<div className="text-2xl mb-2">{method.icon}</div>
+									<div className="text-2xl mb-2">
+										<method.icon size={24} />
+									</div>
 									<div className="font-semibold text-sm mb-1">{method.value}</div>
 									<div className="text-xs text-base-content/60">{method.desc}</div>
 								</button>
@@ -476,7 +515,8 @@ const RecipeGeneratorPage = () => {
 								</>
 							) : (
 								<>
-									🍽️ レシピを提案する
+									<Utensils size={20} className="mr-2" />
+									レシピを提案する
 								</>
 							)}
 						</button>
@@ -504,7 +544,7 @@ const RecipeGeneratorPage = () => {
 						)
 					)}
 
-					{!isPending && recipe && recipeImage && (
+					{!isPending && (
 						<GenerateRecipeArea
 							recipe={recipe}
 							recipeImage={recipeImage}
