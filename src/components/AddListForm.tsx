@@ -1,6 +1,12 @@
 import { useState } from "react";
 
-const AddListForm = ({ closeModal, handleAddList }:{ closeModal:() => void, handleAddList: (name: string) => Promise<void>}) => {
+const AddListForm = ({
+	closeModal,
+	handleAddList,
+}: {
+	closeModal: () => void;
+	handleAddList: (name: string) => Promise<void>;
+}) => {
 	const [name, setName] = useState<string>("");
 
 	return (

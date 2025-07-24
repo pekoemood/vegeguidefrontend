@@ -1,7 +1,7 @@
 import { ja } from "date-fns/locale";
 import { useState } from "react";
 import { DayPicker } from "react-day-picker";
-import { EditFridgeItemFormProps } from "../types/apiResponse";
+import type { EditFridgeItemFormProps } from "../types/apiResponse";
 
 const EditFridgeItemForm = ({
 	closeModal,
@@ -98,7 +98,7 @@ const EditFridgeItemForm = ({
 						</button>
 						<button
 							className="btn"
-							onClick={() => handleEdit({id, name, category, amount, date})}
+							onClick={() => handleEdit({ id, name, category, amount, date })}
 						>
 							編集
 						</button>

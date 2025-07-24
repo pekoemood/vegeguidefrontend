@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, FC, ReactNode } from "react";
+import { type ButtonHTMLAttributes, FC, type ReactNode } from "react";
 
 type ButtonProps = {
 	children: ReactNode;

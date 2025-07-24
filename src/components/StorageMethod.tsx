@@ -1,4 +1,4 @@
-import { Refrigerator } from 'lucide-react';
+import { Refrigerator } from "lucide-react";
 
 const StorageMethod = ({ storage }: { storage: string }) => {
 	return (

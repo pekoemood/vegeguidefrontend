@@ -2,13 +2,41 @@ const VegetableCard = ({ id, name, img, onClick, selected }) => {
 	return (
 		<div
 			onClick={onClick}
-			className={`card max-w-45 flex-shrink-0 shadow-sm transform transition duration-200 hover:shadow-lg hover:scale-105 hover:bg-neutral-200 ${selected ? "bg-neutral-300" : "bg-base-100"}`}
+			className={`
+				card w-32 flex-shrink-0 cursor-pointer transition-all duration-200 relative
+				${
+					selected
+						? "bg-primary text-primary-content shadow-lg ring-2 ring-primary transform scale-105"
+						: "bg-base-100 hover:shadow-md hover:scale-105 hover:bg-base-200"
+				}
+			`}
 		>
-			<figure className="px-10 pt-10">
-				<img src={img} alt="vegetable" className="rounded-xl h-15" />
+			{selected && (
+				<div className="absolute top-2 right-2 z-10">
+					<div className="bg-primary-content text-primary rounded-full w-5 h-5 flex items-center justify-center">
+						<svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+							<path
+								fillRule="evenodd"
+								d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+								clipRule="evenodd"
+							/>
+						</svg>
+					</div>
+				</div>
+			)}
+			<figure className="px-6 pt-6">
+				<img
+					src={img}
+					alt={`${name}の画像`}
+					className="rounded-xl h-16 w-16 object-cover"
+				/>
 			</figure>
-			<div className="card-body items-center text-center">
-				<h2 className="card-title">{name}</h2>
+			<div className="card-body items-center text-center p-3">
+				<h2
+					className={`text-sm font-medium ${selected ? "text-primary-content" : "text-base-content"}`}
+				>
+					{name}
+				</h2>
 			</div>
 		</div>
 	);

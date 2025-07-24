@@ -1,15 +1,11 @@
-import { Search } from "lucide-react";
+import { Leaf, RotateCcw, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLoaderData, useSearchParams } from "react-router";
 import Card from "../../components/Card";
 import Meta from "../../components/Meta";
 import PaginationButtons from "../../components/PaginationButtons";
 import useVegeNames from "../../hooks/useVegeNames";
-import { VegetablesLoaderData } from "../../types/vegetable";
-
-
-
-
+import type { VegetablesLoaderData } from "../../types/vegetable";
 
 const VegeList = () => {
 	const loaderData = useLoaderData() as VegetablesLoaderData;
@@ -27,17 +23,25 @@ const VegeList = () => {
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
-			setSearchParams((prev) => ({ ...prev, keyword: searchText, page: '1' }));
-		}, 500)
+			setSearchParams((prev) => ({ ...prev, keyword: searchText, page: "1" }));
+		}, 500);
 		return () => clearTimeout(timer);
 	}, [searchText]);
 
 	useEffect(() => {
-		setSearchParams((prev) => ({ ...prev, season: isInSeason ? 'true' : 'false', page: '1'}));
+		setSearchParams((prev) => ({
+			...prev,
+			season: isInSeason ? "true" : "false",
+			page: "1",
+		}));
 	}, [isInSeason]);
 
 	useEffect(() => {
-		setSearchParams((prev) => ({ ...prev, discounted: isDiscounted ? 'true' : 'false', page: '1'}));
+		setSearchParams((prev) => ({
+			...prev,
+			discounted: isDiscounted ? "true" : "false",
+			page: "1",
+		}));
 	}, [isDiscounted]);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,6 +66,13 @@ const VegeList = () => {
 		setIsDropdownVisible(false);
 	};
 
+	const handleResetFilters = () => {
+		setSearchText("");
+		setIsInSeason(false);
+		setIsDiscounted(false);
+		setSearchParams({});
+	};
+
 	return (
 		<>
 			<Meta
@@ -69,7 +80,7 @@ const VegeList = () => {
 				description="旬の野菜を一覧でチェック。栄養や調理のヒントも満載！次のメニューの参考にどうぞ。"
 			/>
 			<div className="container mx-auto px-2 mt-8 flex flex-col  md:flex-row space-x-4 space-y-2 md:space-y-0 md:items-center">
-				<div className="relative w-72">
+				<div className="dropdown w-full sm:w-72">
 					<label className="input input-primary flex items-center w-full">
 						<Search className="text-neutral-500" size={15} />
 						<input
@@ -83,17 +94,24 @@ const VegeList = () => {
 						/>
 					</label>
 					{isDropdownVisible && (
-						<ul className="absolute bg-white border border-base-300 rounded-md mt-1 w-72 max-h-60 overflow-auto z-10 shadow-lg">
-							{filteredNames.map((name) => (
-								<li
-									key={name}
-									onClick={() => handleSelect(name)}
-									className="px-4 py-2 cursor-pointer hover:bg-gray-100"
-									onMouseDown={(e) => e.preventDefault()}
-								>
-									{name}
+						<ul className="dropdown-content menu bg-base-100 rounded-box z-[1] w-full sm:w-72 p-2 shadow-lg border border-base-300 mt-1 max-h-60 overflow-auto">
+							{filteredNames.length > 0 ? (
+								filteredNames.map((name) => (
+									<li key={name}>
+										<a
+											onClick={() => handleSelect(name)}
+											onMouseDown={(e) => e.preventDefault()}
+											className="hover:bg-base-200 transition-colors duration-200"
+										>
+											{name}
+										</a>
+									</li>
+								))
+							) : (
+								<li className="px-4 py-2 text-base-content/60 text-center">
+									該当する野菜が見つかりません
 								</li>
-							))}
+							)}
 						</ul>
 					)}
 				</div>
@@ -133,11 +151,11 @@ const VegeList = () => {
 							className="animate-fade-up"
 							style={{
 								animationDelay: `${index * 0.1}s`,
-								animationFillMode: 'both'
+								animationFillMode: "both",
 							}}
 						>
 							<Card
-								id={vegetable.id}
+								id={vegetable.attributes.id}
 								name={vegetable.attributes.name}
 								description={vegetable.attributes.description}
 								price={vegetable.attributes.latest_price.latest_price}
@@ -148,9 +166,35 @@ const VegeList = () => {
 						</div>
 					))
 				) : (
-					<p className="col-span-4 font-bold text-error text-lg">
-						該当する野菜は見つかりませんでした
-					</p>
+					<div className="col-span-full flex flex-col items-center justify-center py-16 px-4">
+						<div className="text-center max-w-md mx-auto">
+							<div className="mb-6">
+								<Leaf size={64} className="mx-auto text-base-content/30" />
+							</div>
+							<h3 className="text-xl font-semibold text-base-content mb-3">
+								該当する野菜が見つかりませんでした
+							</h3>
+							<p className="text-base-content/60 mb-6 leading-relaxed">
+								検索条件を変更するか、フィルターをリセットして再度お試しください。
+							</p>
+							<div className="flex flex-col sm:flex-row gap-3 justify-center">
+								<button
+									onClick={handleResetFilters}
+									className="btn btn-outline btn-primary gap-2"
+								>
+									<RotateCcw size={16} />
+									フィルターをリセット
+								</button>
+								<button
+									onClick={() => setSearchText("")}
+									className="btn btn-ghost gap-2"
+								>
+									<Search size={16} />
+									検索条件をクリア
+								</button>
+							</div>
+						</div>
+					</div>
 				)}
 			</div>
 			{vegetables.length > 0 && total_pages > 0 && (

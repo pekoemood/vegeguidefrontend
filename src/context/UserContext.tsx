@@ -16,9 +16,11 @@ interface UserContextType {
 	fetchUser: () => Promise<void>;
 }
 
-export const UserContext = createContext<UserContextType | undefined>(undefined) ;
+export const UserContext = createContext<UserContextType | undefined>(
+	undefined,
+);
 
-export const UserProvider = ({ children }: { children: React.ReactNode}) => {
+export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	const [user, setUser] = useState<UserProps | null>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 

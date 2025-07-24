@@ -6,12 +6,14 @@ type VegeName = string;
 const useVegeNames = () => {
 	const [vegeNames, setVegeNames] = useState<VegeName[]>([]);
 	const [error, setError] = useState<Error | null>(null);
-	const [loading, setLoading] = useState<boolean>(true)
+	const [loading, setLoading] = useState<boolean>(true);
 
 	useEffect(() => {
 		const fetchVegeNames = async () => {
 			try {
-				const response = await api.get<{ names: VegeName[] }>("/vegetables/names");
+				const response = await api.get<{ names: VegeName[] }>(
+					"/vegetables/names",
+				);
 				setVegeNames(response.data.names);
 			} catch (error) {
 				console.error("野菜の名前一覧の取得に失敗しました", error);

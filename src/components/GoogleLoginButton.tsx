@@ -2,10 +2,10 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { use } from "react";
 import { useNavigate } from "react-router";
 import { UserContext } from "../context/UserContext";
+import type { googleLoginResponse } from "../types/apiResponse";
 import { api } from "../utils/axios";
-import { googleLoginResponse } from "../types/apiResponse";
 
-const GoogleLoginButton = ({ text }: {text: string}) => {
+const GoogleLoginButton = ({ text }: { text: string }) => {
 	const navigate = useNavigate();
 	const { setUser } = use(UserContext);
 	const login = useGoogleLogin({
@@ -15,9 +15,12 @@ const GoogleLoginButton = ({ text }: {text: string}) => {
 			const authCode = codeResponse.code;
 
 			try {
-				const response = await api.post<googleLoginResponse>(`/auth/google_login`, {
-					code: authCode,
-				});
+				const response = await api.post<googleLoginResponse>(
+					`/auth/google_login`,
+					{
+						code: authCode,
+					},
+				);
 				console.log("ログイン成功", response.data);
 				setUser(response.data);
 				navigate("/vegelist");

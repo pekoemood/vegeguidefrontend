@@ -7,7 +7,12 @@ interface MeritHightLightProps {
 	order: string[];
 }
 
-const MeritHighLight = ({ title, merits, image, order }: MeritHightLightProps) => {
+const MeritHighLight = ({
+	title,
+	merits,
+	image,
+	order,
+}: MeritHightLightProps) => {
 	return (
 		<div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
 			<div className={`flex-1 ${order[0]}`}>

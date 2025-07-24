@@ -1,10 +1,10 @@
 import { z } from "zod";
 
 const ERROR_MESSAGES = {
-	REQUIRED_NAME: '名前は必須です',
-	INVALID_EMAIL: '正しいメールアドレスを入力してください',
-	PASSWORD_MIN_LENGTH: 'パスワードは8文字以上である必要があります',
-	SAME_PASSWORD: '現在のパスワードと同じにはできません',
+	REQUIRED_NAME: "名前は必須です",
+	INVALID_EMAIL: "正しいメールアドレスを入力してください",
+	PASSWORD_MIN_LENGTH: "パスワードは8文字以上である必要があります",
+	SAME_PASSWORD: "現在のパスワードと同じにはできません",
 } as const;
 
 const emailSchema = z.string().email(ERROR_MESSAGES.INVALID_EMAIL);
@@ -29,13 +29,13 @@ export const passwordChangeSchema = z
 	.superRefine((data, ctx) => {
 		if (data.newPassword === data.oldPassword) {
 			ctx.addIssue({
-				path: ['newPassword'],
+				path: ["newPassword"],
 				message: ERROR_MESSAGES.SAME_PASSWORD,
 				code: z.ZodIssueCode.custom,
 			});
 		}
 	});
 
-	export type SignUpInput = z.infer<typeof singUpSchema>;
-	export type LoginInput = z.infer<typeof loginSchema>;
-	export type PasswordChangeInput = z.infer<typeof passwordChangeSchema>;
+export type SignUpInput = z.infer<typeof singUpSchema>;
+export type LoginInput = z.infer<typeof loginSchema>;
+export type PasswordChangeInput = z.infer<typeof passwordChangeSchema>;
