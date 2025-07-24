@@ -1,9 +1,6 @@
 import {
-	ChefHat,
 	Clock,
-	CookingPot,
 	Grid3x3,
-	Leaf,
 	ShoppingCart,
 	Target,
 	User,

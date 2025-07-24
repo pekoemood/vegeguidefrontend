@@ -1,6 +1,6 @@
 import { Check, Plus } from "lucide-react";
 import { useState } from "react";
-import { AddShoppingListParams, ShoppingItem, ShoppingList } from "../types/apiResponse";
+import { AddShoppingListParams, ShoppingList } from "../types/apiResponse";
 
 const AddLItemFromRecipe = ({
 	closeModal,

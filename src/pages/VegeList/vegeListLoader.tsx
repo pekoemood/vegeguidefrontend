@@ -1,7 +1,7 @@
 import { api } from "../../utils/axios";
 import type { LoaderFunctionArgs } from "react-router";
 import type { AxiosError } from "axios";
-import type { Vegetable, VegetablesLoaderData } from "../../types/vegetable";
+import type { VegetablesLoaderData } from "../../types/vegetable";
 
 
 export const vegeListLoader = async ({ request }: LoaderFunctionArgs): Promise<VegetablesLoaderData> => {

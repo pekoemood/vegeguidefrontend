@@ -5,7 +5,7 @@ import Card from "../../components/Card";
 import Meta from "../../components/Meta";
 import PaginationButtons from "../../components/PaginationButtons";
 import useVegeNames from "../../hooks/useVegeNames";
-import { Vegetable, VegetablesLoaderData } from "../../types/vegetable";
+import { VegetablesLoaderData } from "../../types/vegetable";
 
 
 
@@ -24,17 +24,21 @@ const VegeList = () => {
 	const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
 
 	//野菜名の遅延検索
+
 	useEffect(() => {
 		const timer = setTimeout(() => {
-			setSearchParams({
-				keyword: searchText,
-				season: isInSeason ? 'true' : 'false',
-				discounted: isDiscounted ? 'true' : 'false',
-			});
-		}, 500);
-
+			setSearchParams((prev) => ({ ...prev, keyword: searchText, page: '1' }));
+		}, 500)
 		return () => clearTimeout(timer);
-	}, [searchText, isInSeason, isDiscounted]);
+	}, [searchText]);
+
+	useEffect(() => {
+		setSearchParams((prev) => ({ ...prev, season: isInSeason ? 'true' : 'false', page: '1'}));
+	}, [isInSeason]);
+
+	useEffect(() => {
+		setSearchParams((prev) => ({ ...prev, discounted: isDiscounted ? 'true' : 'false', page: '1'}));
+	}, [isDiscounted]);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
@@ -139,7 +143,7 @@ const VegeList = () => {
 								price={vegetable.attributes.latest_price.latest_price}
 								rate={vegetable.attributes.compare_last_month.compare_price}
 								image={vegetable.attributes.image_url}
-								season={vegetable.attributes.seasons[0].in_season}
+								season={vegetable.attributes.seasons[0]?.in_season}
 							/>
 						</div>
 					))

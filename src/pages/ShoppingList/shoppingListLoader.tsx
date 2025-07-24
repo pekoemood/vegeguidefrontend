@@ -9,7 +9,7 @@ const shoppingListLoader = async () => {
 	} catch (error) {
 		if (error instanceof AxiosError) {
 			throw new Response('買い物リスト一覧の取得に失敗しました', {
-				status: error.response.status ?? 500,
+				status: error.response?.status ?? 500,
 			})
 		}
 		throw new Response("予期せぬエラーが発生しました", {
