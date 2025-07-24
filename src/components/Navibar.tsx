@@ -11,13 +11,13 @@ import {
 	UserPlus,
 } from "lucide-react";
 import { useContext, useState } from "react";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
 import { UserContext } from "../context/UserContext";
 import useModal from "../hooks/useModal";
+import { api } from "../utils/axios";
 import AccountSetting from "./AccountSetting";
 import Spinner from "./Spinner";
-import { api } from "../utils/axios";
-import toast from "react-hot-toast";
 
 const Navibar = () => {
 	const navigate = useNavigate();
@@ -31,10 +31,10 @@ const Navibar = () => {
 			await api.post(`/logout`);
 			setUser(null);
 			navigate("/");
-			toast.success('ログアウトしました');
+			toast.success("ログアウトしました");
 		} catch (error) {
 			console.log("ログアウトに失敗しました", error);
-			toast.error('ログアウトに失敗しました');
+			toast.error("ログアウトに失敗しました");
 		}
 	};
 

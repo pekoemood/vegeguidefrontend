@@ -1,4 +1,4 @@
-import { VegetableSummary } from "../../types/vegetable";
+import type { VegetableSummary } from "../../types/vegetable";
 import { api } from "../../utils/axios";
 
 const recipeGeneratorLoader = async (): Promise<VegetableSummary[]> => {

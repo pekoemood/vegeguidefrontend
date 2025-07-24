@@ -26,7 +26,6 @@ type YearlyPrice = {
 	[year: string]: number | string;
 };
 
-
 const PriceChart = ({ prices }: PriceChartProps) => {
 	console.log("price", prices);
 
@@ -40,7 +39,7 @@ const PriceChart = ({ prices }: PriceChartProps) => {
 	console.log("group:", groupedData);
 
 	const chartData: YearlyPrice[] = Object.values(groupedData).sort(
-		(a, b) => parseInt(a.month) - parseInt(b.month)
+		(a, b) => Number.parseInt(a.month) - Number.parseInt(b.month),
 	);
 	console.log("chart:", chartData);
 

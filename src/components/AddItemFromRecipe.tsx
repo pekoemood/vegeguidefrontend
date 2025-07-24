@@ -1,17 +1,17 @@
 import { Check, Plus } from "lucide-react";
 import { useState } from "react";
-import { AddShoppingListParams, ShoppingList } from "../types/apiResponse";
+import type { AddShoppingListParams, ShoppingList } from "../types/apiResponse";
 
 const AddLItemFromRecipe = ({
 	closeModal,
 	shoppingLists,
 	recipeName,
 	handleAddShoppingList,
-}:{
-	closeModal: () => void,
-	shoppingLists: ShoppingList[],
-	recipeName: string,
-	handleAddShoppingList: (params: AddShoppingListParams) => Promise<void> 
+}: {
+	closeModal: () => void;
+	shoppingLists: ShoppingList[];
+	recipeName: string;
+	handleAddShoppingList: (params: AddShoppingListParams) => Promise<void>;
 }) => {
 	const [isCreateMode, setIsCreateMode] = useState<boolean>(false);
 	const [name, setName] = useState<string>("");

@@ -1,10 +1,11 @@
-import { api } from "../../utils/axios";
-import type { LoaderFunctionArgs } from "react-router";
 import type { AxiosError } from "axios";
+import type { LoaderFunctionArgs } from "react-router";
 import type { VegetablesLoaderData } from "../../types/vegetable";
+import { api } from "../../utils/axios";
 
-
-export const vegeListLoader = async ({ request }: LoaderFunctionArgs): Promise<VegetablesLoaderData> => {
+export const vegeListLoader = async ({
+	request,
+}: LoaderFunctionArgs): Promise<VegetablesLoaderData> => {
 	const url = new URL(request.url);
 	const page = url.searchParams.get("page") || "1";
 	const keyword = url.searchParams.get("keyword") || "";

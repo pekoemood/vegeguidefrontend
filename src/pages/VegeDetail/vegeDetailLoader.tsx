@@ -1,11 +1,15 @@
-import type { LoaderFunctionArgs } from "react-router";
-import { api } from "../../utils/axios";
 import type { AxiosError } from "axios";
+import type { LoaderFunctionArgs } from "react-router";
 import type { VegetablesResponse } from "../../types/vegetable";
+import { api } from "../../utils/axios";
 
-export const vegeDetailLoader = async ({ params }: LoaderFunctionArgs): Promise<VegetablesResponse> => {
+export const vegeDetailLoader = async ({
+	params,
+}: LoaderFunctionArgs): Promise<VegetablesResponse> => {
 	try {
-		const response = await api.get<VegetablesResponse>(`/vegetables/${params.id}`);
+		const response = await api.get<VegetablesResponse>(
+			`/vegetables/${params.id}`,
+		);
 		return response.data;
 	} catch (error) {
 		const axiosError = error as AxiosError;

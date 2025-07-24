@@ -5,7 +5,7 @@ import NutritionInfo from "../../components/NutritionInfo";
 import PriceChart from "../../components/PriceChart";
 import RecipeGenerator from "../../components/RecipeGenerator";
 import StorageMethod from "../../components/StorageMethod";
-import { VegetablesResponse } from "../../types/vegetable";
+import type { VegetablesResponse } from "../../types/vegetable";
 
 const VegeDetail = () => {
 	const { data } = useLoaderData<VegetablesResponse>();

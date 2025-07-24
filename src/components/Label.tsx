@@ -1,4 +1,4 @@
-import { LabelHTMLAttributes } from "react";
+import type { LabelHTMLAttributes } from "react";
 
 type LabelProps = {
 	className?: string;

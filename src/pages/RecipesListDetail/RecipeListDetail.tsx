@@ -1,10 +1,4 @@
-import {
-	Clock,
-	Grid3x3,
-	ShoppingCart,
-	Target,
-	User,
-} from "lucide-react";
+import { Clock, Grid3x3, ShoppingCart, Target, User } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useLoaderData, useNavigate } from "react-router";
@@ -13,24 +7,36 @@ import Ingredients from "../../components/Ingredients";
 import Meta from "../../components/Meta";
 import RecipeSteps from "../../components/RecipeSteps";
 import useModal from "../../hooks/useModal";
+import type {
+	AddShoppingListParams,
+	RecipeResponse,
+	Recipes,
+} from "../../types/apiResponse";
 import { api } from "../../utils/axios";
-import { AddShoppingListParams, RecipeResponse, Recipes } from "../../types/apiResponse";
 
 const RecipeListDetail = () => {
 	const data = useLoaderData<Recipes>();
 	console.log(data);
-	const [shoppingList, setShoppingLists] = useState<RecipeResponse>(data.attributes);
+	const [shoppingList, setShoppingLists] = useState<RecipeResponse>(
+		data.attributes,
+	);
 	const navigate = useNavigate();
 	const [activeTab, setActiveTab] = useState<string>("tab1");
 	const { Modal, openModal, closeModal } = useModal();
 
-	const handleAddShoppingList = async (params: AddShoppingListParams): Promise<void> => {
+	const handleAddShoppingList = async (
+		params: AddShoppingListParams,
+	): Promise<void> => {
 		try {
-			const response = await api.post<{data: Recipes}>(`/shopping_lists/from_recipe`, {
-				recipe_id: data.id,
-				shopping_list_id: 'shoppingListId' in params ? params.shoppingListId : undefined,
-				name: 'name' in params ? params.name : undefined,
-			});
+			const response = await api.post<{ data: Recipes }>(
+				`/shopping_lists/from_recipe`,
+				{
+					recipe_id: data.id,
+					shopping_list_id:
+						"shoppingListId" in params ? params.shoppingListId : undefined,
+					name: "name" in params ? params.name : undefined,
+				},
+			);
 			setShoppingLists(response.data.data.attributes);
 			toast.success("買い物リストに追加しました");
 		} catch (error) {

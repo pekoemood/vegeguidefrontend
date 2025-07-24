@@ -1,9 +1,4 @@
-import {
-	ChefHat,
-	Leaf,
-	Refrigerator,
-	ShoppingCart,
-} from "lucide-react";
+import { ChefHat, Leaf, Refrigerator, ShoppingCart } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import EmailChangeSuccess from "../../components/EmailChangeSuccess";
@@ -24,8 +19,8 @@ const recommendList: string[] = [
 ];
 
 interface EmailProps {
-		message: string;
-		email: string;
+	message: string;
+	email: string;
 }
 
 function Top(): React.ReactElement {
@@ -36,22 +31,25 @@ function Top(): React.ReactElement {
 	const [email, setEmail] = useState<string>("");
 
 	useEffect(() => {
-		const changeMail = async ():Promise<void> => {
+		const changeMail = async (): Promise<void> => {
 			try {
 				const params = new URLSearchParams(location.search);
 				const token = params.get("token");
 
 				if (token) {
-					const response = await api.get<EmailProps>(`/email_change_requests/confirm`, {
-						params: { token },
-					});
+					const response = await api.get<EmailProps>(
+						`/email_change_requests/confirm`,
+						{
+							params: { token },
+						},
+					);
 					setEmail(response.data.email);
 					openModal();
 					navigate(location.pathname, { replace: true });
 				}
 			} catch (err: unknown) {
 				if (err instanceof Error) {
-					console.error(err.message)
+					console.error(err.message);
 				} else {
 					console.error(err);
 				}
@@ -63,36 +61,50 @@ function Top(): React.ReactElement {
 	return (
 		<>
 			<Meta title="トップ" description="VegeGuideのアプリ概要です。" />
-			<header className="w-full mx-auto sticky top-0 z-40 backdrop-blur bg-white animate-fade-up mb-16 lg:mb-32"  >
-					<div className="container mx-auto flex h-16 items-center justify-center">
-						<nav className="flex justify-center gap-8">
-							<a href="#feature" className="transition hover:text-primary">
-								特徴
-							</a>
-							<a href="#usage" className="transition hover:text-primary">
-								使い方
-							</a>
-							<a href="#merit" className="transition hover:text-primary">
-								メリット
-							</a>
-						</nav>
-					</div>
-				</header>
-			<main className="container flex flex-col px-4 lg:px-0  mx-auto space-y-16 lg:space-y-32 min-h-screen animate-fade-up" style={{animationDelay: '0.1s', animationFillMode: 'both'}}>
-				
-				<section className="flex mx-auto animate-fade-up" style={{animationDelay: '0.2s', animationFillMode: 'both'}}>
+			<header className="w-full mx-auto sticky top-0 z-40 backdrop-blur bg-white animate-fade-up mb-16 lg:mb-32">
+				<div className="container mx-auto flex h-16 items-center justify-center">
+					<nav className="flex justify-center gap-8">
+						<a href="#feature" className="transition hover:text-primary">
+							特徴
+						</a>
+						<a href="#usage" className="transition hover:text-primary">
+							使い方
+						</a>
+						<a href="#merit" className="transition hover:text-primary">
+							メリット
+						</a>
+					</nav>
+				</div>
+			</header>
+			<main
+				className="container flex flex-col px-4 lg:px-0  mx-auto space-y-16 lg:space-y-32 min-h-screen animate-fade-up"
+				style={{ animationDelay: "0.1s", animationFillMode: "both" }}
+			>
+				<section
+					className="flex mx-auto animate-fade-up"
+					style={{ animationDelay: "0.2s", animationFillMode: "both" }}
+				>
 					<div className="flex-1 flex flex-col items-center justify-center space-y-8">
-						<h1 className="text-center lg:text-left text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight animate-fade-up" style={{animationDelay: '0.3s', animationFillMode: 'both'}}>
+						<h1
+							className="text-center lg:text-left text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight animate-fade-up"
+							style={{ animationDelay: "0.3s", animationFillMode: "both" }}
+						>
 							忙しいあなたの
 							<br />
 							<span className="text-primary">毎日のちょうどいい健康習慣</span>
 						</h1>
-						<p className=" text-lg md:text-xl lg:text-2xl text-neutral-500 animate-fade-up" style={{animationDelay: '0.4s', animationFillMode: 'both'}}>
+						<p
+							className=" text-lg md:text-xl lg:text-2xl text-neutral-500 animate-fade-up"
+							style={{ animationDelay: "0.4s", animationFillMode: "both" }}
+						>
 							野菜情報・価格比較・レシピ提案・買い物リスト・食材管理を一元化。
 							<br />
 							料理のハードルを下げ、食材のムダを防ぎながら、栄養価が高くコスパの良い食生活をサポートします。
 						</p>
-						<div className="flex space-x-4 animate-fade-up" style={{animationDelay: '0.5s', animationFillMode: 'both'}}>
+						<div
+							className="flex space-x-4 animate-fade-up"
+							style={{ animationDelay: "0.5s", animationFillMode: "both" }}
+						>
 							<button
 								className="btn btn-primary"
 								onClick={() => navigate("/signup")}
@@ -104,7 +116,10 @@ function Top(): React.ReactElement {
 							</button>
 						</div>
 					</div>
-					<div className="hidden lg:flex flex-1 justify-center animate-fade-up" style={{animationDelay: '0.6s', animationFillMode: 'both'}}>
+					<div
+						className="hidden lg:flex flex-1 justify-center animate-fade-up"
+						style={{ animationDelay: "0.6s", animationFillMode: "both" }}
+					>
 						<div className="mockup-phone ">
 							<div className="mockup-phone-camera"></div>
 							<div className="bg-base-100 mockup-phone-display text-white grid place-content-center p-2">
@@ -114,7 +129,11 @@ function Top(): React.ReactElement {
 					</div>
 				</section>
 
-				<section id="feature" className="scroll-mt-20 animate-fade-up" style={{animationDelay: '0.7s', animationFillMode: 'both'}}>
+				<section
+					id="feature"
+					className="scroll-mt-20 animate-fade-up"
+					style={{ animationDelay: "0.7s", animationFillMode: "both" }}
+				>
 					<div className="container mx-auto">
 						<div className="text-center">
 							<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
@@ -127,28 +146,40 @@ function Top(): React.ReactElement {
 						</div>
 
 						<div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mt-16">
-							<div className="animate-fade-up" style={{animationDelay: '0.8s', animationFillMode: 'both'}}>
+							<div
+								className="animate-fade-up"
+								style={{ animationDelay: "0.8s", animationFillMode: "both" }}
+							>
 								<FeatureCard
 									title="旬の野菜情報"
 									description="「旬・安い・栄養価が高い」野菜を一覧で表示。 季節に合わせた最適な食材選びをサポートします。"
 									Icon={Leaf}
 								/>
 							</div>
-							<div className="animate-fade-up" style={{animationDelay: '0.85s', animationFillMode: 'both'}}>
+							<div
+								className="animate-fade-up"
+								style={{ animationDelay: "0.85s", animationFillMode: "both" }}
+							>
 								<FeatureCard
 									title="時短レシピ提案"
 									description="選んだ野菜を使った簡単レシピをすぐに提案。 忙しい平日でも手軽に作れるメニューが見つかります。"
 									Icon={ChefHat}
 								/>
 							</div>
-							<div className="animate-fade-up" style={{animationDelay: '0.9s', animationFillMode: 'both'}}>
+							<div
+								className="animate-fade-up"
+								style={{ animationDelay: "0.9s", animationFillMode: "both" }}
+							>
 								<FeatureCard
 									title="買い物リスト自動生成"
 									description="レシピを選ぶだけで必要な食材が自動でリストアップ。 仕事帰りのスーパーでもサクッと買い物ができます。"
 									Icon={ShoppingCart}
 								/>
 							</div>
-							<div className="animate-fade-up" style={{animationDelay: '0.95s', animationFillMode: 'both'}}>
+							<div
+								className="animate-fade-up"
+								style={{ animationDelay: "0.95s", animationFillMode: "both" }}
+							>
 								<FeatureCard
 									title="食材管理＋レシピ提案"
 									description="買い物リストから食材を登録し、賞味期限や在庫を管理。登録食材を使ったレシピも提案。食材を無駄なく使い切ります。"
@@ -159,7 +190,11 @@ function Top(): React.ReactElement {
 					</div>
 				</section>
 
-				<section id="usage" className="scroll-mt-20 animate-fade-up" style={{animationDelay: '1.0s', animationFillMode: 'both'}}>
+				<section
+					id="usage"
+					className="scroll-mt-20 animate-fade-up"
+					style={{ animationDelay: "1.0s", animationFillMode: "both" }}
+				>
 					<div className="container mx-auto">
 						<div className="text-center">
 							<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
@@ -172,7 +207,10 @@ function Top(): React.ReactElement {
 						</div>
 
 						<div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mt-16 place-items-center">
-							<div className="animate-fade-up" style={{animationDelay: '1.1s', animationFillMode: 'both'}}>
+							<div
+								className="animate-fade-up"
+								style={{ animationDelay: "1.1s", animationFillMode: "both" }}
+							>
 								<UsageCard
 									image="https://i.gyazo.com/ce62a126366946d7196e7c61a7118a26.jpg"
 									title="旬の野菜を選ぶ"
@@ -180,7 +218,10 @@ function Top(): React.ReactElement {
 									number="1"
 								/>
 							</div>
-							<div className="animate-fade-up" style={{animationDelay: '1.15s', animationFillMode: 'both'}}>
+							<div
+								className="animate-fade-up"
+								style={{ animationDelay: "1.15s", animationFillMode: "both" }}
+							>
 								<UsageCard
 									image="https://i.gyazo.com/de1f1402b1c2b8ecf02bf5c13dba219a.png"
 									title="レシピを生成する"
@@ -188,7 +229,10 @@ function Top(): React.ReactElement {
 									number="2"
 								/>
 							</div>
-							<div className="animate-fade-up" style={{animationDelay: '1.2s', animationFillMode: 'both'}}>
+							<div
+								className="animate-fade-up"
+								style={{ animationDelay: "1.2s", animationFillMode: "both" }}
+							>
 								<UsageCard
 									image="https://i.gyazo.com/8684ee9291f2a6850f9011ffcd941483.png"
 									title="買い物リストを作成"
@@ -196,7 +240,10 @@ function Top(): React.ReactElement {
 									number="3"
 								/>
 							</div>
-							<div className="animate-fade-up" style={{animationDelay: '1.25s', animationFillMode: 'both'}}>
+							<div
+								className="animate-fade-up"
+								style={{ animationDelay: "1.25s", animationFillMode: "both" }}
+							>
 								<UsageCard
 									image="https://i.gyazo.com/cadd35db48d1482d86cc2bbebab4479e.png"
 									title="簡単に調理"
@@ -208,7 +255,11 @@ function Top(): React.ReactElement {
 					</div>
 				</section>
 
-				<section id="merit" className="scroll-mt-20 animate-fade-up" style={{animationDelay: '1.3s', animationFillMode: 'both'}}>
+				<section
+					id="merit"
+					className="scroll-mt-20 animate-fade-up"
+					style={{ animationDelay: "1.3s", animationFillMode: "both" }}
+				>
 					<div className="container mx-auto">
 						<div className="text-center">
 							<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
@@ -293,7 +344,10 @@ function Top(): React.ReactElement {
 					</div>
 				</section>
 
-				<section className="animate-fade-up" style={{animationDelay: '1.4s', animationFillMode: 'both'}}>
+				<section
+					className="animate-fade-up"
+					style={{ animationDelay: "1.4s", animationFillMode: "both" }}
+				>
 					<div className="container mx-auto">
 						<div className="text-center">
 							<div className="mx-auto max-w-2xl rounded-xl shadow-lg p-1 md:p-5 lg:p-10">
@@ -303,7 +357,14 @@ function Top(): React.ReactElement {
 
 								<div className="space-y-4 mt-8">
 									{recommendList.map((text, index) => (
-										<div key={text} className="animate-fade-up" style={{animationDelay: `${1.45 + index * 0.05}s`, animationFillMode: 'both'}}>
+										<div
+											key={text}
+											className="animate-fade-up"
+											style={{
+												animationDelay: `${1.45 + index * 0.05}s`,
+												animationFillMode: "both",
+											}}
+										>
 											<Recommend text={text} />
 										</div>
 									))}
@@ -313,7 +374,10 @@ function Top(): React.ReactElement {
 					</div>
 				</section>
 
-				<section className="pb-20 animate-fade-up" style={{animationDelay: '1.5s', animationFillMode: 'both'}}>
+				<section
+					className="pb-20 animate-fade-up"
+					style={{ animationDelay: "1.5s", animationFillMode: "both" }}
+				>
 					<div className="container text-center space-y-4 mx-auto">
 						<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
 							今すぐ初めて、<span className="text-primary">健康的な食生活</span>
@@ -341,6 +405,6 @@ function Top(): React.ReactElement {
 			</Modal>
 		</>
 	);
-};
+}
 
 export default Top;

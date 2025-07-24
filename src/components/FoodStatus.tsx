@@ -1,4 +1,4 @@
-import { FoodStatusProps } from "../types/apiResponse";
+import type { FoodStatusProps } from "../types/apiResponse";
 
 const FoodStatus = ({
 	foodSelectedStatus,

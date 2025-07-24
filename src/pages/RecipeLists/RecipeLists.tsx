@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { useLoaderData } from "react-router";
 import Meta from "../../components/Meta";
 import RecipeCard from "../../components/RecipeCard";
-import { Recipes } from "../../types/apiResponse";
+import type { Recipes } from "../../types/apiResponse";
 
 const RecipeLists = () => {
 	const data = useLoaderData<Recipes[]>();
@@ -26,23 +26,29 @@ const RecipeLists = () => {
 
 				<div className="mt-4 flex flex-col justify-center items-center md:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 animate-fade-up">
 					{recipes.map((recipe, index) => (
-						<div key={recipe.id} className="animate-fade-up" style={{animationDelay: `${index * 0.1}s`, animationFillMode: 'both'}}>
+						<div
+							key={recipe.id}
+							className="animate-fade-up"
+							style={{
+								animationDelay: `${index * 0.1}s`,
+								animationFillMode: "both",
+							}}
+						>
 							<RecipeCard
-							id={recipe.id}
-							title={recipe.attributes.name}
-							instructions={recipe.attributes.instructions}
-							cookingTime={recipe.attributes.cooking_time}
-							servings={recipe.attributes.servings}
-							purpose={recipe.attributes.purpose}
-							ingredients={recipe.attributes.ingredients}
-							steps={recipe.attributes.recipe_steps}
-							setRecipes={setRecipes}
-							image={recipe.attributes.image_url}
-							category={recipe.attributes.recipe_category}
-						/>
-	
-						</div>				))}
-						
+								id={recipe.id}
+								title={recipe.attributes.name}
+								instructions={recipe.attributes.instructions}
+								cookingTime={recipe.attributes.cooking_time}
+								servings={recipe.attributes.servings}
+								purpose={recipe.attributes.purpose}
+								ingredients={recipe.attributes.ingredients}
+								steps={recipe.attributes.recipe_steps}
+								setRecipes={setRecipes}
+								image={recipe.attributes.image_url}
+								category={recipe.attributes.recipe_category}
+							/>
+						</div>
+					))}
 				</div>
 			</main>
 		</>

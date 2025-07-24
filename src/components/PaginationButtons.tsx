@@ -1,6 +1,9 @@
 import { useSearchParams } from "react-router";
 
-const PaginationButtons = ({ totalPages, currentPage }:{ totalPages: number, currentPage: number}) => {
+const PaginationButtons = ({
+	totalPages,
+	currentPage,
+}: { totalPages: number; currentPage: number }) => {
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	const handleMove = (newPage: number) => {

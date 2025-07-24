@@ -12,24 +12,24 @@ export type Vegetable = {
 		};
 		compare_last_month: {
 			compare_price: number;
-		}
+		};
 		monthly_prices: {
-				month: string;
-				average_price: number;
-			}[];
+			month: string;
+			average_price: number;
+		}[];
 		nutritions: {
-				name: string;
-				amount: string;
-				unit: string;
-			}[];
+			name: string;
+			amount: string;
+			unit: string;
+		}[];
 		seasons: {
-				start_month: number;
-				end_month: number;
-				note: string;
-				in_season: boolean | undefined;
-			}[];
-	}
-}
+			start_month: number;
+			end_month: number;
+			note: string;
+			in_season: boolean | undefined;
+		}[];
+	};
+};
 
 export type VegetablesLoaderData = {
 	data: Vegetable[];

@@ -1,11 +1,10 @@
 import { Mail } from "lucide-react";
 import { useActionState } from "react";
 import toast from "react-hot-toast";
-import { api } from "../utils/axios";
 import { EmailFormData } from "../types/apiResponse";
+import { api } from "../utils/axios";
 
-
-const MailTab = ({ email }:{email: string}) => {
+const MailTab = ({ email }: { email: string }) => {
 	const initialState = {
 		new_email: "",
 		password: "",

@@ -1,14 +1,16 @@
 import { Eye, EyeOff, Lock } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { Errors, type PasswordChangeResponse } from "../types/apiResponse";
 import { api } from "../utils/axios";
 import { passwordChangeSchema } from "../utils/validation";
-import { Errors, PasswordChangeResponse } from "../types/apiResponse";
 
 const PasswordTab = () => {
 	const [showPassword, setShowPassword] = useState(false);
 	const [showConfirm, setShowConfirm] = useState(false);
-	const [errors, setErrors] = useState<Record<string, string[] | undefined>>({});
+	const [errors, setErrors] = useState<Record<string, string[] | undefined>>(
+		{},
+	);
 	const [formData, setFormDate] = useState({
 		oldPassword: "",
 		newPassword: "",
@@ -27,9 +29,9 @@ const PasswordTab = () => {
 		const result = passwordChangeSchema.safeParse(formData);
 
 		if (!result.success) {
-			console.log('確認',result.error.flatten().fieldErrors);
+			console.log("確認", result.error.flatten().fieldErrors);
 			const fieldErrors = result.error.flatten().fieldErrors;
-			console.log('チェック', fieldErrors);
+			console.log("チェック", fieldErrors);
 			setErrors(fieldErrors);
 			return;
 		}
@@ -83,11 +85,12 @@ const PasswordTab = () => {
 								{showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
 							</button>
 						</div>
-						{errors.oldPassword && 
+						{errors.oldPassword &&
 							errors.oldPassword.map((text) => (
-								<p key={text} className="mt-2 text-red-500">{text}</p>
-							))
-						}
+								<p key={text} className="mt-2 text-red-500">
+									{text}
+								</p>
+							))}
 					</div>
 
 					<div>
@@ -111,11 +114,12 @@ const PasswordTab = () => {
 								{showConfirm ? <EyeOff size={15} /> : <Eye size={15} />}
 							</button>
 						</div>
-						{errors.newPassword && (
+						{errors.newPassword &&
 							errors.newPassword.map((text) => (
-								<p key={text} className="mt-2 text-red-500">{text}</p>
-							))
-						)}
+								<p key={text} className="mt-2 text-red-500">
+									{text}
+								</p>
+							))}
 					</div>
 
 					<button className="btn btn-primary" type="submit">
