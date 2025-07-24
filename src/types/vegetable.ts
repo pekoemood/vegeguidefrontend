@@ -26,7 +26,7 @@ export type Vegetable = {
 				start_month: number;
 				end_month: number;
 				note: string;
-				in_season: boolean;
+				in_season: boolean | undefined;
 			}[];
 	}
 }
@@ -42,3 +42,9 @@ export type VegetablesLoaderData = {
 export type VegetablesResponse = {
 	data: Vegetable;
 };
+
+export interface VegetableSummary {
+	id: number;
+	name: string;
+	image_url: string;
+}

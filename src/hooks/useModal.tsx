@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 const useModal = () => {
-	const [show, setShow] = useState(false);
+	const [show, setShow] = useState<boolean>(false);
 
 	const openModal = () => setShow(true);
 	const closeModal = () => setShow(false);
