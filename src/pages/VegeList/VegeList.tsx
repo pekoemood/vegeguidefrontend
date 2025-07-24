@@ -18,31 +18,35 @@ const VegeList = () => {
 	const { vegeNames } = useVegeNames();
 	const [filteredNames, setFilteredNames] = useState<string[]>([]);
 	const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
+	const [isResetting, setIsResetting] = useState<boolean>(false);
 
-	//野菜名の遅延検索
-
+	//野菜名の遅延検索（デバウンス、リセット時は除く）
 	useEffect(() => {
+		if (isResetting) return;
+		
 		const timer = setTimeout(() => {
-			setSearchParams((prev) => ({ ...prev, keyword: searchText, page: "1" }));
+			setSearchParams(prev => {
+				const current = new URLSearchParams(prev);
+				current.set('keyword', searchText);
+				current.set('page', '1');
+				return current;
+			});
 		}, 500);
 		return () => clearTimeout(timer);
-	}, [searchText]);
+	}, [searchText, isResetting]);
 
+	//フィルター即座反映（リセット時は除く）
 	useEffect(() => {
-		setSearchParams((prev) => ({
-			...prev,
-			season: isInSeason ? "true" : "false",
-			page: "1",
-		}));
-	}, [isInSeason]);
-
-	useEffect(() => {
-		setSearchParams((prev) => ({
-			...prev,
-			discounted: isDiscounted ? "true" : "false",
-			page: "1",
-		}));
-	}, [isDiscounted]);
+		if (isResetting) return;
+		
+		setSearchParams(prev => {
+			const current = new URLSearchParams(prev);
+			current.set('season', isInSeason ? 'true' : 'false');
+			current.set('discounted', isDiscounted ? 'true' : 'false');  
+			current.set('page', '1');
+			return current;
+		});
+	}, [isInSeason, isDiscounted, isResetting]);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
@@ -67,10 +71,15 @@ const VegeList = () => {
 	};
 
 	const handleResetFilters = () => {
+		setIsResetting(true);
 		setSearchText("");
 		setIsInSeason(false);
 		setIsDiscounted(false);
-		setSearchParams({});
+		setSearchParams(new URLSearchParams());
+		// リセット完了を確実にするため少し遅延
+		setTimeout(() => {
+			setIsResetting(false);
+		}, 100);
 	};
 
 	return (
