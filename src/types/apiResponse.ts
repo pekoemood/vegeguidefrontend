@@ -151,7 +151,7 @@ export interface CardProps {
   price: number;
   rate: number;
   image: string;
-  season: string;
+  season: boolean | undefined;
 }
 
 interface Category {
