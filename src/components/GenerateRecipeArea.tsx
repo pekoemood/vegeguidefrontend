@@ -16,8 +16,8 @@ const GenerateRecipeArea = ({
 	return (
 		<>
 			{recipe && (
-				<div className="container mx-auto px-4 flex flex-col lg:flex-row items-center">
-					<div className="lg:w-1/2 md:80 lg:h-140">
+				<div className="container mx-auto px-4 flex flex-col lg:flex-row lg:items-center">
+					<div className="w-full lg:w-1/2 h-64 md:h-80 lg:h-140 mb-4 lg:mb-0">
 						{recipeImage ? (
 							<img
 								src={recipeImage.image_url}
@@ -25,7 +25,7 @@ const GenerateRecipeArea = ({
 								className="rounded-lg w-full h-full object-cover"
 							/>
 						) : (
-							<div className="skeleton h-full w-full"></div>
+							<div className="skeleton h-full w-full rounded-lg bg-base-200"></div>
 						)}
 					</div>
 					<div className="p-2 md:p-6 lg:w-1/2">
