@@ -29,9 +29,7 @@ const PasswordTab = () => {
 		const result = passwordChangeSchema.safeParse(formData);
 
 		if (!result.success) {
-			console.log("確認", result.error.flatten().fieldErrors);
 			const fieldErrors = result.error.flatten().fieldErrors;
-			console.log("チェック", fieldErrors);
 			setErrors(fieldErrors);
 			return;
 		}

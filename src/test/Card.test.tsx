@@ -33,8 +33,11 @@ describe('Card Component', () => {
 
     const image = screen.getByAltText('キャベツ') as HTMLImageElement;
     expect(image).toBeInTheDocument();
-    expect(image.src).toContain('text-image.jpg');
+    expect(image.src).toContain('test-image.jpg');
   });
 
-  
+  it('should render price trend correctly when rate is negative', () => {
+    renderCard({ ...mockProps, rate: -5 });
+    expect(screen.getByText('-5%(先週比)')).toBeInTheDocument();
+  })
 })
