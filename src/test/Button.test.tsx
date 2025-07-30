@@ -19,4 +19,4 @@ describe('Button', () => {
     fireEvent.click(screen.getByRole('button'));
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
-});
+}); 
