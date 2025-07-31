@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
 import Input from '../components/Input';
 
 describe('Input', () => {
@@ -11,5 +11,12 @@ describe('Input', () => {
   it('applies className', () => {
     render(<Input id='test-input' className='custom-class' />)
     expect(screen.getByRole('textbox')).toHaveClass('custom-class');
-  } )
+  } );
+
+  it('call onChange when value changes', () => {
+    const handleChange = vi.fn();
+    render(<Input id='test-input' onChange={handleChange} />);
+    fireEvent.change(screen.getByRole('textbox'))
+    expect(handleChange).toHaveBeenCalled();
+  });
 })
