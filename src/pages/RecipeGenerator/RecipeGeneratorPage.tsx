@@ -51,7 +51,7 @@ const RecipeGeneratorPage = () => {
 			: [],
 	);
 	const [cookingTime, setCookingTime] = useState("30分〜1時間");
-	const [calorie, setCalorie] = useState("700");
+	const [calorie, setCalorie] = useState("600");
 	const [category, setCategory] = useState("主菜");
 	const [purpose, setPurpose] = useState("普段使い");
 	const [servings, setServings] = useState(1);

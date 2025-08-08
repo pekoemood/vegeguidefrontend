@@ -23,5 +23,6 @@
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true
 	},
-	"include": ["src"]
+	"include": ["src/**/*", "src/setupTests.ts"],
+	"types": ["vitest/globals", "@testing-library/jest-dom"]
 }
