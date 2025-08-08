@@ -1,6 +1,7 @@
 import { TrendingDown, TrendingUp } from "lucide-react";
 import { Link, useNavigate } from "react-router";
 import type { CardProps } from "../types/apiResponse";
+import OptimizedImage from "./OptimizedImage";
 
 const Card = ({
 	id,
@@ -27,7 +28,14 @@ const Card = ({
 				)}
 				<div className="card bg-base-100 w-90 ">
 					<figure>
-						<img className="w-full h-60 object-cover" src={image} alt={name} />
+						<OptimizedImage 
+							src={image} 
+							alt={name}
+							className="w-full h-60"
+							width={360}
+							height={240}
+							quality={85}
+						/>
 					</figure>
 					<div className="card-body">
 						<h2 className="card-title">{name}</h2>
