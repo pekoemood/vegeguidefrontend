@@ -10,7 +10,7 @@ interface OptimizedImageProps {
   priority?: boolean;
 }
 
-const OptimizedImage: React.FC<OptimizedImageProps> = ({
+const OptimizedImage = ({
   src,
   alt,
   className = '',
@@ -18,7 +18,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   height = 300,
   quality = 80,
   priority = false,
-}) => {
+}: OptimizedImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
 

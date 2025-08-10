@@ -12,9 +12,9 @@ const VegeList = () => {
 	const { data: vegetables, meta } = loaderData;
 	const { total_pages, current_page } = meta;
 	const [searchParams, setSearchParams] = useSearchParams();
-	const [searchText, setSearchText] = useState<string>("");
-	const [isInSeason, setIsInSeason] = useState<boolean>(false);
-	const [isDiscounted, setIsDiscounted] = useState<boolean>(false);
+	const [searchText, setSearchText] = useState<string>(searchParams.get('keyword') || '');
+	const [isInSeason, setIsInSeason] = useState<boolean>(searchParams.get('season') === 'true');
+	const [isDiscounted, setIsDiscounted] = useState<boolean>(searchParams.get('discounted') === 'true');
 	const { vegeNames } = useVegeNames();
 	const [filteredNames, setFilteredNames] = useState<string[]>([]);
 	const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
@@ -163,6 +163,7 @@ const VegeList = () => {
 								animationFillMode: "both",
 							}}
 						>
+
 							<Card
 								id={vegetable.attributes.id}
 								name={vegetable.attributes.name}

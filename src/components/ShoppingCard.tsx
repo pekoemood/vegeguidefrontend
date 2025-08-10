@@ -24,7 +24,7 @@ const ShoppingCard = ({
 			await api.delete<{ status: string; message: string }>(
 				`/shopping_lists/${id}`,
 			);
-			setLists((prevList) => prevList.filter((list) => Number(list.id) !== id));
+			setLists((prevList) => prevList.filter((list) => list.id !== id));
 			toast.success("買い物リストを削除しました");
 		} catch (error) {
 			console.log(error);
