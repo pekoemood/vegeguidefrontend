@@ -1,8 +1,6 @@
-import axios from "axios";
 import type { LoaderFunctionArgs } from "react-router";
 import {
 	type ShoppingListEntry,
-	ShoppingListResponse,
 } from "../../types/apiResponse";
 import { api } from "../../utils/axios";
 
