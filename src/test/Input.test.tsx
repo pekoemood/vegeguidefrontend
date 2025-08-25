@@ -16,7 +16,11 @@ describe('Input', () => {
   it('call onChange when value changes', () => {
     const handleChange = vi.fn();
     render(<Input id='test-input' onChange={handleChange} />);
-    fireEvent.change(screen.getByRole('textbox'))
+    const input = screen.getByRole('textbox');
+    const testValue = 'テスト';
+
+    fireEvent.change(input, { target: { value: testValue }});
     expect(handleChange).toHaveBeenCalled();
+    expect(input).toHaveValue(testValue);
   });
 })
