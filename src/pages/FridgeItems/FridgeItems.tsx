@@ -95,6 +95,8 @@ const FridgeItems = () => {
 
 			case "unset":
 				return <span>不明</span>;
+			default:
+				return <span>不明</span>;
 		}
 	};
 
