@@ -314,7 +314,7 @@ const Navibar = () => {
 				</ul>
 			</div>
 			<Modal>
-				<AccountSetting name={user?.name} email={user?.email} />
+				<AccountSetting name={user?.name} email={user?.email} google_account={user?.google_account} />
 			</Modal>
 		</div>
 	);

@@ -63,7 +63,7 @@ const PasswordTab = () => {
 			<form onSubmit={handleSubmit}>
 				<fieldset className="fieldset space-y-4">
 					<div>
-						<label htmlFor="" className="label text-sm">
+						<label htmlFor="oldPassword" className="label text-sm">
 							現在のパスワード
 						</label>
 						<div className="relative">
@@ -74,6 +74,7 @@ const PasswordTab = () => {
 								name="oldPassword"
 								value={formData.oldPassword}
 								onChange={handleChange}
+								id="oldPassword"
 							/>
 							<button
 								className="absolute right-3 top-1/2 -translate-y-1/2"
@@ -92,7 +93,7 @@ const PasswordTab = () => {
 					</div>
 
 					<div>
-						<label htmlFor="" className="label text-sm">
+						<label htmlFor="newPassword" className="label text-sm">
 							新しいパスワード
 						</label>
 						<div className="relative">
@@ -103,6 +104,7 @@ const PasswordTab = () => {
 								name="newPassword"
 								value={formData.newPassword}
 								onChange={handleChange}
+								id="newPassword"
 							/>
 							<button
 								className="absolute right-3 top-1/2 -translate-y-1/2"

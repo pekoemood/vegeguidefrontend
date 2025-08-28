@@ -1,8 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import FormField from '../components/FormField';
+import FormField from '../../components/FormField';
 import { render, screen } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
-import { error } from 'console';
+import userEvent from '@testing-library/user-event';
 
 describe('FormField', () => {
   it ('ラベルが正しく反映されること', () => {
