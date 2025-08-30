@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import AccountSetting from "../../components/AccountSetting";
-import { beforeEach, describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
+import { describe, beforeEach, it, expect } from 'vitest';
 
 
 
