@@ -1,8 +1,6 @@
+import axios, { type AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { api } from "../utils/axios";
-import { AxiosError } from "axios";
-
-
 
 const useVegeNames = () => {
 	const [vegeNames, setVegeNames] = useState<string[]>([]);
@@ -18,7 +16,7 @@ const useVegeNames = () => {
 				setVegeNames(response.data.names);
 			} catch (error) {
 				console.error("野菜の名前一覧の取得に失敗しました", error);
-				if (error instanceof AxiosError) {
+				if (axios.isAxiosError(error)) {
 					setError(error);
 				}
 			} finally {

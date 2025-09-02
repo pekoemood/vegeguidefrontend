@@ -1,34 +1,34 @@
 import axios from "axios";
-import { 
-	ChefHat, 
-	Search, 
-	X, 
-	Clock, 
-	Zap, 
-	Flame, 
-	Utensils, 
-	Leaf, 
-	Cookie, 
-	Salad, 
-	Soup, 
-	Pizza, 
-	Beef, 
-	Fish, 
-	Wheat, 
-	Coffee, 
+import {
+	Beef,
+	Box,
 	Cake,
-	Users,
+	ChefHat,
+	Clock,
+	Coffee,
+	Cookie,
+	Flame as FireIcon,
+	Fish,
+	Flame,
+	Heart,
+	Home,
+	Leaf,
+	Microwave,
 	Minus,
+	PartyPopper,
+	Pizza,
 	Plus,
 	Radio,
-	Microwave,
-	Flame as FireIcon,
+	Salad,
+	Search,
 	ShoppingCart,
+	Soup,
 	Target,
-	Home,
-	Box,
-	PartyPopper,
-	Heart
+	Users,
+	Utensils,
+	Wheat,
+	X,
+	Zap,
 } from "lucide-react";
 import { useEffect, useState, useTransition } from "react";
 import toast from "react-hot-toast";
@@ -62,8 +62,6 @@ const RecipeGeneratorPage = () => {
 	const navigation = useNavigate();
 	const [recipeImage, setRecipeImage] = useState<RecipeImage | null>(null);
 	const [showAllVegetables, setShowAllVegetables] = useState(false);
-
-
 
 	const filterVegetables = data.filter((vegetable) =>
 		vegetable.name.toLowerCase().includes(vegeName.toLowerCase()),
@@ -252,7 +250,10 @@ const RecipeGeneratorPage = () => {
 						)}
 					</div>
 					<div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 md:hidden">
-						{(showAllVegetables ? filterVegetables : filterVegetables.slice(0, 12)).map((vegetable, index) => (
+						{(showAllVegetables
+							? filterVegetables
+							: filterVegetables.slice(0, 12)
+						).map((vegetable, index) => (
 							<div
 								key={vegetable.id}
 								className="animate-fade-up"
@@ -328,9 +329,24 @@ const RecipeGeneratorPage = () => {
 							</label>
 							<div className="grid grid-cols-3 gap-3 mt-3">
 								{[
-									{ value: "30分以内", icon: Zap, label: "時短", desc: "30分以内" },
-									{ value: "30分〜1時間", icon: Clock, label: "普通", desc: "30分〜1時間" },
-									{ value: "１時間以上", icon: Flame, label: "じっくり", desc: "1時間以上" }
+									{
+										value: "30分以内",
+										icon: Zap,
+										label: "時短",
+										desc: "30分以内",
+									},
+									{
+										value: "30分〜1時間",
+										icon: Clock,
+										label: "普通",
+										desc: "30分〜1時間",
+									},
+									{
+										value: "１時間以上",
+										icon: Flame,
+										label: "じっくり",
+										desc: "1時間以上",
+									},
 								].map((option) => (
 									<button
 										key={option.value}
@@ -338,9 +354,10 @@ const RecipeGeneratorPage = () => {
 										onClick={() => setCookingTime(option.value)}
 										className={`
 											p-3 border-2 rounded-lg transition-all duration-200 text-center hover:scale-105
-											${cookingTime === option.value 
-												? "border-primary bg-primary/10 text-primary shadow-md scale-105" 
-												: "border-base-300 hover:border-primary/50 hover:bg-base-100"
+											${
+												cookingTime === option.value
+													? "border-primary bg-primary/10 text-primary shadow-md scale-105"
+													: "border-base-300 hover:border-primary/50 hover:bg-base-100"
 											}
 										`}
 									>
@@ -348,7 +365,9 @@ const RecipeGeneratorPage = () => {
 											<option.icon size={20} />
 										</div>
 										<div className="font-semibold text-xs">{option.label}</div>
-										<div className="text-xs text-base-content/60 mt-1">{option.desc}</div>
+										<div className="text-xs text-base-content/60 mt-1">
+											{option.desc}
+										</div>
 									</button>
 								))}
 							</div>
@@ -357,8 +376,11 @@ const RecipeGeneratorPage = () => {
 						<div className="bg-base-100 p-6 rounded-xl border border-base-300 shadow-sm">
 							<label className="label" htmlFor="calorie">
 								<span className="label-text text-base font-semibold flex items-center gap-2">
-									<Flame size={16} className="inline" /> カロリー目安: <span className="font-bold text-primary">{calorie}kcal</span> 
-									<span className="text-sm text-base-content/60">({getCalorieLabel(calorie)})</span>
+									<Flame size={16} className="inline" /> カロリー目安:{" "}
+									<span className="font-bold text-primary">{calorie}kcal</span>
+									<span className="text-sm text-base-content/60">
+										({getCalorieLabel(calorie)})
+									</span>
 								</span>
 							</label>
 							<div className="mt-4">
@@ -409,7 +431,7 @@ const RecipeGeneratorPage = () => {
 								{ value: "洋食", icon: Pizza },
 								{ value: "中華", icon: Cookie },
 								{ value: "エスニック", icon: ChefHat },
-								{ value: "デザート", icon: Cake }
+								{ value: "デザート", icon: Cake },
 							].map((cat) => (
 								<button
 									key={cat.value}
@@ -417,9 +439,10 @@ const RecipeGeneratorPage = () => {
 									onClick={() => setCategory(cat.value)}
 									className={`
 										p-3 rounded-lg border-2 transition-all duration-200 hover:scale-105
-										${category === cat.value 
-											? "border-primary bg-primary/10 text-primary shadow-md scale-105" 
-											: "border-base-300 hover:border-primary/50 hover:bg-base-100"
+										${
+											category === cat.value
+												? "border-primary bg-primary/10 text-primary shadow-md scale-105"
+												: "border-base-300 hover:border-primary/50 hover:bg-base-100"
 										}
 									`}
 								>
@@ -445,8 +468,16 @@ const RecipeGeneratorPage = () => {
 									{ value: "普段使い", icon: Home, desc: "日常の食事" },
 									{ value: "時短・スピード", icon: Zap, desc: "手軽に素早く" },
 									{ value: "作り置き", icon: Box, desc: "まとめて調理" },
-									{ value: "ダイエット・ヘルシー", icon: Heart, desc: "健康重視" },
-									{ value: "おもてなし", icon: PartyPopper, desc: "特別な日に" }
+									{
+										value: "ダイエット・ヘルシー",
+										icon: Heart,
+										desc: "健康重視",
+									},
+									{
+										value: "おもてなし",
+										icon: PartyPopper,
+										desc: "特別な日に",
+									},
 								].map((option) => (
 									<button
 										key={option.value}
@@ -454,17 +485,22 @@ const RecipeGeneratorPage = () => {
 										onClick={() => setPurpose(option.value)}
 										className={`
 											p-4 border-2 rounded-lg transition-all duration-200 text-center hover:scale-105
-											${purpose === option.value 
-												? "border-primary bg-primary/10 text-primary shadow-md scale-105" 
-												: "border-base-300 hover:border-primary/50 hover:bg-base-100"
+											${
+												purpose === option.value
+													? "border-primary bg-primary/10 text-primary shadow-md scale-105"
+													: "border-base-300 hover:border-primary/50 hover:bg-base-100"
 											}
 										`}
 									>
 										<div className="text-2xl mb-2">
 											<option.icon size={24} />
 										</div>
-										<div className="font-semibold text-sm mb-1">{option.value}</div>
-										<div className="text-xs text-base-content/60">{option.desc}</div>
+										<div className="font-semibold text-sm mb-1">
+											{option.value}
+										</div>
+										<div className="text-xs text-base-content/60">
+											{option.desc}
+										</div>
 									</button>
 								))}
 							</div>
@@ -486,7 +522,9 @@ const RecipeGeneratorPage = () => {
 									<Minus size={16} />
 								</button>
 								<div className="text-center min-w-[100px] px-4 py-2 bg-base-200 rounded-lg">
-									<div className="text-3xl font-bold text-primary">{servings}</div>
+									<div className="text-3xl font-bold text-primary">
+										{servings}
+									</div>
 									<div className="text-sm text-base-content/60">人分</div>
 								</div>
 								<button
@@ -517,7 +555,7 @@ const RecipeGeneratorPage = () => {
 								{ value: "電子レンジ", icon: Microwave, desc: "簡単調理" },
 								{ value: "フライパン", icon: Utensils, desc: "炒める・焼く" },
 								{ value: "鍋", icon: Soup, desc: "煮る・茹でる" },
-								{ value: "オーブン", icon: FireIcon, desc: "焼く・ロースト" }
+								{ value: "オーブン", icon: FireIcon, desc: "焼く・ロースト" },
 							].map((method) => (
 								<button
 									key={method.value}
@@ -525,17 +563,22 @@ const RecipeGeneratorPage = () => {
 									onClick={() => setCookingMethod(method.value)}
 									className={`
 										p-4 border-2 rounded-lg transition-all duration-200 text-center hover:scale-105
-										${cookingMethod === method.value 
-											? "border-primary bg-primary/10 text-primary shadow-md scale-105" 
-											: "border-base-300 hover:border-primary/50 hover:bg-base-100"
+										${
+											cookingMethod === method.value
+												? "border-primary bg-primary/10 text-primary shadow-md scale-105"
+												: "border-base-300 hover:border-primary/50 hover:bg-base-100"
 										}
 									`}
 								>
 									<div className="text-2xl mb-2">
 										<method.icon size={24} />
 									</div>
-									<div className="font-semibold text-sm mb-1">{method.value}</div>
-									<div className="text-xs text-base-content/60">{method.desc}</div>
+									<div className="font-semibold text-sm mb-1">
+										{method.value}
+									</div>
+									<div className="text-xs text-base-content/60">
+										{method.desc}
+									</div>
 								</button>
 							))}
 						</div>

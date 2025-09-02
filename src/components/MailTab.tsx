@@ -1,25 +1,23 @@
+import { AxiosError } from "axios";
 import { Mail } from "lucide-react";
 import { useActionState } from "react";
 import toast from "react-hot-toast";
 import { EmailFormData } from "../types/apiResponse";
 import { api } from "../utils/axios";
-import { AxiosError } from "axios";
 
-	interface MailState {
+interface MailState {
 	new_email: string;
 	password: string;
 }
 
-	const initialState: MailState = {
-		new_email: "",
-		password: "",
-	};
+const initialState: MailState = {
+	new_email: "",
+	password: "",
+};
 
 const MailTab = ({ email }: { email: string }) => {
-
-
 	const [_state, formAction, isPending] = useActionState<MailState, FormData>(
-		async ( _state, formData: FormData) => {
+		async (_state, formData: FormData) => {
 			const data = Object.fromEntries(formData.entries());
 
 			try {
@@ -34,7 +32,7 @@ const MailTab = ({ email }: { email: string }) => {
 					toast.error(err.response?.data?.message);
 				}
 			}
-			return _state
+			return _state;
 		},
 		initialState,
 	);
@@ -90,6 +88,7 @@ const MailTab = ({ email }: { email: string }) => {
 							placeholder="現在のパスワードを入力"
 							className="input w-full"
 							name="password"
+							id="password"
 						/>
 					</div>
 

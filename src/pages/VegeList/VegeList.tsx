@@ -12,9 +12,15 @@ const VegeList = () => {
 	const { data: vegetables, meta } = loaderData;
 	const { total_pages, current_page } = meta;
 	const [searchParams, setSearchParams] = useSearchParams();
-	const [searchText, setSearchText] = useState<string>(searchParams.get('keyword') || '');
-	const [isInSeason, setIsInSeason] = useState<boolean>(searchParams.get('season') === 'true');
-	const [isDiscounted, setIsDiscounted] = useState<boolean>(searchParams.get('discounted') === 'true');
+	const [searchText, setSearchText] = useState<string>(
+		searchParams.get("keyword") || "",
+	);
+	const [isInSeason, setIsInSeason] = useState<boolean>(
+		searchParams.get("season") === "true",
+	);
+	const [isDiscounted, setIsDiscounted] = useState<boolean>(
+		searchParams.get("discounted") === "true",
+	);
 	const { vegeNames } = useVegeNames();
 	const [filteredNames, setFilteredNames] = useState<string[]>([]);
 	const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
@@ -23,12 +29,12 @@ const VegeList = () => {
 	//野菜名の遅延検索（デバウンス、リセット時は除く）
 	useEffect(() => {
 		if (isResetting) return;
-		
+
 		const timer = setTimeout(() => {
-			setSearchParams(prev => {
+			setSearchParams((prev) => {
 				const current = new URLSearchParams(prev);
-				current.set('keyword', searchText);
-				current.set('page', '1');
+				current.set("keyword", searchText);
+				current.set("page", "1");
 				return current;
 			});
 		}, 500);
@@ -38,12 +44,12 @@ const VegeList = () => {
 	//フィルター即座反映（リセット時は除く）
 	useEffect(() => {
 		if (isResetting) return;
-		
-		setSearchParams(prev => {
+
+		setSearchParams((prev) => {
 			const current = new URLSearchParams(prev);
-			current.set('season', isInSeason ? 'true' : 'false');
-			current.set('discounted', isDiscounted ? 'true' : 'false');  
-			current.set('page', '1');
+			current.set("season", isInSeason ? "true" : "false");
+			current.set("discounted", isDiscounted ? "true" : "false");
+			current.set("page", "1");
 			return current;
 		});
 	}, [isInSeason, isDiscounted, isResetting]);
@@ -163,7 +169,6 @@ const VegeList = () => {
 								animationFillMode: "both",
 							}}
 						>
-
 							<Card
 								id={vegetable.attributes.id}
 								name={vegetable.attributes.name}
