@@ -28,8 +28,8 @@ const Card = ({
 				)}
 				<div className="card bg-base-100 w-90 ">
 					<figure>
-						<OptimizedImage 
-							src={image} 
+						<OptimizedImage
+							src={image}
 							alt={name}
 							className="w-full h-60"
 							width={360}

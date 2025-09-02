@@ -1,7 +1,5 @@
 import type { LoaderFunctionArgs } from "react-router";
-import {
-	type ShoppingListEntry,
-} from "../../types/apiResponse";
+import type { ShoppingListEntry } from "../../types/apiResponse";
 import { api } from "../../utils/axios";
 
 export const shoppingListDetailLoader = async ({

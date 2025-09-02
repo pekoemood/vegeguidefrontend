@@ -3,7 +3,11 @@ import MailTab from "./MailTab";
 import PasswordTab from "./PasswordTab";
 import ProfileTab from "./ProfileTab";
 
-const AccountSetting = ({name, email, google_account}: { name: string; email: string; google_account: boolean; }) => {
+const AccountSetting = ({
+	name,
+	email,
+	google_account,
+}: { name: string; email: string; google_account: boolean }) => {
 	const [activeTab, setActiveTab] = useState<string>("profile");
 
 	return (
@@ -43,11 +47,7 @@ const AccountSetting = ({name, email, google_account}: { name: string; email: st
 
 			<div className="mt-6 p-6 border border-base-300 rounded-lg">
 				{activeTab === "profile" && (
-					<ProfileTab
-						name={name}
-						email={email}
-						googleUser={google_account}
-					/>
+					<ProfileTab name={name} email={email} googleUser={google_account} />
 				)}
 				{activeTab === "password" && <PasswordTab />}
 				{activeTab === "mail" && <MailTab email={email} />}
