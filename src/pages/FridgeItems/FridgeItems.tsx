@@ -61,7 +61,7 @@ const FridgeItems = () => {
 	const [recipe, setRecipe] = useState<RecipeResponse | null>(null);
 	const [isPending, startTransition] = useTransition();
 	const { Modal, openModal, closeModal } = useModal();
-	const [editingItemId, setEditingItemId] = useState<number | null>(null);
+	const [editingItemId, setEditingItemId] = useState<number | undefined>(undefined);
 	const editItem = items.filter((item) => item.id === editingItemId);
 	const [sortKey, setSortKey] = useState<
 		| "category"

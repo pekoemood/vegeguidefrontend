@@ -1,3 +1,5 @@
+import { LucideProps } from "lucide-react";
+
 export interface ShoppingItem {
 	id: number;
 	name: string;
@@ -150,13 +152,13 @@ export interface CardProps {
 
 interface Category {
 	name: string;
-	icon: string;
+	icon: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>;
 }
 
 export interface FridgeItemFormProps {
 	closeModal: () => void;
 	categories: Category[];
-	id: number;
+	id?: number;
 	item: FridgeItem;
 	handleEdit: ({
 		id,
