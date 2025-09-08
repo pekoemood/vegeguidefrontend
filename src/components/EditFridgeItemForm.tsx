@@ -100,7 +100,7 @@ const EditFridgeItemForm = ({
 							className="btn"
 							onClick={() => handleEdit({ id, name, category, amount, date })}
 						>
-							編集
+							更新
 						</button>
 					</div>
 				</div>
