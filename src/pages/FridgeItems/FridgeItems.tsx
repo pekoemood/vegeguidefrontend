@@ -189,16 +189,16 @@ const FridgeItems = () => {
 						name: name,
 						category: category,
 						display_amount: amount,
-						expire_date: date,
+						expire_date: date.toLocaleDateString(),
 					},
 				},
 			);
 			setItems(response.data.data);
 			closeModal();
-			toast.success("食材情報を編集しました");
+			toast.success("食材情報を更新しました");
 		} catch (err) {
 			console.error(err);
-			toast.error("食材情報の編集に失敗しました");
+			toast.error("食材情報の更新に失敗しました");
 		}
 	};
 
@@ -627,7 +627,7 @@ const FridgeItems = () => {
 						closeModal={closeModal}
 						categories={categories}
 						id={editingItemId}
-						item={editItem[0]?.attributes || null}
+						item={editItem[0]?.attributes || undefined}
 						handleEdit={handleEdit}
 						handleAdd={handleAdd}
 					/>
