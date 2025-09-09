@@ -43,11 +43,12 @@ const AddFridgeItemForm = ({
 
 					<div>
 						<select
-							name=""
-							id=""
+							name="category-select"
+							id="category"
 							className="select w-full"
 							value={category}
 							onChange={(e) => setCategory(e.target.value)}
+							aria-label="カテゴリ選択"
 						>
 							<option value="" disabled>
 								カテゴリを選択してください
