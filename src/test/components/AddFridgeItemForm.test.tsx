@@ -46,7 +46,17 @@ describe('AddFridgeItemForm', () => {
       const fruitOption = screen.getByRole('option', { name: '果物'});
       await user.selectOptions(selectElement, fruitOption);
       expect(screen.getByRole('combobox', { name: 'カテゴリ選択'})).toHaveValue('果物');
+    });
+    
+    it('数量の入力が正しく反映される', async () => {
+      const user = userEvent.setup();
+      const amountInputElement = screen.getByPlaceholderText('数量');
+      await user.type(amountInputElement, '１本');
+      expect(amountInputElement).toHaveValue('１本');  
+    });
 
+    it('賞味期限が正しく反映される', async () => {
+      const user = userEvent.setup();
     })
   })
 })
