@@ -31,6 +31,8 @@ import type {
 	RecipeResponse,
 } from "../../types/apiResponse";
 import { api } from "../../utils/axios";
+import { set } from "date-fns";
+import { brotliDecompress } from "zlib";
 
 const categories = [
 	{ name: "野菜", icon: Carrot },
@@ -44,6 +46,8 @@ const categories = [
 	{ name: "その他", icon: Box },
 ];
 
+console.log(categories.findIndex((obj) => obj.name === 'その他'));
+
 const initialStatus = {
 	expired: 0,
 	urgent: 0,
@@ -55,7 +59,6 @@ const FridgeItems = () => {
 	const navigation = useNavigate();
 	const data = useLoaderData<FridgeItemsResponse>();
 	const [items, setItems] = useState(data.data);
-	console.log("アイテム", items);
 	const [name, setName] = useState<string>("");
 	const [selectedItem, setSelectedItem] = useState<string[]>([]);
 	const [recipe, setRecipe] = useState<RecipeResponse | null>(null);
@@ -126,6 +129,13 @@ const FridgeItems = () => {
 		if (sortKey === "expire_date" || sortKey === "created_at") {
 			aValue = new Date(aValue);
 			bValue = new Date(bValue);
+		}
+
+		if (sortKey === 'category') {
+		const aOrder = categories.findIndex((obj) => obj.name === a.attributes.category);
+		const bOrder = categories.findIndex((obj) => obj.name === b.attributes.category);
+		console.log(aOrder, bOrder, 'オーダーチェック')
+		return sortOrder === 'asc' ? aOrder - bOrder : bOrder - aOrder
 		}
 
 		if (aValue < bValue) return sortOrder === "asc" ? -1 : 1;
