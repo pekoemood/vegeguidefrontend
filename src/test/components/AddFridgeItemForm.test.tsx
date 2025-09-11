@@ -1,4 +1,4 @@
-import { getByRole, render, screen } from '@testing-library/react';
+import { getByRole, render, screen, waitFor } from '@testing-library/react';
 import AddFridgeItemForm from '../../components/AddFridgeItemForm';
 import userEvent from '@testing-library/user-event';
 
@@ -57,6 +57,14 @@ describe('AddFridgeItemForm', () => {
 
     it('賞味期限が正しく反映される', async () => {
       const user = userEvent.setup();
+      const openButton = screen.getByRole('button', { name: '賞味期限を選択してください'});
+      await user.click(openButton);
+      const calender = screen.getByRole('grid');
+      expect(calender).toBeInTheDocument();
+
+      const dateCell = screen.getByRole('button', { name: '2025年9月15日月曜日'});
+      await user.click(dateCell);
+      expect(openButton).toHaveTextContent('9/15/2025');
     })
   })
 })

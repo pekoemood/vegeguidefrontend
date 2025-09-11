@@ -76,6 +76,7 @@ const AddFridgeItemForm = ({
 							popoverTarget="rdp-popover"
 							className="input input-border w-full"
 							style={{ [`anchorName` as string]: "--rdp" }}
+							data-testid="selected-date"
 						>
 							{date ? date.toLocaleDateString() : "賞味期限を選択してください"}
 						</button>
