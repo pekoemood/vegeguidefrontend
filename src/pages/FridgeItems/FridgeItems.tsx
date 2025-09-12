@@ -46,8 +46,6 @@ const categories = [
 	{ name: "その他", icon: Box },
 ];
 
-console.log(categories.findIndex((obj) => obj.name === 'その他'));
-
 const initialStatus = {
 	expired: 0,
 	urgent: 0,
@@ -134,7 +132,6 @@ const FridgeItems = () => {
 		if (sortKey === 'category') {
 		const aOrder = categories.findIndex((obj) => obj.name === a.attributes.category);
 		const bOrder = categories.findIndex((obj) => obj.name === b.attributes.category);
-		console.log(aOrder, bOrder, 'オーダーチェック')
 		return sortOrder === 'asc' ? aOrder - bOrder : bOrder - aOrder
 		}
 
