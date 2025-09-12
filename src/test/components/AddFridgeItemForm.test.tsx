@@ -65,6 +65,40 @@ describe('AddFridgeItemForm', () => {
       const dateCell = screen.getByRole('button', { name: '2025年9月15日月曜日'});
       await user.click(dateCell);
       expect(openButton).toHaveTextContent('9/15/2025');
+    });
+
+    it('必要事項を入力してhandleAdd関数に引数として渡されること', async () => {
+      const user = userEvent.setup();
+      // 食材名を入力
+      const nameInput = screen.getByPlaceholderText('食材名');
+      await user.type(nameInput, '人参');
+
+      // カテゴリを選択
+      const selectElement = screen.getByRole('combobox', { name: 'カテゴリ選択'});
+      await user.selectOptions(selectElement, '野菜');
+
+      //数量を選択
+      const amountElement = screen.getByPlaceholderText('数量');
+      await user.type(amountElement, '1本');
+
+      //日付を選択
+      const expireButton = screen.getByRole('button', { name: '賞味期限を選択してください'});
+      await user.click(expireButton);
+      const dateCell = screen.getByRole('button', { name: '2025年9月15日月曜日'});
+      await user.click(dateCell);
+
+      //submitをクリック
+      const submitButton = screen.getByRole('button', { name: '追加'});
+      await user.click(submitButton);
+
+      expect(defaultProps.handleAdd).toBeCalled();
+      expect(defaultProps.handleAdd).toHaveBeenCalledWith({
+        name: '人参',
+        category: '野菜',
+        amount: '1本',
+        date: new Date('2025-09-15T00:00:00.000Z'),
+      });
+
     })
   })
 })
