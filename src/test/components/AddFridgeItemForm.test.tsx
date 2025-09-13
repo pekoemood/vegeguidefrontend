@@ -77,7 +77,7 @@ describe('AddFridgeItemForm', () => {
       const selectElement = screen.getByRole('combobox', { name: 'カテゴリ選択'});
       await user.selectOptions(selectElement, '野菜');
 
-      //数量を選択
+      //数量を入力
       const amountElement = screen.getByPlaceholderText('数量');
       await user.type(amountElement, '1本');
 
