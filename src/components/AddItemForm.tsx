@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const AddItemForm = ({ categories, closeModal, handleAddItem }: { categories: string[], closeModal: () => void, handleAddItem: () => void }) => {
+const AddItemForm = ({ categories, closeModal, handleAddItem }: { categories: string[], closeModal: () => void, handleAddItem: (item: { name: string, display_amount: string, category: string}) => void }) => {
 	const [name, setName] = useState("");
 	const [amount, setAmount] = useState("");
 	const [category, setCategory] = useState("");
