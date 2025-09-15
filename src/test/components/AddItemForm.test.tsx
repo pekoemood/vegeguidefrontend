@@ -3,7 +3,7 @@ import AddItemForm from "../../components/AddItemForm"
 import userEvent from "@testing-library/user-event";
 
 
-describe('AddItemFrom', () => {
+describe('AddItemForm', () => {
   describe('正常系', () => {
     const defaultProps = {
       categories: [

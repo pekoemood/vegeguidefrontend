@@ -15,6 +15,7 @@ const AddLItemFromRecipe = ({
 }) => {
 	const [isCreateMode, setIsCreateMode] = useState<boolean>(false);
 	const [name, setName] = useState<string>("");
+	console.log('ショッピングリストデータ', shoppingLists);
 	return (
 		<>
 			<div className="bg-base-100 p-6 rounded-lg min-w-sm md:min-w-md lg:min-w-lg shadow-lg">
