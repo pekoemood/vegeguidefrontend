@@ -1,5 +1,6 @@
-import { createContext, useEffect, useState } from "react";
-import { api } from "../utils/axios";
+import React, { createContext, use, useEffect, useState } from "react";
+import { api, setCsrfToken } from "../utils/axios";
+import { AxiosResponse } from "axios";
 
 interface UserProps {
 	logged_in?: boolean;
