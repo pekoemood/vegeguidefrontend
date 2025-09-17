@@ -23,7 +23,6 @@ import RecipeSkeleton from "../../components/RecipeSkeleton";
 import useModal from "../../hooks/useModal";
 import type {
 	FridgeAddItem,
-	FridgeItemResponse,
 	FridgeItems,
 	FridgeItemsRes,
 	FridgeItemsResponse,
@@ -31,8 +30,6 @@ import type {
 	RecipeResponse,
 } from "../../types/apiResponse";
 import { api } from "../../utils/axios";
-import { set } from "date-fns";
-import { brotliDecompress } from "zlib";
 
 const categories = [
 	{ name: "野菜", icon: Carrot },
@@ -249,7 +246,7 @@ const FridgeItems = () => {
 		try {
 			await api.post(`/recipes`, {
 				...recipe,
-				image_id: recipeImage.image_id,
+				image_id: recipeImage?.image_id,
 			});
 			navigation("/recipe-lists");
 			toast.success("レシピを保存しました");
@@ -260,6 +257,7 @@ const FridgeItems = () => {
 	};
 
 	useEffect(() => {
+		if (!recipe) return;
 		const getRecipeImage = async () => {
 			try {
 				const response = await api.post<RecipeImage>(
