@@ -34,15 +34,18 @@ const Navibar = () => {
 
 	// アクティブページのスタイルを生成（モバイル用）
 	const getActivePageStyle = (path: string) => {
-		const baseStyle = "flex items-center gap-x-1 hover:bg-primary/10 transition-colors duration-200";
+		const baseStyle =
+			"flex items-center gap-x-1 hover:bg-primary/10 transition-colors duration-200";
 		const activeStyle = "bg-primary/20 text-primary-content font-semibold";
 		return `${baseStyle} ${isActivePage(path) ? activeStyle : ""}`;
 	};
 
 	// PC画面用のアクティブページスタイル（より目立つデザイン）
 	const getActivePageStylePC = (path: string) => {
-		const baseStyle = "flex items-center gap-x-1 hover:bg-primary-focus/20 transition-all duration-200 px-4 py-2 rounded-lg";
-		const activeStyle = "bg-base-100 text-base-content font-bold shadow-lg border-2 border-base-300";
+		const baseStyle =
+			"flex items-center gap-x-1 hover:bg-primary-focus/20 transition-all duration-200 px-4 py-2 rounded-lg";
+		const activeStyle =
+			"bg-base-100 text-base-content font-bold shadow-lg border-2 border-base-300";
 		return `${baseStyle} ${isActivePage(path) ? activeStyle : ""}`;
 	};
 
@@ -55,17 +58,17 @@ const Navibar = () => {
 		};
 
 		if (isOpen) {
-			document.addEventListener('mousedown', handleClickOutside);
+			document.addEventListener("mousedown", handleClickOutside);
 		}
 
 		return () => {
-			document.removeEventListener('mousedown', handleClickOutside);
+			document.removeEventListener("mousedown", handleClickOutside);
 		};
 	}, [isOpen]);
 
 	const handleLogout = async () => {
 		if (isLoggingOut) return;
-		
+
 		setIsLoggingOut(true);
 		try {
 			await api.post(`/logout`);
@@ -93,8 +96,8 @@ const Navibar = () => {
 
 			{/* モバイル用　：　ハンバーガー */}
 			<div className="navbar-end lg:hidden relative">
-				<button 
-					className="btn btn-ghost" 
+				<button
+					className="btn btn-ghost"
 					onClick={() => setIsOpen(!isOpen)}
 					aria-label={isOpen ? "メニューを閉じる" : "メニューを開く"}
 					aria-expanded={isOpen}
@@ -247,20 +250,29 @@ const Navibar = () => {
 								</Link>
 							</li>
 							<li>
-								<Link to="/recipe-lists" className={getActivePageStylePC("/recipe-lists")}>
+								<Link
+									to="/recipe-lists"
+									className={getActivePageStylePC("/recipe-lists")}
+								>
 									<BookOpen size={15} />
 									レシピ一覧
 								</Link>
 							</li>
 							<li>
-								<Link to="/shoppinglist" className={getActivePageStylePC("/shoppinglist")}>
+								<Link
+									to="/shoppinglist"
+									className={getActivePageStylePC("/shoppinglist")}
+								>
 									<ShoppingCart size={15} />
 									買い物リスト
 								</Link>
 							</li>
 
 							<li>
-								<Link to="/fridge-items" className={getActivePageStylePC("/fridge-items")}>
+								<Link
+									to="/fridge-items"
+									className={getActivePageStylePC("/fridge-items")}
+								>
 									<Refrigerator size={15} />
 									冷蔵庫
 								</Link>
@@ -314,7 +326,11 @@ const Navibar = () => {
 				</ul>
 			</div>
 			<Modal>
-				<AccountSetting name={user?.name} email={user?.email} />
+				<AccountSetting
+					name={user?.name}
+					email={user?.email}
+					google_account={user?.google_account}
+				/>
 			</Modal>
 		</div>
 	);

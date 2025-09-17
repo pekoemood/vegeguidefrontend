@@ -1,5 +1,6 @@
 {
 	"compilerOptions": {
+		"types": ["vitest/globals", "@testing-library/jest-dom", "node"],
 		"target": "ES2020",
 		"lib": ["ES2020", "DOM", "DOM.Iterable"],
 		"module": "ESNext",
@@ -23,6 +24,5 @@
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true
 	},
-	"include": ["src/**/*", "src/setupTests.ts"],
-	"types": ["vitest/globals", "@testing-library/jest-dom"]
+	"include": ["src/**/*"]
 }

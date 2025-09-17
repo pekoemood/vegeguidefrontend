@@ -23,7 +23,6 @@ import RecipeSkeleton from "../../components/RecipeSkeleton";
 import useModal from "../../hooks/useModal";
 import type {
 	FridgeAddItem,
-	FridgeItemResponse,
 	FridgeItems,
 	FridgeItemsRes,
 	FridgeItemsResponse,
@@ -55,13 +54,12 @@ const FridgeItems = () => {
 	const navigation = useNavigate();
 	const data = useLoaderData<FridgeItemsResponse>();
 	const [items, setItems] = useState(data.data);
-	console.log("アイテム", items);
 	const [name, setName] = useState<string>("");
 	const [selectedItem, setSelectedItem] = useState<string[]>([]);
 	const [recipe, setRecipe] = useState<RecipeResponse | null>(null);
 	const [isPending, startTransition] = useTransition();
 	const { Modal, openModal, closeModal } = useModal();
-	const [editingItemId, setEditingItemId] = useState<number | null>(null);
+	const [editingItemId, setEditingItemId] = useState<number | undefined>(undefined);
 	const editItem = items.filter((item) => item.id === editingItemId);
 	const [sortKey, setSortKey] = useState<
 		| "category"
@@ -95,6 +93,8 @@ const FridgeItems = () => {
 
 			case "unset":
 				return <span>不明</span>;
+			default:
+				return <span>不明</span>;
 		}
 	};
 
@@ -124,6 +124,12 @@ const FridgeItems = () => {
 		if (sortKey === "expire_date" || sortKey === "created_at") {
 			aValue = new Date(aValue);
 			bValue = new Date(bValue);
+		}
+
+		if (sortKey === 'category') {
+		const aOrder = categories.findIndex((obj) => obj.name === a.attributes.category);
+		const bOrder = categories.findIndex((obj) => obj.name === b.attributes.category);
+		return sortOrder === 'asc' ? aOrder - bOrder : bOrder - aOrder
 		}
 
 		if (aValue < bValue) return sortOrder === "asc" ? -1 : 1;
@@ -187,16 +193,16 @@ const FridgeItems = () => {
 						name: name,
 						category: category,
 						display_amount: amount,
-						expire_date: date,
+						expire_date: date.toLocaleDateString(),
 					},
 				},
 			);
 			setItems(response.data.data);
 			closeModal();
-			toast.success("食材情報を編集しました");
+			toast.success("食材情報を更新しました");
 		} catch (err) {
 			console.error(err);
-			toast.error("食材情報の編集に失敗しました");
+			toast.error("食材情報の更新に失敗しました");
 		}
 	};
 
@@ -240,7 +246,7 @@ const FridgeItems = () => {
 		try {
 			await api.post(`/recipes`, {
 				...recipe,
-				image_id: recipeImage.image_id,
+				image_id: recipeImage?.image_id,
 			});
 			navigation("/recipe-lists");
 			toast.success("レシピを保存しました");
@@ -251,6 +257,7 @@ const FridgeItems = () => {
 	};
 
 	useEffect(() => {
+		if (!recipe) return;
 		const getRecipeImage = async () => {
 			try {
 				const response = await api.post<RecipeImage>(
@@ -625,7 +632,7 @@ const FridgeItems = () => {
 						closeModal={closeModal}
 						categories={categories}
 						id={editingItemId}
-						item={editItem[0]?.attributes || null}
+						item={editItem[0]?.attributes || undefined}
 						handleEdit={handleEdit}
 						handleAdd={handleAdd}
 					/>

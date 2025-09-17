@@ -15,8 +15,8 @@ const AddFridgeItemForm = ({
 	const [name, setName] = useState<string>("");
 	const [amount, setAmount] = useState<string>("");
 	const [category, setCategory] = useState<string>("");
-	const [date, setDate] = useState<Date | null>(null);
-	const itemCategories = categories.filter((ct) => ct.name !== "全て");
+	const [date, setDate] = useState<Date | undefined>(undefined);
+	const itemCategories = (categories.filter((ct) => ct.name !== "全て")) 
 
 	const handleDateChange = (selectedDate: Date) => {
 		setDate(selectedDate);
@@ -43,11 +43,12 @@ const AddFridgeItemForm = ({
 
 					<div>
 						<select
-							name=""
-							id=""
+							name="category-select"
+							id="category"
 							className="select w-full"
 							value={category}
 							onChange={(e) => setCategory(e.target.value)}
+							aria-label="カテゴリ選択"
 						>
 							<option value="" disabled>
 								カテゴリを選択してください
@@ -75,6 +76,7 @@ const AddFridgeItemForm = ({
 							popoverTarget="rdp-popover"
 							className="input input-border w-full"
 							style={{ [`anchorName` as string]: "--rdp" }}
+							data-testid="selected-date"
 						>
 							{date ? date.toLocaleDateString() : "賞味期限を選択してください"}
 						</button>

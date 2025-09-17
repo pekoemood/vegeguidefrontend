@@ -1,15 +1,17 @@
-import { useContext, useState } from "react";
-import { UserContext } from "../context/UserContext";
+import { useState } from "react";
 import MailTab from "./MailTab";
 import PasswordTab from "./PasswordTab";
 import ProfileTab from "./ProfileTab";
 
-const AccountSetting = ({ name, email }) => {
+const AccountSetting = ({
+	name,
+	email,
+	google_account,
+}: { name: string; email: string; google_account: boolean }) => {
 	const [activeTab, setActiveTab] = useState<string>("profile");
-	const { user } = useContext(UserContext);
 
 	return (
-		<main className="bg-base-100 p-6 rounded-lg min-w-sm shadow-lg">
+		<main className="bg-base-100 p-6 rounded-lg max-w-lg lg:w-lg shadow-lg">
 			<h2 className="text-xl font-bold">アカウント設定</h2>
 			<p className="text-neutral-500 text-sm">
 				アカウント情報の確認と変更ができます。
@@ -23,7 +25,7 @@ const AccountSetting = ({ name, email }) => {
 				>
 					プロフィール
 				</a>
-				{!user.google_account && (
+				{!google_account && (
 					<>
 						<a
 							role="tab"
@@ -45,11 +47,7 @@ const AccountSetting = ({ name, email }) => {
 
 			<div className="mt-6 p-6 border border-base-300 rounded-lg">
 				{activeTab === "profile" && (
-					<ProfileTab
-						name={name}
-						email={email}
-						googleUser={user?.google_account}
-					/>
+					<ProfileTab name={name} email={email} googleUser={google_account} />
 				)}
 				{activeTab === "password" && <PasswordTab />}
 				{activeTab === "mail" && <MailTab email={email} />}

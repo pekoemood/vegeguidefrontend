@@ -14,7 +14,7 @@ const ProfileTab = ({
 
 			<fieldset className="fieldset space-y-4">
 				<div>
-					<label htmlFor="" className="label text-sm">
+					<label htmlFor="name" className="label text-sm">
 						お名前
 					</label>
 					<input
@@ -22,11 +22,12 @@ const ProfileTab = ({
 						className="input w-full"
 						value={name}
 						disabled={true}
+						id="name"
 					/>
 				</div>
 
 				<div>
-					<label htmlFor="" className="label text-sm">
+					<label htmlFor="email" className="label text-sm">
 						メールアドレス
 					</label>
 					<input
@@ -34,6 +35,7 @@ const ProfileTab = ({
 						className="input w-full"
 						value={email}
 						disabled={true}
+						id="email"
 					/>
 				</div>
 			</fieldset>

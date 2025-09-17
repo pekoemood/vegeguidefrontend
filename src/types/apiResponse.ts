@@ -1,3 +1,5 @@
+import { LucideIcon, LucideProps } from "lucide-react";
+
 export interface ShoppingItem {
 	id: number;
 	name: string;
@@ -150,14 +152,14 @@ export interface CardProps {
 
 interface Category {
 	name: string;
-	icon: string;
+	icon: LucideIcon;
 }
 
 export interface FridgeItemFormProps {
 	closeModal: () => void;
 	categories: Category[];
-	id: number;
-	item: FridgeItem;
+	id?: number;
+	item?: FridgeItem;
 	handleEdit: ({
 		id,
 		name,

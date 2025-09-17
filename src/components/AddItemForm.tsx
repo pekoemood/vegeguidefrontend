@@ -1,17 +1,16 @@
 import { useState } from "react";
 
-const AddItemForm = ({ categories, closeModal, handleAddItem }) => {
+const AddItemForm = ({ categories, closeModal, handleAddItem }: { categories: string[], closeModal: () => void, handleAddItem: (item: { name: string, display_amount: string, category: string}) => void }) => {
 	const [name, setName] = useState("");
 	const [amount, setAmount] = useState("");
 	const [category, setCategory] = useState("");
-	const [checked, setChecked] = useState(false);
 
 	return (
 		<>
 			<div className="bg-base-100 p-6 rounded-lg min-w-sm md:min-w-md lg:min-w-lg shadow-lg">
-				<h2 className="text-lg font-bold mb-1">新しいアイテムを追加</h2>
+				<h2 className="text-lg font-bold mb-1">新しい食材を追加</h2>
 				<p className="text-sm text-neutral-500 mb-4">
-					買い物リストに追加するアイテムの情報を入力してください
+					買い物リストに追加する食材の情報を入力してください
 				</p>
 
 				<div className="grid grid-cols-3 gap-4 mb-4">
@@ -19,7 +18,7 @@ const AddItemForm = ({ categories, closeModal, handleAddItem }) => {
 						<input
 							type="text"
 							className="input w-full"
-							placeholder="アイテム名"
+							placeholder="食材名"
 							value={name}
 							onChange={(e) => setName(e.target.value)}
 						/>

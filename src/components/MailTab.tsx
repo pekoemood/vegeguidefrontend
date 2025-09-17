@@ -1,17 +1,23 @@
+import { AxiosError } from "axios";
 import { Mail } from "lucide-react";
 import { useActionState } from "react";
 import toast from "react-hot-toast";
-import { EmailFormData } from "../types/apiResponse";
 import { api } from "../utils/axios";
 
-const MailTab = ({ email }: { email: string }) => {
-	const initialState = {
-		new_email: "",
-		password: "",
-	};
 
-	const [state, formAction, isPending] = useActionState(
-		async (_currentState, formData: FormData) => {
+interface MailState {
+	new_email: string;
+	password: string;
+}
+
+const initialState: MailState = {
+	new_email: "",
+	password: "",
+};
+
+const MailTab = ({ email }: { email: string }) => {
+	const [_state, formAction, isPending] = useActionState<MailState, FormData>(
+		async (_state, formData: FormData) => {
 			const data = Object.fromEntries(formData.entries());
 
 			try {
@@ -21,9 +27,12 @@ const MailTab = ({ email }: { email: string }) => {
 				});
 				toast.success("新しいメールアドレスに確認メールを送信しました");
 			} catch (err) {
-				console.log(err);
-				toast.error(err.response?.data?.message);
+					if ( err instanceof AxiosError) {
+						console.log(err);
+						toast.error(err.response?.data?.message);
+					}
 			}
+			return _state;
 		},
 		initialState,
 	);
@@ -44,7 +53,7 @@ const MailTab = ({ email }: { email: string }) => {
 			<form action={formAction}>
 				<fieldset className="fieldset space-y-4">
 					<div>
-						<label htmlFor="" className="label text-sm">
+						<label htmlFor="currentEmail" className="label text-sm">
 							現在のメールアドレス
 						</label>
 						<input
@@ -53,11 +62,12 @@ const MailTab = ({ email }: { email: string }) => {
 							className="input w-full"
 							value={email}
 							disabled={true}
+							id="currentEmail"
 						/>
 					</div>
 
 					<div>
-						<label htmlFor="" className="label text-sm">
+						<label htmlFor="newEmail" className="label text-sm">
 							新しいメールアドレス
 						</label>
 						<input
@@ -65,11 +75,12 @@ const MailTab = ({ email }: { email: string }) => {
 							placeholder="new-email@example.com"
 							className="input w-full"
 							name="newEmail"
+							id="newEmail"
 						/>
 					</div>
 
 					<div>
-						<label htmlFor="" className="label text-sm">
+						<label htmlFor="password" className="label text-sm">
 							現在のパスワード
 						</label>
 						<input
@@ -77,6 +88,7 @@ const MailTab = ({ email }: { email: string }) => {
 							placeholder="現在のパスワードを入力"
 							className="input w-full"
 							name="password"
+							id="password"
 						/>
 					</div>
 
