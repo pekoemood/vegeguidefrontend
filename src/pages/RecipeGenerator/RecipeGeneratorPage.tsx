@@ -18,7 +18,6 @@ import {
 	PartyPopper,
 	Pizza,
 	Plus,
-	Radio,
 	Salad,
 	Search,
 	ShoppingCart,

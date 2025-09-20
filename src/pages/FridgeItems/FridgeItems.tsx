@@ -193,7 +193,7 @@ const FridgeItems = () => {
 						name: name,
 						category: category,
 						display_amount: amount,
-						expire_date: date.toLocaleDateString(),
+						expire_date: date?.toLocaleDateString(),
 					},
 				},
 			);
