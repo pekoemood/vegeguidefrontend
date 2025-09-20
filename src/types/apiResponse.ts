@@ -122,10 +122,10 @@ export interface FridgeItems extends Array<FridgeItem> {}
 
 export interface FridgeAddItem {
 	id?: number;
-	name: string;
-	category: string;
-	amount: string;
-	date: Date;
+	name?: string;
+	category?: string;
+	amount?: string;
+	date?: Date;
 }
 
 export interface FridgeItemResponse {

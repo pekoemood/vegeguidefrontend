@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import AddListForm from "../../components/AddListForm";
 import userEvent from "@testing-library/user-event";
-import { input } from "@testing-library/user-event/dist/cjs/event/input.js";
 
 
 describe('AddListForm', () => {
