@@ -9,6 +9,8 @@ import FeatureCard from "./FeatureCard";
 import MeritHighLight from "./MeritHighLight";
 import Recommend from "./Recommend";
 import UsageCard from "./UsageCard";
+import { useEmailChangeConfirmation } from "../../hooks/useEmailChangeConfirmation";
+import { useScrollAnimation } from "../../hooks/useScrollAnimation";
 
 const recommendList: string[] = [
 	"忙しい仕事の合間に健康的な食事を摂りたい方",
@@ -25,38 +27,12 @@ interface EmailProps {
 
 function Top(): React.ReactElement {
 	const navigate = useNavigate();
-
 	const { Modal, openModal, closeModal } = useModal();
-	const location = useLocation();
-	const [email, setEmail] = useState<string>("");
+	const { email } = useEmailChangeConfirmation(openModal);
+	useScrollAnimation();
 
-	useEffect(() => {
-		const changeMail = async (): Promise<void> => {
-			try {
-				const params = new URLSearchParams(location.search);
-				const token = params.get("token");
 
-				if (token) {
-					const response = await api.get<EmailProps>(
-						`/email_change_requests/confirm`,
-						{
-							params: { token },
-						},
-					);
-					setEmail(response.data.email);
-					openModal();
-					navigate(location.pathname, { replace: true });
-				}
-			} catch (err: unknown) {
-				if (err instanceof Error) {
-					console.error(err.message);
-				} else {
-					console.error(err);
-				}
-			}
-		};
-		changeMail();
-	}, [location.search]);
+
 
 	return (
 		<>
