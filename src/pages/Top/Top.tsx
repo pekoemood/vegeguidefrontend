@@ -1,10 +1,8 @@
 import { ChefHat, Leaf, Refrigerator, ShoppingCart } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import EmailChangeSuccess from "../../components/EmailChangeSuccess";
 import Meta from "../../components/Meta";
 import useModal from "../../hooks/useModal";
-import { api } from "../../utils/axios";
 import FeatureCard from "./FeatureCard";
 import MeritHighLight from "./MeritHighLight";
 import Recommend from "./Recommend";
@@ -20,10 +18,6 @@ const recommendList: string[] = [
 	"食材を無駄にせず、効率的に使い切りたい方",
 ];
 
-interface EmailProps {
-	message: string;
-	email: string;
-}
 
 function Top(): React.ReactElement {
 	const navigate = useNavigate();
@@ -107,8 +101,7 @@ function Top(): React.ReactElement {
 
 				<section
 					id="feature"
-					className="scroll-mt-20 animate-fade-up"
-					style={{ animationDelay: "0.7s", animationFillMode: "both" }}
+					className="scroll-mt-20 scroll-animation-target"
 				>
 					<div className="container mx-auto">
 						<div className="text-center">
@@ -123,8 +116,7 @@ function Top(): React.ReactElement {
 
 						<div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mt-16">
 							<div
-								className="animate-fade-up"
-								style={{ animationDelay: "0.8s", animationFillMode: "both" }}
+								className="scroll-animation-target"
 							>
 								<FeatureCard
 									title="旬の野菜情報"
@@ -168,8 +160,7 @@ function Top(): React.ReactElement {
 
 				<section
 					id="usage"
-					className="scroll-mt-20 animate-fade-up"
-					style={{ animationDelay: "1.0s", animationFillMode: "both" }}
+					className="scroll-mt-20 scroll-animation-target"
 				>
 					<div className="container mx-auto">
 						<div className="text-center">
@@ -184,8 +175,7 @@ function Top(): React.ReactElement {
 
 						<div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mt-16 place-items-center">
 							<div
-								className="animate-fade-up"
-								style={{ animationDelay: "1.1s", animationFillMode: "both" }}
+								className="scroll-animation-target"
 							>
 								<UsageCard
 									image="https://i.gyazo.com/ce62a126366946d7196e7c61a7118a26.jpg"
@@ -233,8 +223,7 @@ function Top(): React.ReactElement {
 
 				<section
 					id="merit"
-					className="scroll-mt-20 animate-fade-up"
-					style={{ animationDelay: "1.3s", animationFillMode: "both" }}
+					className="scroll-mt-20 scroll-animation-target"
 				>
 					<div className="container mx-auto">
 						<div className="text-center">
@@ -332,14 +321,10 @@ function Top(): React.ReactElement {
 								</h2>
 
 								<div className="space-y-4 mt-8">
-									{recommendList.map((text, index) => (
+									{recommendList.map((text) => (
 										<div
 											key={text}
-											className="animate-fade-up"
-											style={{
-												animationDelay: `${1.45 + index * 0.05}s`,
-												animationFillMode: "both",
-											}}
+											className="scroll-animation-target"
 										>
 											<Recommend text={text} />
 										</div>
@@ -351,8 +336,7 @@ function Top(): React.ReactElement {
 				</section>
 
 				<section
-					className="pb-20 animate-fade-up"
-					style={{ animationDelay: "1.5s", animationFillMode: "both" }}
+					className="pb-20 scroll-animation-target"
 				>
 					<div className="container text-center space-y-4 mx-auto">
 						<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
