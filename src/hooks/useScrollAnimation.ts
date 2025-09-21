@@ -5,11 +5,14 @@ export const useScrollAnimation = (options = {}) => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-up');
+          setTimeout(() => {
+            entry.target.classList.add('animate-fade-up');
+          }, 100);
         }
       });
     },  {
-      threshold: 0.1,
+      threshold: 0.15,
+      rootMargin: '-40px 0px',
       ...options
     });
 
