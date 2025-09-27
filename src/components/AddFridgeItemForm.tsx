@@ -16,7 +16,7 @@ const AddFridgeItemForm = ({
 	const [amount, setAmount] = useState<string>("");
 	const [category, setCategory] = useState<string>("");
 	const [date, setDate] = useState<Date | undefined>(undefined);
-	const itemCategories = (categories.filter((ct) => ct.name !== "全て")) 
+	const itemCategories = categories.filter((ct) => ct.name !== "全て");
 
 	const handleDateChange = (selectedDate: Date) => {
 		setDate(selectedDate);

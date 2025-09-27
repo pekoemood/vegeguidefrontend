@@ -8,7 +8,7 @@ import { defineConfig } from "vitest/config";
 export default defineConfig({
 	plugins: [react(), tailwindcss()],
 	server:
-		process.env.NODE_ENV === "production"
+		process.env.NODE_ENV === "production" || process.env.NODE_ENV === "test"
 			? {}
 			: {
 					https: {

@@ -1,6 +1,6 @@
-import React, { createContext, useEffect, useState } from "react";
+import type React from "react";
+import { createContext, useEffect, useState } from "react";
 import { api } from "../utils/axios";
-
 
 interface UserProps {
 	logged_in?: boolean;

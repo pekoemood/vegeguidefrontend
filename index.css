@@ -25,10 +25,10 @@ html {
 
 /* スクロールアニメーション */
 .scroll-animation-target {
-  opacity: 0;
-  transform: translateY(20px);
+	opacity: 0;
+	transform: translateY(20px);
 }
 
 .scroll-animation-target.animate-fade-up {
-  animation: fade-up 0.8s ease-in-out forwards;
+	animation: fade-up 0.8s ease-in-out forwards;
 }
