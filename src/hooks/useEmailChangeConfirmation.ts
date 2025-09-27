@@ -27,7 +27,7 @@ export const useEmailChangeConfirmation = (
 
 				if (token) {
 					const response = await api.get<EmailChangeResponse>(
-						`/email_change_requests/confirm`,
+						"/email_change_requests/confirm",
 						{
 							params: { token },
 						},

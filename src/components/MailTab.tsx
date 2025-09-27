@@ -20,7 +20,7 @@ const MailTab = ({ email }: { email: string }) => {
 			const data = Object.fromEntries(formData.entries());
 
 			try {
-				await api.post(`/email_change_requests`, {
+				await api.post("/email_change_requests", {
 					new_email: data.newEmail,
 					password: data.password,
 				});
@@ -97,7 +97,7 @@ const MailTab = ({ email }: { email: string }) => {
 						disabled={isPending}
 					>
 						{isPending ? (
-							<span className="loading loading-spinner loading-xs"></span>
+							<span className="loading loading-spinner loading-xs" />
 						) : (
 							"メールアドレスを変更"
 						)}

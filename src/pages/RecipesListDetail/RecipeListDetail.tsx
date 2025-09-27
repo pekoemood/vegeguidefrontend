@@ -29,7 +29,7 @@ const RecipeListDetail = () => {
 	): Promise<void> => {
 		try {
 			const response = await api.post<{ data: Recipes }>(
-				`/shopping_lists/from_recipe`,
+				"/shopping_lists/from_recipe",
 				{
 					recipe_id: data.id,
 					shopping_list_id:

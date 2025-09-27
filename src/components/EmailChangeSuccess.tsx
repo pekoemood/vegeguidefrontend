@@ -42,7 +42,7 @@ const EmailChangeSuccess = ({
 						</ul>
 					</div>
 
-					<div className="border-t-1 border-base-300 w-full mt-4"></div>
+					<div className="border-t-1 border-base-300 w-full mt-4" />
 
 					<button className="btn btn-neutral mt-4" onClick={closeModal}>
 						閉じる

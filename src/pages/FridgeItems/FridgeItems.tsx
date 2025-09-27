@@ -165,7 +165,7 @@ const FridgeItems = () => {
 
 	const handleAdd = async ({ name, category, amount, date }: FridgeAddItem) => {
 		try {
-			const response = await api.post<FridgeItemsResponse>(`/fridge_items`, {
+			const response = await api.post<FridgeItemsResponse>("/fridge_items", {
 				fridge: [
 					{
 						name: name,
@@ -229,16 +229,15 @@ const FridgeItems = () => {
 		setSelectedItem((prev) => {
 			if (prev.includes(item.attributes.name)) {
 				return prev.filter((_item) => _item !== item.attributes.name);
-			} else {
-				return [...prev, item.attributes.name];
 			}
+			return [...prev, item.attributes.name];
 		});
 	};
 
 	const handleSuggestRecipe = () => {
 		startTransition(async () => {
 			try {
-				const response = await api.post<RecipeResponse>(`/recipe_generations`, {
+				const response = await api.post<RecipeResponse>("/recipe_generations", {
 					selectedVegetables: selectedItem,
 				});
 				setRecipe(response.data[0]);
@@ -250,7 +249,7 @@ const FridgeItems = () => {
 
 	const handleSaveRecipe = async () => {
 		try {
-			await api.post(`/recipes`, {
+			await api.post("/recipes", {
 				...recipe,
 				image_id: recipeImage?.image_id,
 			});
@@ -428,7 +427,7 @@ const FridgeItems = () => {
 						>
 							<span className={isPending ? "invisible" : ""}>レシピを提案</span>
 							{isPending && (
-								<span className="absolute left-1/2 -translate-x-1/2 loading loading-spinner loading-md"></span>
+								<span className="absolute left-1/2 -translate-x-1/2 loading loading-spinner loading-md" />
 							)}
 						</button>
 					</div>
@@ -445,7 +444,7 @@ const FridgeItems = () => {
 										className="rounded-lg w-full h-full object-cover"
 									/>
 								) : (
-									<div className="skeleton h-full w-full"></div>
+									<div className="skeleton h-full w-full" />
 								)}
 							</div>
 							<div className="p-2 md:p-6 lg:w-1/2">
@@ -490,7 +489,7 @@ const FridgeItems = () => {
 													key={index}
 													className="flex items-center gap-1 text-xs md:text-base"
 												>
-													<span className="badge badge-neutral badge-xs"></span>
+													<span className="badge badge-neutral badge-xs" />
 													{ingredient.name} {ingredient?.display_amount}
 												</li>
 											))}
@@ -525,7 +524,7 @@ const FridgeItems = () => {
 											レシピを保存
 										</span>
 										{isSaving && (
-											<span className="absolute left-1/2 -translate-x-1/2 loading loading-spinner loading-md"></span>
+											<span className="absolute left-1/2 -translate-x-1/2 loading loading-spinner loading-md" />
 										)}
 									</button>
 									<button
