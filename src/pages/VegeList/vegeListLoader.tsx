@@ -12,7 +12,7 @@ export const vegeListLoader = async ({
 	const season = url.searchParams.get("season") || "";
 	const discounted = url.searchParams.get("discounted") || "";
 	try {
-		const response = await api.get<VegetablesLoaderData>(`/vegetables`, {
+		const response = await api.get<VegetablesLoaderData>("/vegetables", {
 			params: {
 				page: page,
 				keyword: keyword,

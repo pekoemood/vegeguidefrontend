@@ -87,7 +87,7 @@ function Top(): React.ReactElement {
 						style={{ animationDelay: "0.6s", animationFillMode: "both" }}
 					>
 						<div className="mockup-phone ">
-							<div className="mockup-phone-camera"></div>
+							<div className="mockup-phone-camera" />
 							<div className="bg-base-100 mockup-phone-display text-white grid place-content-center p-2">
 								<img src="/top.png" alt="" />
 							</div>

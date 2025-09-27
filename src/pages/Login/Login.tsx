@@ -50,7 +50,7 @@ const Login = (): JSX.Element => {
 	}: { email: string; password: string }) => {
 		startTransition(async () => {
 			try {
-				const response = await api.post<UserResponse>(`/login`, {
+				const response = await api.post<UserResponse>("/login", {
 					email,
 					password,
 				});
@@ -184,7 +184,7 @@ const Login = (): JSX.Element => {
 								style={{ animationDelay: "0.35s", animationFillMode: "both" }}
 							>
 								<div className="absolute inset-0 flex items-center">
-									<span className="w-full border-t border-base-300"></span>
+									<span className="w-full border-t border-base-300" />
 								</div>
 								<div className="relative flex justify-center text-xs">
 									<span className="bg-base-100 text-neutral-500 px-2">

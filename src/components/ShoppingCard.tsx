@@ -51,7 +51,7 @@ const ShoppingCard = ({
 						className="progress progress-primary w-full"
 						value={check.length}
 						max={items.length}
-					></progress>
+					/>
 
 					<div className="flex justify-end">
 						<button

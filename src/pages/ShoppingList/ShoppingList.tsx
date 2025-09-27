@@ -19,7 +19,7 @@ const ShoppingList = () => {
 
 	const handleAddList = async (name: string) => {
 		try {
-			const response = await api.post<ShoppingListResponse>(`/shopping_lists`, {
+			const response = await api.post<ShoppingListResponse>("/shopping_lists", {
 				name,
 			});
 			console.log(response);

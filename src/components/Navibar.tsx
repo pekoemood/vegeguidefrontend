@@ -71,7 +71,7 @@ const Navibar = () => {
 
 		setIsLoggingOut(true);
 		try {
-			await api.post(`/logout`);
+			await api.post("/logout");
 			setUser(null);
 			navigate("/");
 			toast.success("ログアウトしました");
@@ -116,7 +116,6 @@ const Navibar = () => {
 					<ul
 						ref={menuRef}
 						id="mobile-menu"
-						tabIndex={0}
 						className={`menu absolute right-0 top-full mt-2 z-[50] p-2 shadow bg-base-100 rounded-box w-40 transition-all transform ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
 					>
 						<li>
@@ -129,7 +128,7 @@ const Navibar = () => {
 								野菜一覧
 							</Link>
 						</li>
-						{user && user.name && (
+						{user?.name && (
 							<>
 								<li>
 									<Link
@@ -192,7 +191,7 @@ const Navibar = () => {
 										disabled={isLoggingOut}
 									>
 										{isLoggingOut ? (
-											<div className="loading loading-spinner loading-xs"></div>
+											<div className="loading loading-spinner loading-xs" />
 										) : (
 											<LogOut size={15} />
 										)}
@@ -238,7 +237,7 @@ const Navibar = () => {
 							野菜一覧
 						</Link>
 					</li>
-					{user && user.name && (
+					{user?.name && (
 						<>
 							<li>
 								<Link
@@ -284,7 +283,7 @@ const Navibar = () => {
 
 			<div className="navbar-end hidden lg:flex">
 				<ul className="menu menu-horizontal">
-					{user && user.name ? (
+					{user?.name ? (
 						<>
 							<li>
 								<span className="flex items-center gap-x-1" onClick={openModal}>
@@ -299,7 +298,7 @@ const Navibar = () => {
 									disabled={isLoggingOut}
 								>
 									{isLoggingOut ? (
-										<div className="loading loading-spinner loading-xs"></div>
+										<div className="loading loading-spinner loading-xs" />
 									) : (
 										<LogOut size={15} />
 									)}

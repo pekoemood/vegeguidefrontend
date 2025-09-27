@@ -27,7 +27,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
 	const fetchUser = async (): Promise<void> => {
 		try {
-			const response = await api.get<UserProps>(`/check_login_status`);
+			const response = await api.get<UserProps>("/check_login_status");
 			if (response.data.logged_in) {
 				setUser(response.data);
 			} else {

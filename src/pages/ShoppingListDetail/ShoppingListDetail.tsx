@@ -139,7 +139,7 @@ const ShoppingListDetail = () => {
 	const handleAddFridge = async (item: ShoppingItem | ShoppingItem[]) => {
 		const items = Array.isArray(item) ? item : [item];
 		try {
-			await api.post(`/fridge_items`, {
+			await api.post("/fridge_items", {
 				fridge: items.map((item) => ({
 					name: item.name,
 					category: item.category,
@@ -265,7 +265,7 @@ const ShoppingListDetail = () => {
 																)}
 															</div>
 															{loadingItems.includes(item.id) && (
-																<span className="loading loading-spinner loading-xs ml-2"></span>
+																<span className="loading loading-spinner loading-xs ml-2" />
 															)}
 														</div>
 														<div className="flex justify-end md:justify-start items-center space-x-4">

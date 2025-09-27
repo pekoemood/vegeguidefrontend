@@ -36,7 +36,7 @@ const PasswordTab = () => {
 
 		setErrors({});
 		try {
-			await api.patch<PasswordChangeResponse>(`/password`, {
+			await api.patch<PasswordChangeResponse>("/password", {
 				old_password: formData.oldPassword,
 				new_password: formData.newPassword,
 			});
@@ -84,12 +84,11 @@ const PasswordTab = () => {
 								{showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
 							</button>
 						</div>
-						{errors.oldPassword &&
-							errors.oldPassword.map((text) => (
-								<p key={text} className="mt-2 text-red-500">
-									{text}
-								</p>
-							))}
+						{errors.oldPassword?.map((text) => (
+							<p key={text} className="mt-2 text-red-500">
+								{text}
+							</p>
+						))}
 					</div>
 
 					<div>
@@ -114,12 +113,11 @@ const PasswordTab = () => {
 								{showConfirm ? <EyeOff size={15} /> : <Eye size={15} />}
 							</button>
 						</div>
-						{errors.newPassword &&
-							errors.newPassword.map((text) => (
-								<p key={text} className="mt-2 text-red-500">
-									{text}
-								</p>
-							))}
+						{errors.newPassword?.map((text) => (
+							<p key={text} className="mt-2 text-red-500">
+								{text}
+							</p>
+						))}
 					</div>
 
 					<button className="btn btn-primary" type="submit">

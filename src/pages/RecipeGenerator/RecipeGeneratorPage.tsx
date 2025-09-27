@@ -93,7 +93,7 @@ const RecipeGeneratorPage = () => {
 					})
 					.filter(Boolean);
 
-				const response = await api.post<RecipeResponse>(`/recipe_generations`, {
+				const response = await api.post<RecipeResponse>("/recipe_generations", {
 					cookingTime,
 					calorie,
 					category,
@@ -113,7 +113,7 @@ const RecipeGeneratorPage = () => {
 	const handleClickSave = (): void => {
 		startSaving(async () => {
 			try {
-				await api.post(`/recipes`, {
+				await api.post("/recipes", {
 					...recipe,
 					image_id: recipeImage?.image_id,
 				});
@@ -198,7 +198,7 @@ const RecipeGeneratorPage = () => {
 							})
 						) : (
 							<div className="flex items-center gap-2 text-base-content/60">
-								<div className="w-2 h-2 bg-base-content/30 rounded-full"></div>
+								<div className="w-2 h-2 bg-base-content/30 rounded-full" />
 								<p>野菜を選択してください</p>
 							</div>
 						)}
@@ -592,7 +592,7 @@ const RecipeGeneratorPage = () => {
 						>
 							{isPending ? (
 								<>
-									<span className="loading loading-spinner loading-md mr-2"></span>
+									<span className="loading loading-spinner loading-md mr-2" />
 									レシピを生成中...
 								</>
 							) : (
