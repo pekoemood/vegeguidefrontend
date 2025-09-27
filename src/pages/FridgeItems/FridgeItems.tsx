@@ -59,7 +59,9 @@ const FridgeItems = () => {
 	const [recipe, setRecipe] = useState<RecipeResponse | null>(null);
 	const [isPending, startTransition] = useTransition();
 	const { Modal, openModal, closeModal } = useModal();
-	const [editingItemId, setEditingItemId] = useState<number | undefined>(undefined);
+	const [editingItemId, setEditingItemId] = useState<number | undefined>(
+		undefined,
+	);
 	const editItem = items.filter((item) => item.id === editingItemId);
 	const [sortKey, setSortKey] = useState<
 		| "category"
@@ -126,10 +128,14 @@ const FridgeItems = () => {
 			bValue = new Date(bValue);
 		}
 
-		if (sortKey === 'category') {
-		const aOrder = categories.findIndex((obj) => obj.name === a.attributes.category);
-		const bOrder = categories.findIndex((obj) => obj.name === b.attributes.category);
-		return sortOrder === 'asc' ? aOrder - bOrder : bOrder - aOrder
+		if (sortKey === "category") {
+			const aOrder = categories.findIndex(
+				(obj) => obj.name === a.attributes.category,
+			);
+			const bOrder = categories.findIndex(
+				(obj) => obj.name === b.attributes.category,
+			);
+			return sortOrder === "asc" ? aOrder - bOrder : bOrder - aOrder;
 		}
 
 		if (aValue < bValue) return sortOrder === "asc" ? -1 : 1;

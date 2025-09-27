@@ -4,7 +4,6 @@ import { useActionState } from "react";
 import toast from "react-hot-toast";
 import { api } from "../utils/axios";
 
-
 interface MailState {
 	new_email: string;
 	password: string;
@@ -27,10 +26,10 @@ const MailTab = ({ email }: { email: string }) => {
 				});
 				toast.success("新しいメールアドレスに確認メールを送信しました");
 			} catch (err) {
-					if ( err instanceof AxiosError) {
-						console.log(err);
-						toast.error(err.response?.data?.message);
-					}
+				if (err instanceof AxiosError) {
+					console.log(err);
+					toast.error(err.response?.data?.message);
+				}
 			}
 			return _state;
 		},

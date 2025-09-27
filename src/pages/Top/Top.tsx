@@ -2,13 +2,13 @@ import { ChefHat, Leaf, Refrigerator, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router";
 import EmailChangeSuccess from "../../components/EmailChangeSuccess";
 import Meta from "../../components/Meta";
+import { useEmailChangeConfirmation } from "../../hooks/useEmailChangeConfirmation";
 import useModal from "../../hooks/useModal";
+import { useScrollAnimation } from "../../hooks/useScrollAnimation";
 import FeatureCard from "./FeatureCard";
 import MeritHighLight from "./MeritHighLight";
 import Recommend from "./Recommend";
 import UsageCard from "./UsageCard";
-import { useEmailChangeConfirmation } from "../../hooks/useEmailChangeConfirmation";
-import { useScrollAnimation } from "../../hooks/useScrollAnimation";
 
 const recommendList: string[] = [
 	"忙しい仕事の合間に健康的な食事を摂りたい方",
@@ -18,15 +18,11 @@ const recommendList: string[] = [
 	"食材を無駄にせず、効率的に使い切りたい方",
 ];
 
-
 function Top(): React.ReactElement {
 	const navigate = useNavigate();
 	const { Modal, openModal, closeModal } = useModal();
 	const { email } = useEmailChangeConfirmation(openModal);
 	useScrollAnimation();
-
-
-
 
 	return (
 		<>
@@ -99,10 +95,7 @@ function Top(): React.ReactElement {
 					</div>
 				</section>
 
-				<section
-					id="feature"
-					className="scroll-mt-20 scroll-animation-target"
-				>
+				<section id="feature" className="scroll-mt-20 scroll-animation-target">
 					<div className="container mx-auto">
 						<div className="text-center">
 							<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
@@ -115,9 +108,7 @@ function Top(): React.ReactElement {
 						</div>
 
 						<div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mt-16">
-							<div
-								className="scroll-animation-target"
-							>
+							<div className="scroll-animation-target">
 								<FeatureCard
 									title="旬の野菜情報"
 									description="「旬・安い・栄養価が高い」野菜を一覧で表示。 季節に合わせた最適な食材選びをサポートします。"
@@ -158,10 +149,7 @@ function Top(): React.ReactElement {
 					</div>
 				</section>
 
-				<section
-					id="usage"
-					className="scroll-mt-20 scroll-animation-target"
-				>
+				<section id="usage" className="scroll-mt-20 scroll-animation-target">
 					<div className="container mx-auto">
 						<div className="text-center">
 							<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
@@ -174,9 +162,7 @@ function Top(): React.ReactElement {
 						</div>
 
 						<div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mt-16 place-items-center">
-							<div
-								className="scroll-animation-target"
-							>
+							<div className="scroll-animation-target">
 								<UsageCard
 									image="https://i.gyazo.com/ce62a126366946d7196e7c61a7118a26.jpg"
 									title="旬の野菜を選ぶ"
@@ -221,10 +207,7 @@ function Top(): React.ReactElement {
 					</div>
 				</section>
 
-				<section
-					id="merit"
-					className="scroll-mt-20 scroll-animation-target"
-				>
+				<section id="merit" className="scroll-mt-20 scroll-animation-target">
 					<div className="container mx-auto">
 						<div className="text-center">
 							<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
@@ -322,10 +305,7 @@ function Top(): React.ReactElement {
 
 								<div className="space-y-4 mt-8">
 									{recommendList.map((text) => (
-										<div
-											key={text}
-											className="scroll-animation-target"
-										>
+										<div key={text} className="scroll-animation-target">
 											<Recommend text={text} />
 										</div>
 									))}
@@ -335,9 +315,7 @@ function Top(): React.ReactElement {
 					</div>
 				</section>
 
-				<section
-					className="pb-20 scroll-animation-target"
-				>
+				<section className="pb-20 scroll-animation-target">
 					<div className="container text-center space-y-4 mx-auto">
 						<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
 							今すぐ初めて、<span className="text-primary">健康的な食生活</span>
