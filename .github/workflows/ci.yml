@@ -1,0 +1,47 @@
+name: React CI (Lint.テスト自動化)
+on:
+  push:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリのチェックアウト
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false 
+
+      - name: Node.js セットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: 依存関係インストール
+        run: npm ci
+
+      - name: Biome CLI のセットアップ
+        uses: biomejs/setup-biome@v2
+
+      - name: Biome チェック（CI モード）
+        run: biome ci .
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリのチェックアウト
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Node.js セットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: 依存関係インストール
+        run: npm ci
+      
+      - name: Vitest 実行
+        run: npm run test
