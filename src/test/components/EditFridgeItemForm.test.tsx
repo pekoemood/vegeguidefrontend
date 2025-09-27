@@ -33,7 +33,7 @@ describe("EditFridgeItemForm", () => {
 	});
 
 	describe("正常系", () => {
-		it("正しく笑気表示されること", () => {
+		it("正しく初期表示されること", () => {
 			expect(screen.getByPlaceholderText("食材名")).toBeInTheDocument();
 			expect(screen.getByRole("combobox")).toBeInTheDocument();
 			expect(screen.getByRole("option", { name: "野菜" })).toBeInTheDocument();
