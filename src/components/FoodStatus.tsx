@@ -33,7 +33,8 @@ const FoodStatus = ({
 	const { color, label } = statusMap[status] ?? statusMap.default;
 
 	return (
-		<div
+		<button
+			type="button"
 			className={`flex flex-col  items-center min-w-0 flex-1 border border-base-300 p-4 rounded-lg cursor-pointer transition transform hover:scale-105  hover:${color} hover:shadow-lg ${foodSelectedStatus === status && color}`}
 			onClick={() => setFoodSelectedStatus(status)}
 		>
@@ -41,7 +42,7 @@ const FoodStatus = ({
 			<span className="text-neutral-500 whitespace-nowrap text-xs">
 				{label}
 			</span>
-		</div>
+		</button>
 	);
 };
 

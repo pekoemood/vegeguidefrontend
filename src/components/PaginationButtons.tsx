@@ -17,7 +17,7 @@ const PaginationButtons = ({
 	return (
 		<div className="flex justify-center join my-8">
 			{Array.from({ length: totalPages }, (v, i) => i + 1).map((page) => (
-				<button
+				<button type="button"
 					key={page}
 					className={`join-item btn ${currentPage + 1 === page ? "btn-active" : ""}`}
 					onClick={() => handleMove(page)}

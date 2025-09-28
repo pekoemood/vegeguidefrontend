@@ -30,10 +30,10 @@ const AddListForm = ({
 				</div>
 
 				<div className="flex justify-end gap-2 mt-4">
-					<button className="btn" onClick={closeModal}>
+					<button type="button" className="btn" onClick={closeModal}>
 						キャンセル
 					</button>
-					<button className="btn" onClick={() => handleAddList(name)}>
+					<button type="button" className="btn" onClick={() => handleAddList(name)}>
 						追加
 					</button>
 				</div>

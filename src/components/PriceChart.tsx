@@ -31,11 +31,11 @@ const PriceChart = ({ prices }: PriceChartProps) => {
 
 	const groupedData: { [month: string]: YearlyPrice } = {};
 
-	prices.forEach(({ month, average_price }) => {
+	for (const { month, average_price } of prices) {
 		const [year, mon] = month.split("-");
 		if (!groupedData[mon]) groupedData[mon] = { month: mon };
 		groupedData[mon][year] = average_price;
-	});
+	}
 	console.log("group:", groupedData);
 
 	const chartData: YearlyPrice[] = Object.values(groupedData).sort(

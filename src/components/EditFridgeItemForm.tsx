@@ -71,7 +71,7 @@ const EditFridgeItemForm = ({
 					</div>
 
 					<div>
-						<button
+						<button type="button"
 							popoverTarget="rdp-popover"
 							className="input input-border w-full"
 							style={{ anchorName: "--rdp" } as React.CSSProperties}
@@ -95,10 +95,10 @@ const EditFridgeItemForm = ({
 					</div>
 
 					<div className="flex justify-end gap-4">
-						<button className="btn" onClick={closeModal}>
+						<button type="button" className="btn" onClick={closeModal}>
 							キャンセル
 						</button>
-						<button
+						<button type="button"
 							className="btn"
 							onClick={() => handleEdit({ id, name, category, amount, date })}
 						>

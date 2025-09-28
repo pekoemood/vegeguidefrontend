@@ -66,10 +66,11 @@ const AddItemForm = ({
 				</div>
 
 				<div className="flex justify-center gap-2 mt-4">
-					<button className="btn" onClick={closeModal}>
+					<button type="button" className="btn" onClick={closeModal}>
 						キャンセル
 					</button>
 					<button
+						type="button"
 						className="btn"
 						onClick={() =>
 							handleAddItem({ name, display_amount: amount, category })
