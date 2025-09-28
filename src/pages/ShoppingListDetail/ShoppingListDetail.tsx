@@ -164,16 +164,18 @@ const ShoppingListDetail = () => {
 			<div className="container max-w-screen-md mx-auto px-4 py-8">
 				<div className="mb-6 flex flex-col md:flex-row gap-2 md:justify-between">
 					<button
+						type="button"
 						onClick={() => navigate("/shoppinglist")}
 						className="btn btn-outline"
 					>
 						戻る
 					</button>
 					<div className="flex flex-col md:flex-row gap-2">
-						<button className="btn btn-outline" onClick={openModal}>
+						<button type="button" className="btn btn-outline" onClick={openModal}>
 							食材を追加する
 						</button>
 						<button
+							type="button"
 							className="btn btn-outline"
 							onClick={() => handleAddFridge(items)}
 						>
@@ -186,6 +188,7 @@ const ShoppingListDetail = () => {
 					<div className="flex flex-col space-y-2">
 						<div className="flex flex-wrap gap-2">
 							<button
+								type="button"
 								className={`text-xs  md:text-base badge ${selectedCategory === null && "badge-neutral"}`}
 								onClick={() => setSelectedCategory(null)}
 							>
@@ -194,6 +197,7 @@ const ShoppingListDetail = () => {
 							{categories.map((category) => (
 								<button
 									key={category}
+									type="button"
 									className={`text-xs md:text-base badge ${selectedCategory === category && "badge-neutral"}`}
 									onClick={() => setSelectedCategory(category)}
 								>

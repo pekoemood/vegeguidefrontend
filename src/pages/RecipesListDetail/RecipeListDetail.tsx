@@ -54,6 +54,7 @@ const RecipeListDetail = () => {
 			<main className="container max-w-screen-lg mx-auto px-8 py-6">
 				<div className="mb-6">
 					<button
+						type="button"
 						onClick={() => navigate("/recipe-lists")}
 						className="btn btn-outline"
 					>
@@ -96,7 +97,7 @@ const RecipeListDetail = () => {
 				</section>
 
 				<div className="mt-10">
-					<button onClick={openModal} className="btn btn-primary">
+					<button type="button" onClick={openModal} className="btn btn-primary">
 						<ShoppingCart />
 						買い物リストに追加
 					</button>
@@ -104,20 +105,22 @@ const RecipeListDetail = () => {
 
 				<div className="w-full mt-10">
 					<div role="tablist" className="tabs tabs-box flex justify-between">
-						<a
+						<button
+							type="button"
 							role="tab"
 							className={`tab flex-1 ${activeTab === "tab1" ? "tab-active" : ""}`}
 							onClick={() => setActiveTab("tab1")}
 						>
 							食材
-						</a>
-						<a
+						</button>
+						<button
+							type="button"
 							role="tab"
 							className={`tab flex-1 ${activeTab === "tab2" ? "tab-active" : ""}`}
 							onClick={() => setActiveTab("tab2")}
 						>
 							作り方
-						</a>
+						</button>
 					</div>
 
 					<div>

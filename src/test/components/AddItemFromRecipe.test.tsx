@@ -19,7 +19,7 @@ describe("AddItemFromRecipe", () => {
 		handleAddShoppingList: vi.fn(),
 	};
 
-	let renderResult: any;
+	let renderResult: ReturnType<typeof render>;
 
 	beforeEach(() => {
 		vi.clearAllMocks();

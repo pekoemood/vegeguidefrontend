@@ -14,7 +14,7 @@ const UsageCard = ({ image, title, description, number }: UsageCardProps) => {
 				</span>
 				<img
 					src={image}
-					alt="Image from Gyazo"
+					alt={`${title}の説明画面`}
 					className="object-contain h-full w-full"
 				/>
 			</div>

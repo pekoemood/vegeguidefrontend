@@ -23,7 +23,7 @@ import RecipeSkeleton from "../../components/RecipeSkeleton";
 import useModal from "../../hooks/useModal";
 import type {
 	FridgeAddItem,
-	FridgeItems,
+	FridgeItems as FridgeItemType,
 	FridgeItemsRes,
 	FridgeItemsResponse,
 	RecipeImage,
@@ -308,6 +308,7 @@ const FridgeItems = () => {
 						onChange={(e) => setName(e.target.value)}
 					/>
 					<button
+						type="button"
 						className="btn"
 						onClick={() => {
 							setEditingItemId(null);
@@ -323,7 +324,8 @@ const FridgeItems = () => {
 					className="tabs tabs-box mt-4 overflow-x-auto flex-nowrap animate-fade-up"
 					style={{ animationDelay: "0.3s", animationFillMode: "both" }}
 				>
-					<a
+					<button
+						type="button"
 						role="tab"
 						className={`tab flex-1 ${selectedCategory === null && "tab-active"} animate-fade-up`}
 						onClick={() => setSelectedCategory(null)}
@@ -335,10 +337,11 @@ const FridgeItems = () => {
 								すべて
 							</span>
 						</div>
-					</a>
+					</button>
 					{categories.map(({ name, icon: Icon }, index) => (
-						<a
+						<button
 							key={name}
+							type="button"
 							role="tab"
 							className={`tab flex-1 ${selectedCategory === name && "tab-active"} animate-fade-up`}
 							onClick={() => setSelectedCategory(name)}
@@ -353,7 +356,7 @@ const FridgeItems = () => {
 									{name}
 								</span>
 							</div>
-						</a>
+						</button>
 					))}
 				</div>
 
@@ -421,6 +424,7 @@ const FridgeItems = () => {
 						</div>
 
 						<button
+							type="button"
 							className="btn relative"
 							onClick={handleSuggestRecipe}
 							disabled={isPending || selectedItem.length === 0}
@@ -486,7 +490,7 @@ const FridgeItems = () => {
 										<ul className="flex flex-wrap gap-2">
 											{recipe.ingredients?.map((ingredient, index) => (
 												<li
-													key={index}
+													key={`${ingredient.name}-${index}`}
 													className="flex items-center gap-1 text-xs md:text-base"
 												>
 													<span className="badge badge-neutral badge-xs" />
@@ -505,7 +509,7 @@ const FridgeItems = () => {
 									</h3>
 									<ul className="steps steps-vertical">
 										{(recipe?.step ?? []).map((st, index) => (
-											<li key={index} className="step flex">
+											<li key={`step-${st?.step_number || index}`} className="step flex">
 												<p className="text-left text-xs md:text-base">
 													{st?.description}
 												</p>
@@ -516,6 +520,7 @@ const FridgeItems = () => {
 
 								<div className="flex justify-end gap-3 mt-6">
 									<button
+										type="button"
 										onClick={handleSaveRecipe}
 										className="btn relative"
 										disabled={isPending}
@@ -528,6 +533,7 @@ const FridgeItems = () => {
 										)}
 									</button>
 									<button
+										type="button"
 										className="btn"
 										onClick={() => {
 											setRecipe(null);
@@ -554,6 +560,15 @@ const FridgeItems = () => {
 								<th>食材名</th>
 								<th
 									onClick={() => handleSort("category")}
+									onKeyDown={(e) => {
+										if (e.key === 'Enter' || e.key === ' ') {
+											e.preventDefault();
+											handleSort("category");
+										}
+									}}
+									tabIndex={0}
+									role="button"
+									aria-label="カテゴリーでソートする"
 									className="cursor-pointer"
 								>
 									<div className="flex items-center space-x-2">
@@ -564,6 +579,15 @@ const FridgeItems = () => {
 								<th>数量</th>
 								<th
 									onClick={() => handleSort("expire_date")}
+									onKeyDown={(e) => {
+										if (e.key === 'Enter' || e.key === ' ') {
+											e.preventDefault();
+											handleSort("expire_date");
+										}
+									}}
+									tabIndex={0}
+									role="button"
+									aria-label="賞味期限でソートする"
 									className="cursor-pointer"
 								>
 									<div className="flex items-center space-x-2">
@@ -573,6 +597,15 @@ const FridgeItems = () => {
 								</th>
 								<th
 									onClick={() => handleSort("expire_status")}
+									onKeyDown={(e) => {
+										if (e.key === 'Enter' || e.key === ' ') {
+											e.preventDefault();
+											handleSort("expire_status");
+										}
+									}}
+									tabIndex={0}
+									role="button"
+									aria-label="状態でソートする"
 									className="cursor-pointer"
 								>
 									<div className="flex items-center space-x-2">
@@ -582,6 +615,15 @@ const FridgeItems = () => {
 								</th>
 								<th
 									onClick={() => handleSort("created_day")}
+									onKeyDown={(e) => {
+										if (e.key === 'Enter' || e.key === ' ') {
+											e.preventDefault();
+											handleSort("created_day");
+										}
+									}}
+									tabIndex={0}
+									role="button"
+									aria-label="追加日でソートする"
 									className="cursor-pointer"
 								>
 									<div className="flex items-center space-x-2">
