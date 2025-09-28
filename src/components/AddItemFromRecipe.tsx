@@ -42,7 +42,8 @@ const AddLItemFromRecipe = ({
 							<button type="button" className="btn" onClick={closeModal}>
 								キャンセル
 							</button>
-							<button type="button"
+							<button
+								type="button"
 								className="btn"
 								onClick={() => handleAddShoppingList({ name })}
 							>
@@ -59,7 +60,8 @@ const AddLItemFromRecipe = ({
 
 						<div className="flex flex-col space-y-2">
 							{shoppingLists.map((list) => (
-								<button type="button"
+								<button
+									type="button"
 									key={list.id}
 									className="btn btn-outline justify-between h-15 border-base-300"
 									onClick={() =>
@@ -85,7 +87,8 @@ const AddLItemFromRecipe = ({
 									</div>
 								</button>
 							))}
-							<button type="button"
+							<button
+								type="button"
 								className="btn btn-dash btn-primary h-15"
 								onClick={() => setIsCreateMode((prev) => !prev)}
 							>

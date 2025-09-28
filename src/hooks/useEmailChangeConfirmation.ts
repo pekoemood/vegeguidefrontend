@@ -45,7 +45,7 @@ export const useEmailChangeConfirmation = (
 			}
 		};
 		confirmEmailChange();
-	}, [location.search, navigate, openModal]);
+	}, [location.search, location.pathname, navigate, openModal]);
 
 	return { email };
 };

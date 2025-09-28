@@ -86,7 +86,10 @@ const GenerateRecipeArea = ({
 							</h3>
 							<ul className="steps steps-vertical">
 								{(recipe?.step ?? []).map((st) => (
-									<li key={`${st?.step_number ?? "step"}-${st?.description ?? ""}`} className="step flex">
+									<li
+										key={`${st?.step_number ?? "step"}-${st?.description ?? ""}`}
+										className="step flex"
+									>
 										<p className="text-left text-xs md:text-base">
 											{st?.description}
 										</p>

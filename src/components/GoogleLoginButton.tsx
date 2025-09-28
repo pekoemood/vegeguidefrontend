@@ -33,7 +33,8 @@ const GoogleLoginButton = ({ text }: { text: string }) => {
 		},
 	});
 	return (
-		<button type="button"
+		<button
+			type="button"
 			className="btn bg-white text-black border-[#e5e5e5] w-full"
 			onClick={() => login()}
 		>
