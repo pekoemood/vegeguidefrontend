@@ -113,13 +113,14 @@ const VegeList = () => {
 							{filteredNames.length > 0 ? (
 								filteredNames.map((name) => (
 									<li key={name}>
-										<a
+										<button
+											type="button"
 											onClick={() => handleSelect(name)}
 											onMouseDown={(e) => e.preventDefault()}
-											className="hover:bg-base-200 transition-colors duration-200"
+											className="hover:bg-base-200 transition-colors duration-200 w-full text-left"
 										>
 											{name}
-										</a>
+										</button>
 									</li>
 								))
 							) : (
@@ -194,6 +195,7 @@ const VegeList = () => {
 							</p>
 							<div className="flex flex-col sm:flex-row gap-3 justify-center">
 								<button
+									type="button"
 									onClick={handleResetFilters}
 									className="btn btn-outline btn-primary gap-2"
 								>
@@ -201,6 +203,7 @@ const VegeList = () => {
 									フィルターをリセット
 								</button>
 								<button
+									type="button"
 									onClick={() => setSearchText("")}
 									className="btn btn-ghost gap-2"
 								>

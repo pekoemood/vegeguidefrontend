@@ -72,12 +72,13 @@ function Top(): React.ReactElement {
 							style={{ animationDelay: "0.5s", animationFillMode: "both" }}
 						>
 							<button
+								type="button"
 								className="btn btn-primary"
 								onClick={() => navigate("/signup")}
 							>
 								今すぐ使ってみる
 							</button>
-							<button className="btn">
+							<button type="button" className="btn">
 								<a href="#feature">詳しく見る</a>
 							</button>
 						</div>
@@ -229,7 +230,7 @@ function Top(): React.ReactElement {
 									<a href="https://gyazo.com/fb5be1e00203df88a56a73f9291c9d87">
 										<img
 											src="https://i.gyazo.com/fb5be1e00203df88a56a73f9291c9d87.gif"
-											alt="Image from Gyazo"
+											alt="野菜一覧機能のデモンストレーション"
 											width="600"
 										/>
 									</a>
@@ -246,7 +247,7 @@ function Top(): React.ReactElement {
 									<a href="https://gyazo.com/b40e4457aeb065d479f75c0010c8cf2b">
 										<img
 											src="https://i.gyazo.com/b40e4457aeb065d479f75c0010c8cf2b.gif"
-											alt="Image from Gyazo"
+											alt="レシピ生成機能のデモンストレーション"
 											width="600"
 										/>
 									</a>
@@ -263,7 +264,7 @@ function Top(): React.ReactElement {
 									<a href="https://gyazo.com/6632c66b96f6e7eb1ca6c49a3cd5e9ea">
 										<img
 											src="https://i.gyazo.com/6632c66b96f6e7eb1ca6c49a3cd5e9ea.gif"
-											alt="Image from Gyazo"
+											alt="買い物リスト機能のデモンストレーション"
 											width="480"
 										/>
 									</a>
@@ -281,7 +282,7 @@ function Top(): React.ReactElement {
 									<a href="https://gyazo.com/c2dda647c92d1499f67c7446b210ecef">
 										<img
 											src="https://i.gyazo.com/c2dda647c92d1499f67c7446b210ecef.gif"
-											alt="Image from Gyazo"
+											alt="冷蔵庫管理機能のデモンストレーション"
 											width="480"
 										/>
 									</a>
@@ -328,6 +329,7 @@ function Top(): React.ReactElement {
 
 						<div className="flex justify-center pt-4">
 							<button
+								type="button"
 								className="btn btn-primary transform transition hover:scale-105"
 								onClick={() => navigate("/signup")}
 							>

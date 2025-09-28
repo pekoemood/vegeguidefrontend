@@ -21,7 +21,7 @@ const MeritHighLight = ({
 				</h3>
 				<ul className="space-y-3">
 					{merits.map((merit, index) => (
-						<li key={index} className="flex items-start gap-2">
+						<li key={`merit-${merit.slice(0, 10)}-${index}`} className="flex items-start gap-2">
 							<CircleCheckBigIcon className="h-5 w-5 text-primary shrink-0 mt-0.5" />
 							<span>{merit}</span>
 						</li>

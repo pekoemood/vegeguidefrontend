@@ -187,6 +187,7 @@ const RecipeGeneratorPage = () => {
 											{veg.name}
 										</span>
 										<button
+											type="button"
 											className="btn btn-ghost btn-xs text-primary-content hover:bg-primary-focus rounded-full w-4 h-4 min-h-0 p-0"
 											onClick={() => toggleVegetable(id)}
 											aria-label={`${veg.name}を選択から除外`}
@@ -321,11 +322,11 @@ const RecipeGeneratorPage = () => {
 					<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
 						{/* 調理時間とカロリー設定を上段に配置 */}
 						<div className="bg-base-100 p-6 rounded-xl border border-base-300 shadow-sm">
-							<label className="label">
+							<div className="label">
 								<span className="label-text text-base font-semibold flex items-center gap-2">
 									<Clock size={16} className="inline" /> 調理時間
 								</span>
-							</label>
+							</div>
 							<div className="grid grid-cols-3 gap-3 mt-3">
 								{[
 									{
@@ -413,11 +414,11 @@ const RecipeGeneratorPage = () => {
 
 					{/* 料理カテゴリを全幅で配置 */}
 					<div className="bg-base-100 p-6 rounded-xl border border-base-300 shadow-sm mt-6">
-						<label className="label">
+						<div className="label">
 							<span className="label-text text-base font-semibold flex items-center gap-2">
 								<Utensils size={16} className="inline" /> 料理カテゴリ
 							</span>
-						</label>
+						</div>
 						<div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-2 mt-3">
 							{[
 								{ value: "主菜", icon: Beef },
@@ -457,11 +458,11 @@ const RecipeGeneratorPage = () => {
 					<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
 						{/* 目的・シーンと分量を下段に配置 */}
 						<div className="bg-base-100 p-6 rounded-xl border border-base-300 shadow-sm">
-							<label className="label">
+							<div className="label">
 								<span className="label-text text-base font-semibold flex items-center gap-2">
 									<Target size={16} className="inline" /> 目的・シーン
 								</span>
-							</label>
+							</div>
 							<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mt-3">
 								{[
 									{ value: "普段使い", icon: Home, desc: "日常の食事" },
@@ -506,11 +507,11 @@ const RecipeGeneratorPage = () => {
 						</div>
 
 						<div className="bg-base-100 p-6 rounded-xl border border-base-300 shadow-sm">
-							<label className="label">
+							<div className="label">
 								<span className="label-text text-base font-semibold flex items-center gap-2">
 									<Users size={16} className="inline" /> 分量
 								</span>
-							</label>
+							</div>
 							<div className="flex items-center justify-center gap-4 mt-4">
 								<button
 									type="button"
@@ -543,11 +544,11 @@ const RecipeGeneratorPage = () => {
 
 					{/* 調理方法を全幅で配置 */}
 					<div className="bg-base-100 p-6 rounded-xl border border-base-300 shadow-sm mt-6">
-						<label className="label">
+						<div className="label">
 							<span className="label-text text-base font-semibold flex items-center gap-2">
 								<ChefHat size={16} className="inline" /> 調理方法
 							</span>
-						</label>
+						</div>
 						<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mt-3">
 							{[
 								{ value: "指定なし", icon: ShoppingCart, desc: "おまかせ" },

@@ -47,6 +47,7 @@ const ShoppingList = () => {
 
 				<div className="mt-4 flex">
 					<button
+						type="button"
 						className="btn btn-outline w-full sm:w-fit"
 						onClick={openModal}
 					>
