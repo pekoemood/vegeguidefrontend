@@ -36,9 +36,9 @@ const ShoppingListDetail = () => {
 		return acc;
 	}, {});
 
-	Object.keys(filteredGroupedItems).forEach((category) => {
+	for (const category of Object.keys(filteredGroupedItems)) {
 		filteredGroupedItems[category].sort((a, b) => a.checked - b.checked);
-	});
+	}
 
 	const groupedItems = items.reduce((acc, item) => {
 		if (!acc[item.category]) {
@@ -83,7 +83,7 @@ const ShoppingListDetail = () => {
 			try {
 				const updates = [...changedItems].map((id) => {
 					const item = items.find((i) => i.item_id === id);
-					return { id: item.item_id, checked: item.checked };
+					return { id: item?.item_id, checked: item?.checked };
 				});
 				await api.patch(
 					`/shopping_lists/${shoppingList.id}/shopping_list_items/batch_update`,
@@ -101,7 +101,7 @@ const ShoppingListDetail = () => {
 		}, 3000);
 
 		return () => clearTimeout(timer);
-	}, [changedItems]);
+	}, [changedItems, shoppingList.id, items]);
 
 	const handleAddItem = async ({
 		name,
@@ -171,7 +171,11 @@ const ShoppingListDetail = () => {
 						戻る
 					</button>
 					<div className="flex flex-col md:flex-row gap-2">
-						<button type="button" className="btn btn-outline" onClick={openModal}>
+						<button
+							type="button"
+							className="btn btn-outline"
+							onClick={openModal}
+						>
 							食材を追加する
 						</button>
 						<button

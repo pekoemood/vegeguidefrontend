@@ -39,7 +39,7 @@ const VegeList = () => {
 			});
 		}, 500);
 		return () => clearTimeout(timer);
-	}, [searchText, isResetting]);
+	}, [searchText, isResetting, setSearchParams]);
 
 	//フィルター即座反映（リセット時は除く）
 	useEffect(() => {
@@ -52,7 +52,7 @@ const VegeList = () => {
 			current.set("page", "1");
 			return current;
 		});
-	}, [isInSeason, isDiscounted, isResetting]);
+	}, [isInSeason, isDiscounted, isResetting, setSearchParams]);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;

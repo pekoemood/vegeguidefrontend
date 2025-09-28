@@ -4,7 +4,10 @@ type LabelProps = {
 	className?: string;
 	htmlFor: string;
 	children: ReactNode;
-} & Omit<LabelHTMLAttributes<HTMLLabelElement>, "className" | "htmlFor" | "children">;
+} & Omit<
+	LabelHTMLAttributes<HTMLLabelElement>,
+	"className" | "htmlFor" | "children"
+>;
 
 const Label = ({ className = "", htmlFor, children, ...props }: LabelProps) => {
 	return (

@@ -18,7 +18,8 @@ const AccountSetting = ({
 			</p>
 
 			<div role="tablist" className="tabs tabs-box mt-6">
-				<button type="button"
+				<button
+					type="button"
 					role="tab"
 					className={`text-xs md:text-base tab flex-1 ${activeTab === "profile" && "tab-active"}`}
 					onClick={() => setActiveTab("profile")}
@@ -27,14 +28,16 @@ const AccountSetting = ({
 				</button>
 				{!google_account && (
 					<>
-						<button type="button"
+						<button
+							type="button"
 							role="tab"
 							className={`text-xs md:text-base tab flex-1 ${activeTab === "password" && "tab-active"}`}
 							onClick={() => setActiveTab("password")}
 						>
 							パスワード
 						</button>
-						<button type="button"
+						<button
+							type="button"
 							role="tab"
 							className={`text-xs md:text-base tab flex-1 ${activeTab === "mail" && "tab-active"}`}
 							onClick={() => setActiveTab("mail")}

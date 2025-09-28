@@ -4,13 +4,11 @@ export const useScrollAnimation = (options = {}) => {
 	useEffect(() => {
 		const observer = new IntersectionObserver(
 			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						setTimeout(() => {
-							entry.target.classList.add("animate-fade-up");
-						}, 100);
-					}
-				});
+				for (const entry of entries) {
+					setTimeout(() => {
+						entry.target.classList.add("animate-fade-up");
+					}, 100);
+				}
 			},
 			{
 				threshold: 0.15,
@@ -20,11 +18,15 @@ export const useScrollAnimation = (options = {}) => {
 		);
 
 		const targets = document.querySelectorAll(".scroll-animation-target");
-		targets.forEach((target) => observer.observe(target));
+		for(const target of targets) {
+			observer.observe(target);
+		}
 
 		return () => {
-			targets.forEach((target) => observer.unobserve(target));
-			observer.disconnect();
+			for(const target of targets) {
+				observer.unobserve(target);
+				observer.disconnect();
+			}
 		};
-	}, []);
+	}, [options]);
 };

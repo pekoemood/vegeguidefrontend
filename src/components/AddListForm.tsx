@@ -33,7 +33,11 @@ const AddListForm = ({
 					<button type="button" className="btn" onClick={closeModal}>
 						キャンセル
 					</button>
-					<button type="button" className="btn" onClick={() => handleAddList(name)}>
+					<button
+						type="button"
+						className="btn"
+						onClick={() => handleAddList(name)}
+					>
 						追加
 					</button>
 				</div>

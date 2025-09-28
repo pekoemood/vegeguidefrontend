@@ -509,7 +509,10 @@ const FridgeItems = () => {
 									</h3>
 									<ul className="steps steps-vertical">
 										{(recipe?.step ?? []).map((st, index) => (
-											<li key={`step-${st?.step_number || index}`} className="step flex">
+											<li
+												key={`step-${st?.step_number || index}`}
+												className="step flex"
+											>
 												<p className="text-left text-xs md:text-base">
 													{st?.description}
 												</p>
@@ -561,13 +564,11 @@ const FridgeItems = () => {
 								<th
 									onClick={() => handleSort("category")}
 									onKeyDown={(e) => {
-										if (e.key === 'Enter' || e.key === ' ') {
+										if (e.key === "Enter" || e.key === " ") {
 											e.preventDefault();
 											handleSort("category");
 										}
 									}}
-									tabIndex={0}
-									role="button"
 									aria-label="カテゴリーでソートする"
 									className="cursor-pointer"
 								>
@@ -580,13 +581,11 @@ const FridgeItems = () => {
 								<th
 									onClick={() => handleSort("expire_date")}
 									onKeyDown={(e) => {
-										if (e.key === 'Enter' || e.key === ' ') {
+										if (e.key === "Enter" || e.key === " ") {
 											e.preventDefault();
 											handleSort("expire_date");
 										}
 									}}
-									tabIndex={0}
-									role="button"
 									aria-label="賞味期限でソートする"
 									className="cursor-pointer"
 								>
@@ -598,13 +597,11 @@ const FridgeItems = () => {
 								<th
 									onClick={() => handleSort("expire_status")}
 									onKeyDown={(e) => {
-										if (e.key === 'Enter' || e.key === ' ') {
+										if (e.key === "Enter" || e.key === " ") {
 											e.preventDefault();
 											handleSort("expire_status");
 										}
 									}}
-									tabIndex={0}
-									role="button"
 									aria-label="状態でソートする"
 									className="cursor-pointer"
 								>
@@ -616,13 +613,11 @@ const FridgeItems = () => {
 								<th
 									onClick={() => handleSort("created_day")}
 									onKeyDown={(e) => {
-										if (e.key === 'Enter' || e.key === ' ') {
+										if (e.key === "Enter" || e.key === " ") {
 											e.preventDefault();
 											handleSort("created_day");
 										}
 									}}
-									tabIndex={0}
-									role="button"
 									aria-label="追加日でソートする"
 									className="cursor-pointer"
 								>

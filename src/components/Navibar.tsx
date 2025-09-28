@@ -88,7 +88,10 @@ const Navibar = () => {
 	return (
 		<div className="navbar bg-primary text-primary-content">
 			<div className="navbar-start">
-				<button type="button" className="btn btn-ghost text-xl flex items-center">
+				<button
+					type="button"
+					className="btn btn-ghost text-xl flex items-center"
+				>
 					<img className="block w-8 h-8 " src="/vegege.png" alt="" />
 					<Link to="/">VegeGuide</Link>
 				</button>
@@ -96,7 +99,8 @@ const Navibar = () => {
 
 			{/* モバイル用　：　ハンバーガー */}
 			<div className="navbar-end lg:hidden relative">
-				<button type="button"
+				<button
+					type="button"
 					className="btn btn-ghost"
 					onClick={() => setIsOpen(!isOpen)}
 					aria-label={isOpen ? "メニューを閉じる" : "メニューを開く"}
@@ -173,7 +177,8 @@ const Navibar = () => {
 									</Link>
 								</li>
 								<li>
-									<button type="button"
+									<button
+										type="button"
 										className="flex items-center gap-x-1"
 										onClick={() => {
 											openModal();
@@ -185,10 +190,11 @@ const Navibar = () => {
 									</button>
 								</li>
 								<li>
-									<button type="button"
+									<button
+										type="button"
 										onClick={() => {
 											handleLogout();
-									setIsOpen(false);
+											setIsOpen(false);
 										}}
 										className="flex items-center gap-x-1 hover:bg-primary/10 transition-colors duration-200"
 										disabled={isLoggingOut}
@@ -289,13 +295,18 @@ const Navibar = () => {
 					{user?.name ? (
 						<>
 							<li>
-								<button type="button" className="flex items-center gap-x-1" onClick={openModal}>
+								<button
+									type="button"
+									className="flex items-center gap-x-1"
+									onClick={openModal}
+								>
 									<User size={15} />
 									マイページ
 								</button>
 							</li>
 							<li>
-								<button type="button"
+								<button
+									type="button"
 									onClick={handleLogout}
 									className="flex items-center gap-x-1 hover:bg-primary/10 transition-colors duration-200"
 									disabled={isLoggingOut}

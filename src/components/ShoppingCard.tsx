@@ -54,7 +54,8 @@ const ShoppingCard = ({
 					/>
 
 					<div className="flex justify-end">
-						<button type="button"
+						<button
+							type="button"
 							onClick={(e) => handleDestroy(e, id)}
 							className="mt-2 btn btn-outline btn-error flex items-center gap-2"
 						>

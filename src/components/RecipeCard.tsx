@@ -29,7 +29,6 @@ const RecipeCard = ({
 		}
 	};
 
-
 	return (
 		<Link to={`/recipe-lists/${id}`} className="block">
 			<div className="cursor-pointer w-90 card shadow-sm transition-transform duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">

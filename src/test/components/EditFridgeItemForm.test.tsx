@@ -4,9 +4,10 @@ import React from "react";
 import EditFridgeItemForm from "../../components/EditFridgeItemForm";
 
 describe("EditFridgeItemForm", () => {
-	const MockIcon: LucideIcon = React.forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>(
-		(props, ref) => <div data-testid="mock-icon" ref={ref} {...props} />,
-	);
+	const MockIcon: LucideIcon = React.forwardRef<
+		SVGSVGElement,
+		React.SVGProps<SVGSVGElement>
+	>((props, ref) => <div data-testid="mock-icon" ref={ref} {...props} />);
 	const defaultProps = {
 		closeModal: vi.fn(),
 		categories: [
