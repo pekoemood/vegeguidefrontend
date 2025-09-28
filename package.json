@@ -9,6 +9,7 @@
 		"preview": "vite preview",
 		"check": "npx @biomejs/biome check --fix .",
 		"lint": "npx @biomejs/biome lint .",
+		"type-check": "tsc --noEmit",
 		"test": "vitest run",
 		"test:watch": "vitest --watch"
 	},
