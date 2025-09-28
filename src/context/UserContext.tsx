@@ -38,7 +38,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 		} finally {
 			setLoading(false);
 		}
-	}, []); 
+	}, []);
 
 	useEffect(() => {
 		fetchUser();
