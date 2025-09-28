@@ -39,10 +39,10 @@ const AddLItemFromRecipe = ({
 						</div>
 
 						<div className="flex justify-end gap-2 mt-4">
-							<button className="btn" onClick={closeModal}>
+							<button type="button" className="btn" onClick={closeModal}>
 								キャンセル
 							</button>
-							<button
+							<button type="button"
 								className="btn"
 								onClick={() => handleAddShoppingList({ name })}
 							>
@@ -59,7 +59,7 @@ const AddLItemFromRecipe = ({
 
 						<div className="flex flex-col space-y-2">
 							{shoppingLists.map((list) => (
-								<button
+								<button type="button"
 									key={list.id}
 									className="btn btn-outline justify-between h-15 border-base-300"
 									onClick={() =>
@@ -85,7 +85,7 @@ const AddLItemFromRecipe = ({
 									</div>
 								</button>
 							))}
-							<button
+							<button type="button"
 								className="btn btn-dash btn-primary h-15"
 								onClick={() => setIsCreateMode((prev) => !prev)}
 							>
@@ -95,7 +95,7 @@ const AddLItemFromRecipe = ({
 						</div>
 
 						<div className="flex justify-end gap-2 mt-4">
-							<button className="btn" onClick={closeModal}>
+							<button type="button" className="btn" onClick={closeModal}>
 								キャンセル
 							</button>
 						</div>

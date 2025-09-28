@@ -33,7 +33,7 @@ const GoogleLoginButton = ({ text }: { text: string }) => {
 		},
 	});
 	return (
-		<button
+		<button type="button"
 			className="btn bg-white text-black border-[#e5e5e5] w-full"
 			onClick={() => login()}
 		>
@@ -44,6 +44,7 @@ const GoogleLoginButton = ({ text }: { text: string }) => {
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="0 0 512 512"
 			>
+				<title>Googleロゴ</title>
 				<g>
 					<path d="m0 0H512V512H0" fill="#fff" />
 					<path

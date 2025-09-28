@@ -73,6 +73,7 @@ const AddFridgeItemForm = ({
 
 					<div>
 						<button
+							type="button"
 							popoverTarget="rdp-popover"
 							className="input input-border w-full"
 							style={{ ["anchorName" as string]: "--rdp" }}
@@ -97,10 +98,11 @@ const AddFridgeItemForm = ({
 					</div>
 
 					<div className="flex justify-end gap-4">
-						<button className="btn" onClick={closeModal}>
+						<button type="button" className="btn" onClick={closeModal}>
 							キャンセル
 						</button>
 						<button
+							type="button"
 							className="btn"
 							onClick={() => handleAdd({ name, category, amount, date })}
 						>

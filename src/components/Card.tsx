@@ -58,7 +58,7 @@ const Card = ({
 
 						<p>{description}</p>
 						<div className="card-actions justify-end">
-							<button onClick={handleClick} className="btn btn-primary w-full">
+							<button type="button" onClick={handleClick} className="btn btn-primary w-full">
 								詳細を見る
 							</button>
 						</div>
