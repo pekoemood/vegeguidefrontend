@@ -18,12 +18,12 @@ export const useScrollAnimation = (options = {}) => {
 		);
 
 		const targets = document.querySelectorAll(".scroll-animation-target");
-		for(const target of targets) {
+		for (const target of targets) {
 			observer.observe(target);
 		}
 
 		return () => {
-			for(const target of targets) {
+			for (const target of targets) {
 				observer.unobserve(target);
 				observer.disconnect();
 			}
