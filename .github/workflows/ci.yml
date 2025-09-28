@@ -1,6 +1,14 @@
 name: React CI (Lint.テスト自動化)
 on:
   push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
 
 jobs:
   quality:
@@ -12,7 +20,7 @@ jobs:
           persist-credentials: false 
 
       - name: Node.js セットアップ
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '22'
           cache: 'npm'
@@ -35,7 +43,7 @@ jobs:
           persist-credentials: false
 
       - name: Node.js セットアップ
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '22'
           cache: 'npm'

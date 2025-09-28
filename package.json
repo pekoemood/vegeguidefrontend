@@ -8,6 +8,7 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "npx @biomejs/biome check --fix .",
+		"lint": "biome lint .",
 		"test": "vitest run",
 		"test:watch": "vitest --watch"
 	},
