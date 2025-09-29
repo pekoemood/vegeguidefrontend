@@ -42,7 +42,7 @@
 		"@types/react-dom": "^19.1.6",
 		"@vitejs/plugin-react-swc": "^3.8.0",
 		"@vitest/ui": "^3.2.4",
-		"globals": "^15.15.0",
+		"globals": "^16.4.0",
 		"jsdom": "^26.1.0",
 		"typescript": "^5.8.3",
 		"vite": "^6.2.0",
