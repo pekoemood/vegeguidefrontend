@@ -128,6 +128,9 @@ const FridgeItems = () => {
 			bValue = new Date(bValue);
 		}
 
+		if (aValue < bValue) return sortOrder === "asc" ? -1 : 1;
+		if (aValue > bValue) return sortOrder === "asc" ? 1 : -1;
+
 		if (sortKey === "category") {
 			const aOrder = categories.findIndex(
 				(obj) => obj.name === a.attributes.category,
@@ -138,8 +141,7 @@ const FridgeItems = () => {
 			return sortOrder === "asc" ? aOrder - bOrder : bOrder - aOrder;
 		}
 
-		if (aValue < bValue) return sortOrder === "asc" ? -1 : 1;
-		if (aValue > bValue) return sortOrder === "asc" ? 1 : -1;
+
 		return 0;
 	});
 

@@ -77,7 +77,5 @@ describe("EditFridgeItemForm", () => {
 				screen.getByRole("button", { name: "9/25/2025" }),
 			).toBeInTheDocument();
 		});
-		it("カテゴリ選択が正しく選択できること");
-		it("キャンセルボタンでモーダルが閉じること");
 	});
 });
