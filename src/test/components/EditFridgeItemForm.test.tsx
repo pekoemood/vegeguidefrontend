@@ -30,8 +30,14 @@ describe("EditFridgeItemForm", () => {
 		handleEdit: vi.fn(),
 	};
 	beforeEach(() => {
+		vi.useFakeTimers({ toFake: ["Date"] });
+		vi.setSystemTime(new Date(2025, 8, 15));
 		vi.resetAllMocks();
 		render(<EditFridgeItemForm {...defaultProps} />);
+	});
+
+	afterEach(() => {
+		vi.useRealTimers();
 	});
 
 	describe("正常系", () => {
@@ -45,7 +51,7 @@ describe("EditFridgeItemForm", () => {
 			).toBeInTheDocument();
 		});
 		it("入力フィールドが正しく更新されること", async () => {
-			const user = userEvent.setup();
+			const user = userEvent.setup({ delay: null });
 			const inputIngredient = screen.getByPlaceholderText("食材名");
 			expect(inputIngredient).toHaveValue("人参");
 			await user.clear(inputIngredient);
