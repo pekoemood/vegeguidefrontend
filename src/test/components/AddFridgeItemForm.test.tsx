@@ -14,8 +14,14 @@ describe("AddFridgeItemForm", () => {
 			handleAdd: vi.fn(),
 		};
 		beforeEach(() => {
+			vi.useFakeTimers({ toFake: ["Date"] });
+			vi.setSystemTime(new Date(2025, 8, 10));
 			vi.clearAllMocks();
 			render(<AddFridgeItemForm {...defaultProps} />);
+		});
+
+		afterEach(() => {
+			vi.useRealTimers();
 		});
 		it("初期表示の確認", () => {
 			expect(
