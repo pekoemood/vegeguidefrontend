@@ -141,7 +141,6 @@ const FridgeItems = () => {
 			return sortOrder === "asc" ? aOrder - bOrder : bOrder - aOrder;
 		}
 
-
 		return 0;
 	});
 
