@@ -27,6 +27,7 @@ const VegeList = () => {
 	const [isResetting, setIsResetting] = useState<boolean>(false);
 
 	//野菜名の遅延検索（デバウンス、リセット時は除く）
+	// biome-ignore lint/correctness/useExhaustiveDependencies: setSearchParamsは依存配列に入れることで無限ローディングが発生するため依存不要
 	useEffect(() => {
 		if (isResetting) return;
 
@@ -39,9 +40,10 @@ const VegeList = () => {
 			});
 		}, 500);
 		return () => clearTimeout(timer);
-	}, [searchText, isResetting, setSearchParams]);
+	}, [searchText, isResetting]);
 
 	//フィルター即座反映（リセット時は除く）
+	// biome-ignore lint/correctness/useExhaustiveDependencies: setSearchParamsは依存配列に入れることで無限ローディングが発生するため依存不要
 	useEffect(() => {
 		if (isResetting) return;
 
@@ -52,7 +54,7 @@ const VegeList = () => {
 			current.set("page", "1");
 			return current;
 		});
-	}, [isInSeason, isDiscounted, isResetting, setSearchParams]);
+	}, [isInSeason, isDiscounted, isResetting]);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;

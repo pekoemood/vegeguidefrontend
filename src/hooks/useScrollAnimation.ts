@@ -1,21 +1,46 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
-export const useScrollAnimation = (options = {}) => {
+interface ScrollAnimationOptions {
+	threshold?: number | number[];
+	rootMargin?: string;
+	baseDelay?: number;
+	staggerDelay?: number;
+	once?: boolean;
+	animationClass?: string;
+}
+
+export const useScrollAnimation = ({
+	threshold = 0.3,
+	rootMargin = "-40px 0px",
+	baseDelay = 0,
+	staggerDelay = 100,
+	once = true,
+	animationClass = "animate-fade-up",
+}: ScrollAnimationOptions = {}) => {
+	const observerRef = useRef<IntersectionObserver | null>(null);
+	const animatedElementsRef = useRef<Set<Element>>(new Set());
+
 	useEffect(() => {
 		const observer = new IntersectionObserver(
 			(entries) => {
 				for (const entry of entries) {
-					setTimeout(() => {
-						entry.target.classList.add("animate-fade-up");
-					}, 100);
+					if (entry.isIntersecting) {
+						const indexArr = entry.target.getAttribute("data-animation-index");
+						const index = indexArr ? Number.parseInt(indexArr) : 0;
+						const totalDelay = baseDelay + index * staggerDelay;
+
+						setTimeout(() => {
+							entry.target.classList.add(animationClass);
+							animatedElementsRef.current.add(entry.target);
+							observer.unobserve(entry.target);
+						}, totalDelay);
+					}
 				}
 			},
-			{
-				threshold: 0.15,
-				rootMargin: "-40px 0px",
-				...options,
-			},
+			{ threshold, rootMargin },
 		);
+
+		observerRef.current = observer;
 
 		const targets = document.querySelectorAll(".scroll-animation-target");
 		for (const target of targets) {
@@ -23,10 +48,12 @@ export const useScrollAnimation = (options = {}) => {
 		}
 
 		return () => {
-			for (const target of targets) {
-				observer.unobserve(target);
-				observer.disconnect();
+			if (observerRef.current) {
+				observerRef.current.disconnect();
+				observerRef.current = null;
 			}
+
+			animatedElementsRef.current.clear();
 		};
-	}, [options]);
+	}, [threshold, rootMargin, baseDelay, staggerDelay, animationClass]);
 };
