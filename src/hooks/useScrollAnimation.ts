@@ -15,11 +15,10 @@ export const useScrollAnimation = ({
 	baseDelay = 0,
 	staggerDelay = 100,
 	once = true,
-	animationClass = 'animate-fade-up',
+	animationClass = "animate-fade-up",
 }: ScrollAnimationOptions = {}) => {
 	const observerRef = useRef<IntersectionObserver | null>(null);
 	const animatedElementsRef = useRef<Set<Element>>(new Set());
-
 
 	useEffect(() => {
 		const observer = new IntersectionObserver(
@@ -34,11 +33,11 @@ export const useScrollAnimation = ({
 							entry.target.classList.add(animationClass);
 							animatedElementsRef.current.add(entry.target);
 							observer.unobserve(entry.target);
-					}, totalDelay);
+						}, totalDelay);
 					}
 				}
 			},
-			{ threshold,rootMargin },
+			{ threshold, rootMargin },
 		);
 
 		observerRef.current = observer;
@@ -56,5 +55,5 @@ export const useScrollAnimation = ({
 
 			animatedElementsRef.current.clear();
 		};
-	}, [threshold, rootMargin, baseDelay, staggerDelay, once, animationClass]);
+	}, [threshold, rootMargin, baseDelay, staggerDelay, animationClass]);
 };

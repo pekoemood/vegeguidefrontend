@@ -92,7 +92,10 @@ function Top(): React.ReactElement {
 
 				<section id="feature" className="scroll-mt-20">
 					<div className="container mx-auto">
-						<div className="text-center scroll-animation-target" data-animation-index="0">
+						<div
+							className="text-center scroll-animation-target"
+							data-animation-index="0"
+						>
 							<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
 								<span className="text-primary">VegeGuide</span>の特徴
 							</h2>
@@ -137,7 +140,10 @@ function Top(): React.ReactElement {
 
 				<section id="usage" className="scroll-mt-20">
 					<div className="container mx-auto">
-						<div className="text-center scroll-animation-target" data-animation-index="0">
+						<div
+							className="text-center scroll-animation-target"
+							data-animation-index="0"
+						>
 							<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
 								使い方はとてもシンプル
 							</h2>
@@ -186,7 +192,10 @@ function Top(): React.ReactElement {
 
 				<section id="merit" className="scroll-mt-20">
 					<div className="container mx-auto">
-						<div className="text-center scroll-animation-target" data-animation-index="0">
+						<div
+							className="text-center scroll-animation-target"
+							data-animation-index="0"
+						>
 							<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
 								VegeGuideを使うメリット
 							</h2>
@@ -280,14 +289,21 @@ function Top(): React.ReactElement {
 				<section>
 					<div className="container mx-auto">
 						<div className="text-center">
-							<div className="mx-auto max-w-2xl rounded-xl shadow-lg p-1 md:p-5 lg:p-10 scroll-animation-target" data-animation-index="0">
+							<div
+								className="mx-auto max-w-2xl rounded-xl shadow-lg p-1 md:p-5 lg:p-10 scroll-animation-target"
+								data-animation-index="0"
+							>
 								<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
 									こんな方におすすめです
 								</h2>
 
 								<div className="space-y-4 mt-8">
 									{recommendList.map((text, index) => (
-										<div key={text} className="scroll-animation-target" data-animation-index={index + 1}>
+										<div
+											key={text}
+											className="scroll-animation-target"
+											data-animation-index={index + 1}
+										>
 											<Recommend text={text} />
 										</div>
 									))}
@@ -298,7 +314,10 @@ function Top(): React.ReactElement {
 				</section>
 
 				<section className="pb-20">
-					<div className="container text-center space-y-4 mx-auto scroll-animation-target" data-animation-index="0">
+					<div
+						className="container text-center space-y-4 mx-auto scroll-animation-target"
+						data-animation-index="0"
+					>
 						<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
 							今すぐ初めて、<span className="text-primary">健康的な食生活</span>
 							を手に入れよう
