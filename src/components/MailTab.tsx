@@ -4,7 +4,6 @@ import { useActionState } from "react";
 import toast from "react-hot-toast";
 import { api } from "../utils/axios";
 
-
 interface MailState {
 	new_email: string;
 	password: string;
@@ -21,16 +20,16 @@ const MailTab = ({ email }: { email: string }) => {
 			const data = Object.fromEntries(formData.entries());
 
 			try {
-				await api.post(`/email_change_requests`, {
+				await api.post("/email_change_requests", {
 					new_email: data.newEmail,
 					password: data.password,
 				});
 				toast.success("新しいメールアドレスに確認メールを送信しました");
 			} catch (err) {
-					if ( err instanceof AxiosError) {
-						console.log(err);
-						toast.error(err.response?.data?.message);
-					}
+				if (err instanceof AxiosError) {
+					console.log(err);
+					toast.error(err.response?.data?.message);
+				}
 			}
 			return _state;
 		},
@@ -98,7 +97,7 @@ const MailTab = ({ email }: { email: string }) => {
 						disabled={isPending}
 					>
 						{isPending ? (
-							<span className="loading loading-spinner loading-xs"></span>
+							<span className="loading loading-spinner loading-xs" />
 						) : (
 							"メールアドレスを変更"
 						)}

@@ -10,11 +10,13 @@ const EditFridgeItemForm = ({
 	item,
 	handleEdit,
 }: EditFridgeItemFormProps) => {
-	const [name, setName] = useState<string>(item.name);
-	const [amount, setAmount] = useState<string>(item.display_amount);
-	const [category, setCategory] = useState<string>(item.category);
-	const [date, setDate] = useState<Date | null>(
-		item.expire_date ? new Date(item.expire_date) : null,
+	const [name, setName] = useState<string | undefined>(item?.name);
+	const [amount, setAmount] = useState<string | undefined>(
+		item?.display_amount,
+	);
+	const [category, setCategory] = useState<string | undefined>(item?.category);
+	const [date, setDate] = useState<Date | undefined>(
+		item?.expire_date ? new Date(item.expire_date) : undefined,
 	);
 	const itemCategories = categories.filter((ct) => ct.name !== "全て");
 
@@ -70,6 +72,7 @@ const EditFridgeItemForm = ({
 
 					<div>
 						<button
+							type="button"
 							popoverTarget="rdp-popover"
 							className="input input-border w-full"
 							style={{ anchorName: "--rdp" } as React.CSSProperties}
@@ -93,10 +96,11 @@ const EditFridgeItemForm = ({
 					</div>
 
 					<div className="flex justify-end gap-4">
-						<button className="btn" onClick={closeModal}>
+						<button type="button" className="btn" onClick={closeModal}>
 							キャンセル
 						</button>
 						<button
+							type="button"
 							className="btn"
 							onClick={() => handleEdit({ id, name, category, amount, date })}
 						>

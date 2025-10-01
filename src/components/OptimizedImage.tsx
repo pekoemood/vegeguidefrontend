@@ -32,7 +32,7 @@ const OptimizedImage = ({
 		const transformParams = [
 			`w_${width}`,
 			`h_${height}`,
-			`c_fill`,
+			"c_fill",
 			`q_${quality}`,
 			"f_auto", // 自動フォーマット選択（WebPなど）
 			"dpr_auto", // デバイスピクセル比に対応
@@ -82,7 +82,7 @@ const OptimizedImage = ({
 			{/* ローディングインジケーター */}
 			{!isLoaded && (
 				<div className="absolute inset-0 flex items-center justify-center bg-gray-100">
-					<div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+					<div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
 				</div>
 			)}
 		</div>

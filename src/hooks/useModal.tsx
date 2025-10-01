@@ -26,6 +26,12 @@ const useModal = () => {
 				<div
 					className="fixed inset-0 bg-neutral-700 opacity-50"
 					onClick={closeModal}
+					onKeyDown={(e) => {
+						if (e.key === "Enter" || e.key === " ") {
+							closeModal();
+						}
+					}}
+					aria-label="モーダルを閉じる"
 				/>
 				<div className="relative z-10">{children}</div>
 			</div>,

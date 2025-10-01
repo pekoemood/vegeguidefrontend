@@ -71,7 +71,7 @@ const Navibar = () => {
 
 		setIsLoggingOut(true);
 		try {
-			await api.post(`/logout`);
+			await api.post("/logout");
 			setUser(null);
 			navigate("/");
 			toast.success("ログアウトしました");
@@ -88,7 +88,10 @@ const Navibar = () => {
 	return (
 		<div className="navbar bg-primary text-primary-content">
 			<div className="navbar-start">
-				<button className="btn btn-ghost text-xl flex items-center">
+				<button
+					type="button"
+					className="btn btn-ghost text-xl flex items-center"
+				>
 					<img className="block w-8 h-8 " src="/vegege.png" alt="" />
 					<Link to="/">VegeGuide</Link>
 				</button>
@@ -97,6 +100,7 @@ const Navibar = () => {
 			{/* モバイル用　：　ハンバーガー */}
 			<div className="navbar-end lg:hidden relative">
 				<button
+					type="button"
 					className="btn btn-ghost"
 					onClick={() => setIsOpen(!isOpen)}
 					aria-label={isOpen ? "メニューを閉じる" : "メニューを開く"}
@@ -109,6 +113,7 @@ const Navibar = () => {
 						height="32"
 						viewBox="0 0 512 512"
 					>
+						<title>メニューの開閉</title>
 						<path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
 					</svg>
 				</button>
@@ -116,7 +121,6 @@ const Navibar = () => {
 					<ul
 						ref={menuRef}
 						id="mobile-menu"
-						tabIndex={0}
 						className={`menu absolute right-0 top-full mt-2 z-[50] p-2 shadow bg-base-100 rounded-box w-40 transition-all transform ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
 					>
 						<li>
@@ -129,7 +133,7 @@ const Navibar = () => {
 								野菜一覧
 							</Link>
 						</li>
-						{user && user.name && (
+						{user?.name && (
 							<>
 								<li>
 									<Link
@@ -173,26 +177,30 @@ const Navibar = () => {
 									</Link>
 								</li>
 								<li>
-									<span
+									<button
+										type="button"
 										className="flex items-center gap-x-1"
 										onClick={() => {
-											openModal(), setIsOpen(false);
+											openModal();
+											setIsOpen(false);
 										}}
 									>
 										<User size={15} />
 										マイページ
-									</span>
+									</button>
 								</li>
 								<li>
 									<button
+										type="button"
 										onClick={() => {
-											handleLogout(), setIsOpen(false);
+											handleLogout();
+											setIsOpen(false);
 										}}
 										className="flex items-center gap-x-1 hover:bg-primary/10 transition-colors duration-200"
 										disabled={isLoggingOut}
 									>
 										{isLoggingOut ? (
-											<div className="loading loading-spinner loading-xs"></div>
+											<div className="loading loading-spinner loading-xs" />
 										) : (
 											<LogOut size={15} />
 										)}
@@ -238,7 +246,7 @@ const Navibar = () => {
 							野菜一覧
 						</Link>
 					</li>
-					{user && user.name && (
+					{user?.name && (
 						<>
 							<li>
 								<Link
@@ -284,22 +292,27 @@ const Navibar = () => {
 
 			<div className="navbar-end hidden lg:flex">
 				<ul className="menu menu-horizontal">
-					{user && user.name ? (
+					{user?.name ? (
 						<>
 							<li>
-								<span className="flex items-center gap-x-1" onClick={openModal}>
+								<button
+									type="button"
+									className="flex items-center gap-x-1"
+									onClick={openModal}
+								>
 									<User size={15} />
 									マイページ
-								</span>
+								</button>
 							</li>
 							<li>
 								<button
+									type="button"
 									onClick={handleLogout}
 									className="flex items-center gap-x-1 hover:bg-primary/10 transition-colors duration-200"
 									disabled={isLoggingOut}
 								>
 									{isLoggingOut ? (
-										<div className="loading loading-spinner loading-xs"></div>
+										<div className="loading loading-spinner loading-xs" />
 									) : (
 										<LogOut size={15} />
 									)}

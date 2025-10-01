@@ -4,7 +4,7 @@ import { api } from "../../utils/axios";
 
 const shoppingListLoader = async () => {
 	try {
-		const response = await api.get<ShoppingListsResponse>(`/shopping_lists`);
+		const response = await api.get<ShoppingListsResponse>("/shopping_lists");
 		return response.data.data;
 	} catch (error) {
 		if (error instanceof AxiosError) {

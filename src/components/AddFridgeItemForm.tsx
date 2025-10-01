@@ -16,7 +16,7 @@ const AddFridgeItemForm = ({
 	const [amount, setAmount] = useState<string>("");
 	const [category, setCategory] = useState<string>("");
 	const [date, setDate] = useState<Date | undefined>(undefined);
-	const itemCategories = (categories.filter((ct) => ct.name !== "全て")) 
+	const itemCategories = categories.filter((ct) => ct.name !== "全て");
 
 	const handleDateChange = (selectedDate: Date) => {
 		setDate(selectedDate);
@@ -73,9 +73,10 @@ const AddFridgeItemForm = ({
 
 					<div>
 						<button
+							type="button"
 							popoverTarget="rdp-popover"
 							className="input input-border w-full"
-							style={{ [`anchorName` as string]: "--rdp" }}
+							style={{ ["anchorName" as string]: "--rdp" }}
 							data-testid="selected-date"
 						>
 							{date ? date.toLocaleDateString() : "賞味期限を選択してください"}
@@ -84,7 +85,7 @@ const AddFridgeItemForm = ({
 							popover="auto"
 							id="rdp-popover"
 							className="dropdown"
-							style={{ [`positionAnchor` as string]: "--rdp" }}
+							style={{ ["positionAnchor" as string]: "--rdp" }}
 						>
 							<DayPicker
 								className="react-day-picker"
@@ -97,10 +98,11 @@ const AddFridgeItemForm = ({
 					</div>
 
 					<div className="flex justify-end gap-4">
-						<button className="btn" onClick={closeModal}>
+						<button type="button" className="btn" onClick={closeModal}>
 							キャンセル
 						</button>
 						<button
+							type="button"
 							className="btn"
 							onClick={() => handleAdd({ name, category, amount, date })}
 						>

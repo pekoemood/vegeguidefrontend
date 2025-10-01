@@ -1,6 +1,18 @@
 import { useState } from "react";
 
-const AddItemForm = ({ categories, closeModal, handleAddItem }: { categories: string[], closeModal: () => void, handleAddItem: (item: { name: string, display_amount: string, category: string}) => void }) => {
+const AddItemForm = ({
+	categories,
+	closeModal,
+	handleAddItem,
+}: {
+	categories: string[];
+	closeModal: () => void;
+	handleAddItem: (item: {
+		name: string;
+		display_amount: string;
+		category: string;
+	}) => void;
+}) => {
 	const [name, setName] = useState("");
 	const [amount, setAmount] = useState("");
 	const [category, setCategory] = useState("");
@@ -54,10 +66,11 @@ const AddItemForm = ({ categories, closeModal, handleAddItem }: { categories: st
 				</div>
 
 				<div className="flex justify-center gap-2 mt-4">
-					<button className="btn" onClick={closeModal}>
+					<button type="button" className="btn" onClick={closeModal}>
 						キャンセル
 					</button>
 					<button
+						type="button"
 						className="btn"
 						onClick={() =>
 							handleAddItem({ name, display_amount: amount, category })

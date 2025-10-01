@@ -51,10 +51,11 @@ const ShoppingCard = ({
 						className="progress progress-primary w-full"
 						value={check.length}
 						max={items.length}
-					></progress>
+					/>
 
 					<div className="flex justify-end">
 						<button
+							type="button"
 							onClick={(e) => handleDestroy(e, id)}
 							className="mt-2 btn btn-outline btn-error flex items-center gap-2"
 						>

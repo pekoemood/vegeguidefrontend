@@ -1,3 +1,7 @@
 FROM node:22
 WORKDIR /home/node/app
-CMD [ "/bin/bash", "-c", "npm install && npm run dev" ]
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY . .
+
+CMD [ "npm", "run", "dev" ]

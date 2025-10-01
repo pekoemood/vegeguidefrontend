@@ -25,7 +25,7 @@ const GenerateRecipeArea = ({
 								className="rounded-lg w-full h-full object-cover"
 							/>
 						) : (
-							<div className="skeleton h-full w-full rounded-lg bg-base-200"></div>
+							<div className="skeleton h-full w-full rounded-lg bg-base-200" />
 						)}
 					</div>
 					<div className="p-2 md:p-6 lg:w-1/2">
@@ -65,12 +65,12 @@ const GenerateRecipeArea = ({
 							</h3>
 							<div className="rounded-md p-4">
 								<ul className="flex flex-wrap gap-2">
-									{recipe.ingredients?.map((ingredient, index) => (
+									{recipe.ingredients?.map((ingredient) => (
 										<li
-											key={index}
+											key={`${ingredient.name}-${ingredient.category}`}
 											className="flex items-center gap-1 text-xs md:text-base"
 										>
-											<span className="badge badge-neutral badge-xs"></span>
+											<span className="badge badge-neutral badge-xs" />
 											{ingredient.name} {ingredient?.display_amount}
 										</li>
 									))}
@@ -85,8 +85,11 @@ const GenerateRecipeArea = ({
 								調理手順
 							</h3>
 							<ul className="steps steps-vertical">
-								{(recipe?.step ?? []).map((st, index) => (
-									<li key={index} className="step flex">
+								{(recipe?.step ?? []).map((st) => (
+									<li
+										key={`${st?.step_number ?? "step"}-${st?.description ?? ""}`}
+										className="step flex"
+									>
 										<p className="text-left text-xs md:text-base">
 											{st?.description}
 										</p>
@@ -97,6 +100,7 @@ const GenerateRecipeArea = ({
 
 						<div className="flex justify-end gap-3 mt-6">
 							<button
+								type="button"
 								onClick={handleClickSave}
 								className="btn relative"
 								disabled={isPending}
@@ -105,7 +109,7 @@ const GenerateRecipeArea = ({
 									レシピを保存
 								</span>
 								{isSaving && (
-									<span className="absolute left-1/2 -translate-x-1/2 loading loading-spinner loading-md"></span>
+									<span className="absolute left-1/2 -translate-x-1/2 loading loading-spinner loading-md" />
 								)}
 							</button>
 						</div>

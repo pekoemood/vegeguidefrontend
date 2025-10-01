@@ -1,14 +1,15 @@
 /// <reference types="vitest" />
-import fs from "fs";
-import path from "path";
+/// <reference types="vite/client" />
+import fs from "node:fs";
+import path from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react-swc";
-import { defineConfig } from "vitest/config";
+import { defineConfig } from "vite";
 
 export default defineConfig({
 	plugins: [react(), tailwindcss()],
 	server:
-		process.env.NODE_ENV === "production"
+		process.env.NODE_ENV === "production" || process.env.NODE_ENV === "test"
 			? {}
 			: {
 					https: {

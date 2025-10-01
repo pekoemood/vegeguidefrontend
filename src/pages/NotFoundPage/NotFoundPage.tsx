@@ -17,7 +17,11 @@ const NotFoundPage = () => {
 				</div>
 
 				<div className="space-y-3">
-					<button className="btn w-full" onClick={() => navigate("/")}>
+					<button
+						type="button"
+						className="btn w-full"
+						onClick={() => navigate("/")}
+					>
 						<House className="w-4 h-4" />
 						ホームに戻る
 					</button>

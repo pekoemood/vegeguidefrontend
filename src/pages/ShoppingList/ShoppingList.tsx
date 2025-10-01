@@ -19,7 +19,7 @@ const ShoppingList = () => {
 
 	const handleAddList = async (name: string) => {
 		try {
-			const response = await api.post<ShoppingListResponse>(`/shopping_lists`, {
+			const response = await api.post<ShoppingListResponse>("/shopping_lists", {
 				name,
 			});
 			console.log(response);
@@ -47,6 +47,7 @@ const ShoppingList = () => {
 
 				<div className="mt-4 flex">
 					<button
+						type="button"
 						className="btn btn-outline w-full sm:w-fit"
 						onClick={openModal}
 					>

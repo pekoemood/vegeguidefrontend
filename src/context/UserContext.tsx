@@ -1,6 +1,6 @@
-import React, { createContext, use, useEffect, useState } from "react";
-import { api, setCsrfToken } from "../utils/axios";
-import { AxiosResponse } from "axios";
+import type React from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
+import { api } from "../utils/axios";
 
 interface UserProps {
 	logged_in?: boolean;
@@ -25,9 +25,9 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	const [user, setUser] = useState<UserProps | null>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 
-	const fetchUser = async (): Promise<void> => {
+	const fetchUser = useCallback(async (): Promise<void> => {
 		try {
-			const response = await api.get<UserProps>(`/check_login_status`);
+			const response = await api.get<UserProps>("/check_login_status");
 			if (response.data.logged_in) {
 				setUser(response.data);
 			} else {
@@ -38,11 +38,11 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 		} finally {
 			setLoading(false);
 		}
-	};
+	}, []);
 
 	useEffect(() => {
 		fetchUser();
-	}, []);
+	}, [fetchUser]);
 
 	return (
 		<UserContext value={{ user, setUser, loading, fetchUser }}>

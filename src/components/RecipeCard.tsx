@@ -1,6 +1,6 @@
 import { Clock, Trash2, User } from "lucide-react";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import type { RecipeCardProps } from "../types/apiResponse";
 import { api } from "../utils/axios";
 
@@ -29,10 +29,8 @@ const RecipeCard = ({
 		}
 	};
 
-	const navigate = useNavigate();
-
 	return (
-		<div onClick={() => navigate(`/recipe-lists/${id}`)}>
+		<Link to={`/recipe-lists/${id}`} className="block">
 			<div className="cursor-pointer w-90 card shadow-sm transition-transform duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
 				<figure>
 					<img src={image} alt="料理画像" className="aspect-square w-full" />
@@ -56,6 +54,7 @@ const RecipeCard = ({
 					<p className="text-neutral-500 line-clamp-2">{instructions}</p>
 					<div className="card-actions items-center justify-end">
 						<button
+							type="button"
 							onClick={handleClickDelete}
 							className="btn btn-error flex items-center gap-1"
 						>
@@ -65,7 +64,7 @@ const RecipeCard = ({
 					</div>
 				</div>
 			</div>
-		</div>
+		</Link>
 	);
 };
 

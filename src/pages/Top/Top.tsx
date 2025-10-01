@@ -1,10 +1,10 @@
 import { ChefHat, Leaf, Refrigerator, ShoppingCart } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import EmailChangeSuccess from "../../components/EmailChangeSuccess";
 import Meta from "../../components/Meta";
+import { useEmailChangeConfirmation } from "../../hooks/useEmailChangeConfirmation";
 import useModal from "../../hooks/useModal";
-import { api } from "../../utils/axios";
+import { useScrollAnimation } from "../../hooks/useScrollAnimation";
 import FeatureCard from "./FeatureCard";
 import MeritHighLight from "./MeritHighLight";
 import Recommend from "./Recommend";
@@ -18,45 +18,11 @@ const recommendList: string[] = [
 	"食材を無駄にせず、効率的に使い切りたい方",
 ];
 
-interface EmailProps {
-	message: string;
-	email: string;
-}
-
 function Top(): React.ReactElement {
 	const navigate = useNavigate();
-
 	const { Modal, openModal, closeModal } = useModal();
-	const location = useLocation();
-	const [email, setEmail] = useState<string>("");
-
-	useEffect(() => {
-		const changeMail = async (): Promise<void> => {
-			try {
-				const params = new URLSearchParams(location.search);
-				const token = params.get("token");
-
-				if (token) {
-					const response = await api.get<EmailProps>(
-						`/email_change_requests/confirm`,
-						{
-							params: { token },
-						},
-					);
-					setEmail(response.data.email);
-					openModal();
-					navigate(location.pathname, { replace: true });
-				}
-			} catch (err: unknown) {
-				if (err instanceof Error) {
-					console.error(err.message);
-				} else {
-					console.error(err);
-				}
-			}
-		};
-		changeMail();
-	}, [location.search]);
+	const { email } = useEmailChangeConfirmation(openModal);
+	useScrollAnimation();
 
 	return (
 		<>
@@ -106,12 +72,13 @@ function Top(): React.ReactElement {
 							style={{ animationDelay: "0.5s", animationFillMode: "both" }}
 						>
 							<button
+								type="button"
 								className="btn btn-primary"
 								onClick={() => navigate("/signup")}
 							>
 								今すぐ使ってみる
 							</button>
-							<button className="btn">
+							<button type="button" className="btn">
 								<a href="#feature">詳しく見る</a>
 							</button>
 						</div>
@@ -121,7 +88,7 @@ function Top(): React.ReactElement {
 						style={{ animationDelay: "0.6s", animationFillMode: "both" }}
 					>
 						<div className="mockup-phone ">
-							<div className="mockup-phone-camera"></div>
+							<div className="mockup-phone-camera" />
 							<div className="bg-base-100 mockup-phone-display text-white grid place-content-center p-2">
 								<img src="/top.png" alt="" />
 							</div>
@@ -129,11 +96,7 @@ function Top(): React.ReactElement {
 					</div>
 				</section>
 
-				<section
-					id="feature"
-					className="scroll-mt-20 animate-fade-up"
-					style={{ animationDelay: "0.7s", animationFillMode: "both" }}
-				>
+				<section id="feature" className="scroll-mt-20 scroll-animation-target">
 					<div className="container mx-auto">
 						<div className="text-center">
 							<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
@@ -146,10 +109,7 @@ function Top(): React.ReactElement {
 						</div>
 
 						<div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mt-16">
-							<div
-								className="animate-fade-up"
-								style={{ animationDelay: "0.8s", animationFillMode: "both" }}
-							>
+							<div className="scroll-animation-target">
 								<FeatureCard
 									title="旬の野菜情報"
 									description="「旬・安い・栄養価が高い」野菜を一覧で表示。 季節に合わせた最適な食材選びをサポートします。"
@@ -190,11 +150,7 @@ function Top(): React.ReactElement {
 					</div>
 				</section>
 
-				<section
-					id="usage"
-					className="scroll-mt-20 animate-fade-up"
-					style={{ animationDelay: "1.0s", animationFillMode: "both" }}
-				>
+				<section id="usage" className="scroll-mt-20 scroll-animation-target">
 					<div className="container mx-auto">
 						<div className="text-center">
 							<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
@@ -207,10 +163,7 @@ function Top(): React.ReactElement {
 						</div>
 
 						<div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mt-16 place-items-center">
-							<div
-								className="animate-fade-up"
-								style={{ animationDelay: "1.1s", animationFillMode: "both" }}
-							>
+							<div className="scroll-animation-target">
 								<UsageCard
 									image="https://i.gyazo.com/ce62a126366946d7196e7c61a7118a26.jpg"
 									title="旬の野菜を選ぶ"
@@ -255,11 +208,7 @@ function Top(): React.ReactElement {
 					</div>
 				</section>
 
-				<section
-					id="merit"
-					className="scroll-mt-20 animate-fade-up"
-					style={{ animationDelay: "1.3s", animationFillMode: "both" }}
-				>
+				<section id="merit" className="scroll-mt-20 scroll-animation-target">
 					<div className="container mx-auto">
 						<div className="text-center">
 							<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
@@ -281,7 +230,7 @@ function Top(): React.ReactElement {
 									<a href="https://gyazo.com/fb5be1e00203df88a56a73f9291c9d87">
 										<img
 											src="https://i.gyazo.com/fb5be1e00203df88a56a73f9291c9d87.gif"
-											alt="Image from Gyazo"
+											alt="野菜一覧機能のデモンストレーション"
 											width="600"
 										/>
 									</a>
@@ -298,7 +247,7 @@ function Top(): React.ReactElement {
 									<a href="https://gyazo.com/b40e4457aeb065d479f75c0010c8cf2b">
 										<img
 											src="https://i.gyazo.com/b40e4457aeb065d479f75c0010c8cf2b.gif"
-											alt="Image from Gyazo"
+											alt="レシピ生成機能のデモンストレーション"
 											width="600"
 										/>
 									</a>
@@ -315,7 +264,7 @@ function Top(): React.ReactElement {
 									<a href="https://gyazo.com/6632c66b96f6e7eb1ca6c49a3cd5e9ea">
 										<img
 											src="https://i.gyazo.com/6632c66b96f6e7eb1ca6c49a3cd5e9ea.gif"
-											alt="Image from Gyazo"
+											alt="買い物リスト機能のデモンストレーション"
 											width="480"
 										/>
 									</a>
@@ -333,7 +282,7 @@ function Top(): React.ReactElement {
 									<a href="https://gyazo.com/c2dda647c92d1499f67c7446b210ecef">
 										<img
 											src="https://i.gyazo.com/c2dda647c92d1499f67c7446b210ecef.gif"
-											alt="Image from Gyazo"
+											alt="冷蔵庫管理機能のデモンストレーション"
 											width="480"
 										/>
 									</a>
@@ -356,15 +305,8 @@ function Top(): React.ReactElement {
 								</h2>
 
 								<div className="space-y-4 mt-8">
-									{recommendList.map((text, index) => (
-										<div
-											key={text}
-											className="animate-fade-up"
-											style={{
-												animationDelay: `${1.45 + index * 0.05}s`,
-												animationFillMode: "both",
-											}}
-										>
+									{recommendList.map((text) => (
+										<div key={text} className="scroll-animation-target">
 											<Recommend text={text} />
 										</div>
 									))}
@@ -374,10 +316,7 @@ function Top(): React.ReactElement {
 					</div>
 				</section>
 
-				<section
-					className="pb-20 animate-fade-up"
-					style={{ animationDelay: "1.5s", animationFillMode: "both" }}
-				>
+				<section className="pb-20 scroll-animation-target">
 					<div className="container text-center space-y-4 mx-auto">
 						<h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
 							今すぐ初めて、<span className="text-primary">健康的な食生活</span>
@@ -390,6 +329,7 @@ function Top(): React.ReactElement {
 
 						<div className="flex justify-center pt-4">
 							<button
+								type="button"
 								className="btn btn-primary transform transition hover:scale-105"
 								onClick={() => navigate("/signup")}
 							>

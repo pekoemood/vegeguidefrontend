@@ -50,34 +50,38 @@ const VegeDetail = () => {
 
 				<div className="mx-auto max-w-screen-lg mb-8">
 					<div role="tablist" className="tabs tabs-box flex justify-between">
-						<a
+						<button
+							type="button"
 							role="tab"
 							className={`text-xs md:text-base tab flex-1 ${activeTab === "tab1" ? "tab-active" : ""}`}
 							onClick={() => setActiveTab("tab1")}
 						>
 							価格推移
-						</a>
-						<a
+						</button>
+						<button
+							type="button"
 							role="tab"
 							className={`text-xs md:text-base tab flex-1 ${activeTab === "tab2" ? "tab-active" : ""}`}
 							onClick={() => setActiveTab("tab2")}
 						>
 							栄養成分
-						</a>
-						<a
+						</button>
+						<button
+							type="button"
 							role="tab"
 							className={`text-xs md:text-base tab flex-1 ${activeTab === "tab3" ? "tab-active" : ""}`}
 							onClick={() => setActiveTab("tab3")}
 						>
 							保存方法
-						</a>
-						<a
+						</button>
+						<button
+							type="button"
 							role="tab"
 							className={`text-xs md:text-base tab flex-1 ${activeTab === "tab4" ? "tab-active" : ""}`}
 							onClick={() => setActiveTab("tab4")}
 						>
 							レシピ
-						</a>
+						</button>
 					</div>
 
 					<div>

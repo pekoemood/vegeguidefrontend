@@ -36,9 +36,9 @@ const ShoppingListDetail = () => {
 		return acc;
 	}, {});
 
-	Object.keys(filteredGroupedItems).forEach((category) => {
+	for (const category of Object.keys(filteredGroupedItems)) {
 		filteredGroupedItems[category].sort((a, b) => a.checked - b.checked);
-	});
+	}
 
 	const groupedItems = items.reduce((acc, item) => {
 		if (!acc[item.category]) {
@@ -83,7 +83,7 @@ const ShoppingListDetail = () => {
 			try {
 				const updates = [...changedItems].map((id) => {
 					const item = items.find((i) => i.item_id === id);
-					return { id: item.item_id, checked: item.checked };
+					return { id: item?.item_id, checked: item?.checked };
 				});
 				await api.patch(
 					`/shopping_lists/${shoppingList.id}/shopping_list_items/batch_update`,
@@ -101,7 +101,7 @@ const ShoppingListDetail = () => {
 		}, 3000);
 
 		return () => clearTimeout(timer);
-	}, [changedItems]);
+	}, [changedItems, shoppingList.id, items]);
 
 	const handleAddItem = async ({
 		name,
@@ -139,7 +139,7 @@ const ShoppingListDetail = () => {
 	const handleAddFridge = async (item: ShoppingItem | ShoppingItem[]) => {
 		const items = Array.isArray(item) ? item : [item];
 		try {
-			await api.post(`/fridge_items`, {
+			await api.post("/fridge_items", {
 				fridge: items.map((item) => ({
 					name: item.name,
 					category: item.category,
@@ -164,16 +164,22 @@ const ShoppingListDetail = () => {
 			<div className="container max-w-screen-md mx-auto px-4 py-8">
 				<div className="mb-6 flex flex-col md:flex-row gap-2 md:justify-between">
 					<button
+						type="button"
 						onClick={() => navigate("/shoppinglist")}
 						className="btn btn-outline"
 					>
 						戻る
 					</button>
 					<div className="flex flex-col md:flex-row gap-2">
-						<button className="btn btn-outline" onClick={openModal}>
+						<button
+							type="button"
+							className="btn btn-outline"
+							onClick={openModal}
+						>
 							食材を追加する
 						</button>
 						<button
+							type="button"
 							className="btn btn-outline"
 							onClick={() => handleAddFridge(items)}
 						>
@@ -186,6 +192,7 @@ const ShoppingListDetail = () => {
 					<div className="flex flex-col space-y-2">
 						<div className="flex flex-wrap gap-2">
 							<button
+								type="button"
 								className={`text-xs  md:text-base badge ${selectedCategory === null && "badge-neutral"}`}
 								onClick={() => setSelectedCategory(null)}
 							>
@@ -194,6 +201,7 @@ const ShoppingListDetail = () => {
 							{categories.map((category) => (
 								<button
 									key={category}
+									type="button"
 									className={`text-xs md:text-base badge ${selectedCategory === category && "badge-neutral"}`}
 									onClick={() => setSelectedCategory(category)}
 								>
@@ -265,7 +273,7 @@ const ShoppingListDetail = () => {
 																)}
 															</div>
 															{loadingItems.includes(item.id) && (
-																<span className="loading loading-spinner loading-xs ml-2"></span>
+																<span className="loading loading-spinner loading-xs ml-2" />
 															)}
 														</div>
 														<div className="flex justify-end md:justify-start items-center space-x-4">

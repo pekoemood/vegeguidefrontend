@@ -31,7 +31,7 @@ const RecipeGenerator = ({ vegetableName, id }: Props) => {
 			</h2>
 			<p>AIが{vegetableName}を使ったおすすめレシピを提案します。</p>
 			<div className="text-center mt-10">
-				<button onClick={handleClick} className="btn btn-neutral">
+				<button type="button" onClick={handleClick} className="btn btn-neutral">
 					{vegetableName}のレシピ提案を見る
 				</button>
 			</div>
