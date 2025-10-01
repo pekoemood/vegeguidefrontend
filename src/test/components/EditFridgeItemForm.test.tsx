@@ -30,7 +30,7 @@ describe("EditFridgeItemForm", () => {
 		handleEdit: vi.fn(),
 	};
 	beforeEach(() => {
-		vi.useFakeTimers({ toFake: ["Date"]});
+		vi.useFakeTimers({ toFake: ["Date"] });
 		vi.setSystemTime(new Date(2025, 8, 15));
 		vi.resetAllMocks();
 		render(<EditFridgeItemForm {...defaultProps} />);
