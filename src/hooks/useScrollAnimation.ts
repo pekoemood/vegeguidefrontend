@@ -15,7 +15,6 @@ export const useScrollAnimation = ({
 	staggerDelay = 100,
 	animationClass = "animate-fade-up",
 }: ScrollAnimationOptions = {}) => {
-
 	useEffect(() => {
 		const observer = new IntersectionObserver(
 			(entries) => {
@@ -41,7 +40,7 @@ export const useScrollAnimation = ({
 		}
 
 		return () => {
-				observer.disconnect();
+			observer.disconnect();
 		};
 	}, [threshold, rootMargin, baseDelay, staggerDelay, animationClass]);
 };

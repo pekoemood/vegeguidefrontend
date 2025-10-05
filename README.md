@@ -194,7 +194,7 @@
 
 ## 🗂️ ER図
 
-![ER図](./public/vegeguide_main.png))
+![ER図](./public/vegeguide_main.png)
 
 > ※ 本ER図は主要なドメインモデルを示しています。  
 >   ActiveStorageやGoodJobのテーブルは含まれていません。
