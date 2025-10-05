@@ -164,7 +164,7 @@ function Top(): React.ReactElement {
 							</div>
 							<div className="scroll-animation-target" data-animation-index="2">
 								<UsageCard
-									image="https://i.gyazo.com/de1f1402b1c2b8ecf02bf5c13dba219a.png"
+									image="https://i.gyazo.com/0bb205ae82eeef84c738b44770148f7d.png"
 									title="レシピを生成する"
 									description="レシピ提案から選んだ野菜のレシピを生成します。"
 									number="2"
@@ -180,7 +180,7 @@ function Top(): React.ReactElement {
 							</div>
 							<div className="scroll-animation-target" data-animation-index="4">
 								<UsageCard
-									image="https://i.gyazo.com/cadd35db48d1482d86cc2bbebab4479e.png"
+									image="https://i.gyazo.com/5d85e542520ea9793d45ce74b8ca8af4.png"
 									title="簡単に調理"
 									description="レシピ通りに、短時間で簡単に調理できます。"
 									number="4"
@@ -232,9 +232,9 @@ function Top(): React.ReactElement {
 										"仕事帰りでもサクッと買い物できる実用的なUI設計",
 									]}
 									image={
-										<a href="https://gyazo.com/b40e4457aeb065d479f75c0010c8cf2b">
+										<a href="https://gyazo.com/a461a57aa62efe4509ec9864d6da0039">
 											<img
-												src="https://i.gyazo.com/b40e4457aeb065d479f75c0010c8cf2b.gif"
+												src="https://i.gyazo.com/a461a57aa62efe4509ec9864d6da0039.gif"
 												alt="レシピ生成機能のデモンストレーション"
 												width="600"
 											/>
@@ -251,9 +251,9 @@ function Top(): React.ReactElement {
 										"他サービスのように「レシピだけ」「栄養管理だけ」「冷蔵庫管理だけ」という分断がない",
 									]}
 									image={
-										<a href="https://gyazo.com/6632c66b96f6e7eb1ca6c49a3cd5e9ea">
+										<a href="https://gyazo.com/7712e3e4e086a28e5da79b8354243a04">
 											<img
-												src="https://i.gyazo.com/6632c66b96f6e7eb1ca6c49a3cd5e9ea.gif"
+												src="https://i.gyazo.com/7712e3e4e086a28e5da79b8354243a04.gif"
 												alt="買い物リスト機能のデモンストレーション"
 												width="480"
 											/>
@@ -271,9 +271,9 @@ function Top(): React.ReactElement {
 										"生成AIによるカスタムレシピ提案、冷蔵庫内食材に基づくリコメンド",
 									]}
 									image={
-										<a href="https://gyazo.com/c2dda647c92d1499f67c7446b210ecef">
+										<a href="https://gyazo.com/7b9ab8e0a04e1743718bf01dd3d3338d">
 											<img
-												src="https://i.gyazo.com/c2dda647c92d1499f67c7446b210ecef.gif"
+												src="https://i.gyazo.com/7b9ab8e0a04e1743718bf01dd3d3338d.gif"
 												alt="冷蔵庫管理機能のデモンストレーション"
 												width="480"
 											/>
