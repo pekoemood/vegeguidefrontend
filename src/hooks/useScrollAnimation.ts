@@ -5,7 +5,6 @@ interface ScrollAnimationOptions {
 	rootMargin?: string;
 	baseDelay?: number;
 	staggerDelay?: number;
-	once?: boolean;
 	animationClass?: string;
 }
 
@@ -14,12 +13,8 @@ export const useScrollAnimation = ({
 	rootMargin = "-40px 0px",
 	baseDelay = 0,
 	staggerDelay = 100,
-	once = true,
 	animationClass = "animate-fade-up",
 }: ScrollAnimationOptions = {}) => {
-	const observerRef = useRef<IntersectionObserver | null>(null);
-	const animatedElementsRef = useRef<Set<Element>>(new Set());
-
 	useEffect(() => {
 		const observer = new IntersectionObserver(
 			(entries) => {
@@ -31,7 +26,6 @@ export const useScrollAnimation = ({
 
 						setTimeout(() => {
 							entry.target.classList.add(animationClass);
-							animatedElementsRef.current.add(entry.target);
 							observer.unobserve(entry.target);
 						}, totalDelay);
 					}
@@ -40,20 +34,13 @@ export const useScrollAnimation = ({
 			{ threshold, rootMargin },
 		);
 
-		observerRef.current = observer;
-
 		const targets = document.querySelectorAll(".scroll-animation-target");
 		for (const target of targets) {
 			observer.observe(target);
 		}
 
 		return () => {
-			if (observerRef.current) {
-				observerRef.current.disconnect();
-				observerRef.current = null;
-			}
-
-			animatedElementsRef.current.clear();
+			observer.disconnect();
 		};
 	}, [threshold, rootMargin, baseDelay, staggerDelay, animationClass]);
 };
