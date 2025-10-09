@@ -26,6 +26,9 @@ describe("Navibar", () => {
 
 		it("メニュー開閉の確認", () => {
 			expect(screen.getByText("野菜一覧"));
+			expect(screen.getByText("レシピ提案"));
+			expect(screen.getByText('レシピ一覧'));
+			expect(screen.getByText('買い物リスト'));
 		});
 	});
 });
